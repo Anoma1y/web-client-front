@@ -7,6 +7,14 @@ class Calculator extends Component {
       this.state = {
         TKN: 1,
           currencyValue: "USD",
+          cryptoValue: "",
+          tokenValue: "",
+          transferData: {
+                USD: 0,
+                TKN: 0,
+                BTC: 0,
+                ETH: 0
+          },
           currency: [
               {
                   "id": "bitcoin",
@@ -29,9 +37,58 @@ class Calculator extends Component {
     }
 
      componentDidUpdate() {
-        console.log(this.state);
+        // console.log(this.state);
 
      }
+
+    transferUSDtoBTC = (val) => {
+        const { BTC } = this.state;
+
+    }
+    transferUSDtoETH = (val) => {
+        const { ETH } = this.state;
+        
+    }
+    transferBTCtoUSD = () => {}
+    transferETHtoUSD = () => {}
+
+    transferToTKN = (val) => {
+        const { TKN } = this.state;
+        return TKN * val;
+
+    }
+
+     handleUSD = (value, currencyValue) => {
+
+        const BTC = this.transferUSDtoBTC(value);
+        const ETH = this.transferUSDtoETH(value);
+        const token = this.transferToTKN(value);
+
+        this.setState({
+            cryptoValue: value,
+            tokenValue: token
+        });
+     }
+
+     handleInput = (e) => {
+        const val = e.target.value;
+        const {currencyValue} = this.state;
+        switch (currencyValue) {
+            case "USD":
+                this.handleUSD(val, currencyValue);
+                break;
+            case "BTC":
+
+                break;
+            case "ETH":
+
+                break;
+            default:
+                console.log(111);
+        }
+     }
+
+
     render() {
 
         return (
@@ -62,10 +119,12 @@ class Calculator extends Component {
                             value='USD'
                             checked={this.state.currencyValue === 'USD'}
                             onChange={this.handleChange}
+                            pre-checked={"true"}
                         />
                     </Form.Field>
                     <Form.Field>
-                        <Input placeholder={this.state.currencyValue}/><Input placeholder={"TCT"}/>
+                        <Input placeholder={this.state.currencyValue} onChange={this.handleInput} value={this.state.cryptoValue}/>
+                        <Input placeholder={"TCT"} value={this.state.tokenValue}/>
                     </Form.Field>
                 </Form>
 
