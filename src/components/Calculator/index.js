@@ -6,7 +6,7 @@ import {
     Progress,
     Label
 } from 'semantic-ui-react'
-
+import "../../App.css";
 class Calculator extends Component {
     constructor(props) {
       super(props);
@@ -25,6 +25,12 @@ class Calculator extends Component {
             third: 10,
             fourth: 15
         },
+          bonusActive: {
+              firstBonus: false,
+              secondBonus: false,
+              thirdBonus: false,
+              fourthBonus: false
+          },
         //FIX
         bonusLimit: {
           first: 100000,
@@ -32,6 +38,7 @@ class Calculator extends Component {
           third: 1000000,
           fourth: 2000000
         },
+
         isMaximum: false,
         percentBar: 0,
         currencyValue: "USD",
@@ -100,7 +107,7 @@ class Calculator extends Component {
     }
 
     checkBonus = (val) => {
-        const {bonusLimit, bonus} = this.state;
+        const {bonusLimit, bonus, TKN} = this.state;
         let totalBonus = 0;
         if (val >= bonusLimit["first"] && val < bonusLimit["second"]) {
             totalBonus = bonus["first"];
@@ -108,6 +115,8 @@ class Calculator extends Component {
             totalBonus = bonus["second"];
         } else if (val >= bonusLimit["third"] && val < bonusLimit["fourth"]) {
             totalBonus = bonus["third"];
+            //FIX
+            //parseInt(val) + (parseInt(val) * (15 / 100));
         } else if (val >= bonusLimit["fourth"]) {
             totalBonus = bonus["fourth"];
         }
@@ -119,23 +128,18 @@ class Calculator extends Component {
         const bonusTKN = this.checkBonus(val);
 
         const bonus = (TKN * val)  + ((TKN * val) * (bonusTKN / 100));
-       const currentPercent = this.getPercent(bonus);
+        const currentPercent = this.getPercent(bonus);
         this.setState({
             percentBar: currentPercent
         })
         return bonus;
     }
     handleETH = (value) => {
-        const {maxToken} = this.state;
-
-        const currentMax = this.getPercent(value, maxToken["ETH"]);
-
         const USD = this.transferETHtoUSD(value);
         const BTC = this.transferETHtoBTC(value);
-        const TKN = this.transferToTKN(USD, currentMax);
+        const TKN = this.transferToTKN(USD);
 
         this.setState({
-            percentBar: currentMax,
             cryptoValue: value,
             tokenValue: TKN,
             transferData: {
@@ -152,15 +156,12 @@ class Calculator extends Component {
 
 
     handleBTC = (value) => {
-        const {maxToken} = this.state;
 
-        const currentMax = this.getPercent(value, maxToken["BTC"]);
         const USD = this.transferBTCtoUSD(value);
         const ETH = this.transferBTCtoETH(value);
-        const TKN = this.transferToTKN(USD, currentMax);
+        const TKN = this.transferToTKN(USD);
 
         this.setState({
-            percentBar: currentMax,
             cryptoValue: value,
             tokenValue: TKN,
             transferData: {
@@ -227,7 +228,7 @@ class Calculator extends Component {
         const { currencyValue } = this.state;
 
          const bonusTKN = this.checkBonus(val);
-         
+
          const bonus = (1 * val)  - ((1 * val) * (bonusTKN / 100));
          const USD = this.transferTKN(bonus, "USD");
          const BTC = this.transferTKN(bonus, "BTC");
@@ -308,11 +309,11 @@ class Calculator extends Component {
                 <Progress percent={this.state.percentBar} progress size={"small"} color={"red"}/>
                 <div>
                     <span>Бонус</span>
-                    <Label>2.5%</Label>
-                    <Label>5%</Label>
-                    <Label>10%</Label>
-                    <Label>15%</Label>
-                    <span className={this.state.isMaximum === true ? "isMaximum": ""}>Вы достигли лимита</span>
+                    <Label className={this.state.bonusActive.firstBonus === true ? "active": ""}>2.5%</Label>
+                    <Label className={this.state.bonusActive.secondBonus === true ? "active": ""}>5%</Label>
+                    <Label className={this.state.bonusActive.thirdBonus === true ? "active": ""}>10%</Label>
+                    <Label className={this.state.bonusActive.fourthBonus === true ? "active": ""}>15%</Label>
+                    <span className={this.state.isMaximum === true ? "active": ""}>Вы достигли лимита</span>
                 </div>
                 <Form>
                     <Form.TextArea placeholder='Оставить комментарий' />
