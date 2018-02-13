@@ -4,13 +4,15 @@ import { Grid, Container, Item } from 'semantic-ui-react'
 import Calculator from 'components/Calculator'
 import Request from 'components/Request'
 
+import Request from 'components/Request'
+
 const Home = () => (
     <Container>
         <Grid>
             <Grid.Row centered>
-                <Grid.Column width={8}>
+                <Grid.Column width={10}>
                     <Grid.Row>
-
+                        <Request />
                     </Grid.Row>
                     <Grid.Row>
                         <Item>
@@ -23,7 +25,7 @@ const Home = () => (
                         </Item>
                     </Grid.Row>
                 </Grid.Column>
-                <Grid.Column width={4}>
+                <Grid.Column width={6}>
                     <Grid.Row>
 
                     </Grid.Row>
