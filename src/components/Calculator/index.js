@@ -37,17 +37,17 @@ class Calculator extends Component {
     }
 
      componentDidUpdate() {
-        // console.log(this.state);
+        console.log(this.state.transferData);
 
      }
 
     transferUSDtoBTC = (val) => {
-        const { BTC } = this.state;
-
+        const BTC = this.state.currency[0].price_usd;
+        return val / BTC;
     }
     transferUSDtoETH = (val) => {
-        const { ETH } = this.state;
-        
+        const ETH = this.state.currency[1].price_usd;
+        return val / ETH;
     }
     transferBTCtoUSD = () => {}
     transferETHtoUSD = () => {}
@@ -62,11 +62,17 @@ class Calculator extends Component {
 
         const BTC = this.transferUSDtoBTC(value);
         const ETH = this.transferUSDtoETH(value);
-        const token = this.transferToTKN(value);
+        const TKN = this.transferToTKN(value);
 
         this.setState({
             cryptoValue: value,
-            tokenValue: token
+            tokenValue: TKN,
+            transferData: {
+                USD: value,
+                TKN,
+                BTC,
+                ETH
+            }
         });
      }
 
