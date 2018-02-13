@@ -4,10 +4,36 @@ import { Form, Radio, Input, Progress, Label } from 'semantic-ui-react'
 class Calculator extends Component {
     constructor(props) {
       super(props);
+      this.state = {
+        TKN: 1,
+          currencyValue: "USD",
+          currency: [
+              {
+                  "id": "bitcoin",
+                  "name": "Bitcoin",
+                  "symbol": "BTC",
+                  "price_usd": "8631.11",
+              },
+              {
+                  "id": "ethereum",
+                  "name": "Ethereum",
+                  "symbol": "ETH",
+                  "price_usd": "845.463",
+              }
+          ]
+      }
     }
-    state = {}
-    handleChange = (e, { value }) => this.setState({ value })
+
+    handleChange = (e, { value }) => {
+        this.setState({currencyValue: value})
+    }
+
+     componentDidUpdate() {
+        console.log(this.state);
+
+     }
     render() {
+
         return (
             <div>
                 <Form>
@@ -16,7 +42,7 @@ class Calculator extends Component {
                             label='BTC'
                             name='radioGroup'
                             value='BTC'
-                            checked={this.state.value === 'BTC'}
+                            checked={this.state.currencyValue === 'BTC'}
                             onChange={this.handleChange}
                         />
                     </Form.Field>
@@ -25,7 +51,7 @@ class Calculator extends Component {
                             label='ETH'
                             name='radioGroup'
                             value='ETH'
-                            checked={this.state.value === 'ETH'}
+                            checked={this.state.currencyValue === 'ETH'}
                             onChange={this.handleChange}
                         />
                     </Form.Field>
@@ -34,15 +60,22 @@ class Calculator extends Component {
                             label='USD'
                             name='radioGroup'
                             value='USD'
-                            checked={this.state.value === 'USD'}
+                            checked={this.state.currencyValue === 'USD'}
                             onChange={this.handleChange}
                         />
                     </Form.Field>
+                    <Form.Field>
+                        <Input placeholder={this.state.currencyValue}/><Input placeholder={"TCT"}/>
+                    </Form.Field>
                 </Form>
-                <Input placeholder={"USD"}/><Input placeholder={"TCT"}/>
+
                 <Progress percent={21} color={"yellow"}/>
                 <div>
-                    <span>Бонус</span><Label>10%</Label><Label>15%</Label><Label>20%</Label> <span>Вы достигли лимита</span>
+                    <span>Бонус</span>
+                    <Label>10%</Label>
+                    <Label>15%</Label>
+                    <Label>20%</Label>
+                    <span>Вы достигли лимита</span>
                 </div>
                 <Form>
                     <Form.TextArea placeholder='Оставить комментарий' />
