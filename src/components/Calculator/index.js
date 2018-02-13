@@ -5,7 +5,7 @@ class Calculator extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        TKN: 1,
+        TKN: 0.5,
           currencyValue: "USD",
           cryptoValue: 0,
           tokenValue: "",
@@ -80,7 +80,7 @@ class Calculator extends Component {
         const { TKN } = this.state;
         return TKN * val;
     }
-    handleETH = (value, currencyValue) => {
+    handleETH = (value) => {
         const USD = this.transferETHtoUSD(value);
         const BTC = this.transferETHtoBTC(value);
         const TKN = this.transferToTKN(USD);
@@ -97,7 +97,7 @@ class Calculator extends Component {
         });
 
     }
-    handleBTC = (value, currencyValue) => {
+    handleBTC = (value) => {
         const USD = this.transferBTCtoUSD(value);
         const ETH = this.transferBTCtoETH(value);
         const TKN = this.transferToTKN(USD);
@@ -114,7 +114,7 @@ class Calculator extends Component {
         });
 
     }
-     handleUSD = (value, currencyValue) => {
+     handleUSD = (value) => {
 
         const BTC = this.transferUSDtoBTC(value);
         const ETH = this.transferUSDtoETH(value);
@@ -130,6 +130,33 @@ class Calculator extends Component {
                 ETH
             }
         });
+     }
+    transferTKN = (val, type) => {
+        const { TKN, currency } = this.state;
+        if (type == "USD") {
+            return TKN * 1 * val
+        } else if (type == "BTC") {
+            return (TKN / currency[0].price_usd) * val
+        } else if (type = "ETH") {
+            return (TKN / currency[1].price_usd) * val
+        }
+    }
+     handleToken = (e) => {
+        const val = e.target.value;
+        const USD = this.transferTKN(val, "USD");
+        const BTC = this.transferTKN(val, "BTC");
+        const ETH = this.transferTKN(val, "ETH");
+
+        this.setState({
+            cryptoValue: USD,
+            tokenValue: val,
+            transferData: {
+                USD,
+                TKN: val,
+                BTC,
+                ETH
+            }
+        })
      }
 
      handleInput = (e) => {
@@ -186,7 +213,7 @@ class Calculator extends Component {
                     </Form.Field>
                     <Form.Field>
                         <Input placeholder={this.state.currencyValue} onChange={this.handleInput} value={this.state.cryptoValue}/>
-                        <Input placeholder={"TCT"} value={this.state.tokenValue}/>
+                        <Input placeholder={"TCT"} value={this.state.tokenValue} onChange={this.handleToken}/>
                     </Form.Field>
                 </Form>
 
