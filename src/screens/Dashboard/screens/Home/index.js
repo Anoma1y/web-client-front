@@ -1,6 +1,6 @@
 import React from 'react'
-import { Grid, Container } from 'semantic-ui-react'
-
+import { Grid, Container, Item } from 'semantic-ui-react'
+import Calculator from '../../../../components/Calculator'
 const Home = () => (
     <Container>
         <Grid>
@@ -10,7 +10,14 @@ const Home = () => (
 
                     </Grid.Row>
                     <Grid.Row>
-
+                        <Item>
+                            <Item.Header as={"h1"}>
+                                Калькулятор
+                            </Item.Header>
+                            <Item.Content>
+                                <Calculator />
+                            </Item.Content>
+                        </Item>
                     </Grid.Row>
                 </Grid.Column>
                 <Grid.Column width={4}>
