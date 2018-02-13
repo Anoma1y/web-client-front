@@ -12,21 +12,25 @@ class Calculator extends Component {
       super(props);
       this.state = {
         TKN: 1,
+        limitToken: 2000000,
+
         maxToken: {
             BTC: 10,
             ETH: 100,
             USD: 85000
         },
         bonus: {
-            first: 10,
-            second: 15,
-            third: 20
+            first: 2.5,
+            second: 5,
+            third: 10,
+            fourth: 15
         },
         //FIX
         bonusLimit: {
-          first: 25,
-          second: 50,
-          third: 80
+          first: 100000,
+          second: 500000,
+          third: 1000000,
+          fourth: 2000000
         },
         isMaximum: false,
         percentBar: 0,
@@ -65,14 +69,6 @@ class Calculator extends Component {
         });
     }
 
-     componentDidUpdate() {
-        console.log(this.state.transferData);
-
-     }
-
-    componentDidUpdate() {
-        const {percentBar} = this.state;
-    }
 
     transferUSDtoBTC = (val) => {
         const BTC = this.state.currency[0].price_usd;
@@ -98,7 +94,6 @@ class Calculator extends Component {
         return val * ETH;
     }
     transferETHtoBTC = (val) => {
-        const BTC = this.state.currency[0].price_usd;
         const ETH = this.state.currency[1].price_btc;
         const total = (ETH) * val;
         return total;
@@ -111,18 +106,23 @@ class Calculator extends Component {
             totalBonus = bonus["first"];
         } else if (val >= bonusLimit["second"] && val < bonusLimit["third"]) {
             totalBonus = bonus["second"];
-        } else if (val >= bonusLimit["third"]) {
+        } else if (val >= bonusLimit["third"] && val < bonusLimit["fourth"]) {
             totalBonus = bonus["third"];
+        } else if (val >= bonusLimit["fourth"]) {
+            totalBonus = bonus["fourth"];
         }
         return totalBonus;
     }
 
-    transferToTKN = (val, percent) => {
-        const { TKN, percentBar } = this.state;
-        const bonusTKN = this.checkBonus(percent);
+    transferToTKN = (val) => {
+        const { TKN } = this.state;
+        const bonusTKN = this.checkBonus(val);
 
         const bonus = (TKN * val)  + ((TKN * val) * (bonusTKN / 100));
-
+       const currentPercent = this.getPercent(bonus);
+        this.setState({
+            percentBar: currentPercent
+        })
         return bonus;
     }
     handleETH = (value) => {
@@ -147,17 +147,7 @@ class Calculator extends Component {
         });
 
     }
-    checkMaximum = (percent) => {
-        if (percent >= 100) {
-            this.setState({
-                isMaximum: true
-            })
-        } else {
-            this.setState({
-                isMaximum: false
-            })
-        }
-    }
+
 
 
 
@@ -168,8 +158,6 @@ class Calculator extends Component {
         const USD = this.transferBTCtoUSD(value);
         const ETH = this.transferBTCtoETH(value);
         const TKN = this.transferToTKN(USD, currentMax);
-
-
 
         this.setState({
             percentBar: currentMax,
@@ -187,16 +175,15 @@ class Calculator extends Component {
 
 
      handleUSD = (value) => {
-
-
-        const {maxToken} = this.state;
-        const currentMax = this.getPercent(value, maxToken["USD"]);
+        // const currentMax = this.getPercent(value);
 
         const BTC = this.transferUSDtoBTC(value);
         const ETH = this.transferUSDtoETH(value);
-        const TKN = this.transferToTKN(value, currentMax);
-        this.setState({
-            percentBar: currentMax,
+        // const TKN = this.transferToTKN(value, currentMax);
+         const TKN = this.transferToTKN(value);
+
+         this.setState({
+            // percentBar: currentMax,
             cryptoValue: value,
             tokenValue: TKN,
             transferData: {
@@ -218,28 +205,41 @@ class Calculator extends Component {
             return (TKN / currency[1].price_usd) * val
         }
     }
-    getPercent = (val, currentMax) => {
-        const percent = ((val * 100) / currentMax).toFixed(2);
+    getPercent = (val) => {
+        const {limitToken} = this.state;
+        const percent = ((val * 100) / limitToken).toFixed(2);
         this.checkMaximum(percent);
         return percent;
     }
-
+    checkMaximum = (percent) => {
+        if (percent >= 100) {
+            this.setState({
+                isMaximum: true
+            })
+        } else {
+            this.setState({
+                isMaximum: false
+            })
+        }
+    }
      handleToken = (e) => {
         const val = e.target.value;
-        const { currencyValue, maxToken } = this.state;
+        const { currencyValue } = this.state;
 
-         const currentMax = this.getPercent(val, maxToken["USD"]);
-
-         const bonusTKN = this.checkBonus(currentMax);
+         const bonusTKN = this.checkBonus(val);
+         
          const bonus = (1 * val)  - ((1 * val) * (bonusTKN / 100));
          const USD = this.transferTKN(bonus, "USD");
          const BTC = this.transferTKN(bonus, "BTC");
          const ETH = this.transferTKN(bonus, "ETH");
+         const currentPercent = this.getPercent(val);
 
+         this.setState({
+             percentBar: currentPercent
+         })
          const currentTokenValue = currencyValue === "BTC" ? BTC : currencyValue === "ETH" ? ETH : USD;
 
         this.setState({
-            percentBar: currentMax,
             cryptoValue: currentTokenValue,
             tokenValue: val,
             transferData: {
@@ -283,8 +283,6 @@ class Calculator extends Component {
                             checked={this.state.currencyValue === 'BTC'}
                             onChange={this.handleChange}
                         />
-                    </Form.Field>
-                    <Form.Field>
                         <Radio
                             label='ETH'
                             name='radioGroup'
@@ -292,8 +290,6 @@ class Calculator extends Component {
                             checked={this.state.currencyValue === 'ETH'}
                             onChange={this.handleChange}
                         />
-                    </Form.Field>
-                    <Form.Field>
                         <Radio
                             label='USD'
                             name='radioGroup'
@@ -312,9 +308,10 @@ class Calculator extends Component {
                 <Progress percent={this.state.percentBar} progress size={"small"} color={"red"}/>
                 <div>
                     <span>Бонус</span>
+                    <Label>2.5%</Label>
+                    <Label>5%</Label>
                     <Label>10%</Label>
                     <Label>15%</Label>
-                    <Label>20%</Label>
                     <span className={this.state.isMaximum === true ? "isMaximum": ""}>Вы достигли лимита</span>
                 </div>
                 <Form>
