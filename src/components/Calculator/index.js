@@ -11,7 +11,8 @@ class Calculator extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        TKN: 1,
+        TKN: 100,
+
         limitToken: 2000000,
 
         maxToken: {
