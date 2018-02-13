@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Container, Item } from 'semantic-ui-react'
-import Calculator from '../../../../components/Calculator'
+import Calculator from 'components/Calculator'
 const Home = () => (
     <Container>
         <Grid>

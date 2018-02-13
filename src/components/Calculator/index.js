@@ -11,7 +11,7 @@ class Calculator extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        TKN: 100,
+        TKN: 1,
 
         limitToken: 2000000,
 
@@ -182,18 +182,18 @@ class Calculator extends Component {
         const BTC = this.transferUSDtoBTC(value);
         const ETH = this.transferUSDtoETH(value);
         // const TKN = this.transferToTKN(value, currentMax);
-         const TKN = this.transferToTKN(value);
+        const TKN = this.transferToTKN(value);
 
-         this.setState({
-            // percentBar: currentMax,
-            cryptoValue: value,
-            tokenValue: TKN,
-            transferData: {
-                USD: value,
-                TKN,
-                BTC,
-                ETH
-            }
+        this.setState({
+           // percentBar: currentMax,
+           cryptoValue: value,
+           tokenValue: TKN,
+           transferData: {
+               USD: value,
+               TKN,
+               BTC,
+               ETH
+           }
         });
      }
     transferTKN = (val, type) => {
