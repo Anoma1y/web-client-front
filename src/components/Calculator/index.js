@@ -7,7 +7,7 @@ class Calculator extends Component {
       this.state = {
         TKN: 1,
           currencyValue: "USD",
-          cryptoValue: "",
+          cryptoValue: 0,
           tokenValue: "",
           transferData: {
                 USD: 0,
@@ -20,20 +20,25 @@ class Calculator extends Component {
                   "id": "bitcoin",
                   "name": "Bitcoin",
                   "symbol": "BTC",
-                  "price_usd": "8631.11",
+                  "price_usd": "8631.11"
               },
               {
                   "id": "ethereum",
                   "name": "Ethereum",
                   "symbol": "ETH",
                   "price_usd": "845.463",
+                  "price_btc": "0.0986706"
               }
           ]
       }
     }
 
     handleChange = (e, { value }) => {
-        this.setState({currencyValue: value})
+         const { transferData } = this.state;
+        this.setState({
+            currencyValue: value,
+            cryptoValue: transferData[value]
+        });
     }
 
      componentDidUpdate() {
@@ -49,15 +54,66 @@ class Calculator extends Component {
         const ETH = this.state.currency[1].price_usd;
         return val / ETH;
     }
-    transferBTCtoUSD = () => {}
-    transferETHtoUSD = () => {}
+    transferBTCtoUSD = (val) => {
+        const BTC = this.state.currency[0].price_usd;
+        return val * BTC;
+    }
+    transferBTCtoETH = (val) => {
+        const BTC = this.state.currency[0].price_usd;
+        const ETH = this.state.currency[1].price_usd;
+        const total = (BTC/ETH) * val
+        return total;
+    }
+
+    transferETHtoUSD = (val) => {
+        const ETH = this.state.currency[1].price_usd;
+        return val * ETH;
+    }
+    transferETHtoBTC = (val) => {
+        const BTC = this.state.currency[0].price_usd;
+        const ETH = this.state.currency[1].price_btc;
+        const total = (ETH) * val;
+        return total;
+    }
 
     transferToTKN = (val) => {
         const { TKN } = this.state;
         return TKN * val;
+    }
+    handleETH = (value, currencyValue) => {
+        const USD = this.transferETHtoUSD(value);
+        const BTC = this.transferETHtoBTC(value);
+        const TKN = this.transferToTKN(USD);
+
+        this.setState({
+            cryptoValue: value,
+            tokenValue: TKN,
+            transferData: {
+                USD,
+                TKN,
+                BTC,
+                ETH: value
+            }
+        });
 
     }
+    handleBTC = (value, currencyValue) => {
+        const USD = this.transferBTCtoUSD(value);
+        const ETH = this.transferBTCtoETH(value);
+        const TKN = this.transferToTKN(USD);
 
+        this.setState({
+            cryptoValue: value,
+            tokenValue: TKN,
+            transferData: {
+                USD,
+                TKN,
+                BTC: value,
+                ETH
+            }
+        });
+
+    }
      handleUSD = (value, currencyValue) => {
 
         const BTC = this.transferUSDtoBTC(value);
@@ -84,10 +140,10 @@ class Calculator extends Component {
                 this.handleUSD(val, currencyValue);
                 break;
             case "BTC":
-
+                this.handleBTC(val, currencyValue);
                 break;
             case "ETH":
-
+                this.handleETH(val, currencyValue);
                 break;
             default:
                 console.log(111);
