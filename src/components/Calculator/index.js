@@ -25,7 +25,6 @@ class Calculator extends Component {
       this.state = {
         TKN: 1,
 
-        limitToken: 2000000,
         bonus: [
             {
                 value: 2.5,
@@ -74,10 +73,6 @@ class Calculator extends Component {
       }
     }
 
-    // componentDidUpdate = () => {
-    //     console.log(this.state.bonusActive);
-    // }
-
     transferUSD = (val, type) => {
         const { currency } = this.state;
         if (type === "BTC") {
@@ -113,15 +108,24 @@ class Calculator extends Component {
     }
 
     checkBonus = (val) => {
-        const {bonus} = this.state;
+        const { bonus } = this.state;
 
         let totalBonus = 0;
+        let arr = [];
 
         bonus.forEach((item, i) => {
             if (val >= item["limit"]) {
                 totalBonus = item["value"];
+                arr.push({value: item["value"], limit: item["limit"], active: true});
+            } else {
+                arr.push({value: item["value"], limit: item["limit"], active: false});
             }
         });
+
+        this.setState({
+            bonus: arr
+        });
+
         return totalBonus;
     }
 
@@ -166,8 +170,8 @@ class Calculator extends Component {
     }
 
     getPercent = (val) => {
-        const {limitToken} = this.state;
-        const percent = ((val * 100) / limitToken).toFixed(2);
+        const {bonus} = this.state;
+        const percent = ((val * 100) / bonus[bonus.length - 1]["limit"]).toFixed(2);
         this.checkMaximum(percent);
         return percent;
     }
@@ -320,7 +324,7 @@ class Calculator extends Component {
                             <Grid.Column width={6}>
                                 {
                                     this.state.bonus.map((item,i) => {
-                                        return <Bonus key={i} bonusVal={item["value"]} bonusActive={item["limit"]}/>
+                                        return <Bonus key={i} bonusVal={item["value"]} bonusActive={item["active"]}/>
                                     })
                                 }
                              </Grid.Column>
