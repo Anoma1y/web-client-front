@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
     Grid,
     TextArea,
-    Radio,
     Button,
     Input,
     Progress,
@@ -15,7 +14,7 @@ import {Bonus} from './CalculatorBonus'
 import {CurrencyButton} from './CalculatorButton'
 import "../../App.css";
 
-class Calculator extends Component {
+export default class Calculator extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -73,6 +72,7 @@ class Calculator extends Component {
           ]
       }
     }
+
 
     transferUSD = (val, type) => {
         const { currency } = this.state;
@@ -142,7 +142,6 @@ class Calculator extends Component {
         return bonus;
     }
 
-    //NEED FIX
     handleCurrency = (value, type) => {
         let BTC, ETH, TKN, USD;
         if (type === "USD") {
@@ -202,7 +201,7 @@ class Calculator extends Component {
         }
     }
     bonusCalc = (val, bonus) => {
-        return (1 * val)  - ((1 * val) * (bonus / 100));;
+        return (1 * val)  - ((1 * val) * (bonus / 100));
     }
      handleToken = (e, {value}) => {
          const { currencyValue } = this.state;
@@ -311,7 +310,11 @@ class Calculator extends Component {
                             <Grid.Column width={6}>
                                 {
                                     this.state.bonus.map((item,i) => {
-                                        return <Bonus key={i} bonusVal={item["value"]} bonusActive={item["active"]}/>
+                                        return <Bonus
+                                            key={i}
+                                            bonusVal={item["value"]}
+                                            bonusActive={item["active"]}
+                                        />
                                     })
                                 }
                              </Grid.Column>
@@ -325,9 +328,10 @@ class Calculator extends Component {
                         <Grid.Row columns={1}>
                             <Grid.Column>
                                 <Form as={"div"}>
-                                <TextArea
-                                    placeholder='Оставить комментарий'
-                                />
+                                    <TextArea
+                                        autoHeight
+                                        placeholder='Оставить комментарий'
+                                    />
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>
@@ -343,4 +347,3 @@ class Calculator extends Component {
     }
 }
 
-export default Calculator;
