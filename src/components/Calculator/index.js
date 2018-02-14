@@ -11,7 +11,13 @@ import {
     Divider,
     Label
 } from 'semantic-ui-react'
+import {Bonus} from './CalculatorBonus'
+
 import "../../App.css";
+
+
+
+
 class Calculator extends Component {
     constructor(props) {
       super(props);
@@ -70,7 +76,7 @@ class Calculator extends Component {
     }
 
     handleChange = (e, { value }) => {
-         const { transferData } = this.state;
+        const { transferData } = this.state;
         this.setState({
             currencyValue: value,
             cryptoValue: transferData[value]
@@ -78,6 +84,9 @@ class Calculator extends Component {
     }
 
 
+    USDtransfer = () => {
+
+    }
     transferUSDtoBTC = (val) => {
         const BTC = this.state.currency[0].price_usd;
         return val / BTC;
@@ -116,8 +125,6 @@ class Calculator extends Component {
             totalBonus = bonus["second"];
         } else if (val >= bonusLimit["third"] && val < bonusLimit["fourth"]) {
             totalBonus = bonus["third"];
-            //FIX
-            //parseInt(val) + (parseInt(val) * (15 / 100));
         } else if (val >= bonusLimit["fourth"]) {
             totalBonus = bonus["fourth"];
         }
@@ -175,17 +182,22 @@ class Calculator extends Component {
 
     }
 
+    handleCurrency = (type) => {
+        if (type === "USD") {
+
+        } else if (type === "ETH") {
+
+        } else if (type === "BTC") {
+
+        }
+    }
 
      handleUSD = (value) => {
-        // const currentMax = this.getPercent(value);
-
         const BTC = this.transferUSDtoBTC(value);
         const ETH = this.transferUSDtoETH(value);
-        // const TKN = this.transferToTKN(value, currentMax);
         const TKN = this.transferToTKN(value);
 
         this.setState({
-           // percentBar: currentMax,
            cryptoValue: value,
            tokenValue: TKN,
            transferData: {
@@ -276,11 +288,13 @@ class Calculator extends Component {
 
         return (
 
-            <Card fluid color={'violet'}>
+            <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
-                    <Grid verticalAlign={'middle'} padded={"vertically"}>
-                        <Grid.Row columns={1}>
-                            <Grid.Column>
+                    <Card.Header>Калькулятор</Card.Header>
+                    <Divider />
+                    <Grid verticalAlign={'middle'}>
+                        <Grid.Row>
+                            <Grid.Column width={2}>
                                 <Radio
                                     label='BTC'
                                     name='radioGroup'
@@ -288,6 +302,8 @@ class Calculator extends Component {
                                     checked={this.state.currencyValue === 'BTC'}
                                     onChange={this.handleChange}
                                 />
+                            </Grid.Column>
+                            <Grid.Column width={2}>
                                 <Radio
                                     label='ETH'
                                     name='radioGroup'
@@ -295,6 +311,8 @@ class Calculator extends Component {
                                     checked={this.state.currencyValue === 'ETH'}
                                     onChange={this.handleChange}
                                 />
+                            </Grid.Column>
+                            <Grid.Column width={2}>
                                 <Radio
                                     label='USD'
                                     name='radioGroup'
@@ -304,10 +322,6 @@ class Calculator extends Component {
                                     pre-checked={"true"}
                                 />
                             </Grid.Column>
-
-
-
-
                         </Grid.Row>
                         <Grid.Row columns={2}>
                             <Grid.Column>
@@ -327,12 +341,12 @@ class Calculator extends Component {
                                 <p>Бонус</p>
                             </Grid.Column>
                             <Grid.Column width={5}>
-                                <Label className={this.state.bonusActive.firstBonus === true ? "active": ""}>2.5%</Label>
-                                <Label className={this.state.bonusActive.secondBonus === true ? "active": ""}>5%</Label>
-                                <Label className={this.state.bonusActive.thirdBonus === true ? "active": ""}>10%</Label>
-                                <Label className={this.state.bonusActive.fourthBonus === true ? "active": ""}>15%</Label>
+                                <Bonus bonusVal={2.5} />
+                                <Bonus bonusVal={5} />
+                                <Bonus bonusVal={10} />
+                                <Bonus bonusVal={15} />
                             </Grid.Column>
-                            <Grid.Column width={4}>
+                            <Grid.Column width={5}>
                                 <span className={this.state.isMaximum === true ? "active": ""}><Icon name={"warning sign"} />Вы достигли лимита</span>
                             </Grid.Column>
                         </Grid.Row>
@@ -343,7 +357,7 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column textAlign={"right"}>
-                                <Button>Оставить заявку</Button>
+                                <Button circular>Оставить заявку</Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

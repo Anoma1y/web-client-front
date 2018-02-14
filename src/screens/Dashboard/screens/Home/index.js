@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Container, Item } from 'semantic-ui-react'
+import { Grid, Container } from 'semantic-ui-react'
 
 import Calculator from 'components/Calculator'
 import Request from 'components/Request'
