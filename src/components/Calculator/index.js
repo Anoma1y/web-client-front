@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import {
-    Form,
+    Grid,
+    TextArea,
     Radio,
+    Button,
     Input,
     Progress,
+    Icon,
+    Card,
+    Divider,
     Label
 } from 'semantic-ui-react'
 import "../../App.css";
@@ -15,11 +20,6 @@ class Calculator extends Component {
 
         limitToken: 2000000,
 
-        maxToken: {
-            BTC: 10,
-            ETH: 100,
-            USD: 85000
-        },
         bonus: {
             first: 2.5,
             second: 5,
@@ -275,52 +275,80 @@ class Calculator extends Component {
     render() {
 
         return (
-            <div>
-                <Form>
-                    <Form.Field>
-                        <Radio
-                            label='BTC'
-                            name='radioGroup'
-                            value='BTC'
-                            checked={this.state.currencyValue === 'BTC'}
-                            onChange={this.handleChange}
-                        />
-                        <Radio
-                            label='ETH'
-                            name='radioGroup'
-                            value='ETH'
-                            checked={this.state.currencyValue === 'ETH'}
-                            onChange={this.handleChange}
-                        />
-                        <Radio
-                            label='USD'
-                            name='radioGroup'
-                            value='USD'
-                            checked={this.state.currencyValue === 'USD'}
-                            onChange={this.handleChange}
-                            pre-checked={"true"}
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <Input placeholder={this.state.currencyValue} onChange={this.handleInput} value={this.state.cryptoValue}/>
-                        <Input placeholder={"TCT"} value={this.state.tokenValue} onChange={this.handleToken}/>
-                    </Form.Field>
-                </Form>
 
-                <Progress percent={this.state.percentBar} progress size={"small"} color={"red"}/>
-                <div>
-                    <span>Бонус</span>
-                    <Label className={this.state.bonusActive.firstBonus === true ? "active": ""}>2.5%</Label>
-                    <Label className={this.state.bonusActive.secondBonus === true ? "active": ""}>5%</Label>
-                    <Label className={this.state.bonusActive.thirdBonus === true ? "active": ""}>10%</Label>
-                    <Label className={this.state.bonusActive.fourthBonus === true ? "active": ""}>15%</Label>
-                    <span className={this.state.isMaximum === true ? "active": ""}>Вы достигли лимита</span>
-                </div>
-                <Form>
-                    <Form.TextArea placeholder='Оставить комментарий' />
-                    <Form.Button>Оставить заявку</Form.Button>
-                </Form>
-            </div>
+            <Card fluid color={'violet'}>
+                <Card.Content>
+                    <Grid verticalAlign={'middle'} padded={"vertically"}>
+                        <Grid.Row columns={1}>
+                            <Grid.Column>
+                                <Radio
+                                    label='BTC'
+                                    name='radioGroup'
+                                    value='BTC'
+                                    checked={this.state.currencyValue === 'BTC'}
+                                    onChange={this.handleChange}
+                                />
+                                <Radio
+                                    label='ETH'
+                                    name='radioGroup'
+                                    value='ETH'
+                                    checked={this.state.currencyValue === 'ETH'}
+                                    onChange={this.handleChange}
+                                />
+                                <Radio
+                                    label='USD'
+                                    name='radioGroup'
+                                    value='USD'
+                                    checked={this.state.currencyValue === 'USD'}
+                                    onChange={this.handleChange}
+                                    pre-checked={"true"}
+                                />
+                            </Grid.Column>
+
+
+
+
+                        </Grid.Row>
+                        <Grid.Row columns={2}>
+                            <Grid.Column>
+                                <Input placeholder={this.state.currencyValue} onChange={this.handleInput} value={this.state.cryptoValue} style={{width: "100%"}} size={"big"}/>
+                            </Grid.Column>
+                            <Grid.Column>
+                                <Input placeholder={"TCT"} value={this.state.tokenValue} onChange={this.handleToken} style={{width: "100%"}} size={"big"}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row columns={1}>
+                            <Grid.Column>
+                                <Progress percent={this.state.percentBar} progress size={"small"} color={"red"}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={2}>
+                                <p>Бонус</p>
+                            </Grid.Column>
+                            <Grid.Column width={5}>
+                                <Label className={this.state.bonusActive.firstBonus === true ? "active": ""}>2.5%</Label>
+                                <Label className={this.state.bonusActive.secondBonus === true ? "active": ""}>5%</Label>
+                                <Label className={this.state.bonusActive.thirdBonus === true ? "active": ""}>10%</Label>
+                                <Label className={this.state.bonusActive.fourthBonus === true ? "active": ""}>15%</Label>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <span className={this.state.isMaximum === true ? "active": ""}><Icon name={"warning sign"} />Вы достигли лимита</span>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row columns={1}>
+                            <Grid.Column>
+                                <TextArea placeholder='Оставить комментарий' style={{width: "100%", height: "100px", resize: "none"}}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row columns={1}>
+                            <Grid.Column textAlign={"right"}>
+                                <Button>Оставить заявку</Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Card.Content>
+            </Card>
         );
     }
 }
