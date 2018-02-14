@@ -14,7 +14,7 @@ const RequestItem = (props) => (
                 <Grid.Column>
                     <Item>
                         <Item.Header>Токены</Item.Header>
-                        <Item.Description><h3>{props.amount}</h3></Item.Description>
+                        <Item.Description><h3>{props.amount} </h3></Item.Description>
                     </Item>
                 </Grid.Column>
                 <Grid.Column>

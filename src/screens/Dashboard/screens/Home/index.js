@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Container, Item } from 'semantic-ui-react'
 
 import Calculator from 'components/Calculator'
-import Request from 'components/Request'
+import RequestList from 'components/RequestList'
 
 const Home = () => (
     <Container>
@@ -21,7 +21,7 @@ const Home = () => (
                     </Grid.Row>
 
                     <Grid.Row>
-                        <Request />
+                        <RequestList />
                     </Grid.Row>
                 </Grid.Column>
                 <Grid.Column width={6}>
