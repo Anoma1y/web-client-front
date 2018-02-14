@@ -113,58 +113,32 @@ class Calculator extends Component {
     }
 
     checkBonus = (val) => {
-        const {bonusLimit, bonus} = this.state;
+        const {bonusLimit, bonus, bonusActive} = this.state;
         let totalBonus = 0;
-        this.setState({
-            bonusActive: {
-                first: false,
-                second: false,
-                third: false,
-                fourth: false
-            },
-        })
-        if (val >= bonusLimit["first"] && val < bonusLimit["second"]) {
-            totalBonus = bonus["first"];
-            this.setState({
-                bonusActive: {
-                    first: true,
-                    second: false,
-                    third: false,
-                    fourth: false
-                },
-            })
-        } else if (val >= bonusLimit["second"] && val < bonusLimit["third"]) {
-            totalBonus = bonus["second"];
-            this.setState({
-                bonusActive: {
-                    first: true,
-                    second: true,
-                    third: false,
-                    fourth: false
-                },
-            })
-        } else if (val >= bonusLimit["third"] && val < bonusLimit["fourth"]) {
-            totalBonus = bonus["third"];
-            this.setState({
-                bonusActive: {
-                    first: true,
-                    second: true,
-                    third: true,
-                    fourth: false
-                },
-            })
-        } else if (val >= bonusLimit["fourth"]) {
-            totalBonus = bonus["fourth"];
-            this.setState({
-                bonusActive: {
-                    first: true,
-                    second: true,
-                    third: true,
-                    fourth: true
-                },
-            })
-        }
+        // const keysBonus = Object.keys(bonus);
 
+        const bonus11 = [2.5, 5, 10, 15];
+        const arr = [100000, 500000, 1000000, 2000000];
+
+        arr.forEach((item, i) => {
+            if (val >= item) {
+                totalBonus = bonus11[i]
+            }
+        })
+        // console.log(currrr);
+        // if (val >= bonusLimit["first"] && val < bonusLimit["second"]) {
+        //     totalBonus = bonus["first"];
+        //
+        // } else if (val >= bonusLimit["second"] && val < bonusLimit["third"]) {
+        //     totalBonus = bonus["second"];
+        //
+        // } else if (val >= bonusLimit["third"] && val < bonusLimit["fourth"]) {
+        //     totalBonus = bonus["third"];
+        //
+        // } else if (val >= bonusLimit["fourth"]) {
+        //     totalBonus = bonus["fourth"];
+        //
+        // }
         return totalBonus;
     }
 
