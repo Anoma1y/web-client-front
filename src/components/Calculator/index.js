@@ -142,50 +142,10 @@ class Calculator extends Component {
         })
         return bonus;
     }
-    handleETH = (value) => {
-        const USD = this.transferETHtoUSD(value);
-        const BTC = this.transferETHtoBTC(value);
-        const TKN = this.transferToTKN(USD);
-
-        this.setState({
-            cryptoValue: value,
-            tokenValue: TKN,
-            transferData: {
-                USD,
-                TKN,
-                BTC,
-                ETH: value
-            }
-        });
-
-    }
-
-
-
-
-    handleBTC = (value) => {
-
-        const USD = this.transferBTCtoUSD(value);
-        const ETH = this.transferBTCtoETH(value);
-        const TKN = this.transferToTKN(USD);
-
-        this.setState({
-            cryptoValue: value,
-            tokenValue: TKN,
-            transferData: {
-                USD,
-                TKN,
-                BTC: value,
-                ETH
-            }
-        });
-
-    }
 
     //NEED FIX
     handleCurrency = (value, type) => {
         let BTC, ETH, TKN, USD;
-
         if (type === "USD") {
             BTC = this.transferUSDtoBTC(value);
             ETH = this.transferUSDtoETH(value);
@@ -210,23 +170,6 @@ class Calculator extends Component {
             }
         })
     }
-
-     handleUSD = (value) => {
-        const BTC = this.transferUSDtoBTC(value);
-        const ETH = this.transferUSDtoETH(value);
-        const TKN = this.transferToTKN(value);
-
-        this.setState({
-           cryptoValue: value,
-           tokenValue: TKN,
-           transferData: {
-               USD: value,
-               TKN,
-               BTC,
-               ETH
-           }
-        });
-     }
     transferTKN = (val, type) => {
         const { TKN, currency } = this.state;
         const USD = 1;
@@ -285,21 +228,9 @@ class Calculator extends Component {
      }
 
      handleInput = (e) => {
-        const val = e.target.value;
-        const {currencyValue} = this.state;
-        switch (currencyValue) {
-            case "USD":
-                this.handleCurrency(val, currencyValue);
-                break;
-            case "BTC":
-                this.handleCurrency(val, currencyValue);
-                break;
-            case "ETH":
-                this.handleCurrency(val, currencyValue);
-                break;
-            default:
-                console.log(111);
-        }
+         const val = e.target.value;
+         const {currencyValue} = this.state;
+         this.handleCurrency(val, currencyValue);
      }
 
 
