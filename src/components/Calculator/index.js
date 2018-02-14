@@ -9,11 +9,10 @@ import {
     Icon,
     Card,
     Divider,
-    Label,
     Form
 } from 'semantic-ui-react'
 import {Bonus} from './CalculatorBonus'
-
+import {CurrencyButton} from './CalculatorButton'
 import "../../App.css";
 
 
@@ -24,7 +23,6 @@ class Calculator extends Component {
       super(props);
       this.state = {
         TKN: 1,
-
         bonus: [
             {
                 value: 2.5,
@@ -68,6 +66,12 @@ class Calculator extends Component {
                   "symbol": "ETH",
                   "price_usd": "845.463",
                   "price_btc": "0.0986706"
+              },
+              {
+                  "id": "usd",
+                  "name": "USD",
+                  "symbol": "USD",
+                  "price_usd": "1"
               }
           ]
       }
@@ -231,21 +235,20 @@ class Calculator extends Component {
             }
         })
      }
-
-
      handleInput = (e) => {
          const val = e.target.value;
          const {currencyValue} = this.state;
          this.handleCurrency(val, currencyValue);
      }
 
-    handleChange = (e, { value }) => {
+    handleChange = (e, {value}) => {
         const { transferData } = this.state;
         this.setState({
             currencyValue: value,
             cryptoValue: transferData[value]
         });
     }
+
     render() {
 
         return (
@@ -256,34 +259,19 @@ class Calculator extends Component {
                     <Divider />
                     <Grid verticalAlign={'middle'}>
                         <Grid.Row>
-                            <Grid.Column width={2}>
-                                <Radio
-                                    label='BTC'
-                                    name='radioGroup'
-                                    value='BTC'
-                                    checked={this.state.currencyValue === 'BTC'}
-                                    onChange={this.handleChange}
-                                />
-                            </Grid.Column>
-                            <Grid.Column width={2}>
-                                <Radio
-                                    label='ETH'
-                                    name='radioGroup'
-                                    value='ETH'
-                                    checked={this.state.currencyValue === 'ETH'}
-                                    onChange={this.handleChange}
-                                />
-                            </Grid.Column>
-                            <Grid.Column width={2}>
-                                <Radio
-                                    label='USD'
-                                    name='radioGroup'
-                                    value='USD'
-                                    checked={this.state.currencyValue === 'USD'}
-                                    onChange={this.handleChange}
-                                    pre-checked={"true"}
-                                />
-                            </Grid.Column>
+                            {
+                                this.state.currency.map(item => {
+                                    return (
+                                        <Grid.Column width={2} key={item["id"]}>
+                                            <CurrencyButton
+                                                buttonTitle={item["symbol"]}
+                                                handleChange={this.handleChange}
+                                                currencyValue={this.state.currencyValue}
+                                            />
+                                        </Grid.Column>
+                                    )
+                                })
+                            }
                         </Grid.Row>
                         <Grid.Row columns={2}>
                             <Grid.Column>
