@@ -168,8 +168,10 @@ export default class Calculator extends Component {
 
     getPercent = (val) => {
         const {bonus} = this.state;
-        const percent = ((val * 100) / bonus[bonus.length - 1]["limit"]).toFixed(2);
+
+        const percent = ((val * 100) / bonus[bonus.length - 1]["limit"])
         this.checkMaximum(percent);
+        console.log(percent);
         return percent;
     }
 
@@ -202,6 +204,11 @@ export default class Calculator extends Component {
     }
     handleToken = (e, {value}) => {
         const { currencyValue } = this.state;
+        const checkNumber = /^\d*\.?\d*$/;
+        const checkDoth = /^\./;
+        if (!value.match(checkNumber) || value.match(checkDoth)) {
+            return;
+        }
         const bonusTKN = this.checkBonus(value);
         const bonus = this.bonusCalc(value, bonusTKN);
         const USD = this.transferTKN(bonus, "USD"),
