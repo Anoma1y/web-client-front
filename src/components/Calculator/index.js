@@ -75,45 +75,40 @@ class Calculator extends Component {
       }
     }
 
-    handleChange = (e, { value }) => {
-        const { transferData } = this.state;
-        this.setState({
-            currencyValue: value,
-            cryptoValue: transferData[value]
-        });
-    }
 
 
-    USDtransfer = () => {
-
+    transferUSD = (val, type) => {
+        const { currency } = this.state;
+        if (type === "BTC") {
+            let BTC = currency[0].price_usd;
+            return val / BTC
+        } else if (type === "ETH") {
+            let ETH = currency[1].price_usd;
+            return val / ETH;
+        }
     }
-    transferUSDtoBTC = (val) => {
-        const BTC = this.state.currency[0].price_usd;
-        return val / BTC;
+    transferETH = (val, type) => {
+        const { currency } = this.state;
+        if (type === "USD") {
+            let ETH = currency[1].price_usd;
+            return val * ETH;
+        } else if (type === "BTC") {
+            let ETH = this.state.currency[1].price_btc;
+            let total = (ETH) * val;
+            return total;
+        }
     }
-    transferUSDtoETH = (val) => {
-        const ETH = this.state.currency[1].price_usd;
-        return val / ETH;
-    }
-    transferBTCtoUSD = (val) => {
-        const BTC = this.state.currency[0].price_usd;
-        return val * BTC;
-    }
-    transferBTCtoETH = (val) => {
-        const BTC = this.state.currency[0].price_usd;
-        const ETH = this.state.currency[1].price_usd;
-        const total = (BTC/ETH) * val
-        return total;
-    }
-
-    transferETHtoUSD = (val) => {
-        const ETH = this.state.currency[1].price_usd;
-        return val * ETH;
-    }
-    transferETHtoBTC = (val) => {
-        const ETH = this.state.currency[1].price_btc;
-        const total = (ETH) * val;
-        return total;
+    transferBTC = (val, type) => {
+        const { currency } = this.state;
+        if (type === "USD") {
+            let BTC = currency[0].price_usd;
+            return val * BTC;
+        } else if (type === "ETH") {
+            let BTC = currency[0].price_usd;
+            let ETH = currency[1].price_usd;
+            let total = (BTC/ETH) * val;
+            return total;
+        }
     }
 
     checkBonus = (val) => {
@@ -147,18 +142,18 @@ class Calculator extends Component {
     handleCurrency = (value, type) => {
         let BTC, ETH, TKN, USD;
         if (type === "USD") {
-            BTC = this.transferUSDtoBTC(value);
-            ETH = this.transferUSDtoETH(value);
+            BTC = this.transferUSD(value, "BTC");
+            ETH = this.transferUSD(value, "ETH");
             TKN = this.transferToTKN(value);
             USD = value;
         } else if (type === "ETH") {
-            USD = this.transferETHtoUSD(value);
-            BTC = this.transferETHtoBTC(value);
+            USD = this.transferETH(value, "USD");
+            BTC = this.transferETH(value, "BTC");
             TKN = this.transferToTKN(USD);
             ETH = value;
         } else if (type === "BTC") {
-            USD = this.transferBTCtoUSD(value);
-            ETH = this.transferBTCtoETH(value);
+            USD = this.transferBTC(value, "USD");
+            ETH = this.transferBTC(value, "ETH");
             TKN = this.transferToTKN(USD);
             BTC = value;
         }
@@ -170,23 +165,14 @@ class Calculator extends Component {
             }
         })
     }
-    transferTKN = (val, type) => {
-        const { TKN, currency } = this.state;
-        const USD = 1;
-        if (type === "USD") {
-            return TKN * USD * val
-        } else if (type === "BTC") {
-            return (TKN / currency[0].price_usd) * val
-        } else if (type === "ETH") {
-            return (TKN / currency[1].price_usd) * val
-        }
-    }
+
     getPercent = (val) => {
         const {limitToken} = this.state;
         const percent = ((val * 100) / limitToken).toFixed(2);
         this.checkMaximum(percent);
         return percent;
     }
+
     checkMaximum = (percent) => {
         if (percent >= 100) {
             this.setState({
@@ -198,6 +184,20 @@ class Calculator extends Component {
             })
         }
     }
+
+
+    transferTKN = (val, type) => {
+        const { TKN, currency } = this.state;
+        const USD = 1;
+        if (type === "USD") {
+            return TKN * USD * val
+        } else if (type === "BTC") {
+            return (TKN / currency[0].price_usd) * val * USD;
+        } else if (type === "ETH") {
+            return (TKN / currency[1].price_usd) * val * USD;
+        }
+    }
+
      handleToken = (e) => {
         const val = e.target.value;
         const { currencyValue } = this.state;
@@ -205,9 +205,11 @@ class Calculator extends Component {
          const bonusTKN = this.checkBonus(val);
 
          const bonus = (1 * val)  - ((1 * val) * (bonusTKN / 100));
+
          const USD = this.transferTKN(bonus, "USD");
          const BTC = this.transferTKN(bonus, "BTC");
          const ETH = this.transferTKN(bonus, "ETH");
+
          const currentPercent = this.getPercent(val);
 
          this.setState({
@@ -227,13 +229,20 @@ class Calculator extends Component {
         })
      }
 
+
      handleInput = (e) => {
          const val = e.target.value;
          const {currencyValue} = this.state;
          this.handleCurrency(val, currencyValue);
      }
 
-
+    handleChange = (e, { value }) => {
+        const { transferData } = this.state;
+        this.setState({
+            currencyValue: value,
+            cryptoValue: transferData[value]
+        });
+    }
     render() {
 
         return (
