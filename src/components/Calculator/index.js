@@ -239,6 +239,16 @@ export default class Calculator extends Component {
         });
     }
 
+    renderBonus = () => {
+        return this.state.bonus.map((item,i) => {
+            return(<Bonus
+                key={i}
+                bonusVal={item["value"]}
+                bonusActive={item["active"]}
+            />)
+        })
+    }
+
     render() {
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
@@ -298,15 +308,7 @@ export default class Calculator extends Component {
                                 <p>Бонус</p>
                             </Grid.Column>
                             <Grid.Column width={6}>
-                                {
-                                    this.state.bonus.map((item,i) => {
-                                        return <Bonus
-                                            key={i}
-                                            bonusVal={item["value"]}
-                                            bonusActive={item["active"]}
-                                        />
-                                    })
-                                }
+                                { this.renderBonus() }
                              </Grid.Column>
                             <Grid.Column width={5}>
                                 <span className={this.state.isMaximum === true ? "active": ""}>
