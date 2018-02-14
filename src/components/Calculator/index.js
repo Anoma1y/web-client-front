@@ -284,34 +284,58 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={2}>
                             <Grid.Column>
-                                <Input placeholder={this.state.currencyValue} onChange={this.handleInput} value={this.state.cryptoValue} style={{width: "100%"}} size={"big"}/>
+                                <Input
+                                    placeholder={this.state.currencyValue}
+                                    onChange={this.handleInput}
+                                    value={this.state.cryptoValue}
+                                    style={{width: "100%"}}
+                                    size={"big"}
+                                    label={{ basic: true, content: this.state.currencyValue }}
+                                    labelPosition='left'
+                                />
                             </Grid.Column>
                             <Grid.Column>
-                                <Input placeholder={"TCT"} value={this.state.tokenValue} onChange={this.handleToken} style={{width: "100%"}} size={"big"}/>
+                                <Input
+                                    placeholder={"TCT"}
+                                    value={this.state.tokenValue}
+                                    onChange={this.handleToken}
+                                    style={{width: "100%"}}
+                                    size={"big"}
+                                    label={{ basic: true, content: 'TKN' }}
+                                    labelPosition='left'
+                                />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Progress percent={this.state.percentBar} progress size={"small"} color={"red"}/>
+                                <Progress
+                                    percent={this.state.percentBar}
+                                    progress size={"small"}
+                                    color={"red"}/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column width={2}>
                                 <p>Бонус</p>
                             </Grid.Column>
-                            <Grid.Column width={5}>
+                            <Grid.Column width={6}>
                                 <Bonus bonusVal={2.5} />
                                 <Bonus bonusVal={5} />
                                 <Bonus bonusVal={10} />
                                 <Bonus bonusVal={15} />
                             </Grid.Column>
                             <Grid.Column width={5}>
-                                <span className={this.state.isMaximum === true ? "active": ""}><Icon name={"warning sign"} />Вы достигли лимита</span>
+                                <span className={this.state.isMaximum === true ? "active": ""}>
+                                    <Icon name={"warning sign"} />
+                                    Вы достигли лимита
+                                </span>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <TextArea placeholder='Оставить комментарий' style={{width: "100%", height: "100px", resize: "none"}}/>
+                                <TextArea
+                                    placeholder='Оставить комментарий'
+                                    style={{width: "100%", height: "100px", resize: "none"}}/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
