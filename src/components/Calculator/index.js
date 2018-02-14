@@ -33,12 +33,11 @@ class Calculator extends Component {
             fourth: 15
         },
           bonusActive: {
-              firstBonus: false,
-              secondBonus: false,
-              thirdBonus: false,
-              fourthBonus: false
+              first: false,
+              second: false,
+              third: false,
+              fourth: false
           },
-        //FIX
         bonusLimit: {
           first: 100000,
           second: 500000,
@@ -75,7 +74,9 @@ class Calculator extends Component {
       }
     }
 
-
+    componentDidUpdate = () => {
+        console.log(this.state.bonusActive);
+    }
 
     transferUSD = (val, type) => {
         const { currency } = this.state;
@@ -112,17 +113,58 @@ class Calculator extends Component {
     }
 
     checkBonus = (val) => {
-        const {bonusLimit, bonus, TKN} = this.state;
+        const {bonusLimit, bonus} = this.state;
         let totalBonus = 0;
+        this.setState({
+            bonusActive: {
+                first: false,
+                second: false,
+                third: false,
+                fourth: false
+            },
+        })
         if (val >= bonusLimit["first"] && val < bonusLimit["second"]) {
             totalBonus = bonus["first"];
+            this.setState({
+                bonusActive: {
+                    first: true,
+                    second: false,
+                    third: false,
+                    fourth: false
+                },
+            })
         } else if (val >= bonusLimit["second"] && val < bonusLimit["third"]) {
             totalBonus = bonus["second"];
+            this.setState({
+                bonusActive: {
+                    first: true,
+                    second: true,
+                    third: false,
+                    fourth: false
+                },
+            })
         } else if (val >= bonusLimit["third"] && val < bonusLimit["fourth"]) {
             totalBonus = bonus["third"];
+            this.setState({
+                bonusActive: {
+                    first: true,
+                    second: true,
+                    third: true,
+                    fourth: false
+                },
+            })
         } else if (val >= bonusLimit["fourth"]) {
             totalBonus = bonus["fourth"];
+            this.setState({
+                bonusActive: {
+                    first: true,
+                    second: true,
+                    third: true,
+                    fourth: true
+                },
+            })
         }
+
         return totalBonus;
     }
 
@@ -319,11 +361,12 @@ class Calculator extends Component {
                                 <p>Бонус</p>
                             </Grid.Column>
                             <Grid.Column width={6}>
-                                <Bonus bonusVal={2.5} />
-                                <Bonus bonusVal={5} />
-                                <Bonus bonusVal={10} />
-                                <Bonus bonusVal={15} />
-                            </Grid.Column>
+                                {
+                                    Object.keys(this.state.bonus).map((item, i) => {
+                                        return <Bonus key={i} bonusVal={this.state.bonus[item]} bonusActive={this.state.bonusActive[item]}/>;
+                                    })
+                                }
+                             </Grid.Column>
                             <Grid.Column width={5}>
                                 <span className={this.state.isMaximum === true ? "active": ""}>
                                     <Icon name={"warning sign"} />
