@@ -182,14 +182,33 @@ class Calculator extends Component {
 
     }
 
-    handleCurrency = (type) => {
+    //NEED FIX
+    handleCurrency = (value, type) => {
+        let BTC, ETH, TKN, USD;
+
         if (type === "USD") {
-
+            BTC = this.transferUSDtoBTC(value);
+            ETH = this.transferUSDtoETH(value);
+            TKN = this.transferToTKN(value);
+            USD = value;
         } else if (type === "ETH") {
-
+            USD = this.transferETHtoUSD(value);
+            BTC = this.transferETHtoBTC(value);
+            TKN = this.transferToTKN(USD);
+            ETH = value;
         } else if (type === "BTC") {
-
+            USD = this.transferBTCtoUSD(value);
+            ETH = this.transferBTCtoETH(value);
+            TKN = this.transferToTKN(USD);
+            BTC = value;
         }
+        this.setState({
+            cryptoValue: value,
+            tokenValue: TKN,
+            transferData: {
+                USD, TKN, BTC, ETH
+            }
+        })
     }
 
      handleUSD = (value) => {
@@ -270,13 +289,13 @@ class Calculator extends Component {
         const {currencyValue} = this.state;
         switch (currencyValue) {
             case "USD":
-                this.handleUSD(val, currencyValue);
+                this.handleCurrency(val, currencyValue);
                 break;
             case "BTC":
-                this.handleBTC(val, currencyValue);
+                this.handleCurrency(val, currencyValue);
                 break;
             case "ETH":
-                this.handleETH(val, currencyValue);
+                this.handleCurrency(val, currencyValue);
                 break;
             default:
                 console.log(111);
