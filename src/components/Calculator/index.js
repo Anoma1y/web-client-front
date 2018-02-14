@@ -238,6 +238,10 @@ class Calculator extends Component {
      handleInput = (e) => {
          const val = e.target.value;
          const {currencyValue} = this.state;
+         const check = /^\d*\.?\d*$/;
+         if (!val.match(check)) {
+             return;
+         }
          this.handleCurrency(val, currencyValue);
      }
 
