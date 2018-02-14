@@ -9,7 +9,8 @@ import {
     Icon,
     Card,
     Divider,
-    Label
+    Label,
+    Form
 } from 'semantic-ui-react'
 import {Bonus} from './CalculatorBonus'
 
@@ -25,26 +26,25 @@ class Calculator extends Component {
         TKN: 1,
 
         limitToken: 2000000,
-
-        bonus: {
-            first: 2.5,
-            second: 5,
-            third: 10,
-            fourth: 15
-        },
-          bonusActive: {
-              first: false,
-              second: false,
-              third: false,
-              fourth: false
-          },
-        bonusLimit: {
-          first: 100000,
-          second: 500000,
-          third: 1000000,
-          fourth: 2000000
-        },
-
+        bonus: [
+            {
+                value: 2.5,
+                limit: 100000,
+                active: false
+            },{
+                value: 5,
+                limit: 500000,
+                active: false
+            },{
+                value: 10,
+                limit: 1000000,
+                active: false
+            },{
+                value: 15,
+                limit: 2000000,
+                active: false
+            }
+        ],
         isMaximum: false,
         percentBar: 0,
         currencyValue: "USD",
@@ -74,9 +74,9 @@ class Calculator extends Component {
       }
     }
 
-    componentDidUpdate = () => {
-        console.log(this.state.bonusActive);
-    }
+    // componentDidUpdate = () => {
+    //     console.log(this.state.bonusActive);
+    // }
 
     transferUSD = (val, type) => {
         const { currency } = this.state;
@@ -113,32 +113,15 @@ class Calculator extends Component {
     }
 
     checkBonus = (val) => {
-        const {bonusLimit, bonus, bonusActive} = this.state;
+        const {bonus} = this.state;
+
         let totalBonus = 0;
-        // const keysBonus = Object.keys(bonus);
 
-        const bonus11 = [2.5, 5, 10, 15];
-        const arr = [100000, 500000, 1000000, 2000000];
-
-        arr.forEach((item, i) => {
-            if (val >= item) {
-                totalBonus = bonus11[i]
+        bonus.forEach((item, i) => {
+            if (val >= item["limit"]) {
+                totalBonus = item["value"];
             }
-        })
-        // console.log(currrr);
-        // if (val >= bonusLimit["first"] && val < bonusLimit["second"]) {
-        //     totalBonus = bonus["first"];
-        //
-        // } else if (val >= bonusLimit["second"] && val < bonusLimit["third"]) {
-        //     totalBonus = bonus["second"];
-        //
-        // } else if (val >= bonusLimit["third"] && val < bonusLimit["fourth"]) {
-        //     totalBonus = bonus["third"];
-        //
-        // } else if (val >= bonusLimit["fourth"]) {
-        //     totalBonus = bonus["fourth"];
-        //
-        // }
+        });
         return totalBonus;
     }
 
@@ -326,7 +309,7 @@ class Calculator extends Component {
                             <Grid.Column>
                                 <Progress
                                     percent={this.state.percentBar}
-                                    progress size={"small"}
+                                    size={"tiny"}
                                     color={"red"}/>
                             </Grid.Column>
                         </Grid.Row>
@@ -336,8 +319,8 @@ class Calculator extends Component {
                             </Grid.Column>
                             <Grid.Column width={6}>
                                 {
-                                    Object.keys(this.state.bonus).map((item, i) => {
-                                        return <Bonus key={i} bonusVal={this.state.bonus[item]} bonusActive={this.state.bonusActive[item]}/>;
+                                    this.state.bonus.map((item,i) => {
+                                        return <Bonus key={i} bonusVal={item["value"]} bonusActive={item["limit"]}/>
                                     })
                                 }
                              </Grid.Column>
@@ -350,9 +333,11 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
+                                <Form as={"div"}>
                                 <TextArea
                                     placeholder='Оставить комментарий'
-                                    style={{width: "100%", height: "100px", resize: "none"}}/>
+                                />
+                                </Form>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
