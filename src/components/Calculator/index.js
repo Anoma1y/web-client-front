@@ -204,46 +204,45 @@ class Calculator extends Component {
             return (TKN / currency[1].price_usd) * val * USD;
         }
     }
+    bonusCalc = (val, bonus) => {
+        return (1 * val)  - ((1 * val) * (bonus / 100));;
+    }
+     handleToken = (e, {value}) => {
+         const { currencyValue } = this.state;
 
-     handleToken = (e) => {
-        const val = e.target.value;
-        const { currencyValue } = this.state;
+         const bonusTKN = this.checkBonus(value);
 
-         const bonusTKN = this.checkBonus(val);
-
-         const bonus = (1 * val)  - ((1 * val) * (bonusTKN / 100));
+         const bonus = this.bonusCalc(value, bonusTKN);
 
          const USD = this.transferTKN(bonus, "USD");
          const BTC = this.transferTKN(bonus, "BTC");
          const ETH = this.transferTKN(bonus, "ETH");
 
-         const currentPercent = this.getPercent(val);
+         const currentPercent = this.getPercent(value);
 
-         this.setState({
-             percentBar: currentPercent
-         })
+
          const currentTokenValue = currencyValue === "BTC" ? BTC : currencyValue === "ETH" ? ETH : USD;
 
         this.setState({
+            percentBar: currentPercent,
             cryptoValue: currentTokenValue,
-            tokenValue: val,
+            tokenValue: value,
             transferData: {
                 USD,
-                TKN: val,
+                TKN: value,
                 BTC,
                 ETH
             }
         })
      }
-     handleInput = (e) => {
-         const val = e.target.value;
+     handleInput = (e, {value}) => {
          const {currencyValue} = this.state;
          const checkNumber = /^\d*\.?\d*$/;
          const checkDoth = /^\./;
-         if (!val.match(checkNumber) || val.match(checkDoth)) {
+         if (!value.match(checkNumber) || value.match(checkDoth)) {
              return;
          }
-         this.handleCurrency(val, currencyValue);
+         this.handleCurrency(value, currencyValue);
      }
 
     handleChange = (e, {value}) => {
