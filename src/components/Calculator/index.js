@@ -16,61 +16,58 @@ import "../../App.css";
 
 export default class Calculator extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
-        TKN: 1,
-        bonus: [
-            {
-                value: 2.5,
-                limit: 100000,
-                active: false
-            },{
-                value: 5,
-                limit: 500000,
-                active: false
-            },{
-                value: 10,
-                limit: 1000000,
-                active: false
-            },{
-                value: 15,
-                limit: 2000000,
-                active: false
-            }
-        ],
-        isMaximum: false,
-        percentBar: 0,
-        currencyValue: "USD",
-        cryptoValue: 0,
-          tokenValue: 0,
-          transferData: {
-                USD: 0,
-                TKN: 0,
-                BTC: 0,
-                ETH: 0
-          },
-          currency: [
-              {
-                  "id": "bitcoin",
-                  "name": "Bitcoin",
-                  "symbol": "BTC",
-                  "price_usd": "8631.11"
-              },
-              {
-                  "id": "ethereum",
-                  "name": "Ethereum",
-                  "symbol": "ETH",
-                  "price_usd": "845.463",
-                  "price_btc": "0.0986706"
-              },
-              {
-                  "id": "usd",
-                  "name": "USD",
-                  "symbol": "USD",
-                  "price_usd": "1"
-              }
-          ]
-      }
+        super(props);
+        this.state = {
+            TKN: 1,
+            bonus: [
+                {
+                    value: 2.5,
+                    limit: 100000,
+                    active: false
+                },{
+                    value: 5,
+                    limit: 500000,
+                    active: false
+                },{
+                    value: 10,
+                    limit: 1000000,
+                    active: false
+                },{
+                    value: 15,
+                    limit: 2000000,
+                    active: false
+                }
+            ],
+            isMaximum: false,
+            percentBar: 0,
+            currencyValue: "USD",
+            cryptoValue: 0,
+            tokenValue: 0,
+            transferData: {
+                USD: 0, TKN: 0, BTC: 0, ETH: 0
+            },
+            currency: [
+                {
+                    "id": "bitcoin",
+                    "name": "Bitcoin",
+                    "symbol": "BTC",
+                    "price_usd": "8631.11"
+                },
+                {
+                    "id": "ethereum",
+                    "name": "Ethereum",
+                    "symbol": "ETH",
+                    "price_usd": "845.463",
+                    "price_btc": "0.0986706"
+                },
+                {
+                    "id": "usd",
+                    "name": "USD",
+                    "symbol": "USD",
+                    "price_usd": "1"
+                }
+            ]
+        }
     }
 
 
@@ -203,22 +200,15 @@ export default class Calculator extends Component {
     bonusCalc = (val, bonus) => {
         return (1 * val)  - ((1 * val) * (bonus / 100));
     }
-     handleToken = (e, {value}) => {
-         const { currencyValue } = this.state;
-
-         const bonusTKN = this.checkBonus(value);
-
-         const bonus = this.bonusCalc(value, bonusTKN);
-
-         const USD = this.transferTKN(bonus, "USD"),
-               BTC = this.transferTKN(bonus, "BTC"),
-               ETH = this.transferTKN(bonus, "ETH");
-
-         const currentPercent = this.getPercent(value);
-
-
-         const currentTokenValue = currencyValue === "BTC" ? BTC : currencyValue === "ETH" ? ETH : USD;
-
+    handleToken = (e, {value}) => {
+        const { currencyValue } = this.state;
+        const bonusTKN = this.checkBonus(value);
+        const bonus = this.bonusCalc(value, bonusTKN);
+        const USD = this.transferTKN(bonus, "USD"),
+            BTC = this.transferTKN(bonus, "BTC"),
+            ETH = this.transferTKN(bonus, "ETH");
+        const currentPercent = this.getPercent(value);
+        const currentTokenValue = currencyValue === "BTC" ? BTC : currencyValue === "ETH" ? ETH : USD;
         this.setState({
             percentBar: currentPercent,
             cryptoValue: currentTokenValue,
@@ -230,16 +220,16 @@ export default class Calculator extends Component {
                 ETH
             }
         })
-     }
-     handleInput = (e, {value}) => {
-         const {currencyValue} = this.state;
-         const checkNumber = /^\d*\.?\d*$/;
-         const checkDoth = /^\./;
-         if (!value.match(checkNumber) || value.match(checkDoth)) {
-             return;
-         }
-         this.handleCurrency(value, currencyValue);
-     }
+    }
+    handleInput = (e, {value}) => {
+        const {currencyValue} = this.state;
+        const checkNumber = /^\d*\.?\d*$/;
+        const checkDoth = /^\./;
+        if (!value.match(checkNumber) || value.match(checkDoth)) {
+            return;
+        }
+        this.handleCurrency(value, currencyValue);
+    }
 
     handleChange = (e, {value}) => {
         const { transferData } = this.state;
