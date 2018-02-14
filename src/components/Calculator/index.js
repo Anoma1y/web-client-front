@@ -15,9 +15,6 @@ import {Bonus} from './CalculatorBonus'
 import {CurrencyButton} from './CalculatorButton'
 import "../../App.css";
 
-
-
-
 class Calculator extends Component {
     constructor(props) {
       super(props);
@@ -115,19 +112,19 @@ class Calculator extends Component {
         const { bonus } = this.state;
 
         let totalBonus = 0;
-        let arr = [];
+        let bonusState = [];
 
         bonus.forEach((item, i) => {
             if (val >= item["limit"]) {
                 totalBonus = item["value"];
-                arr.push({value: item["value"], limit: item["limit"], active: true});
+                bonusState.push({value: item["value"], limit: item["limit"], active: true});
             } else {
-                arr.push({value: item["value"], limit: item["limit"], active: false});
+                bonusState.push({value: item["value"], limit: item["limit"], active: false});
             }
         });
 
         this.setState({
-            bonus: arr
+            bonus: bonusState
         });
 
         return totalBonus;
@@ -214,9 +211,9 @@ class Calculator extends Component {
 
          const bonus = this.bonusCalc(value, bonusTKN);
 
-         const USD = this.transferTKN(bonus, "USD");
-         const BTC = this.transferTKN(bonus, "BTC");
-         const ETH = this.transferTKN(bonus, "ETH");
+         const USD = this.transferTKN(bonus, "USD"),
+               BTC = this.transferTKN(bonus, "BTC"),
+               ETH = this.transferTKN(bonus, "ETH");
 
          const currentPercent = this.getPercent(value);
 
@@ -254,9 +251,7 @@ class Calculator extends Component {
     }
 
     render() {
-
         return (
-
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
                     <Card.Header>Калькулятор</Card.Header>
