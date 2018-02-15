@@ -78,7 +78,6 @@ class Calculator extends Component {
         }
     }
 
-
     calcCurrency = value => {
         const {currencyValue, TKN} = this.props.calculator;
         let bonus;
@@ -148,7 +147,6 @@ class Calculator extends Component {
         };
     }
 
-
     checkMaximum = value => value > 100;
 
     bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
@@ -162,7 +160,11 @@ class Calculator extends Component {
         const USD = TKN *  value;
         const BTC = (TKN / currency[0].price_usd) * value;
         const ETH = (TKN / currency[1].price_usd) * value;
-        return { USD, BTC, ETH }
+        return {
+            USD,
+            BTC,
+            ETH
+        }
     }
 
     changeState = value => {
