@@ -10,7 +10,7 @@ const ChangePassword = (props) => (
                 <Input placeholder='Текущий пароль' fluid style={{marginBottom: 15}} />
                 <Input placeholder='Новый пароль' fluid style={{marginBottom: 15}} />
                 <Input placeholder='Повторите пароль' fluid style={{marginBottom: 15}} />
-                <Button circular fluid>Изменить</Button>
+                <Button fluid>Изменить</Button>
             </Card.Description>
         </Card.Content>
     </Card>

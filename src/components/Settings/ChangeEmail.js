@@ -9,7 +9,7 @@ const ChangeEmail = (props) => (
             <Card.Description>
                 <Input placeholder='Текущий e-mail' fluid style={{marginBottom: 15}} />
                 <Input placeholder='Новый e-mail' fluid style={{marginBottom: 15}} />
-                <Button circular fluid>Изменить</Button>
+                <Button fluid>Изменить</Button>
             </Card.Description>
         </Card.Content>
     </Card>
