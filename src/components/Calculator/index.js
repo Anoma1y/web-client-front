@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {
-    changeSumValue,
-    changeCurrentCurrency,
-    changeTransferData
+    changeTransferData,
+    changeCurrencyValue
 } from 'actions/calculator';
 import {
     Grid,
@@ -164,8 +163,8 @@ class Calculator extends Component {
     }
 
     changeState = value => {
-        const { calculateCurrencyValue } = this.props;
-        calculateCurrencyValue(value);
+        const { changeTransferData } = this.props;
+        changeTransferData(value);
     }
 
     componentDidMount() {
@@ -192,12 +191,8 @@ class Calculator extends Component {
     }
 
     handleChange = (e, {value}) => {
-        const { changeCurrentCurrency, calculator } = this.props;
-        const payload = {
-            currentCurrency: value,
-            sumValue: calculator.transferData[value]
-        }
-        changeCurrentCurrency(payload);
+        const { changeCurrencyValue } = this.props;
+        changeCurrencyValue(value);
     }
 
     renderBonusLabel = () => {
@@ -308,24 +303,7 @@ class Calculator extends Component {
     }
 }
 
-const mapStateToDispatch = dispatch => ({
-    changeCurrentCurrency: payload => {
-        const changeCurrentCurrencyAction = () => {
-            const { currentCurrency, sumValue } = payload;
-            return dispatch => {
-                dispatch(changeCurrentCurrency(currentCurrency));
-                dispatch(changeSumValue(sumValue));
-            }
-        }
-        dispatch(changeCurrentCurrencyAction());
-    },
-    calculateCurrencyValue: payload => {
-        const calculateCurrencyValueAction = () => {
-            return dispatch => {
-                dispatch(changeTransferData(payload));
-            }
-        }
-        dispatch(calculateCurrencyValueAction())
-    }
-})
-export default connect(state => ({ calculator: state.calculator }), mapStateToDispatch)(Calculator);
+export default connect(state => ({ calculator: state.calculator }), {
+    changeCurrencyValue,
+    changeTransferData
+})(Calculator);
