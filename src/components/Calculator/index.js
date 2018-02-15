@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import {
+    changeSumValue,
+    changeCurrentCurrency,
+    changeTransferData
+} from 'actions/calculator';
 import {
     Grid,
     TextArea,
@@ -70,11 +75,10 @@ class Calculator extends Component {
             bonusTKN
         }
     }
-    transferToTKNbonus = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
-    transferToTKN = (value, TKN) => TKN * value;
+
 
     calcCurrency = value => {
-        const {currencyValue, TKN, tokenValue} = this.props.calculator;
+        const {currencyValue, TKN} = this.props.calculator;
         let bonus;
         let BTC, ETH, TKNvalue, USD;
         if (currencyValue === "USD") {
@@ -132,7 +136,6 @@ class Calculator extends Component {
         }
     }
 
-
     handleProgressBar = value => {
         const { bonus } = this.props.calculator;
         const percent = ((value * 100) / bonus[bonus.length - 1]["limit"]);
@@ -144,11 +147,13 @@ class Calculator extends Component {
     }
 
 
-
     checkMaximum = value => value > 100;
 
     bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
 
+    transferToTKNbonus = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
+
+    transferToTKN = (value, TKN) => TKN * value;
 
     transferTKN = value => {
         const { TKN, currency } = this.props.calculator;
@@ -226,7 +231,6 @@ class Calculator extends Component {
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue } = this.props.calculator;
-
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
@@ -304,27 +308,24 @@ class Calculator extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    calculator: state.calculator
-})
 const mapStateToDispatch = dispatch => ({
     changeCurrentCurrency: payload => {
-        const currentCurrency = () => {
+        const changeCurrentCurrencyAction = () => {
             const { currentCurrency, sumValue } = payload;
             return dispatch => {
-                dispatch({type: "calculator/CHANGE_CURRENT_CURRENCY", payload: currentCurrency});
-                dispatch({type: "calculator/CHANGE_SUM_VALUE", payload: sumValue});
+                dispatch(changeCurrentCurrency(currentCurrency));
+                dispatch(changeSumValue(sumValue));
             }
         }
-        dispatch(currentCurrency());
+        dispatch(changeCurrentCurrencyAction());
     },
     calculateCurrencyValue: payload => {
-        const calccurrencyValue = () => {
+        const calculateCurrencyValueAction = () => {
             return dispatch => {
-                dispatch({type: "calculator/CHANGE_CALCULATOR", payload})
+                dispatch(changeTransferData(payload));
             }
         }
-        dispatch(calccurrencyValue())
+        dispatch(calculateCurrencyValueAction())
     }
 })
-export default connect(mapStateToProps, mapStateToDispatch)(Calculator);
+export default connect(state => ({ calculator: state.calculator }), mapStateToDispatch)(Calculator);

@@ -1,3 +1,5 @@
+import * as C from 'actions/calculator/types';
+
 const INITIAL_STATE = {
     TKN: 1,
     bonus: [
@@ -51,17 +53,17 @@ const INITIAL_STATE = {
         }
     ]
 };
-const CHANGE_CURRENT_CURRENCY = "calculator/CHANGE_CURRENT_CURRENCY";
-const CHANGE_SUM_VALUE = "calculator/CHANGE_SUM_VALUE";
-const CHANGE_CALCULATOR = "calculator/CHANGE_CALCULATOR";
+// const CHANGE_CURRENT_CURRENCY = "calculator/CHANGE_CURRENT_CURRENCY";
+// const CHANGE_SUM_VALUE = "calculator/CHANGE_SUM_VALUE";
+// const CHANGE_CALCULATOR = "calculator/CHANGE_CALCULATOR";
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case CHANGE_CURRENT_CURRENCY:
+        case C.CHANGE_CURRENT_CURRENCY:
             return {...state, currencyValue: action.payload};
-        case CHANGE_SUM_VALUE:
+        case C.CHANGE_SUM_VALUE:
             return {...state, sumValue: action.payload};
-        case CHANGE_CALCULATOR:
+        case C.CHANGE_TRANSFER_DATA:
             const { sumValue, progressBar, tokenValue, bonus, transferData } = action.payload;
             return {...state,  sumValue, progressBar, tokenValue, bonus, transferData};
         default:
