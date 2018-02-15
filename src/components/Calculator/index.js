@@ -220,22 +220,18 @@ class Calculator extends Component {
         return { USD, BTC, ETH }
     }
 
+    changeState = value => {
+        const { calculateCurrencyValue } = this.props;
+        calculateCurrencyValue(value);
+    }
+
     handleToken = (e, {value}) => {
         const checkNumber = /^\d*\.?\d*$/;
         const checkDoth = /^\./;
         if (!value.match(checkNumber) || value.match(checkDoth)) {
             return;
         }
-        const {sumValue, progressBar, tokenValue, bonus, transferData} = this.calcToken(value);
-        const obj = this.calcToken(value);
-        this.props.calculateCurrencyValue(obj);
-        this.setState({
-            sumValue,
-            progressBar,
-            tokenValue,
-            bonus,
-            transferData
-        })
+        this.changeState(this.calcToken(value))
     }
 
     handleInput = (e, {value}) => {
@@ -244,23 +240,13 @@ class Calculator extends Component {
         if (!value.match(checkNumber) || value.match(checkDoth)) {
             return;
         }
-        const {sumValue, progressBar, tokenValue, bonus, transferData} = this.calcCurrency(value);
-        const obj = this.calcCurrency(value);
-        this.props.calculateCurrencyValue(obj);
-        this.setState({
-            sumValue,
-            progressBar,
-            tokenValue,
-            bonus,
-            transferData
-        })
+        this.changeState(this.calcCurrency(value))
     }
 
     handleChange = (e, {value}) => {
-        const { transferData:transferDataState } = this.state;
-        const { changeCurrentCurrency, changeSumValue, transferData } = this.props;
+        const { changeCurrentCurrency, changeSumValue, transferData, calculator } = this.props;
         this.props.changeCurrentCurrency(value);
-        this.props.changeSumValue(this.props.calculator.transferData[value])
+        this.props.changeSumValue(calculator.transferData[value])
         this.setState({
             currencyValue: value,
             sumValue: transferDataState[value]
@@ -380,8 +366,16 @@ const mapStateToProps = state => ({
     calculator: state.calculator
 })
 const mapStateToDispatch = dispatch => ({
-    changeCurrentCurrency: value => dispatch({type: "calculator/CHANGE_CURRENT_CURRENCY", payload: value}),
-    changeSumValue: value => dispatch({type: "calculator/CHANGE_SUM_VALUE", payload: value}),
+    changeCurrentCurrency: payload => {
+        const currentCurrency = () => {
+            const { currentCurrency, sumValue } = payload;
+            return dispatch => {
+                dispatch({type: "calculator/CHANGE_CURRENT_CURRENCY", payload: currentCurrency});
+                dispatch({type: "calculator/CHANGE_SUM_VALUE", payload: sumValue});
+            }
+        }
+        dispatch(currentCurrency());
+    },
     changeDefaultValue: payload => {
         const { sumValue, progressBar, tokenValue, bonus, transferData } = payload;
         const initialDefault = () => {
