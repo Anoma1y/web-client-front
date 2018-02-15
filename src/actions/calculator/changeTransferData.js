@@ -1,6 +1,6 @@
-import * as C from './types';
+import { CHANGE_TRANSFER_DATA } from './types';
 
 export const changeTransferData = value => ({
-    type: C.CHANGE_TRANSFER_DATA,
+    type: CHANGE_TRANSFER_DATA,
     payload: value
 })

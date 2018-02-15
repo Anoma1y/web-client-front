@@ -1,6 +1,6 @@
-import * as C from './types';
+import { CHANGE_CURRENT_CURRENCY } from './types';
 
 export const changeCurrentCurrency = value => ({
-    type: C.CHANGE_CURRENT_CURRENCY,
+    type: CHANGE_CURRENT_CURRENCY,
     payload: value
 })

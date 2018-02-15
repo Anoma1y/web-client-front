@@ -1,7 +1,7 @@
-import * as C from './types';
+import { CHANGE_SUM_VALUE } from './types';
 
 export const changeSumValue = value => ({
-    type: C.CHANGE_SUM_VALUE,
+    type: CHANGE_SUM_VALUE,
     payload: value
 })
 
