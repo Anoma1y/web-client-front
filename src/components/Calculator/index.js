@@ -52,27 +52,51 @@ class Calculator extends Component {
             return (BTC / ETH) * value;
         }
     }
+    checkBonus = value => {
+        const { bonus: bonusList } = this.props.calculator;
 
+        let bonusTKN = 0;
+        let bonus = [];
+        bonusList.forEach((item) => {
+            if (value >= item["limit"]) {
+                bonusTKN = item["value"];
+                bonus.push({value: item["value"], limit: item["limit"], active: true});
+            } else {
+                bonus.push({value: item["value"], limit: item["limit"], active: false});
+            }
+        });
+        return {
+            bonus,
+            bonusTKN
+        }
+    }
+    transferToTKNbonus = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
+    transferToTKN = (value, TKN) => TKN * value;
 
     calcCurrency = value => {
-        const {currencyValue, TKN, tokenValue, transferData} = this.props.calculator;
-        const { bonus, bonusTKN } = this.checkBonus(value);
-
+        const {currencyValue, TKN, tokenValue} = this.props.calculator;
+        let bonus;
         let BTC, ETH, TKNvalue, USD;
         if (currencyValue === "USD") {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
-            TKNvalue = this.transferToTKN(value, bonusTKN, TKN);
+            TKNvalue = this.transferToTKN(value, TKN);
+            bonus = this.checkBonus(TKNvalue);
+            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKN);
             USD = value;
         } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
-            TKNvalue = this.transferToTKN(USD, bonusTKN, TKN);
+            TKNvalue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNvalue);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             ETH = value;
         } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
-            TKNvalue = this.transferToTKN(USD, bonusTKN, TKN);
+            TKNvalue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNvalue);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             BTC = value;
         }
         const progressBar = this.handleProgressBar(TKNvalue);
@@ -80,7 +104,7 @@ class Calculator extends Component {
             sumValue: value,
             progressBar,
             tokenValue: TKNvalue,
-            bonus,
+            bonus: bonus.bonus,
             transferData: {
                 USD, TKN: TKNvalue, BTC, ETH
             }
@@ -119,30 +143,12 @@ class Calculator extends Component {
         };
     }
 
-    checkBonus = value => {
-        const { bonus: bonusList } = this.props.calculator;
-        let bonusTKN = 0;
-        let bonus = [];
-        bonusList.forEach((item) => {
-            if (value >= item["limit"]) {
-                bonusTKN = item["value"];
-                bonus.push({value: item["value"], limit: item["limit"], active: true});
-            } else {
-                bonus.push({value: item["value"], limit: item["limit"], active: false});
-            }
-        });
 
-        return {
-            bonus,
-            bonusTKN
-        }
-    }
 
     checkMaximum = value => value > 100;
 
     bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
 
-    transferToTKN = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
 
     transferTKN = value => {
         const { TKN, currency } = this.props.calculator;
