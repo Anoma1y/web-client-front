@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import {
+    changeTransferData,
+    changeCurrencyValue
+} from 'actions/calculator';
 import {
     Grid,
     TextArea,
@@ -14,249 +19,218 @@ import {Bonus} from './CalculatorBonus'
 import {CurrencyButton} from './CalculatorButton'
 import "../../App.css";
 
-export default class Calculator extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            TKN: 1,
-            bonus: [
-                {
-                    value: 2.5,
-                    limit: 100000,
-                    active: false
-                },{
-                    value: 5,
-                    limit: 500000,
-                    active: false
-                },{
-                    value: 10,
-                    limit: 1000000,
-                    active: false
-                },{
-                    value: 15,
-                    limit: 2000000,
-                    active: false
-                }
-            ],
-            isMaximum: false,
-            percentBar: 0,
-            currencyValue: "USD",
-            cryptoValue: 0,
-            tokenValue: 0,
-            transferData: {
-                USD: 0, TKN: 0, BTC: 0, ETH: 0
-            },
-            currency: [
-                {
-                    "id": "bitcoin",
-                    "name": "Bitcoin",
-                    "symbol": "BTC",
-                    "price_usd": "8631.11"
-                },
-                {
-                    "id": "ethereum",
-                    "name": "Ethereum",
-                    "symbol": "ETH",
-                    "price_usd": "845.463",
-                    "price_btc": "0.0986706"
-                },
-                {
-                    "id": "usd",
-                    "name": "USD",
-                    "symbol": "USD",
-                    "price_usd": "1"
-                }
-            ]
+class Calculator extends Component {
+
+
+
+    transferUSD = (value, type) => {
+        const { currency } = this.props.calculator;
+        switch(type) {
+            case "BTC":
+                return value / currency[0].price_usd;
+            case "ETH":
+                return value / currency[1].price_usd;
+            default:
+                return;
         }
     }
 
-
-    transferUSD = (val, type) => {
-        const { currency } = this.state;
-        if (type === "BTC") {
-            let BTC = currency[0].price_usd;
-            return val / BTC
-        } else if (type === "ETH") {
-            let ETH = currency[1].price_usd;
-            return val / ETH;
-        }
-    }
-    transferETH = (val, type) => {
-        const { currency } = this.state;
-        if (type === "USD") {
-            let ETH = currency[1].price_usd;
-            return val * ETH;
-        } else if (type === "BTC") {
-            let ETH = this.state.currency[1].price_btc;
-            let total = (ETH) * val;
-            return total;
-        }
-    }
-    transferBTC = (val, type) => {
-        const { currency } = this.state;
-        if (type === "USD") {
-            let BTC = currency[0].price_usd;
-            return val * BTC;
-        } else if (type === "ETH") {
-            let BTC = currency[0].price_usd;
-            let ETH = currency[1].price_usd;
-            let total = (BTC/ETH) * val;
-            return total;
+    transferETH = (value, type) => {
+        const { currency } = this.props.calculator;
+        switch(type) {
+            case "USD":
+                return value * currency[1].price_usd;
+            case "BTC":
+                return currency[1].price_btc * value;
+            default:
+                return;
         }
     }
 
-    checkBonus = (val) => {
-        const { bonus } = this.state;
+    transferBTC = (value, type) => {
+        const { currency } = this.props.calculator;
+        switch(type) {
+            case "USD":
+                return value * currency[0].price_usd;
+            case "ETH":
+                return (currency[0].price_usd / currency[1].price_usd) * value;
+            default:
+                return;
+        }
+    }
 
-        let totalBonus = 0;
-        let bonusState = [];
+    checkBonus = value => {
+        const { bonus: bonusList } = this.props.calculator;
 
-        bonus.forEach((item, i) => {
-            if (val >= item["limit"]) {
-                totalBonus = item["value"];
-                bonusState.push({value: item["value"], limit: item["limit"], active: true});
+        let bonusTKN = 0;
+        let bonus = [];
+        bonusList.forEach((item) => {
+            if (value >= item["limit"]) {
+                bonusTKN = item["value"];
+                bonus.push({value: item["value"], limit: item["limit"], active: true});
             } else {
-                bonusState.push({value: item["value"], limit: item["limit"], active: false});
+                bonus.push({value: item["value"], limit: item["limit"], active: false});
             }
         });
-
-        this.setState({
-            bonus: bonusState
-        });
-
-        return totalBonus;
+        return {
+            bonus,
+            bonusTKN
+        }
     }
 
-    transferToTKN = (val) => {
-        const { TKN } = this.state;
-        const bonusTKN = this.checkBonus(val);
-
-        const bonus = (TKN * val)  + ((TKN * val) * (bonusTKN / 100));
-        const currentPercent = this.getPercent(bonus);
-        this.setState({
-            percentBar: currentPercent
-        })
-        return bonus;
-    }
-
-    handleCurrency = (value, type) => {
-        let BTC, ETH, TKN, USD;
-        if (type === "USD") {
+    calcCurrency = value => {
+        const {currencyValue, TKN} = this.props.calculator;
+        let bonus;
+        let BTC, ETH, TKNvalue, USD;
+        if (currencyValue === "USD") {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
-            TKN = this.transferToTKN(value);
+            TKNvalue = this.transferToTKN(value, TKN);
+            bonus = this.checkBonus(TKNvalue);
+            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKN);
             USD = value;
-        } else if (type === "ETH") {
+        } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
-            TKN = this.transferToTKN(USD);
+            TKNvalue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNvalue);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             ETH = value;
-        } else if (type === "BTC") {
+        } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
-            TKN = this.transferToTKN(USD);
+            TKNvalue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNvalue);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             BTC = value;
         }
-        this.setState({
-            cryptoValue: value,
-            tokenValue: TKN,
+        const progressBar = this.handleProgressBar(TKNvalue);
+        return {
+            sumValue: value,
+            progressBar,
+            tokenValue: TKNvalue,
+            bonus: bonus.bonus,
             transferData: {
-                USD, TKN, BTC, ETH
+                USD, TKN: TKNvalue, BTC, ETH
             }
-        })
-    }
-
-    getPercent = (val) => {
-        const {bonus} = this.state;
-
-        const percent = ((val * 100) / bonus[bonus.length - 1]["limit"])
-        this.checkMaximum(percent);
-        console.log(percent);
-        return percent;
-    }
-
-    checkMaximum = (percent) => {
-        if (percent >= 100) {
-            this.setState({
-                isMaximum: true
-            })
-        } else {
-            this.setState({
-                isMaximum: false
-            })
         }
     }
 
-
-    transferTKN = (val, type) => {
-        const { TKN, currency } = this.state;
-        const USD = 1;
-        if (type === "USD") {
-            return TKN * USD * val
-        } else if (type === "BTC") {
-            return (TKN / currency[0].price_usd) * val * USD;
-        } else if (type === "ETH") {
-            return (TKN / currency[1].price_usd) * val * USD;
-        }
-    }
-    bonusCalc = (val, bonus) => {
-        return (1 * val)  - ((1 * val) * (bonus / 100));
-    }
-    handleToken = (e, {value}) => {
-        const { currencyValue } = this.state;
-        const checkNumber = /^\d*\.?\d*$/;
-        const checkDoth = /^\./;
-        if (!value.match(checkNumber) || value.match(checkDoth)) {
-            return;
-        }
-        const bonusTKN = this.checkBonus(value);
-        const bonus = this.bonusCalc(value, bonusTKN);
-        const USD = this.transferTKN(bonus, "USD"),
-            BTC = this.transferTKN(bonus, "BTC"),
-            ETH = this.transferTKN(bonus, "ETH");
-        const currentPercent = this.getPercent(value);
+    calcToken = value => {
+        const { currencyValue } = this.props.calculator;
+        const { bonus, bonusTKN } = this.checkBonus(value);
+        const bonusValue = this.bonusCalc(value, bonusTKN);
+        const { USD, BTC, ETH } = this.transferTKN(bonusValue);
         const currentTokenValue = currencyValue === "BTC" ? BTC : currencyValue === "ETH" ? ETH : USD;
-        this.setState({
-            percentBar: currentPercent,
-            cryptoValue: currentTokenValue,
+        const progressBar = this.handleProgressBar(value);
+        return {
+            sumValue: currentTokenValue,
+            progressBar,
             tokenValue: value,
+            bonus,
             transferData: {
                 USD,
                 TKN: value,
                 BTC,
                 ETH
             }
-        })
+        }
     }
-    handleInput = (e, {value}) => {
-        const {currencyValue} = this.state;
+
+    handleProgressBar = value => {
+        const { bonus } = this.props.calculator;
+        const percent = ((value * 100) / bonus[bonus.length - 1]["limit"]);
+        const isMaximum = this.checkMaximum(percent);
+        return {
+            isMaximum,
+            percent
+        };
+    }
+
+    checkMaximum = value => value > 100;
+
+    bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
+
+    transferToTKNbonus = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
+
+    transferToTKN = (value, TKN) => TKN * value;
+
+    transferTKN = value => {
+        const { TKN, currency } = this.props.calculator;
+        const USD = TKN *  value;
+        const BTC = (TKN / currency[0].price_usd) * value;
+        const ETH = (TKN / currency[1].price_usd) * value;
+        return {
+            USD,
+            BTC,
+            ETH
+        }
+    }
+
+    changeState = value => {
+        const { changeTransferData } = this.props;
+        changeTransferData(value);
+    }
+
+    componentDidMount() {
+        const { tokenValue } = this.props.calculator;
+        this.changeState(this.calcToken(tokenValue))
+    }
+
+    handleToken = (e, {value}) => {
         const checkNumber = /^\d*\.?\d*$/;
         const checkDoth = /^\./;
         if (!value.match(checkNumber) || value.match(checkDoth)) {
             return;
         }
-        this.handleCurrency(value, currencyValue);
+        this.changeState(this.calcToken(value))
+    }
+
+    handleCurrency = (e, {value}) => {
+        const checkNumber = /^\d*\.?\d*$/;
+        const checkDoth = /^\./;
+        if (!value.match(checkNumber) || value.match(checkDoth)) {
+            return;
+        }
+        this.changeState(this.calcCurrency(value))
     }
 
     handleChange = (e, {value}) => {
-        const { transferData } = this.state;
-        this.setState({
-            currencyValue: value,
-            cryptoValue: transferData[value]
-        });
+        const { changeCurrencyValue } = this.props;
+        changeCurrencyValue(value);
     }
 
-    renderBonus = () => {
-        return this.state.bonus.map((item,i) => {
-            return(<Bonus
-                key={i}
-                bonusVal={item["value"]}
-                bonusActive={item["active"]}
-            />)
+    renderBonusLabel = () => {
+        const { bonus } = this.props.calculator;
+        return bonus.map((item,i) => {
+            return(
+                <Bonus
+                    key={i}
+                    bonusVal={item["value"]}
+                    bonusActive={item["active"]}
+                />
+            )
+        })
+    }
+
+    renderCurrencyButton = () => {
+        const { currencyValue, currency } = this.props.calculator;
+        return currency.map(item => {
+            return (
+                <Grid.Column width={2} key={item["id"]}>
+                    <CurrencyButton
+                        buttonTitle={item["symbol"]}
+                        handleChange={this.handleChange}
+                        currencyValue={currencyValue}
+                    />
+                </Grid.Column>
+            )
         })
     }
 
     render() {
+        const { percent, isMaximum } = this.props.calculator.progressBar;
+        const { tokenValue, currencyValue, sumValue } = this.props.calculator;
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
@@ -264,36 +238,24 @@ export default class Calculator extends Component {
                     <Divider />
                     <Grid verticalAlign={'middle'}>
                         <Grid.Row>
-                            {
-                                this.state.currency.map(item => {
-                                    return (
-                                        <Grid.Column width={2} key={item["id"]}>
-                                            <CurrencyButton
-                                                buttonTitle={item["symbol"]}
-                                                handleChange={this.handleChange}
-                                                currencyValue={this.state.currencyValue}
-                                            />
-                                        </Grid.Column>
-                                    )
-                                })
-                            }
+                            { this.renderCurrencyButton() }
                         </Grid.Row>
                         <Grid.Row columns={2}>
                             <Grid.Column>
                                 <Input
-                                    placeholder={this.state.currencyValue}
-                                    onChange={this.handleInput}
-                                    value={this.state.cryptoValue}
+                                    placeholder={currencyValue}
+                                    onChange={this.handleCurrency}
+                                    value={sumValue}
                                     style={{width: "100%"}}
                                     size={"big"}
-                                    label={{ basic: true, content: this.state.currencyValue }}
+                                    label={{ basic: true, content: currencyValue }}
                                     labelPosition='left'
                                 />
                             </Grid.Column>
                             <Grid.Column>
                                 <Input
                                     placeholder={"TCT"}
-                                    value={this.state.tokenValue}
+                                    value={tokenValue}
                                     onChange={this.handleToken}
                                     style={{width: "100%"}}
                                     size={"big"}
@@ -305,7 +267,7 @@ export default class Calculator extends Component {
                         <Grid.Row columns={1}>
                             <Grid.Column>
                                 <Progress
-                                    percent={this.state.percentBar}
+                                    percent={percent}
                                     size={"tiny"}
                                     color={"red"}/>
                             </Grid.Column>
@@ -315,10 +277,10 @@ export default class Calculator extends Component {
                                 <p>Бонус</p>
                             </Grid.Column>
                             <Grid.Column width={6}>
-                                { this.renderBonus() }
+                                { this.renderBonusLabel() }
                              </Grid.Column>
                             <Grid.Column width={5}>
-                                <span className={this.state.isMaximum === true ? "active": ""}>
+                                <span className={isMaximum === true ? "active": ""}>
                                     <Icon name={"warning sign"} />
                                     Вы достигли лимита
                                 </span>
@@ -346,3 +308,7 @@ export default class Calculator extends Component {
     }
 }
 
+export default connect(state => ({ calculator: state.calculator }), {
+    changeCurrencyValue,
+    changeTransferData
+})(Calculator);
