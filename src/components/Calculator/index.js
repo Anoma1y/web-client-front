@@ -25,37 +25,40 @@ class Calculator extends Component {
 
     transferUSD = (value, type) => {
         const { currency } = this.props.calculator;
-        if (type === "BTC") {
-            let BTC = currency[0].price_usd;
-            return value / BTC
-        } else if (type === "ETH") {
-            let ETH = currency[1].price_usd;
-            return value / ETH;
+        switch(type) {
+            case "BTC":
+                return value / currency[0].price_usd;
+            case "ETH":
+                return value / currency[1].price_usd;
+            default:
+                return;
         }
     }
 
     transferETH = (value, type) => {
         const { currency } = this.props.calculator;
-        if (type === "USD") {
-            let ETH = currency[1].price_usd;
-            return value * ETH;
-        } else if (type === "BTC") {
-            let ETH = currency[1].price_btc;
-            return ETH * value;
+        switch(type) {
+            case "USD":
+                return value * currency[1].price_usd;
+            case "BTC":
+                return currency[1].price_btc * value;
+            default:
+                return;
         }
     }
 
     transferBTC = (value, type) => {
         const { currency } = this.props.calculator;
-        if (type === "USD") {
-            let BTC = currency[0].price_usd;
-            return value * BTC;
-        } else if (type === "ETH") {
-            let BTC = currency[0].price_usd;
-            let ETH = currency[1].price_usd;
-            return (BTC / ETH) * value;
+        switch(type) {
+            case "USD":
+                return value * currency[0].price_usd;
+            case "ETH":
+                return (currency[0].price_usd / currency[1].price_usd) * value;
+            default:
+                return;
         }
     }
+
     checkBonus = value => {
         const { bonus: bonusList } = this.props.calculator;
 
