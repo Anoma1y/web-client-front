@@ -251,7 +251,6 @@ class Calculator extends Component {
                                                 placeholder={"TCT"}
                                                 value={tokenValue}
                                                 onChange={this.handleToken}
-                                                style={{width: "100%"}}
                                                 size={"big"}
                                                 label={{ basic: true, content: 'TKN' }}
                                                 labelPosition='left'
@@ -265,7 +264,6 @@ class Calculator extends Component {
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
                                                 value={sumValue}
-                                                style={{width: "100%"}}
                                                 size={"big"}
                                                 label={{ basic: true, content: currencyValue }}
                                                 labelPosition='left'

@@ -30,9 +30,9 @@ class Home extends Component{
                 <div ref={this.handleContextRef}>
                     <Grid >
                         <Grid.Row centered>
-                            <Grid.Column width={1}>
+                            <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>
                             </Grid.Column>
-                            <Grid.Column width={9}>
+                            <Grid.Column widescreen={9} computer={9} tablet={16} mobile={16}>
                                 <Grid.Row>
                                     <Timer />
                                 </Grid.Row>
@@ -43,7 +43,7 @@ class Home extends Component{
                                     <RequestList />
                                 </Grid.Row>
                             </Grid.Column>
-                            <Grid.Column width={5}>
+                            <Grid.Column widescreen={5} computer={5} tablet={16} mobile={16}>
                                 <Grid.Row>
                                     <DownloadList />
                                 </Grid.Row>
@@ -54,7 +54,7 @@ class Home extends Component{
                                     <BetaTest />
                                 </Grid.Row>
                             </Grid.Column>
-                            <Grid.Column width={1}>
+                            <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>
                                 <Grid.Row>
                                     <Sticky context={contextRef}>
                                         <SocialNetwork />
