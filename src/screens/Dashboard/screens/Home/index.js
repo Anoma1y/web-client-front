@@ -7,11 +7,16 @@ import RequestList from 'components/RequestList'
 import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
+import Social from 'components/Social';
+
 const Home = () => (
     <Container>
         <Grid>
             <Grid.Row centered>
-                <Grid.Column width={10}>
+                <Grid.Column width={1}>
+
+                </Grid.Column>
+                <Grid.Column width={9}>
                     <Grid.Row>
                         <Timer />
                     </Grid.Row>
@@ -23,10 +28,15 @@ const Home = () => (
                         <RequestList />
                     </Grid.Row>
                 </Grid.Column>
-                <Grid.Column width={6}>
+                <Grid.Column width={5}>
                     <Grid.Row>
                         <BetaTest />
                         <DownloadList />
+                    </Grid.Row>
+                </Grid.Column>
+                <Grid.Column width={1}>
+                    <Grid.Row>
+                        <Social />
                     </Grid.Row>
                 </Grid.Column>
             </Grid.Row>
