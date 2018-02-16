@@ -248,17 +248,6 @@ class Calculator extends Component {
                                     <Form.Group widths='equal'>
                                         <Form.Field>
                                             <Input
-                                                placeholder={currencyValue}
-                                                onChange={this.handleCurrency}
-                                                value={sumValue}
-                                                style={{width: "100%"}}
-                                                size={"big"}
-                                                label={{ basic: true, content: currencyValue }}
-                                                labelPosition='left'
-                                            />
-                                        </Form.Field>
-                                        <Form.Field>
-                                            <Input
                                                 placeholder={"TCT"}
                                                 value={tokenValue}
                                                 onChange={this.handleToken}
@@ -270,6 +259,17 @@ class Calculator extends Component {
                                             <Label as={"span"}>
                                                 Total: {transferData.TKN}
                                             </Label>
+                                        </Form.Field>
+                                        <Form.Field>
+                                            <Input
+                                                placeholder={currencyValue}
+                                                onChange={this.handleCurrency}
+                                                value={sumValue}
+                                                style={{width: "100%"}}
+                                                size={"big"}
+                                                label={{ basic: true, content: currencyValue }}
+                                                labelPosition='left'
+                                            />
                                         </Form.Field>
                                     </Form.Group>
                                 </Form>
