@@ -6,7 +6,8 @@ import {
     Grid,
 } from 'semantic-ui-react';
 import { 
-    changeTimer
+    changeTimer,
+    changeTimerEnd
 } from 'actions/timer';
 import Time from './Time';
 
@@ -25,6 +26,7 @@ class Timer extends Component {
 
     timingCalculation = () => {
         const { dateEnd, timeLeft } = this.props.timer;
+        const { changeTimerEnd } = this.props;
         const time = new Date();
         const timeEnd = new Date(dateEnd);
         const totalRemains = (timeEnd.getTime() - time.getTime());
@@ -52,6 +54,7 @@ class Timer extends Component {
         }
 
         else {
+            changeTimerEnd(true);
             this.clearInt();
         }
 
@@ -89,6 +92,7 @@ class Timer extends Component {
 }
 
 export default connect(state => ({ timer: state.timer }), {
-    changeTimer
+    changeTimer,
+    changeTimerEnd
 })(Timer);
 
