@@ -4,6 +4,7 @@ import { Grid, Container } from 'semantic-ui-react'
 import Calculator from 'components/Calculator'
 import RequestList from 'components/RequestList'
 import Roadmap from "components/Roadmap";
+import BetaTest from 'components/BetaTest'
 
 const Home = () => (
     <Container>
@@ -21,6 +22,8 @@ const Home = () => (
                 <Grid.Column width={6}>
                     <Grid.Row>
                         <Roadmap />
+
+                        <BetaTest />
                     </Grid.Row>
                 </Grid.Column>
             </Grid.Row>
