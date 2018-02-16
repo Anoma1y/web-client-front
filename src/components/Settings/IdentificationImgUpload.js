@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button, Icon, Input, Image, Grid } from 'semantic-ui-react'
+import { Card, Button, Icon, Input, Image} from 'semantic-ui-react'
 
 class IdentificationImgUpload extends React.Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class IdentificationImgUpload extends React.Component {
                 imagePreviewUrl: null
             });
             return;
-        };
+        }
 
         let reader = new FileReader();
         let file = e.target.files[0];
@@ -40,7 +40,7 @@ class IdentificationImgUpload extends React.Component {
 
     renderImagePreview(imagePreviewUrl) {
         if (!imagePreviewUrl) return null;
-        return <Image src={imagePreviewUrl} rounded/>
+        return <Image src={imagePreviewUrl} style={{maxHeight: 200}} rounded/>
     }
 
     render() {
