@@ -7,7 +7,7 @@ import RequestList from 'components/RequestList'
 import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
-import Social from 'components/Social';
+import SocialNetwork from 'components/SocialNetwork';
 
 const Home = () => (
     <Container>
@@ -36,7 +36,7 @@ const Home = () => (
                 </Grid.Column>
                 <Grid.Column width={1}>
                     <Grid.Row>
-                        <Social />
+                        <SocialNetwork />
                     </Grid.Row>
                 </Grid.Column>
             </Grid.Row>
