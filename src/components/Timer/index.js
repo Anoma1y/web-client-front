@@ -15,7 +15,9 @@ class Timer extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => {
-                this.props.changeTimer(this.timingCalculation());
+                const payload = this.timingCalculation();
+                const { changeTimer } = this.props;
+                changeTimer(payload);
             },
             1000
         )

@@ -1,4 +1,7 @@
-import * as C from 'actions/timer/types';
+import {
+    CHANGE_TIMER_LEFT,
+    CHANGE_TIMER_END
+} from 'actions/timer/types';
 
 const INITIAL_STATE = {
     dateEnd: "feb,16,2018,20:00:00",
@@ -7,14 +10,24 @@ const INITIAL_STATE = {
         hour: 0,
         minutes: 0,
         seconds: 0
-    }
+    },
+    timeEnd: false
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case C.CHANGE_TIMER_LEFT:
+        case CHANGE_TIMER_LEFT:
             const { payload:timeLeft } = action;
-            return {...state, timeLeft};
+            return {
+                ...state,
+                timeLeft
+            };
+        case CHANGE_TIMER_END:
+            const { payload: timeEnd } = action;
+            return {
+                ...state,
+                timeEnd
+            }
         default:
             return state;
     }
