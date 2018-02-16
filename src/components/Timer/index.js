@@ -48,9 +48,11 @@ class Timer extends Component {
                 lastSec = "0" + lastSec
             }
         }
+
         else {
             this.clearInt();
         }
+
         return {
             day: RemainsFullDays,
             hour: RemainsFullHours,
@@ -58,6 +60,7 @@ class Timer extends Component {
             seconds: lastSec
         }
     }
+
     clearInt = () => {
         clearInterval(this.timerID);
     }
