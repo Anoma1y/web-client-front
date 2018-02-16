@@ -81,34 +81,36 @@ class Calculator extends Component {
     calcCurrency = value => {
         const {currencyValue, TKN} = this.props.calculator;
         let bonus;
-        let BTC, ETH, TKNvalue, USD;
+        let BTC, ETH, TKNinitialValue, TKNvalue, USD;
         if (currencyValue === "USD") {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
-            TKNvalue = this.transferToTKN(value, TKN);
-            bonus = this.checkBonus(TKNvalue);
+            TKNinitialValue = this.transferToTKN(value, TKN);
+            bonus = this.checkBonus(TKNinitialValue);
             TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKN);
             USD = value;
         } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
-            TKNvalue = this.transferToTKN(USD, TKN);
-            bonus = this.checkBonus(TKNvalue);
+            TKNinitialValue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNinitialValue);
             TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             ETH = value;
         } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
-            TKNvalue = this.transferToTKN(USD, TKN);
-            bonus = this.checkBonus(TKNvalue);
+            TKNinitialValue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNinitialValue);
             TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             BTC = value;
         }
+        
+        console.log(234);
         const progressBar = this.handleProgressBar(TKNvalue);
         return {
             sumValue: value,
             progressBar,
-            tokenValue: TKNvalue,
+            tokenValue: TKNinitialValue,
             bonus: bonus.bonus,
             transferData: {
                 USD, TKN: TKNvalue, BTC, ETH
