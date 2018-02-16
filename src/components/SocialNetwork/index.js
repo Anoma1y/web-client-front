@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {
-    Card,
     List,
     Segment
 } from 'semantic-ui-react'
@@ -17,14 +16,12 @@ class SocialNetwork extends Component {
         })
     }
     render() {
-
         return (
             <Segment>
                 <List>
                     {this.renderSocialList()}
                 </List>
             </Segment>
-
         );
     }
 }
@@ -33,8 +30,3 @@ class SocialNetwork extends Component {
 export default connect(state => ({
     socialNetwork: state.socialNetwork
 }),{})(SocialNetwork);
-{/*<Card fluid color={'violet'}>*/}
-{/*<Card.Content>*/}
-{/*{this.renderSocialList()}*/}
-{/*</Card.Content>*/}
-{/*</Card>*/}

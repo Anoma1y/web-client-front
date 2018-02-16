@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
     Grid,
     Container,
     Sticky
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
 import Timer from 'components/Timer'
 import Calculator from 'components/Calculator'
@@ -26,7 +26,7 @@ class Home extends Component{
         const { contextRef } = this.state
 
         return (
-            <Container >
+            <Container>
                 <div ref={this.handleContextRef}>
                     <Grid >
                         <Grid.Row centered>
