@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import { Button, Card, Divider, Input} from 'semantic-ui-react'
 
 import IdentificationImgUpload from './IdentificationImgUpload'
@@ -12,40 +13,31 @@ class Identification extends React.Component {
     }
 
     renderUploadForm() {
+        const text = 'Cras consectetur ac metus vitae lobortis. In pulvinar urna nunc, quis gravida ante ultrices vel. ' +
+            'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.';
 
-        const text = 'Cras consectetur ac metus vitae lobortis. In pulvinar urna nunc, quis gravida ante ultrices vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'
-
-        if (this.state.templateForm === 1) {
-            return (
-                <div>
-                    <IdentificationImgUpload
-                        description={text}
-                    />
-                    <IdentificationImgUpload
-                        description={text}
-                    />
-                </div>
-            )
-        } else if (this.state.templateForm === 2) {
-            return (
-                <div>
-                    <IdentificationImgUpload
-                        description={text}
-                    />
-                    <IdentificationImgUpload
-                        description={text}
-                    />
-                    <IdentificationImgUpload
-                        description={text}
-                    />
-                    <IdentificationImgUpload
-                        description={text}
-                    />
-                    <IdentificationImgUpload
-                        description={text}
-                    />
-                </div>
-            )
+        // TODO: Add constants to form type
+        switch (this.state.templateForm) {
+            case 1:
+                return this.props.settings.individualUser.map((item) => {
+                    return (
+                        <IdentificationImgUpload
+                            description={item.description}
+                            id={item.id}
+                            key={item.id}
+                        />
+                    )
+                });
+            case 2:
+                return this.props.settings.legalEntity.map((item) => {
+                    return (
+                        <IdentificationImgUpload
+                            description={item.description}
+                            id={item.id}
+                            key={item.id}
+                        />
+                    )
+                });
         }
     }
 
@@ -85,4 +77,6 @@ class Identification extends React.Component {
     }
 }
 
-export default Identification;
+export default connect((state) => ({
+    settings: state.settings
+}), {})(Identification);
