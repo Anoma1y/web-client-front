@@ -4,7 +4,7 @@ import {
 } from 'actions/timer/types';
 
 const INITIAL_STATE = {
-    dateEnd: "feb,16,2018,15:50:40",
+    dateEnd: "dec,31,2018,23:59:59",
     timeLeft: {
         day: 0,
         hour: 0,
