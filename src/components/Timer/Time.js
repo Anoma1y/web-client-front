@@ -1,5 +1,8 @@
 import React from 'react';
-import { Card, Grid } from 'semantic-ui-react'
+import {
+    Card,
+    Grid
+} from 'semantic-ui-react'
 
 export default ({timeName, value}) => {
     return (
