@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Card, Progress } from 'semantic-ui-react';
 
-
 class Roadmap extends Component {
     render() {
         const { progressBar } = this.props.roadmap;
@@ -21,5 +20,6 @@ class Roadmap extends Component {
     }
 }
 
-
-export default connect(state => ({ roadmap: state.roadmap }), {})(Roadmap);
+export default connect(state => ({
+    roadmap: state.roadmap
+}), {})(Roadmap);

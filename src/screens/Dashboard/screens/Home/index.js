@@ -1,5 +1,8 @@
 import React from 'react'
-import { Grid, Container } from 'semantic-ui-react'
+import {
+    Grid,
+    Container
+} from 'semantic-ui-react'
 
 import Timer from 'components/Timer'
 import Calculator from 'components/Calculator'
@@ -14,7 +17,6 @@ const Home = () => (
         <Grid>
             <Grid.Row centered>
                 <Grid.Column width={1}>
-
                 </Grid.Column>
                 <Grid.Column width={9}>
                     <Grid.Row>
@@ -23,7 +25,6 @@ const Home = () => (
                     <Grid.Row>
                         <Calculator />
                     </Grid.Row>
-
                     <Grid.Row>
                         <RequestList />
                     </Grid.Row>

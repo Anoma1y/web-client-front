@@ -1,15 +1,14 @@
 import React from 'react';
 import {
-    Card,
-    Icon
+    List
 } from 'semantic-ui-react'
 
 export default ({href, iconName}) => {
     return (
-        <Card.Description style={{ marginBottom: "30px" }}>
+        <List.Item>
             <a href={href}>
-                <Icon name={iconName} />
+                <List.Icon name={iconName} style={{ marginBottom: "30px" }}/>
             </a>
-        </Card.Description>
+        </List.Item>
     )
 }
