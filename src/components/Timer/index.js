@@ -30,24 +30,19 @@ class Timer extends Component {
             RemainsFullHours = timeLeft.hour,
             RemainsMinutes = timeLeft.minutes,
             lastSec = timeLeft.seconds;
-
         if (totalRemains > 1) {
-
             let RemainsSec = parseInt(totalRemains / 1000);
             RemainsFullDays = (parseInt(RemainsSec / (24 * 60 * 60)));
-
             let secInLastDay = RemainsSec - RemainsFullDays * 24 * 3600;
             RemainsFullHours = (parseInt(secInLastDay / 3600));
             if (RemainsFullHours < 10) {
                 RemainsFullHours = "0" + RemainsFullHours
             }
-
             let secInLastHour = secInLastDay - RemainsFullHours * 3600;
             RemainsMinutes = (parseInt(secInLastHour / 60));
             if (RemainsMinutes < 10) {
                 RemainsMinutes = "0" + RemainsMinutes
             }
-
             lastSec = secInLastHour - RemainsMinutes * 60;
             if (lastSec < 10) {
                 lastSec = "0" + lastSec
