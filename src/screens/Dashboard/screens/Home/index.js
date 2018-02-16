@@ -3,6 +3,7 @@ import { Grid, Container } from 'semantic-ui-react'
 
 import Calculator from 'components/Calculator'
 import RequestList from 'components/RequestList'
+import DownloadList from "components/DownloadList";
 
 const Home = () => (
     <Container>
@@ -19,7 +20,7 @@ const Home = () => (
                 </Grid.Column>
                 <Grid.Column width={6}>
                     <Grid.Row>
-
+                        <DownloadList />
                     </Grid.Row>
                 </Grid.Column>
             </Grid.Row>
