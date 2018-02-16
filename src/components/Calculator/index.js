@@ -12,6 +12,7 @@ import {
     Progress,
     Icon,
     Card,
+    Label,
     Divider,
     Form
 } from 'semantic-ui-react'
@@ -81,34 +82,35 @@ class Calculator extends Component {
     calcCurrency = value => {
         const {currencyValue, TKN} = this.props.calculator;
         let bonus;
-        let BTC, ETH, TKNvalue, USD;
+        let BTC, ETH, TKNinitialValue, TKNvalue, USD;
         if (currencyValue === "USD") {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
-            TKNvalue = this.transferToTKN(value, TKN);
-            bonus = this.checkBonus(TKNvalue);
+            TKNinitialValue = this.transferToTKN(value, TKN);
+            bonus = this.checkBonus(TKNinitialValue);
             TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKN);
             USD = value;
         } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
-            TKNvalue = this.transferToTKN(USD, TKN);
-            bonus = this.checkBonus(TKNvalue);
+            TKNinitialValue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNinitialValue);
             TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             ETH = value;
         } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
-            TKNvalue = this.transferToTKN(USD, TKN);
-            bonus = this.checkBonus(TKNvalue);
+            TKNinitialValue = this.transferToTKN(USD, TKN);
+            bonus = this.checkBonus(TKNinitialValue);
             TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
             BTC = value;
         }
+        
         const progressBar = this.handleProgressBar(TKNvalue);
         return {
             sumValue: value,
             progressBar,
-            tokenValue: TKNvalue,
+            tokenValue: TKNinitialValue,
             bonus: bonus.bonus,
             transferData: {
                 USD, TKN: TKNvalue, BTC, ETH
@@ -230,7 +232,7 @@ class Calculator extends Component {
 
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue } = this.props.calculator;
+        const { tokenValue, currencyValue, sumValue, transferData } = this.props.calculator;
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
@@ -240,28 +242,39 @@ class Calculator extends Component {
                         <Grid.Row>
                             { this.renderCurrencyButton() }
                         </Grid.Row>
-                        <Grid.Row columns={2}>
+                        <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Input
-                                    placeholder={currencyValue}
-                                    onChange={this.handleCurrency}
-                                    value={sumValue}
-                                    style={{width: "100%"}}
-                                    size={"big"}
-                                    label={{ basic: true, content: currencyValue }}
-                                    labelPosition='left'
-                                />
-                            </Grid.Column>
-                            <Grid.Column>
-                                <Input
-                                    placeholder={"TCT"}
-                                    value={tokenValue}
-                                    onChange={this.handleToken}
-                                    style={{width: "100%"}}
-                                    size={"big"}
-                                    label={{ basic: true, content: 'TKN' }}
-                                    labelPosition='left'
-                                />
+                                <Form>
+                                    <Form.Group widths='equal'>
+                                        <Form.Field>
+                                            <Input
+                                                placeholder={"TCT"}
+                                                value={tokenValue}
+                                                onChange={this.handleToken}
+                                                style={{width: "100%"}}
+                                                size={"big"}
+                                                label={{ basic: true, content: 'TKN' }}
+                                                labelPosition='left'
+                                            />
+                                            <Label as={"span"}>
+                                                Total: {transferData.TKN}
+                                            </Label>
+                                        </Form.Field>
+                                        <Form.Field>
+                                            <Input
+                                                placeholder={currencyValue}
+                                                onChange={this.handleCurrency}
+                                                value={sumValue}
+                                                style={{width: "100%"}}
+                                                size={"big"}
+                                                label={{ basic: true, content: currencyValue }}
+                                                labelPosition='left'
+                                            />
+                                        </Form.Field>
+                                    </Form.Group>
+                                </Form>
+
+
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
