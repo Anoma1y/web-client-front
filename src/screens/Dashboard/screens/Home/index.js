@@ -30,8 +30,13 @@ const Home = () => (
                 </Grid.Column>
                 <Grid.Column width={5}>
                     <Grid.Row>
-                        <BetaTest />
                         <DownloadList />
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Roadmap />
+                    </Grid.Row>
+                    <Grid.Row>
+                        <BetaTest />
                     </Grid.Row>
                 </Grid.Column>
                 <Grid.Column width={1}>

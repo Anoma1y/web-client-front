@@ -4,10 +4,12 @@ import {
     Icon
 } from 'semantic-ui-react'
 
-export default ({iconName}) => {
+export default ({href, iconName}) => {
     return (
         <Card.Description style={{ marginBottom: "30px" }}>
-            <Icon name={iconName} />
+            <a href={href}>
+                <Icon name={iconName} />
+            </a>
         </Card.Description>
     )
 }
