@@ -6,21 +6,21 @@ import RequestItem from 'components/RequestItem'
 
 class RequestList extends React.Component {
     renderList () {
-        return this.props.requests.items.map((item) => {
-            let btnOptions = { color: '', text: 'В обработке', callback: () => {} };
+        return this.props.requests.items.map((item, i) => {
+            let btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
 
             switch (item.status) {
                 case 0:
-                    btnOptions = { color: '', text: 'В обработке', callback: () => {} };
+                    btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
                     break;
                 case 1:
                     btnOptions = { color: 'orange', text: 'Оплатить', callback: () => {} };
                     break;
                 case 2:
-                    btnOptions = { color: '', text: 'Оплачено', callback: () => {} };
+                    btnOptions = { color: 'grey', text: 'Оплачено', callback: () => {} };
             }
             return (
-                <Card.Description>
+                <Card.Description key={i}>
                     <Divider />
                     <RequestItem
                         sum={`${item.sum} ${item.currency}`}
