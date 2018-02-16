@@ -9,7 +9,7 @@ import TimerReducer from './TimerReducer'
 export default combineReducers({
     routing: routerReducer,
     requests: RequestsReducer,
-    calculator: CalculatorReducer,
     roadmap: RoadmapReducer,
+    calculator: CalculatorReducer,
     timer: TimerReducer
 })

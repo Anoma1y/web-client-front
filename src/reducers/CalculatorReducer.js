@@ -53,9 +53,6 @@ const INITIAL_STATE = {
         }
     ]
 };
-// const CHANGE_CURRENT_CURRENCY = "calculator/CHANGE_CURRENT_CURRENCY";
-// const CHANGE_SUM_VALUE = "calculator/CHANGE_SUM_VALUE";
-// const CHANGE_CALCULATOR = "calculator/CHANGE_CALCULATOR";
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
