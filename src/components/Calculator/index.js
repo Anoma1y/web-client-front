@@ -252,8 +252,8 @@ class Calculator extends Component {
                                                 value={tokenValue}
                                                 onChange={this.handleToken}
                                                 size={"big"}
-                                                // label={{ basic: true, content: 'TKN' }}
-                                                // labelPosition='left'
+                                                label={{ basic: true, content: 'TKN' }}
+                                                labelPosition='left'
                                             />
                                             <Label as={"span"}>
                                                 Total: {transferData.TKN}
@@ -265,8 +265,8 @@ class Calculator extends Component {
                                                 onChange={this.handleCurrency}
                                                 value={sumValue}
                                                 size={"big"}
-                                                // label={{ basic: true, content: currencyValue }}
-                                                // labelPosition='left'
+                                                label={{ basic: true, content: currencyValue }}
+                                                labelPosition='left'
                                             />
                                         </Form.Field>
                                     </Form.Group>
