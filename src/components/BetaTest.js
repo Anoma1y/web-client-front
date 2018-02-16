@@ -8,7 +8,7 @@ class RequestList extends React.Component {
     render () {
         return (
             <div>
-                <Card fluid color={'violet'}>
+                <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                     <Card.Content>
                         <Card.Header>Beta Test</Card.Header>
                         <Card.Description>
