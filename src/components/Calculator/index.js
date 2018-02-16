@@ -12,6 +12,7 @@ import {
     Progress,
     Icon,
     Card,
+    Label,
     Divider,
     Form
 } from 'semantic-ui-react'
@@ -105,7 +106,6 @@ class Calculator extends Component {
             BTC = value;
         }
         
-        console.log(234);
         const progressBar = this.handleProgressBar(TKNvalue);
         return {
             sumValue: value,
@@ -232,7 +232,7 @@ class Calculator extends Component {
 
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue } = this.props.calculator;
+        const { tokenValue, currencyValue, sumValue, transferData } = this.props.calculator;
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
@@ -242,28 +242,39 @@ class Calculator extends Component {
                         <Grid.Row>
                             { this.renderCurrencyButton() }
                         </Grid.Row>
-                        <Grid.Row columns={2}>
+                        <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Input
-                                    placeholder={currencyValue}
-                                    onChange={this.handleCurrency}
-                                    value={sumValue}
-                                    style={{width: "100%"}}
-                                    size={"big"}
-                                    label={{ basic: true, content: currencyValue }}
-                                    labelPosition='left'
-                                />
-                            </Grid.Column>
-                            <Grid.Column>
-                                <Input
-                                    placeholder={"TCT"}
-                                    value={tokenValue}
-                                    onChange={this.handleToken}
-                                    style={{width: "100%"}}
-                                    size={"big"}
-                                    label={{ basic: true, content: 'TKN' }}
-                                    labelPosition='left'
-                                />
+                                <Form>
+                                    <Form.Group widths='equal'>
+                                        <Form.Field>
+                                            <Input
+                                                placeholder={currencyValue}
+                                                onChange={this.handleCurrency}
+                                                value={sumValue}
+                                                style={{width: "100%"}}
+                                                size={"big"}
+                                                label={{ basic: true, content: currencyValue }}
+                                                labelPosition='left'
+                                            />
+                                        </Form.Field>
+                                        <Form.Field>
+                                            <Input
+                                                placeholder={"TCT"}
+                                                value={tokenValue}
+                                                onChange={this.handleToken}
+                                                style={{width: "100%"}}
+                                                size={"big"}
+                                                label={{ basic: true, content: 'TKN' }}
+                                                labelPosition='left'
+                                            />
+                                            <Label as={"span"}>
+                                                Total: {transferData.TKN}
+                                            </Label>
+                                        </Form.Field>
+                                    </Form.Group>
+                                </Form>
+
+
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
