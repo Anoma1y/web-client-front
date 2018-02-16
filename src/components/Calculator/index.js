@@ -273,8 +273,6 @@ class Calculator extends Component {
                                         </Form.Field>
                                     </Form.Group>
                                 </Form>
-
-
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
