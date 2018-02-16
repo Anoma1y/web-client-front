@@ -5,6 +5,7 @@ import Calculator from 'components/Calculator'
 import RequestList from 'components/RequestList'
 import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
+import DownloadList from "components/DownloadList";
 const Home = () => (
     <Container>
         <Grid>
@@ -21,7 +22,7 @@ const Home = () => (
                 <Grid.Column width={6}>
                     <Grid.Row>
                         <BetaTest />
-
+                        <DownloadList />
                     </Grid.Row>
                 </Grid.Column>
             </Grid.Row>
