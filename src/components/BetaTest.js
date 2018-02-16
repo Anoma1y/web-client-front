@@ -5,8 +5,6 @@ import {
 } from 'semantic-ui-react'
 
 class RequestList extends React.Component {
-
-
     render () {
         return (
             <div>
