@@ -150,7 +150,7 @@ class Calculator extends Component {
         };
     }
 
-    checkMaximum = value => value > 100;
+    checkMaximum = value => value >= 100;
 
     bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
 
@@ -314,7 +314,7 @@ class Calculator extends Component {
                             <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
-                            <Grid.Column widescreen={5} computer={5} tablet={6} mobile={6}>
+                            <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
                                 <span className={isMaximum === true ? "active": ""}>
                                     <Icon name={"warning sign"} />
                                     Вы достигли лимита
