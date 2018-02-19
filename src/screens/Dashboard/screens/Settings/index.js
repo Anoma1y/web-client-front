@@ -12,7 +12,7 @@ const Settings = () => (
 
                 <Grid.Column widescreen={5} computer={5} tablet={16} mobile={16} >
                     <Grid>
-    
+
                         <Grid.Column widescreen={16} computer={16} tablet={8} mobile={16}>
                             <Grid.Row>
                                 <ChangePassword/>
