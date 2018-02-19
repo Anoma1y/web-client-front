@@ -266,10 +266,11 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Form>
-                                    <Form.Group widths='equal'>
-                                        <Form.Field>
+                                <Form unstackable>
+                                    <Form.Group>
+                                        <Form.Field width={8}>
                                             <Input
+                                                fluid
                                                 placeholder={"TCT"}
                                                 value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
                                                 onChange={this.handleToken}
@@ -278,12 +279,13 @@ class Calculator extends Component {
                                                 onFocus={this.handleFocus}
                                                 ref={(input) => {this.inputToken = input}}
                                             />
-                                            <Label as={"span"}>
-                                                Total: {`${transferData.TKN} TCT`}
+                                            <Label as={"span"} style={{marginTop: "5px", fontSize: "16px"}}>
+                                            Total: {`${transferData.TKN} TCT`}
                                             </Label>
                                         </Form.Field>
-                                        <Form.Field>
+                                        <Form.Field width={8}>
                                             <Input
+                                                fluid
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
                                                 value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
@@ -296,6 +298,40 @@ class Calculator extends Component {
                                     </Form.Group>
                                 </Form>
                             </Grid.Column>
+                            {/*<Grid.Column width={8}>*/}
+                            {/*/!*<Grid.Column>*!/*/}
+                                {/*/!*<Form>*!/*/}
+                                    {/*/!*<Form.Group>*!/*/}
+                                        {/*/!*<Form.Field width={8}>*!/*/}
+                                            {/*<Input*/}
+                                                {/*placeholder={"TCT"}*/}
+                                                {/*value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}*/}
+                                                {/*onChange={this.handleToken}*/}
+                                                {/*size={"large"}*/}
+                                                {/*onBlur={this.handleBlur}*/}
+                                                {/*onFocus={this.handleFocus}*/}
+                                                {/*ref={(input) => {this.inputToken = input}}*/}
+                                            {/*/>*/}
+                                            {/*/!*<Label as={"span"} style={{marginTop: "5px", fontSize: "16px"}}>*!/*/}
+                                                {/*/!*Total: {`${transferData.TKN} TCT`}*!/*/}
+                                            {/*/!*</Label>*!/*/}
+                                        {/*/!*</Form.Field>*!/*/}
+                                        {/*/!*<Form.Field width={8}>*!/*/}
+                            {/*</Grid.Column>*/}
+                            {/*<Grid.Column>*/}
+                                            {/*<Input*/}
+                                                {/*placeholder={currencyValue}*/}
+                                                {/*onChange={this.handleCurrency}*/}
+                                                {/*value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}*/}
+                                                {/*size={"large"}*/}
+                                                {/*onBlur={this.handleBlur}*/}
+                                                {/*onFocus={this.handleFocus}*/}
+                                                {/*ref={(input) => {this.inputCurrency = input}}*/}
+                                            {/*/>*/}
+                                        {/*/!*</Form.Field>*!/*/}
+                                    {/*/!*</Form.Group>*!/*/}
+                                {/*/!*</Form>*!/*/}
+                            {/*</Grid.Column>*/}
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
@@ -306,13 +342,13 @@ class Calculator extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column width={2}>
+                            <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
                                 <p>Бонус</p>
                             </Grid.Column>
-                            <Grid.Column width={6}>
+                            <Grid.Column widescreen={6} computer={6} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
-                            <Grid.Column width={5}>
+                            <Grid.Column widescreen={5} computer={5} tablet={6} mobile={6}>
                                 <span className={isMaximum === true ? "active": ""}>
                                     <Icon name={"warning sign"} />
                                     Вы достигли лимита
