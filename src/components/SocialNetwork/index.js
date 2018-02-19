@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {
     Grid,
-    Segment,
-    Icon
+    Segment
 } from 'semantic-ui-react'
 import SocialNetworkItem from './SocialNetworkItem'
 
