@@ -8,7 +8,7 @@ const SignupComponent = (props) => (
     <div>
         <Button.Group fluid widths='2'>
             <Button onClick={() => props.changePage()}>Вход</Button>
-            <Button color={'violet'} disabled>Регистрация</Button>
+            <Button color={'orange'} disabled>Регистрация</Button>
         </Button.Group>
         <Card fluid color={'violet'}>
             <Card.Content>

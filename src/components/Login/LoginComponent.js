@@ -7,7 +7,7 @@ import { push } from 'react-router-redux'
 const LoginComponent = (props) => (
     <div>
         <Button.Group fluid widths='2'>
-            <Button color={'violet'} disabled>Вход</Button>
+            <Button color={'orange'} disabled>Вход</Button>
             <Button onClick={() => props.changePage()}>Регистрация</Button>
         </Button.Group>
         <Card fluid color={'violet'}>
