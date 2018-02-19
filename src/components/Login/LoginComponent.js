@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Card, Input, Button } from 'semantic-ui-react'
+import { Card, Input, Button } from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
@@ -12,12 +12,10 @@ const LoginComponent = (props) => (
         </Button.Group>
         <Card fluid color={'violet'}>
             <Card.Content>
-                <Card.Header>Вход</Card.Header>
-                <Divider />
                 <Card.Description>
                     <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}/>
                     <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}} />
-                    <Button fluid>Вход</Button>
+                    <Button fluid>Войти</Button>
                 </Card.Description>
             </Card.Content>
         </Card>
