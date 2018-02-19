@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Button, Card, Divider, Input} from 'semantic-ui-react'
+import { Button, Card, Divider} from 'semantic-ui-react'
 
 import IdentificationImgUpload from './IdentificationImgUpload'
 
@@ -13,9 +13,6 @@ class Identification extends React.Component {
     }
 
     renderUploadForm() {
-        const text = 'Cras consectetur ac metus vitae lobortis. In pulvinar urna nunc, quis gravida ante ultrices vel. ' +
-            'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.';
-
         // TODO: Add constants to form type
         switch (this.state.templateForm) {
             case 1:
@@ -38,6 +35,8 @@ class Identification extends React.Component {
                         />
                     )
                 });
+            default:
+                return
         }
     }
 
