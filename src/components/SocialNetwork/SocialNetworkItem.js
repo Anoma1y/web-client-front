@@ -8,7 +8,7 @@ export default ({href, iconName}) => {
     return (
         <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1} textAlign={"center"}>
             <a href={href} target={"_blank"} style={{color: "black"}}>
-                <Icon name={iconName} style={{ marginBottom: "25px" }}/>
+                <Icon name={iconName} style={{ margin: "18px 0" }}/>
             </a>
         </Grid.Column>
     )

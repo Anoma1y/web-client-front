@@ -18,7 +18,7 @@ class SocialNetwork extends Component {
     }
     render() {
         return (
-            <Segment style={{padding: "10px 0", textAlign: "center"}}>
+            <Segment style={{padding: "0", textAlign: "center"}}>
                 <Grid>
                     <Grid.Row centered columns={"equal"}>
 
