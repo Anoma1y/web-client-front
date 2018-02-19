@@ -1,21 +1,43 @@
-import React from 'react'
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Header, Button } from 'semantic-ui-react'
+import React, {Component} from 'react';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Header, Button } from 'semantic-ui-react';
+import axios from 'axios';
+class Home extends Component {
 
-const Home = props => (
-    <div>
-        <Header as={'h1'}>Home</Header>
-        <Button onClick={() => props.changePage()}>Go to login</Button>
-    </div>
-);
+    componentDidMount() {
+        axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=2')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: () => push('/login')
-}, dispatch);
+    componentWillMount() {
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(Home)
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+    }
+
+
+    render() {
+        return (
+            <div>
+                <h1>111</h1>
+            </div>
+        );
+    }
+
+}
+export default connect(state => ({ home: state.home }), {
+
+})(Home);
