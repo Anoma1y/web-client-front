@@ -21,35 +21,37 @@ class SocialNetwork extends Component {
         return (
             <Segment style={{padding: "0", textAlign: "center"}}>
                 <Grid>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Icon name="signal" style={{ marginBottom: "20px" }} />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Icon name="signal" style={{ marginBottom: "20px" }} />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Icon name="signal" style={{ marginBottom: "20px" }} />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Icon name="signal" style={{ marginBottom: "20px" }} />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Icon name="signal" style={{ marginBottom: "20px" }} />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Icon name="signal" style={{ marginBottom: "20px" }} />
-                        </Grid.Column>
+                    <Grid.Row centered columns={"equal"}>
+
+                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
+                                <Icon name="signal" style={{ marginBottom: "20px" }} />
+                            </Grid.Column>
+
+
+                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
+                                <Icon name="signal" style={{ marginBottom: "20px" }} />
+                            </Grid.Column>
+
+
+                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
+                                <Icon name="signal" style={{ marginBottom: "20px" }} />
+                            </Grid.Column>
+
+
+                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
+                                <Icon name="signal" style={{ marginBottom: "20px" }} />
+                            </Grid.Column>
+
+
+                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
+                                <Icon name="signal" style={{ marginBottom: "20px" }} />
+                            </Grid.Column>
+
+
+                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
+                                <Icon name="signal" style={{ marginBottom: "20px" }} />
+                            </Grid.Column>
+
                     </Grid.Row>
                     {/*{this.renderSocialList()}*/}
                 </Grid>
