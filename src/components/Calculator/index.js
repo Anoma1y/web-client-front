@@ -229,6 +229,16 @@ class Calculator extends Component {
             )
         })
     }
+    state = {
+        addTextToken: true,
+        addTextCurrency: true
+    }
+    addPlaceholder = (e) => {
+        console.log(this.currentInput.focus());
+        // this.setState({
+        //     addTextCurrency: false
+        // })
+    }
 
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
@@ -249,11 +259,12 @@ class Calculator extends Component {
                                         <Form.Field>
                                             <Input
                                                 placeholder={"TCT"}
-                                                value={tokenValue}
+                                                value={this.state.addTextToken ? `${tokenValue} TCT`: tokenValue}
                                                 onChange={this.handleToken}
-                                                size={"big"}
-                                                label={{ basic: true, content: 'TKN' }}
-                                                labelPosition='left'
+                                                size={"large"}
+                                                onFocus={this.addPlaceholder}
+                                                // label={{ basic: true, content: 'TKN' }}
+                                                // labelPosition='left'
                                             />
                                             <Label as={"span"}>
                                                 Total: {transferData.TKN}
@@ -263,10 +274,12 @@ class Calculator extends Component {
                                             <Input
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={sumValue}
-                                                size={"big"}
-                                                label={{ basic: true, content: currencyValue }}
-                                                labelPosition='left'
+                                                value={this.state.addTextCurrency ? `${tokenValue} ${currencyValue}`: sumValue}
+                                                ref={(input) => {this.currentInput = input}}
+                                                size={"large"}
+                                                onFocus={this.addPlaceholder}
+                                                // label={{ basic: true, content: currencyValue }}
+                                                // labelPosition='left'
                                             />
                                         </Form.Field>
                                     </Form.Group>
