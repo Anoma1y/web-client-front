@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {
-    List,
     Grid,
     Segment,
     Icon
@@ -19,41 +18,14 @@ class SocialNetwork extends Component {
     }
     render() {
         return (
-            <Segment style={{padding: "0", textAlign: "center"}}>
+            <Segment style={{padding: "10px 0", textAlign: "center"}}>
                 <Grid>
                     <Grid.Row centered columns={"equal"}>
 
-                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
-                                <Icon name="signal" style={{ marginBottom: "20px" }} />
-                            </Grid.Column>
-
-
-                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
-                                <Icon name="signal" style={{ marginBottom: "20px" }} />
-                            </Grid.Column>
-
-
-                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
-                                <Icon name="signal" style={{ marginBottom: "20px" }} />
-                            </Grid.Column>
-
-
-                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
-                                <Icon name="signal" style={{ marginBottom: "20px" }} />
-                            </Grid.Column>
-
-
-                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
-                                <Icon name="signal" style={{ marginBottom: "20px" }} />
-                            </Grid.Column>
-
-
-                            <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1}>
-                                <Icon name="signal" style={{ marginBottom: "20px" }} />
-                            </Grid.Column>
+                        {this.renderSocialList()}
 
                     </Grid.Row>
-                    {/*{this.renderSocialList()}*/}
+
                 </Grid>
             </Segment>
         );

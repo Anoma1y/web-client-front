@@ -1,22 +1,22 @@
 const INITIAL_STATE = {
     socialNetwork: [{
         name: "facebook f",
-        href: "#"
+        href: "http://www.google.com"
     },{
         name: "vk",
-        href: "#"
+        href: "http://www.google.com"
     },{
         name: "twitter",
-        href: "#"
+        href: "http://www.google.com"
     },{
         name: "telegram",
-        href: "#"
+        href: "http://www.google.com"
     },{
         name: "medium",
-        href: "#"
+        href: "http://www.google.com"
     },{
         name: "reddit alien",
-        href: "#"
+        href: "http://www.google.com"
     }]
 };
 
