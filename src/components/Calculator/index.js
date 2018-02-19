@@ -235,34 +235,31 @@ class Calculator extends Component {
         })
     }
 
-    handleBlur = (e) => {
+    checkSuffix = (event, handleType) => {
         const suffixTexT = {
             suffixToken: true,
             suffixCurrency: true
         }
-        if (this.inputToken.inputRef === e.target) {
-            suffixTexT.suffixToken = true;
-        } else if (this.inputCurrency.inputRef === e.target) {
-            suffixTexT.suffixCurrency = true
+        if (this.inputToken.inputRef === event.target) {
+            suffixTexT.suffixToken = handleType !== "FOCUS";
+        } else if (this.inputCurrency.inputRef === event.target) {
+            suffixTexT.suffixCurrency = handleType !== "FOCUS";
         }
+        return suffixTexT;
+    }
+
+    handleBlur = (e) => {
         const { checkSuffixText } = this.props;
-        checkSuffixText(suffixTexT);
+        const suffixText = this.checkSuffix(e, "BLUR");
+        checkSuffixText(suffixText);
     }
 
     handleFocus = (e) => {
-        const suffixTexT = {
-            suffixToken: true,
-            suffixCurrency: true
-        }
-        if (this.inputToken.inputRef === e.target) {
-            suffixTexT.suffixToken = false;
-        } else if (this.inputCurrency.inputRef === e.target) {
-            suffixTexT.suffixCurrency = false
-        }
         const { checkSuffixText } = this.props;
-        checkSuffixText(suffixTexT);
+        const suffixText = this.checkSuffix(e, "FOCUS");
+        checkSuffixText(suffixText);
     }
-    
+
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText } = this.props.calculator;
