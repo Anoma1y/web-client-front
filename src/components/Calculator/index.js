@@ -181,16 +181,13 @@ class Calculator extends Component {
     }
 
     handleToken = (e, {value}) => {
-        // const checkNumber = /^\d*\.?\d*$/;
-        // const checkDoth = /^\./;
-        // if (!value.match(checkNumber) || value.match(checkDoth)) {
-        //     return;
-        // }
-        if (!value.match(/^\d/)) {
+        const checkNumber = /^\d*\.?\d*$/;
+        const checkDoth = /^\./;
+        if (!value.match(checkNumber) || value.match(checkDoth)) {
             return;
         }
         console.log(parseInt(value));
-        this.changeState(this.calcToken(parseInt(value)))
+        this.changeState(this.calcToken(value));
     }
 
     handleCurrency = (e, {value}) => {
@@ -199,7 +196,7 @@ class Calculator extends Component {
         if (!value.match(checkNumber) || value.match(checkDoth)) {
             return 0;
         }
-        this.changeState(this.calcCurrency(parseInt(value)))
+        this.changeState(this.calcCurrency(value));
     }
 
     handleChange = (e, {value}) => {
