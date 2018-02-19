@@ -7,7 +7,6 @@ import RoadmapReducer from "./RoadmapReducer";
 import TimerReducer from './TimerReducer';
 import SocialNetworkReducer from './SocialNetworkReducer';
 import SettingsReducer from './SettingsReducer'
-import testReducer from './testReducer';
 
 export default combineReducers({
     routing: routerReducer,
@@ -16,6 +15,5 @@ export default combineReducers({
     calculator: CalculatorReducer,
     timer: TimerReducer,
     socialNetwork: SocialNetworkReducer,
-    test: testReducer,
     settings: SettingsReducer,
 })

@@ -1,1 +1,0 @@
-export const GET_CURRENCY = "test/GET_CURRENCY";
