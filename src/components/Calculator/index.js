@@ -163,11 +163,7 @@ class Calculator extends Component {
         const USD = TKN *  value;
         const BTC = (TKN / currency[0].price_usd) * value;
         const ETH = (TKN / currency[1].price_usd) * value;
-        return {
-            USD,
-            BTC,
-            ETH
-        }
+        return { USD, BTC, ETH }
     }
 
     changeState = value => {
@@ -180,17 +176,16 @@ class Calculator extends Component {
         this.changeState(this.calcToken(tokenValue))
     }
 
-    handleToken = (e, {value}) => {
+    handleToken = (event, {value}) => {
         const checkNumber = /^\d*\.?\d*$/;
         const checkDoth = /^\./;
         if (!value.match(checkNumber) || value.match(checkDoth)) {
             return;
         }
-        console.log(parseInt(value));
         this.changeState(this.calcToken(value));
     }
 
-    handleCurrency = (e, {value}) => {
+    handleCurrency = (event, {value}) => {
         const checkNumber = /^\d*\.?\d*$/;
         const checkDoth = /^\./;
         if (!value.match(checkNumber) || value.match(checkDoth)) {
@@ -199,9 +194,34 @@ class Calculator extends Component {
         this.changeState(this.calcCurrency(value));
     }
 
-    handleChange = (e, {value}) => {
+    handleChange = (event, {value}) => {
         const { changeCurrencyValue } = this.props;
         changeCurrencyValue(value);
+    }
+
+    checkSuffix = (event, handleType) => {
+        const suffixText = {
+            suffixToken: true,
+            suffixCurrency: true
+        }
+        if (this.inputToken.inputRef === event.target) {
+            suffixText.suffixToken = handleType !== "FOCUS";
+        } else if (this.inputCurrency.inputRef === event.target) {
+            suffixText.suffixCurrency = handleType !== "FOCUS";
+        }
+        return suffixText;
+    }
+
+    handleBlur = (event) => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "BLUR");
+        checkSuffixText(suffixText);
+    }
+
+    handleFocus = (event) => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "FOCUS");
+        checkSuffixText(suffixText);
     }
 
     renderBonusLabel = () => {
@@ -232,31 +252,6 @@ class Calculator extends Component {
         })
     }
 
-    checkSuffix = (event, handleType) => {
-        const suffixTexT = {
-            suffixToken: true,
-            suffixCurrency: true
-        }
-        if (this.inputToken.inputRef === event.target) {
-            suffixTexT.suffixToken = handleType !== "FOCUS";
-        } else if (this.inputCurrency.inputRef === event.target) {
-            suffixTexT.suffixCurrency = handleType !== "FOCUS";
-        }
-        return suffixTexT;
-    }
-
-    handleBlur = (e) => {
-        const { checkSuffixText } = this.props;
-        const suffixText = this.checkSuffix(e, "BLUR");
-        checkSuffixText(suffixText);
-    }
-
-    handleFocus = (e) => {
-        const { checkSuffixText } = this.props;
-        const suffixText = this.checkSuffix(e, "FOCUS");
-        checkSuffixText(suffixText);
-    }
-
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText } = this.props.calculator;
@@ -282,8 +277,6 @@ class Calculator extends Component {
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
                                                 ref={(input) => {this.inputToken = input}}
-                                                // label={{ basic: true, content: 'TKN' }}
-                                                // labelPosition='left'
                                             />
                                             <Label as={"span"}>
                                                 Total: {`${transferData.TKN} TCT`}
@@ -298,8 +291,6 @@ class Calculator extends Component {
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
                                                 ref={(input) => {this.inputCurrency = input}}
-                                                // label={{ basic: true, content: currencyValue }}
-                                                // labelPosition='left'
                                             />
                                         </Form.Field>
                                     </Form.Group>
