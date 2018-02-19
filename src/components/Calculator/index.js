@@ -239,12 +239,28 @@ class Calculator extends Component {
         textAppendCurrency: true
     }
 
-    handleBlur = () => {
-        console.log(1);
+    handleBlur = (e) => {
+        if (this.inputToken.inputRef === e.target) {
+            this.setState({
+                textAppendToken: true
+            })
+        } else if (this.inputCurrency.inputRef === e.target) {
+            this.setState({
+                textAppendCurrency: true
+            })
+        }
     }
 
-    handleFocus = () => {
-        console.log(2);
+    handleFocus = (e) => {
+        if (this.inputToken.inputRef === e.target) {
+            this.setState({
+                textAppendToken: false
+            })
+        } else if (this.inputCurrency.inputRef === e.target) {
+            this.setState({
+                textAppendCurrency: false
+            })
+        }
     }
     
     render() {
@@ -271,6 +287,7 @@ class Calculator extends Component {
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
+                                                ref={(input) => {this.inputToken = input}}
                                                 // label={{ basic: true, content: 'TKN' }}
                                                 // labelPosition='left'
                                             />
@@ -284,6 +301,9 @@ class Calculator extends Component {
                                                 onChange={this.handleCurrency}
                                                 value={this.state.textAppendCurrency ? `${sumValue} ${currencyValue}` : sumValue}
                                                 size={"large"}
+                                                onBlur={this.handleBlur}
+                                                onFocus={this.handleFocus}
+                                                ref={(input) => {this.inputCurrency = input}}
                                                 // label={{ basic: true, content: currencyValue }}
                                                 // labelPosition='left'
                                             />
