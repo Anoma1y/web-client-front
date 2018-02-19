@@ -235,31 +235,21 @@ class Calculator extends Component {
     }
 
     state = {
-        textAppendToken: true,
-        textAppendCurrency: true
+        suffixText: {
+            suffixToken: true,
+            suffixCurrency: true
+        }
     }
 
     handleBlur = (e) => {
         if (this.inputToken.inputRef === e.target) {
-            this.setState({
-                textAppendToken: true
-            })
         } else if (this.inputCurrency.inputRef === e.target) {
-            this.setState({
-                textAppendCurrency: true
-            })
         }
     }
 
     handleFocus = (e) => {
         if (this.inputToken.inputRef === e.target) {
-            this.setState({
-                textAppendToken: false
-            })
         } else if (this.inputCurrency.inputRef === e.target) {
-            this.setState({
-                textAppendCurrency: false
-            })
         }
     }
     
@@ -282,7 +272,7 @@ class Calculator extends Component {
                                         <Form.Field>
                                             <Input
                                                 placeholder={"TCT"}
-                                                value={this.state.textAppendToken ? `${tokenValue} TCT` : tokenValue}
+                                                value={this.state.suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
                                                 onChange={this.handleToken}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
@@ -299,7 +289,7 @@ class Calculator extends Component {
                                             <Input
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={this.state.textAppendCurrency ? `${sumValue} ${currencyValue}` : sumValue}
+                                                value={this.state.suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
