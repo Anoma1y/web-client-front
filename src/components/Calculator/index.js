@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {
     changeTransferData,
-    changeCurrencyValue
+    changeCurrencyValue,
+    checkSuffixText
 } from 'actions/calculator';
 import {
     Grid,
@@ -234,28 +235,37 @@ class Calculator extends Component {
         })
     }
 
-    state = {
-        suffixText: {
+    handleBlur = (e) => {
+        const suffixTexT = {
             suffixToken: true,
             suffixCurrency: true
         }
-    }
-
-    handleBlur = (e) => {
         if (this.inputToken.inputRef === e.target) {
+            suffixTexT.suffixToken = true;
         } else if (this.inputCurrency.inputRef === e.target) {
+            suffixTexT.suffixCurrency = true
         }
+        const { checkSuffixText } = this.props;
+        checkSuffixText(suffixTexT);
     }
 
     handleFocus = (e) => {
-        if (this.inputToken.inputRef === e.target) {
-        } else if (this.inputCurrency.inputRef === e.target) {
+        const suffixTexT = {
+            suffixToken: true,
+            suffixCurrency: true
         }
+        if (this.inputToken.inputRef === e.target) {
+            suffixTexT.suffixToken = false;
+        } else if (this.inputCurrency.inputRef === e.target) {
+            suffixTexT.suffixCurrency = false
+        }
+        const { checkSuffixText } = this.props;
+        checkSuffixText(suffixTexT);
     }
     
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue, transferData } = this.props.calculator;
+        const { tokenValue, currencyValue, sumValue, transferData, suffixText } = this.props.calculator;
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
@@ -272,7 +282,7 @@ class Calculator extends Component {
                                         <Form.Field>
                                             <Input
                                                 placeholder={"TCT"}
-                                                value={this.state.suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
+                                                value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
                                                 onChange={this.handleToken}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
@@ -289,7 +299,7 @@ class Calculator extends Component {
                                             <Input
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={this.state.suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
+                                                value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
@@ -348,5 +358,6 @@ class Calculator extends Component {
 
 export default connect(state => ({ calculator: state.calculator }), {
     changeCurrencyValue,
-    changeTransferData
+    changeTransferData,
+    checkSuffixText
 })(Calculator);

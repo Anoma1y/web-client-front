@@ -67,8 +67,8 @@ export default (state = INITIAL_STATE, action) => {
         case C.CHANGE_TRANSFER_DATA:
             const { sumValue, progressBar, tokenValue, bonus, transferData } = action.payload;
             return {...state,  sumValue, progressBar, tokenValue, bonus, transferData};
-        case C.CHECK_APPEND_TEXT:
-            return {...state};
+        case C.CHECK_SUFFIX_TEXT:
+            return {...state, suffixText: action.payload};
         default:
             return state;
     }
