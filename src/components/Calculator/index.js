@@ -279,7 +279,7 @@ class Calculator extends Component {
                                                 onFocus={this.handleFocus}
                                                 ref={(input) => {this.inputToken = input}}
                                             />
-                                            <Label as={"span"} style={{marginTop: "5px", fontSize: "16px"}}>
+                                            <Label as={"span"} style={{marginTop: "7px", fontSize: "16px"}}>
                                                 <span>Total: {`${transferData.TKN} TCT`}</span>
                                             </Label>
                                         </Form.Field>
