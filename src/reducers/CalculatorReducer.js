@@ -1,7 +1,7 @@
 import * as C from 'actions/calculator/types';
 
 const INITIAL_STATE = {
-    TKN: 1,
+    TKN: 0.001,
     bonus: [
         {
             value: 2.5,
@@ -60,6 +60,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case C.INITIALIZING_TKN:
+            return {...state, TKN: action.payload};
         case C.CHANGE_CURRENT_CURRENCY:
             return {...state, currencyValue: action.payload};
         case C.CHANGE_SUM_VALUE:

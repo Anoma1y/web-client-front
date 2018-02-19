@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
     changeTransferData,
     changeCurrencyValue,
-    checkSuffixText
+    checkSuffixText,
+    initializingTKN
 } from 'actions/calculator';
 import {
     Grid,
@@ -154,7 +155,7 @@ class Calculator extends Component {
 
     checkMaximum = value => value >= 100;
 
-    bonusCalc = (val, bonus) => (1 * val)  + ((1 * val) * (bonus / 100));
+    bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
 
     transferToTKNbonus = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
 
@@ -174,6 +175,11 @@ class Calculator extends Component {
         changeTransferData(value);
     }
 
+    componentWillMount() {
+        const { initializingTKN, calculator } = this.props;
+        const TKN = calculator.currency[1].price_usd * 0.001;
+        initializingTKN(TKN);
+    }
     componentDidMount() {
         const { tokenValue } = this.props.calculator;
         this.changeState(this.calcToken(tokenValue))
@@ -349,5 +355,6 @@ class Calculator extends Component {
 export default connect(state => ({ calculator: state.calculator }), {
     changeCurrencyValue,
     changeTransferData,
-    checkSuffixText
+    checkSuffixText,
+    initializingTKN
 })(Calculator);
