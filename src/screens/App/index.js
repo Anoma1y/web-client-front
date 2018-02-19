@@ -5,6 +5,7 @@ import Home from 'screens/Home'
 import Login from 'screens/Login'
 import Signup from 'screens/Signup'
 import Dashboard from 'screens/Dashboard'
+import ResetPassword from 'screens/ResetPassword'
 
 const App = (props) => (
     <div>
@@ -13,6 +14,7 @@ const App = (props) => (
                 <List.Item><Link to={'/'}>Home</Link></List.Item>
                 <List.Item><Link to={'/login'}>Login</Link></List.Item>
                 <List.Item><Link to={'/signup'}>Signup</Link></List.Item>
+                <List.Item><Link to={'/reset'}>Reset</Link></List.Item>
                 <List.Item><Link to={'/dashboard'}>Dashboard</Link></List.Item>
             </List>
         </header>
@@ -24,6 +26,7 @@ const App = (props) => (
                 <Route exact path={'/login'} component={Login} />
                 <Route exact path={'/signup'} component={Signup} />
                 <Route path={'/dashboard'} component={Dashboard} />
+                <Route path={'/reset'} component={ResetPassword} />
             </Switch>
         </main>
     </div>
