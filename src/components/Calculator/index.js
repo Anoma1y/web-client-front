@@ -239,6 +239,14 @@ class Calculator extends Component {
         textAppendCurrency: true
     }
 
+    handleBlur = () => {
+        console.log(1);
+    }
+
+    handleFocus = () => {
+        console.log(2);
+    }
+    
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData } = this.props.calculator;
@@ -258,9 +266,11 @@ class Calculator extends Component {
                                         <Form.Field>
                                             <Input
                                                 placeholder={"TCT"}
-                                                value={tokenValue}
+                                                value={this.state.textAppendToken ? `${tokenValue} TCT` : tokenValue}
                                                 onChange={this.handleToken}
                                                 size={"large"}
+                                                onBlur={this.handleBlur}
+                                                onFocus={this.handleFocus}
                                                 // label={{ basic: true, content: 'TKN' }}
                                                 // labelPosition='left'
                                             />
@@ -272,7 +282,7 @@ class Calculator extends Component {
                                             <Input
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={sumValue}
+                                                value={this.state.textAppendCurrency ? `${sumValue} ${currencyValue}` : sumValue}
                                                 size={"large"}
                                                 // label={{ basic: true, content: currencyValue }}
                                                 // labelPosition='left'
