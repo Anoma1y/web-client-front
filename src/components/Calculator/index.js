@@ -241,7 +241,7 @@ class Calculator extends Component {
         const { currencyValue, currency } = this.props.calculator;
         return currency.map(item => {
             return (
-                <Grid.Column width={2} key={item["id"]}>
+                <Grid.Column widescreen={2} computer={2} tablet={3} mobile={4} key={item["id"]}>
                     <CurrencyButton
                         buttonTitle={item["symbol"]}
                         handleChange={this.handleChange}
@@ -280,7 +280,7 @@ class Calculator extends Component {
                                                 ref={(input) => {this.inputToken = input}}
                                             />
                                             <Label as={"span"} style={{marginTop: "5px", fontSize: "16px"}}>
-                                            Total: {`${transferData.TKN} TCT`}
+                                                <span>Total: {`${transferData.TKN} TCT`}</span>
                                             </Label>
                                         </Form.Field>
                                         <Form.Field width={8}>
@@ -298,40 +298,6 @@ class Calculator extends Component {
                                     </Form.Group>
                                 </Form>
                             </Grid.Column>
-                            {/*<Grid.Column width={8}>*/}
-                            {/*/!*<Grid.Column>*!/*/}
-                                {/*/!*<Form>*!/*/}
-                                    {/*/!*<Form.Group>*!/*/}
-                                        {/*/!*<Form.Field width={8}>*!/*/}
-                                            {/*<Input*/}
-                                                {/*placeholder={"TCT"}*/}
-                                                {/*value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}*/}
-                                                {/*onChange={this.handleToken}*/}
-                                                {/*size={"large"}*/}
-                                                {/*onBlur={this.handleBlur}*/}
-                                                {/*onFocus={this.handleFocus}*/}
-                                                {/*ref={(input) => {this.inputToken = input}}*/}
-                                            {/*/>*/}
-                                            {/*/!*<Label as={"span"} style={{marginTop: "5px", fontSize: "16px"}}>*!/*/}
-                                                {/*/!*Total: {`${transferData.TKN} TCT`}*!/*/}
-                                            {/*/!*</Label>*!/*/}
-                                        {/*/!*</Form.Field>*!/*/}
-                                        {/*/!*<Form.Field width={8}>*!/*/}
-                            {/*</Grid.Column>*/}
-                            {/*<Grid.Column>*/}
-                                            {/*<Input*/}
-                                                {/*placeholder={currencyValue}*/}
-                                                {/*onChange={this.handleCurrency}*/}
-                                                {/*value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}*/}
-                                                {/*size={"large"}*/}
-                                                {/*onBlur={this.handleBlur}*/}
-                                                {/*onFocus={this.handleFocus}*/}
-                                                {/*ref={(input) => {this.inputCurrency = input}}*/}
-                                            {/*/>*/}
-                                        {/*/!*</Form.Field>*!/*/}
-                                    {/*/!*</Form.Group>*!/*/}
-                                {/*/!*</Form>*!/*/}
-                            {/*</Grid.Column>*/}
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
@@ -345,7 +311,7 @@ class Calculator extends Component {
                             <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
                                 <p>Бонус</p>
                             </Grid.Column>
-                            <Grid.Column widescreen={6} computer={6} tablet={8} mobile={8}>
+                            <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
                             <Grid.Column widescreen={5} computer={5} tablet={6} mobile={6}>
