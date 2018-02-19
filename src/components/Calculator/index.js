@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {
     changeTransferData,
-    changeCurrencyValue
+    changeCurrencyValue,
+    checkSuffixText
 } from 'actions/calculator';
 import {
     Grid,
@@ -162,11 +163,7 @@ class Calculator extends Component {
         const USD = TKN *  value;
         const BTC = (TKN / currency[0].price_usd) * value;
         const ETH = (TKN / currency[1].price_usd) * value;
-        return {
-            USD,
-            BTC,
-            ETH
-        }
+        return { USD, BTC, ETH }
     }
 
     changeState = value => {
@@ -179,27 +176,52 @@ class Calculator extends Component {
         this.changeState(this.calcToken(tokenValue))
     }
 
-    handleToken = (e, {value}) => {
+    handleToken = (event, {value}) => {
         const checkNumber = /^\d*\.?\d*$/;
         const checkDoth = /^\./;
         if (!value.match(checkNumber) || value.match(checkDoth)) {
             return;
         }
-        this.changeState(this.calcToken(value))
+        this.changeState(this.calcToken(value));
     }
 
-    handleCurrency = (e, {value}) => {
+    handleCurrency = (event, {value}) => {
         const checkNumber = /^\d*\.?\d*$/;
         const checkDoth = /^\./;
         if (!value.match(checkNumber) || value.match(checkDoth)) {
-            return;
+            return 0;
         }
-        this.changeState(this.calcCurrency(value))
+        this.changeState(this.calcCurrency(value));
     }
 
-    handleChange = (e, {value}) => {
+    handleChange = (event, {value}) => {
         const { changeCurrencyValue } = this.props;
         changeCurrencyValue(value);
+    }
+
+    checkSuffix = (event, handleType) => {
+        const suffixText = {
+            suffixToken: true,
+            suffixCurrency: true
+        }
+        if (this.inputToken.inputRef === event.target) {
+            suffixText.suffixToken = handleType !== "FOCUS";
+        } else if (this.inputCurrency.inputRef === event.target) {
+            suffixText.suffixCurrency = handleType !== "FOCUS";
+        }
+        return suffixText;
+    }
+
+    handleBlur = (event) => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "BLUR");
+        checkSuffixText(suffixText);
+    }
+
+    handleFocus = (event) => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "FOCUS");
+        checkSuffixText(suffixText);
     }
 
     renderBonusLabel = () => {
@@ -232,7 +254,7 @@ class Calculator extends Component {
 
     render() {
         const { percent, isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue, transferData } = this.props.calculator;
+        const { tokenValue, currencyValue, sumValue, transferData, suffixText } = this.props.calculator;
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
@@ -249,24 +271,26 @@ class Calculator extends Component {
                                         <Form.Field>
                                             <Input
                                                 placeholder={"TCT"}
-                                                value={tokenValue}
+                                                value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
                                                 onChange={this.handleToken}
-                                                size={"big"}
-                                                label={{ basic: true, content: 'TKN' }}
-                                                labelPosition='left'
+                                                size={"large"}
+                                                onBlur={this.handleBlur}
+                                                onFocus={this.handleFocus}
+                                                ref={(input) => {this.inputToken = input}}
                                             />
                                             <Label as={"span"}>
-                                                Total: {transferData.TKN}
+                                                Total: {`${transferData.TKN} TCT`}
                                             </Label>
                                         </Form.Field>
                                         <Form.Field>
                                             <Input
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={sumValue}
-                                                size={"big"}
-                                                label={{ basic: true, content: currencyValue }}
-                                                labelPosition='left'
+                                                value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
+                                                size={"large"}
+                                                onBlur={this.handleBlur}
+                                                onFocus={this.handleFocus}
+                                                ref={(input) => {this.inputCurrency = input}}
                                             />
                                         </Form.Field>
                                     </Form.Group>
@@ -319,5 +343,6 @@ class Calculator extends Component {
 
 export default connect(state => ({ calculator: state.calculator }), {
     changeCurrencyValue,
-    changeTransferData
+    changeTransferData,
+    checkSuffixText
 })(Calculator);

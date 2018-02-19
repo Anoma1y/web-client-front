@@ -28,6 +28,10 @@ const INITIAL_STATE = {
     currencyValue: "USD",
     sumValue: 0,
     tokenValue: 10000,
+    suffixText: {
+        suffixToken: true,
+        suffixCurrency: true
+    },
     transferData: {
         USD: 0, TKN: 0, BTC: 0, ETH: 0
     },
@@ -63,6 +67,8 @@ export default (state = INITIAL_STATE, action) => {
         case C.CHANGE_TRANSFER_DATA:
             const { sumValue, progressBar, tokenValue, bonus, transferData } = action.payload;
             return {...state,  sumValue, progressBar, tokenValue, bonus, transferData};
+        case C.CHECK_SUFFIX_TEXT:
+            return {...state, suffixText: action.payload};
         default:
             return state;
     }
