@@ -180,21 +180,25 @@ class Calculator extends Component {
     }
 
     handleToken = (e, {value}) => {
-        const checkNumber = /^\d*\.?\d*$/;
-        const checkDoth = /^\./;
-        if (!value.match(checkNumber) || value.match(checkDoth)) {
+        // const checkNumber = /^\d*\.?\d*$/;
+        // const checkDoth = /^\./;
+        // if (!value.match(checkNumber) || value.match(checkDoth)) {
+        //     return;
+        // }
+        if (!value.match(/^\d/)) {
             return;
         }
-        this.changeState(this.calcToken(value))
+        console.log(parseInt(value));
+        this.changeState(this.calcToken(parseInt(value)))
     }
 
     handleCurrency = (e, {value}) => {
         const checkNumber = /^\d*\.?\d*$/;
         const checkDoth = /^\./;
         if (!value.match(checkNumber) || value.match(checkDoth)) {
-            return;
+            return 0;
         }
-        this.changeState(this.calcCurrency(value))
+        this.changeState(this.calcCurrency(parseInt(value)))
     }
 
     handleChange = (e, {value}) => {
@@ -229,15 +233,10 @@ class Calculator extends Component {
             )
         })
     }
+
     state = {
-        addTextToken: true,
-        addTextCurrency: true
-    }
-    addPlaceholder = (e) => {
-        console.log(this.currentInput.focus());
-        // this.setState({
-        //     addTextCurrency: false
-        // })
+        textAppendToken: true,
+        textAppendCurrency: true
     }
 
     render() {
@@ -259,25 +258,22 @@ class Calculator extends Component {
                                         <Form.Field>
                                             <Input
                                                 placeholder={"TCT"}
-                                                value={this.state.addTextToken ? `${tokenValue} TCT`: tokenValue}
+                                                value={tokenValue}
                                                 onChange={this.handleToken}
                                                 size={"large"}
-                                                onFocus={this.addPlaceholder}
                                                 // label={{ basic: true, content: 'TKN' }}
                                                 // labelPosition='left'
                                             />
                                             <Label as={"span"}>
-                                                Total: {transferData.TKN}
+                                                Total: {`${transferData.TKN} TCT`}
                                             </Label>
                                         </Form.Field>
                                         <Form.Field>
                                             <Input
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={this.state.addTextCurrency ? `${tokenValue} ${currencyValue}`: sumValue}
-                                                ref={(input) => {this.currentInput = input}}
+                                                value={sumValue}
                                                 size={"large"}
-                                                onFocus={this.addPlaceholder}
                                                 // label={{ basic: true, content: currencyValue }}
                                                 // labelPosition='left'
                                             />
