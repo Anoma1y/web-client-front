@@ -23,7 +23,11 @@ class Timer extends Component {
             1000
         )
     }
-
+    componentWillUnmount() {
+        const { changeTimer } = this.props;
+        changeTimer({day: 0,hour: 0, minutes: 0, seconds: 0 });
+        clearInterval(this.timerID);
+    }
     timingCalculation = () => {
         const { dateEnd, timeLeft } = this.props.timer;
         const { changeTimerEnd } = this.props;

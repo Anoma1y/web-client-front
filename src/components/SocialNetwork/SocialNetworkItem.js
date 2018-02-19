@@ -1,14 +1,15 @@
 import React from 'react';
 import {
-    List
+    Grid,
+    Icon
 } from 'semantic-ui-react'
 
 export default ({href, iconName}) => {
     return (
-        <List.Item>
-            <a href={href} style={{color: "black"}}>
-                <List.Icon name={iconName} style={{ marginBottom: "30px" }}/>
+        <Grid.Column widescreen={16} computer={16} tablet={1} mobile={1} textAlign={"center"}>
+            <a href={href} target={"_blank"} style={{color: "black"}}>
+                <Icon name={iconName} style={{ margin: "18px 0" }}/>
             </a>
-        </List.Item>
+        </Grid.Column>
     )
 }

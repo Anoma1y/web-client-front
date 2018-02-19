@@ -150,7 +150,7 @@ class Calculator extends Component {
         };
     }
 
-    checkMaximum = value => value > 100;
+    checkMaximum = value => value >= 100;
 
     bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
 
@@ -241,7 +241,7 @@ class Calculator extends Component {
         const { currencyValue, currency } = this.props.calculator;
         return currency.map(item => {
             return (
-                <Grid.Column width={2} key={item["id"]}>
+                <Grid.Column widescreen={2} computer={2} tablet={3} mobile={4} key={item["id"]}>
                     <CurrencyButton
                         buttonTitle={item["symbol"]}
                         handleChange={this.handleChange}
@@ -266,10 +266,11 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Form>
-                                    <Form.Group widths='equal'>
-                                        <Form.Field>
+                                <Form unstackable>
+                                    <Form.Group>
+                                        <Form.Field width={8}>
                                             <Input
+                                                fluid
                                                 placeholder={"TCT"}
                                                 value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
                                                 onChange={this.handleToken}
@@ -278,12 +279,13 @@ class Calculator extends Component {
                                                 onFocus={this.handleFocus}
                                                 ref={(input) => {this.inputToken = input}}
                                             />
-                                            <Label as={"span"}>
-                                                Total: {`${transferData.TKN} TCT`}
+                                            <Label as={"span"} style={{marginTop: "7px", fontSize: "16px"}}>
+                                                <span>Total: {`${transferData.TKN} TCT`}</span>
                                             </Label>
                                         </Form.Field>
-                                        <Form.Field>
+                                        <Form.Field width={8}>
                                             <Input
+                                                fluid
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
                                                 value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
@@ -306,13 +308,13 @@ class Calculator extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column width={2}>
+                            <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
                                 <p>Бонус</p>
                             </Grid.Column>
-                            <Grid.Column width={6}>
+                            <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
-                            <Grid.Column width={5}>
+                            <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
                                 <span className={isMaximum === true ? "active": ""}>
                                     <Icon name={"warning sign"} />
                                     Вы достигли лимита
