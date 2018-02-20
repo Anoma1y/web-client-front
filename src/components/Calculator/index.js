@@ -120,10 +120,7 @@ class Calculator extends Component {
             TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKNVV);
             BTC = value;
         }
-
         const progressBar = this.handleProgressBar(TKNvalue);
-        
-        console.log(TKNinitialValue);
         return {
             sumValue: value,
             progressBar,
@@ -316,9 +313,16 @@ class Calculator extends Component {
         })
     }
 
+    // replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ')
+    separationValue = value => {
+        return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
+
+    }
+
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
+
         return (
             <Card fluid className={"component__calculator"}>
                 <Card.Content>
@@ -337,7 +341,7 @@ class Calculator extends Component {
                                                 fluid
                                                 className={"input__currency"}
                                                 placeholder={"TCT"}
-                                                value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
+                                                value={suffixText.suffixToken ? `${this.separationValue(tokenValue)} TCT` : tokenValue}
                                                 onChange={this.handleToken}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
@@ -345,7 +349,7 @@ class Calculator extends Component {
                                                 ref={(input) => {this.inputToken = input}}
                                             />
                                             <Label as={"span"} className={"total__label"}>
-                                                <span>Total: {`${transferData.TKN} TCT`}</span>
+                                                <span>Total: {`${this.separationValue(transferData.TKN)} TCT`}</span>
                                             </Label>
                                         </Form.Field>
                                         <Form.Field width={8}>
@@ -354,7 +358,7 @@ class Calculator extends Component {
                                                 className={"input__currency"}
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
+                                                value={suffixText.suffixCurrency ? `${this.separationValue(sumValue)} ${currencyValue}` : sumValue}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
