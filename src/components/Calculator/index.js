@@ -235,8 +235,9 @@ class Calculator extends Component {
         this.changeState(this.calcToken(value));
     }
 
-    handleToken1 = (e) => {
-        this.changeState(this.calcToken(e.target.value));
+    handleTokenRange = event => {
+        const { value } = event.target;
+        this.changeState(this.calcToken(value));
     }
     
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
@@ -377,7 +378,7 @@ class Calculator extends Component {
                                     max={2000000}
                                     step={10}
                                     value={tokenValue}
-                                    onChange={this.handleToken1}
+                                    onChange={this.handleTokenRange}
                                     style={{width: "100%"}}/>
                             </Grid.Column>
                         </Grid.Row>
