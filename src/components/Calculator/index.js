@@ -366,7 +366,11 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <InputSlider tokenValue={tokenValue} handleTokenRange={this.handleTokenRange}/>
+                                <InputSlider
+                                    maximumBonusToken={2000000}
+                                    tokenValue={tokenValue}
+                                    handleTokenRange={this.handleTokenRange}
+                                />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
