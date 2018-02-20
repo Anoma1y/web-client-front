@@ -5,6 +5,25 @@ $black-color: #000000
 $container-background-color: #4D59A1
 //calculator
 $total-label-color: #324482
+$bonus-background-color: #001F38
+$calculator-button-color: #828ABD
+
+
+
+
+=placeholder
+  &::-webkit-input-placeholder
+    @content
+  &:-moz-placeholder
+    @content
+  &::-moz-placeholder
+    @content
+  &:-ms-input-placeholder
+    @content
+
+
+
+
 
 
 .white__divider
@@ -12,7 +31,7 @@ $total-label-color: #324482
 
 .component__calculator
   background-color: $container-background-color !important
-
+//style={{margin: "0 3px", width: "45px"}}
 .currency__button
   input
     &:checked + label
@@ -32,11 +51,11 @@ $total-label-color: #324482
 .input__currency
   input
     border-radius: 0 !important
-    background-color: $container-background-color !important
+    background-color: inherit !important
     border: none !important
     border-bottom: 3px solid $white-color !important
     color: $white-color !important
-    
+
 .total__label
   margin-top: 7px !important
   background-color: $total-label-color !important
@@ -78,3 +97,27 @@ $total-label-color: #324482
     background: #fff
     border-radius: 100%
     box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1)
+.bonus__title
+  color: $white-color !important
+
+.bonus__label
+  width: 45px !important
+  margin: 0 3px !important
+  color: $white-color !important
+  background-color: $bonus-background-color !important
+  &-active
+    background-color: #FC900B !important
+
+.bonus__maximum
+  color: $white-color !important
+  &-active
+    color: #ff705c !important
+.calculator__comments
+  background-color: inherit !important
+  color: $white-color !important
+  border-color: rgba(255,255,255,.5) !important
+  +placeholder
+    color: $white-color !important
+.calculator__submit
+  background-color: #7A6FA9 !important
+  color: $white-color !important

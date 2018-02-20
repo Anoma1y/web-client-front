@@ -375,16 +375,16 @@ class Calculator extends Component {
                                 />
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row>
+                        <Grid.Row className={"calculator__bonus"}>
                             <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
-                                <p>Бонус</p>
+                                <p className={"bonus__title"}>Бонус</p>
                             </Grid.Column>
                             <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
                             <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
-                                <span className={isMaximum === true ? "active": ""}>
-                                    <Icon name={"warning sign"} />
+                                <span className={isMaximum === true ? "bonus__maximum bonus__maximum-active": "bonus__maximum"}>
+                                    <Icon name={"warning sign"} className={"bonus__maximum-icon"}/>
                                     Вы достигли лимита
                                 </span>
                             </Grid.Column>
@@ -393,6 +393,7 @@ class Calculator extends Component {
                             <Grid.Column>
                                 <Form as={"div"}>
                                     <TextArea
+                                        className={"calculator__comments"}
                                         autoHeight
                                         placeholder='Оставить комментарий'
                                     />
@@ -403,6 +404,7 @@ class Calculator extends Component {
                             <Grid.Column textAlign={"right"}>
                                 <Button
                                     circular
+                                    className={"calculator__submit"}
                                     disabled={tokenValue === "0"}
                                 > Оставить заявку
                                 </Button>
