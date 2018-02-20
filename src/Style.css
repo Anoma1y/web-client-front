@@ -6,6 +6,13 @@
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px; }
 
+/***TIMER COMPONENT***/
+.timer__item_title {
+  color: #A0A6CC !important; }
+
+.timer__item_value {
+  color: #FFFFFF !important; }
+
 /***CALCULATOR COMPONENT***/
 .component__calculator {
   margin-bottom: 20px !important; }

@@ -77,12 +77,12 @@ class Timer extends Component {
     render() {
         const { timeLeft } = this.props.timer;
         return (
-            <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
+            <Card fluid style={{marginBottom: "20px"}}>
                 <Card.Content>
                     <Card.Header>Прием заявок закроется через</Card.Header>
                     <Divider />
-                    <Grid>
-                        <Grid.Row textAlign={"center"}>
+                    <Grid className={"dashboard__component"}>
+                        <Grid.Row textAlign={"center"} className={"component__timer"}>
                             <Time timeName={"Дней"} value={timeLeft.day} />
                             <Time timeName={"Часов"} value={timeLeft.hour} />
                             <Time timeName={"Минут"} value={timeLeft.minutes} />
