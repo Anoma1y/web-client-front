@@ -318,8 +318,8 @@ class Calculator extends Component {
     }
 
     render() {
-        const { percent, isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue, transferData, suffixText } = this.props.calculator;
+        const { isMaximum } = this.props.calculator.progressBar;
+        const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
         return (
             <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
                 <Card.Content>
@@ -367,7 +367,7 @@ class Calculator extends Component {
                         <Grid.Row columns={1}>
                             <Grid.Column>
                                 <InputSlider
-                                    maximumBonusToken={2000000}
+                                    maximumBonusToken={bonus[bonus.length - 1]["limit"]}
                                     tokenValue={tokenValue}
                                     handleTokenRange={this.handleTokenRange}
                                 />
