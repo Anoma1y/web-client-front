@@ -75,7 +75,7 @@
   margin-top: 7px !important;
   border-radius: 10px 10px 10px 10px !important;
   background-color: #324482 !important;
-  color: #FFFFFF !important !important;
+  color: #FFFFFF !important;
   letter-spacing: .5px;
   font-size: 15px !important;
   overflow: hidden !important; }
@@ -177,3 +177,11 @@
     .download__list_item:hover {
       color: #FC900B !important;
       text-decoration: underline !important; }
+
+/***ROADMAP COMPONENT***/
+.roadmap__progress {
+  margin-top: 25px !important; }
+  .roadmap__progress_bar {
+    background: #e5e5e5 !important; }
+    .roadmap__progress_bar .bar {
+      background: linear-gradient(left, #fdf1b0 0%, #ff541c 100%) !important; }
