@@ -379,7 +379,7 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row className={"calculator__bonus"}>
                             <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
-                                <p className={"bonus__title"}>Бонус</p>
+                                <p className={"bonus__title"}>Bonus</p>
                             </Grid.Column>
                             <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
