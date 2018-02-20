@@ -47,7 +47,16 @@ $calculator-button-color-hover: #FF9209
   &_title
     color: #A0A6CC !important
   &_value
+    margin: 0 !important
     color: $white-color !important
+    position: relative
+  &:not(:last-child):after
+    content: ":"
+    color: $white-color
+    font-size: 30px
+    position: absolute
+    left: 92%
+    bottom: 10px
 
 
 /***CALCULATOR COMPONENT***/

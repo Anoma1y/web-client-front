@@ -15,7 +15,17 @@
   color: #A0A6CC !important; }
 
 .timer__item_value {
-  color: #FFFFFF !important; }
+  margin: 0 !important;
+  color: #FFFFFF !important;
+  position: relative; }
+
+.timer__item:not(:last-child):after {
+  content: ":";
+  color: #FFFFFF;
+  font-size: 30px;
+  position: absolute;
+  left: 92%;
+  bottom: 10px; }
 
 /***CALCULATOR COMPONENT***/
 .component__calculator {
