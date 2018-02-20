@@ -86,7 +86,6 @@ class Calculator extends Component {
         let bonus;
         let BTC, ETH, TKNinitialValue, TKNvalue, USD;
         const TKNVV = TKN * currency[1].price_usd;
-        console.log(TKNVV);
         if (currencyValue === "USD") {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
@@ -159,7 +158,7 @@ class Calculator extends Component {
 
     checkMaximum = value => value >= 100;
 
-    bonusCalc = (val, bonus) => (1 * val)  - ((1 * val) * (bonus / 100));
+    bonusCalc = (val, bonus) => (1 * val)  + ((1 * val) * (bonus / 100));
 
     transferToTKNbonus = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
 
@@ -175,7 +174,8 @@ class Calculator extends Component {
         const USD = TKNVV *  value;
         const BTC = (TKNVV / currency[0].price_usd) * value;
         const ETH = (TKNVV / currency[1].price_usd) * value;
-        const TKN1 = TKNVV * bonusValue;
+        const TKN1 = bonusValue;
+        console.log(TKN1);
         return { USD, BTC, ETH, TKN: TKN1 }
     }
 
