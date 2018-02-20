@@ -367,6 +367,7 @@ class Calculator extends Component {
                                     percent={percent}
                                     size={"tiny"}
                                     color={"red"}/>
+                                <input type={"range"} />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
