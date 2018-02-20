@@ -2,13 +2,20 @@ import React from 'react'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Header, Button } from 'semantic-ui-react'
+import { Container, Grid } from 'semantic-ui-react'
+
+import LoginComponent from 'components/Login/LoginComponent'
 
 const Login = props => (
-    <div>
-        <Header as={'h1'}>Login screen</Header>
-        <Button onClick={() => props.changePage()}>Go to registration</Button>
-    </div>
+    <Container>
+        <Grid>
+            <Grid.Row centered>
+                <Grid.Column widescreen={7} computer={7} tablet={16} mobile={16}>
+                    <LoginComponent/>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
+    </Container>
 );
 
 const mapDispatchToProps = dispatch => bindActionCreators({

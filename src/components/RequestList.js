@@ -7,7 +7,7 @@ import RequestItem from 'components/RequestItem'
 class RequestList extends React.Component {
     renderList () {
         return this.props.requests.items.map((item, i) => {
-            let btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
+            let btnOptions = null;
 
             switch (item.status) {
                 case 0:
@@ -18,6 +18,9 @@ class RequestList extends React.Component {
                     break;
                 case 2:
                     btnOptions = { color: 'grey', text: 'Оплачено', callback: () => {} };
+                    break;
+                default:
+                    btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
             }
             return (
                 <Card.Description key={i}>

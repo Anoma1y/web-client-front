@@ -1,6 +1,3 @@
-const text = 'You can add webfonts, meta tags, or analytics to this file.\n' +
-    'The build step will place the bundled scripts into the tag.\n';
-
 const INITIAL_STATE = {
     individualUser: [
         {
