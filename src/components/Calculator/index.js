@@ -235,6 +235,10 @@ class Calculator extends Component {
         this.changeState(this.calcToken(value));
     }
 
+    handleToken1 = (e) => {
+        this.changeState(this.calcToken(e.target.value));
+    }
+    
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
     //Принимает 1 значение (event - value) - вводимое (пользователем) значение
     //Происходит проверка на отсутствие текста и спец-символов
@@ -367,7 +371,14 @@ class Calculator extends Component {
                                     percent={percent}
                                     size={"tiny"}
                                     color={"red"}/>
-                                <input type={"range"} />
+                                <input
+                                    type={"range"}
+                                    min={0}
+                                    max={2000000}
+                                    step={10}
+                                    value={tokenValue}
+                                    onChange={this.handleToken1}
+                                    style={{width: "100%"}}/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
