@@ -21,11 +21,8 @@ import {
 import { Bonus } from './CalculatorBonus';
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
-import "../../App.css";
 
 class Calculator extends Component {
-
-
     //Метод для расчета валюты
     //Принимает 2 параметра: value - текущее значение выбранной валюты
     //type - тип валюты для расчета

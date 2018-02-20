@@ -7,11 +7,10 @@ export const InputSlider = ({tokenValue, handleTokenRange}) => {
             min={0}
             max={2000000}
             step={10}
+            className={"input__slider"}
             value={tokenValue}
             onChange={handleTokenRange}
-            style={{width: "100%"}}
+            style={{backgroundSize: `${(tokenValue * 100) / 2000000}% 100%`}}
         />
     )
 }
-
-
