@@ -17,9 +17,10 @@ import {
     Label,
     Divider,
     Form
-} from 'semantic-ui-react'
-import {Bonus} from './CalculatorBonus'
-import {CurrencyButton} from './CalculatorButton'
+} from 'semantic-ui-react';
+import { Bonus } from './CalculatorBonus';
+import { CurrencyButton } from './CalculatorButton';
+import { InputSlider } from './CalculatorSlider';
 import "../../App.css";
 
 class Calculator extends Component {
@@ -368,18 +369,7 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Progress
-                                    percent={percent}
-                                    size={"tiny"}
-                                    color={"red"}/>
-                                <input
-                                    type={"range"}
-                                    min={0}
-                                    max={2000000}
-                                    step={10}
-                                    value={tokenValue}
-                                    onChange={this.handleTokenRange}
-                                    style={{width: "100%"}}/>
+                                <InputSlider tokenValue={tokenValue} handleTokenRange={this.handleTokenRange}/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
