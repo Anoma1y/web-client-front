@@ -313,10 +313,9 @@ class Calculator extends Component {
         })
     }
 
-    // replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ')
+    //Метод для разделения групп разрядов строки
     separationValue = value => {
         return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
-
     }
 
     render() {
@@ -324,7 +323,7 @@ class Calculator extends Component {
         const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
 
         return (
-            <Card fluid className={"component__calculator"}>
+            <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
                     <Card.Header>Калькулятор</Card.Header>
                     <Divider className={"white__divider"}/>
@@ -335,7 +334,7 @@ class Calculator extends Component {
                         <Grid.Row columns={1}>
                             <Grid.Column>
                                 <Form unstackable>
-                                    <Form.Group>
+                                    <Form.Group  style={{marginBottom: 0}}>
                                         <Form.Field width={8}>
                                             <Input
                                                 fluid
@@ -369,7 +368,7 @@ class Calculator extends Component {
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns={1}>
+                        <Grid.Row columns={1} style={{paddingTop: 0}}>
                             <Grid.Column>
                                 <InputSlider
                                     maximumBonusToken={bonus[bonus.length - 1]["limit"]}

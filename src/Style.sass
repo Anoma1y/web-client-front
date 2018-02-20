@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500')
+
+$font-robot: "Roboto", sans-serif
+
 $white-color: #FFFFFF
 $dim-white-color: #A0A6CC
 $black-color: #000000
@@ -26,15 +30,16 @@ $calculator-button-color: #828ABD
 
 
 
-
+.component__main
+  margin: 20px 0 !important
 
 .white__divider
   border-bottom: 1px solid rgba(255,255,255,.5) !important
 
 .dashboard__component
   background-color: $container-background-color !important
-  border-bottom-right-radius: 10px
-  border-bottom-left-radius: 10px
+  border-bottom-right-radius: 4px
+  border-bottom-left-radius: 4px
 
 /***TIMER COMPONENT***/
 .timer__item
@@ -49,15 +54,23 @@ $calculator-button-color: #828ABD
   margin-bottom: 20px !important
 
 .currency__button
+  font-family: $font-robot !important
   input
     &:checked + label
       color: $black-color !important
       background-color: $white-color !important
+      font-weight: 500 !important
   label
     padding: 10px 25px !important
     background-color: #707ab3 !important
     border-radius: 20px
-    color: $white-color !important
+    color: lighten($white-color, 60%) !important
+    font-weight: 300 !important
+    transition: color .3s ease, background-color .3s ease, font-weight .3s ease
+    &:hover
+      background-color: $white-color !important
+      color: $black-color !important
+      font-weight: 500 !important
     &:before
       content: none !important
       display: none !important
@@ -69,14 +82,27 @@ $calculator-button-color: #828ABD
     border-radius: 0 !important
     background-color: inherit !important
     border: none !important
-    border-bottom: 3px solid $white-color !important
-    color: $white-color !important
+    border-bottom: 3px solid darken($white-color, 40%) !important
+    color: darken($white-color, 40%) !important
+    font-family: $font-robot !important
+    font-weight: 300 !important
+    font-size: 19px !important
+    letter-spacing: .4px
+    &:focus, &:hover
+      color: $white-color !important
+      font-weight: 400 !important
+      border-bottom-color: $white-color !important
 
 .total__label
+  width: 100% !important
   margin-top: 7px !important
+  border-radius: 10px 10px 10px 10px !important
   background-color: $total-label-color !important
   color: $white-color !important
-  
+  letter-spacing: .5px
+  font-size: 15px !important
+  overflow: hidden !important
+
 .input__slider
   margin: auto
   outline: none
