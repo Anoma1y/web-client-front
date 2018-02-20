@@ -1,13 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500')
 
+//fonst
 $font-robot: "Roboto", sans-serif
 
+//colors
 $white-color: #FFFFFF
 $dim-white-color: #A0A6CC
 $black-color: #000000
 $orange-color: #FC900B
 
+//component
 $container-background-color: #4D59A1
+
 //calculator
 $total-label-color: #324482
 $bonus-background-color: #2D3B7A //2D3B7A
@@ -17,7 +21,7 @@ $calculator-button-color-hover: #FF9209
 
 
 
-
+//mixin
 =placeholder
   &::-webkit-input-placeholder
     @content
@@ -71,7 +75,7 @@ $calculator-button-color-hover: #FF9209
       background-color: $white-color !important
       font-weight: 500 !important
   label
-    padding: 10px 25px !important
+    padding: 5px 25px !important
     background-color: #707ab3 !important
     border-radius: 20px
     color: lighten($white-color, 60%) !important
@@ -179,6 +183,7 @@ $calculator-button-color-hover: #FF9209
   color: $white-color !important
   &:hover
     background-color: $calculator-button-color-hover !important
+
 /***REQUEST COMPONENT***/
 .request__item
   &_title
@@ -186,4 +191,5 @@ $calculator-button-color-hover: #FF9209
   &_value
     color: $white-color !important
 .request__button
+
   color: $white-color !important

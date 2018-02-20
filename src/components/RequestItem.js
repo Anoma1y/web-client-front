@@ -31,7 +31,7 @@ const RequestItem = props => (
                     inverted={props.buttonInverted}
                     color={props.buttonColor}
                 >
-                    {props.buttonText}
+                {props.buttonText}
                 </Button>
             </Grid.Column>
         </Grid.Row>
