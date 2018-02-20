@@ -77,7 +77,7 @@ class Timer extends Component {
     render() {
         const { timeLeft } = this.props.timer;
         return (
-            <Card fluid style={{marginBottom: "20px"}}>
+            <Card fluid className={"component__main"}>
                 <Card.Content>
                     <Card.Header>Прием заявок закроется через</Card.Header>
                     <Divider />

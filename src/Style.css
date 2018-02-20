@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
 .component__main {
-  margin-bottom: 20px !important; }
+  margin-top: 15px !important;
+  margin-bottom: 15px !important; }
 
 .white__divider {
   border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important; }
@@ -86,7 +87,7 @@
   padding: 0;
   width: 100%;
   height: 6px;
-  background: #FFFFFF !important linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat;
+  background: #f3f3f3 linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat;
   border-radius: 10px;
   cursor: pointer;
   -webkit-appearance: none; }

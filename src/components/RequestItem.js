@@ -6,7 +6,7 @@ import {
 } from 'semantic-ui-react'
 
 const RequestItem = props => (
-    <Grid verticalAlign={'middle'}>
+    <Grid verticalAlign={'middle'} className={"component__main"}>
         <Grid.Row columns={3}>
             <Grid.Column>
                 <Item className={"request__item"}>
