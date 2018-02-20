@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, Divider } from 'semantic-ui-react'
+import {
+    Card,
+    Divider,
+    Grid
+} from 'semantic-ui-react'
 
 import RequestItem from 'components/RequestItem'
 
@@ -44,7 +48,14 @@ class RequestList extends React.Component {
                 <Card fluid>
                     <Card.Content>
                         <Card.Header>Ваши заявки</Card.Header>
-                        {this.renderList()}
+                        <Divider />
+                        <Grid verticalAlign={'middle'} className={"dashboard__component"}>
+                            <Grid.Row columns={1}>
+                                <Grid.Column>
+                                    {this.renderList()}
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
                     </Card.Content>
                 </Card>
             </div>

@@ -11,7 +11,6 @@ import {
     TextArea,
     Button,
     Input,
-    Progress,
     Icon,
     Card,
     Label,
