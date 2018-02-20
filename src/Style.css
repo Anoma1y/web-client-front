@@ -122,7 +122,7 @@
   cursor: default !important; }
 
 .bonus__title {
-  color: #FFFFFF !important !important; }
+  color: #FFFFFF !important; }
 
 .bonus__label {
   width: 45px !important;
@@ -186,3 +186,9 @@
     background: #e5e5e5 !important; }
     .roadmap__progress_bar .bar {
       background: linear-gradient(left, #fdf1b0 0%, #ff541c 100%) !important; }
+
+/***BETATEST COMPONENT***/
+.betaTest__button button {
+  background-color: transparent !important;
+  border: 1px solid #FC900B !important;
+  color: #FC900B !important; }
