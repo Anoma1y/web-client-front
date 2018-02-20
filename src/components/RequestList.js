@@ -41,7 +41,7 @@ class RequestList extends React.Component {
     render () {
         return (
             <div>
-                <Card fluid color={'violet'}>
+                <Card fluid>
                     <Card.Content>
                         <Card.Header>Ваши заявки</Card.Header>
                         {this.renderList()}

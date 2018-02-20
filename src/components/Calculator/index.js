@@ -321,11 +321,11 @@ class Calculator extends Component {
         const { isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
         return (
-            <Card fluid color={'violet'} style={{marginBottom: "20px"}} className={"component__calculator"}>
+            <Card fluid className={"component__calculator"}>
                 <Card.Content>
-                    <Card.Header style={{color: "#fff"}}>Калькулятор</Card.Header>
+                    <Card.Header>Калькулятор</Card.Header>
                     <Divider className={"white__divider"}/>
-                    <Grid verticalAlign={'middle'}>
+                    <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                         <Grid.Row>
                             { this.renderCurrencyButton() }
                         </Grid.Row>
