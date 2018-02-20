@@ -125,13 +125,15 @@ class Calculator extends Component {
         }
 
         const progressBar = this.handleProgressBar(TKNvalue);
+        
+        console.log(TKNinitialValue);
         return {
             sumValue: value,
             progressBar,
-            tokenValue: TKNinitialValue,
+            tokenValue: TKNinitialValue.toFixed(4),
             bonus: bonus.bonus,
             transferData: {
-                USD, TKN: TKNvalue, BTC, ETH
+                USD, TKN: TKNvalue.toFixed(4), BTC, ETH
             }
         }
     }
@@ -203,8 +205,7 @@ class Calculator extends Component {
         const USD = TKNVV *  value;
         const BTC = (TKNVV / currency[0].price_usd) * value;
         const ETH = (TKNVV / currency[1].price_usd) * value;
-        const TKN1 = bonusValue;
-        return { USD, BTC, ETH, TKN: TKN1 }
+        return { USD, BTC, ETH, TKN: bonusValue }
     }
 
     //Метод для изменения состояния
@@ -227,10 +228,9 @@ class Calculator extends Component {
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
     handleToken = (event, {value}) => {
-        const checkNumber = /^\d*\.?\d*$/;
-        const checkDoth = /^\./;
-        if (!value.match(checkNumber) || value.match(checkDoth)) {
-            return 0;
+        const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        if(!value.match(checkNumber)) {
+            return;
         }
         this.changeState(this.calcToken(value));
     }
