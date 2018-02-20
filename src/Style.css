@@ -12,7 +12,7 @@
 
 /***TIMER COMPONENT***/
 .timer__item_title {
-  color: #A0A6CC; }
+  color: #999999 !important; }
 
 .timer__item_value {
   margin: 0 !important;
