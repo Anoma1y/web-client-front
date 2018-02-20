@@ -1,23 +1,28 @@
 import React from 'react'
-import { Button, Grid, Item } from 'semantic-ui-react'
+import {
+    Button,
+    Grid,
+    Item
+} from 'semantic-ui-react'
 
 const RequestItem = props => (
     <Grid verticalAlign={'middle'}>
         <Grid.Row columns={3}>
             <Grid.Column>
-                <Item>
-                    <Item.Header>Сумма</Item.Header>
-                    <Item.Description><h3>{props.sum}</h3></Item.Description>
+                <Item className={"request__item"}>
+                    <Item.Header className={"request__item_title"}>Сумма</Item.Header>
+                    <Item.Description className={"request__item_value"}><h3>{props.sum}</h3></Item.Description>
                 </Item>
             </Grid.Column>
             <Grid.Column>
                 <Item>
-                    <Item.Header>Токены</Item.Header>
-                    <Item.Description><h3>{props.amount} </h3></Item.Description>
+                    <Item.Header className={"request__item_title"}>Токены</Item.Header>
+                    <Item.Description className={"request__item_value"}><h3>{props.amount} </h3></Item.Description>
                 </Item>
             </Grid.Column>
             <Grid.Column>
                 <Button
+                    className={"request__button"}
                     circular
                     floated={'right'}
                     onClick={props.onClick}

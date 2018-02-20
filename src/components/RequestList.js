@@ -10,6 +10,7 @@ import RequestItem from 'components/RequestItem'
 
 class RequestList extends React.Component {
     renderList () {
+        console.log(this.props.requests.items.length)
         return this.props.requests.items.map((item, i) => {
             let btnOptions = null;
 
@@ -27,8 +28,8 @@ class RequestList extends React.Component {
                     btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
             }
             return (
+
                 <Card.Description key={i}>
-                    <Divider />
                     <RequestItem
                         sum={`${item.sum} ${item.currency}`}
                         amount={`${item.amount} TCT`}
@@ -37,7 +38,9 @@ class RequestList extends React.Component {
                         buttonDisabled={item.status !== 1}
                         buttonInverted={item.status === 1}
                     />
+                    {i != this.props.requests.items.length - 1 ? <Divider className={"white__divider"} /> : ""}
                 </Card.Description>
+
             )
         })
     }
