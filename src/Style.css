@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
 .component__main {
-  margin: 20px 0 !important; }
+  margin-bottom: 20px !important; }
 
 .white__divider {
   border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important; }
@@ -12,7 +12,7 @@
 
 /***TIMER COMPONENT***/
 .timer__item_title {
-  color: #A0A6CC !important; }
+  color: #A0A6CC; }
 
 .timer__item_value {
   margin: 0 !important;
@@ -21,7 +21,7 @@
 
 .timer__item:not(:last-child):after {
   content: ":";
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   font-size: 30px;
   position: absolute;
   left: 92%;
@@ -75,7 +75,7 @@
   margin-top: 7px !important;
   border-radius: 10px 10px 10px 10px !important;
   background-color: #324482 !important;
-  color: #FFFFFF !important;
+  color: #FFFFFF !important !important;
   letter-spacing: .5px;
   font-size: 15px !important;
   overflow: hidden !important; }
@@ -86,7 +86,7 @@
   padding: 0;
   width: 100%;
   height: 6px;
-  background: #FFFFFF linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat;
+  background: #FFFFFF !important linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat;
   border-radius: 10px;
   cursor: pointer;
   -webkit-appearance: none; }
@@ -117,8 +117,11 @@
     border-radius: 100%;
     box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1); }
 
+.calculator__bonus {
+  cursor: default !important; }
+
 .bonus__title {
-  color: #FFFFFF !important; }
+  color: #FFFFFF !important !important; }
 
 .bonus__label {
   width: 45px !important;
@@ -163,3 +166,14 @@
 
 .request__button {
   color: #FFFFFF !important; }
+
+/***DOWNLOAD COMPONENT***/
+.download__list {
+  font-family: "Roboto", sans-serif !important; }
+  .download__list_item {
+    color: #000000 !important;
+    font-weight: normal;
+    padding: 5px 0 !important; }
+    .download__list_item:hover {
+      color: #FC900B !important;
+      text-decoration: underline !important; }
