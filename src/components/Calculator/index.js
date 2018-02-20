@@ -90,25 +90,23 @@ class Calculator extends Component {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
             TKNinitialValue = this.transferToTKN(value, TKNVV);
-            console.log(TKNinitialValue);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKN);
+            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKNVV);
             USD = value;
+            console.log(bonus, TKN);
         } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
             TKNinitialValue = this.transferToTKN(USD, TKNVV);
-            console.log(TKNinitialValue);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKNVV);
             ETH = value;
         } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
             TKNinitialValue = this.transferToTKN(USD, TKNVV);
-            console.log(TKNinitialValue);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKNVV);
             BTC = value;
         }
 
@@ -160,7 +158,10 @@ class Calculator extends Component {
 
     bonusCalc = (val, bonus) => (1 * val)  + ((1 * val) * (bonus / 100));
 
-    transferToTKNbonus = (value, bonusTKN, TKN) => (TKN * value)  + ((TKN * value) * (bonusTKN / 100));
+    transferToTKNbonus = (value, bonusTKN, TKN) => {
+        console.log(TKN * value);
+        return (value / TKN) + ((value / TKN) * (bonusTKN / 100));
+    }
 
     transferToTKN = (value, TKN) => {
         //value / 0.845
@@ -175,7 +176,6 @@ class Calculator extends Component {
         const BTC = (TKNVV / currency[0].price_usd) * value;
         const ETH = (TKNVV / currency[1].price_usd) * value;
         const TKN1 = bonusValue;
-        console.log(TKN1);
         return { USD, BTC, ETH, TKN: TKN1 }
     }
 
