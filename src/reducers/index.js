@@ -7,6 +7,9 @@ import RoadmapReducer from "./RoadmapReducer";
 import TimerReducer from './TimerReducer';
 import SocialNetworkReducer from './SocialNetworkReducer';
 import SettingsReducer from './SettingsReducer'
+import LoginReducer from './LoginReducer'
+import SignupReducer from './SignupReducer'
+import ResetReducer from './ResetReducer'
 
 export default combineReducers({
     routing: routerReducer,
@@ -16,4 +19,7 @@ export default combineReducers({
     timer: TimerReducer,
     socialNetwork: SocialNetworkReducer,
     settings: SettingsReducer,
+    login: LoginReducer,
+    signup: SignupReducer,
+    reset: ResetReducer,
 })
