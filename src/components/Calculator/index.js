@@ -407,7 +407,11 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column textAlign={"right"}>
-                                <Button circular>Оставить заявку</Button>
+                                <Button
+                                    circular
+                                    disabled={tokenValue === "0"}
+                                > Оставить заявку
+                                </Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
