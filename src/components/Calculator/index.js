@@ -306,7 +306,7 @@ class Calculator extends Component {
         const { currencyValue, currency } = this.props.calculator;
         return currency.map(item => {
             return (
-                <Grid.Column widescreen={2} computer={2} tablet={3} mobile={4} key={item["id"]}>
+                <Grid.Column widescreen={3} computer={3} tablet={3} mobile={4} key={item["id"]}>
                     <CurrencyButton
                         buttonTitle={item["symbol"]}
                         handleChange={this.handleChange}
@@ -321,10 +321,10 @@ class Calculator extends Component {
         const { isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
         return (
-            <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
+            <Card fluid color={'violet'} style={{marginBottom: "20px"}} className={"component__calculator"}>
                 <Card.Content>
-                    <Card.Header>Калькулятор</Card.Header>
-                    <Divider />
+                    <Card.Header style={{color: "#fff"}}>Калькулятор</Card.Header>
+                    <Divider className={"white__divider"}/>
                     <Grid verticalAlign={'middle'}>
                         <Grid.Row>
                             { this.renderCurrencyButton() }
@@ -336,6 +336,7 @@ class Calculator extends Component {
                                         <Form.Field width={8}>
                                             <Input
                                                 fluid
+                                                className={"input__currency"}
                                                 placeholder={"TCT"}
                                                 value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
                                                 onChange={this.handleToken}
@@ -344,13 +345,14 @@ class Calculator extends Component {
                                                 onFocus={this.handleFocus}
                                                 ref={(input) => {this.inputToken = input}}
                                             />
-                                            <Label as={"span"} style={{marginTop: "7px", fontSize: "16px"}}>
+                                            <Label as={"span"} className={"total__label"}>
                                                 <span>Total: {`${transferData.TKN} TCT`}</span>
                                             </Label>
                                         </Form.Field>
                                         <Form.Field width={8}>
                                             <Input
                                                 fluid
+                                                className={"input__currency"}
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
                                                 value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
