@@ -71,7 +71,6 @@ class Calculator extends Component {
     //Возвращает объект бонусов и бонусного процента
     checkBonus = value => {
         const { bonus: bonusList } = this.props.calculator;
-
         let bonusTKN = 0;
         let bonus = [];
         bonusList.forEach((item) => {
@@ -88,36 +87,51 @@ class Calculator extends Component {
         }
     }
 
+    //Метод для расчета стоимость ТОКЕНА
+    //Принимает 1 параметр: type - тип криптовалюты,
+    //Возвращает расчетную стоимость токена, если тип не передан, то вернет токен без расчетов
+    TKNprice = type => {
+        const { TKN, currency } = this.props.calculator;
+        switch(type) {
+            case "BTC":
+                return currency[0].price_usd * TKN;
+            case "ETH":
+                return currency[1].price_usd * TKN;
+            default:
+                return TKN;
+        }
+    }
+
     //Метод для расчета количества токенов из вводимого пользователем значения в Input-валюты
     //Принимает 1 параметр: value - вводимое пользователем значение валюты
     //Для выбранной валюты происходит расчет значений
     //Возвращает объект значений текущего значения Input, заполненость прогресс бара, значения токенов
     //бонусов и расчетного значения транферного значения валют и токенов
     calcCurrency = value => {
-        const {currencyValue, TKN, currency} = this.props.calculator;
+        const { currencyValue } = this.props.calculator;
         let bonus;
         let BTC, ETH, TKNinitialValue, TKNvalue, USD;
-        const TKNVV = TKN * currency[1].price_usd;
+        const TKN_ETH = this.TKNprice("ETH");
         if (currencyValue === "USD") {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
-            TKNinitialValue = this.transferToTKN(value, TKNVV);
+            TKNinitialValue = this.transferToTKN(value, TKN_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKNVV);
+            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKN_ETH);
             USD = value;
         } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
-            TKNinitialValue = this.transferToTKN(USD, TKNVV);
+            TKNinitialValue = this.transferToTKN(USD, TKN_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKNVV);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN_ETH);
             ETH = value;
         } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
-            TKNinitialValue = this.transferToTKN(USD, TKNVV);
+            TKNinitialValue = this.transferToTKN(USD, TKN_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKNVV);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN_ETH);
             BTC = value;
         }
         const progressBar = this.handleProgressBar(TKNvalue);
