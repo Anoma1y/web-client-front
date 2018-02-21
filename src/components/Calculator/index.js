@@ -208,11 +208,11 @@ class Calculator extends Component {
     //bonusValue - бонусное значение токена
     //Возвращает объект значений для каждой валюты + токена
     transferTKN = (value, bonusValue) => {
-        const { TKN, currency } = this.props.calculator;
-        const TKNVV = TKN * currency[1].price_usd;
-        const USD = TKNVV *  value;
-        const BTC = (TKNVV / currency[0].price_usd) * value;
-        const ETH = (TKNVV / currency[1].price_usd) * value;
+        const { currency } = this.props.calculator;
+        const TKN_ETH = this.TKNprice("ETH");
+        const USD = TKN_ETH *  value;
+        const BTC = (TKN_ETH / currency[0].price_usd) * value;
+        const ETH = (TKN_ETH / currency[1].price_usd) * value;
         return { USD, BTC, ETH, TKN: bonusValue }
     }
 
@@ -419,7 +419,7 @@ class Calculator extends Component {
                                 <Button
                                     circular
                                     className={"calculator__submit"}
-                                    disabled={tokenValue === "0" || sumValue === "0"}
+                                    disabled={transferData.TKN < 1 || transferData.USD === "0"}
                                 > Оставить заявку
                                 </Button>
                             </Grid.Column>
