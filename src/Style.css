@@ -155,7 +155,11 @@
     background-color: #FC900B !important; }
 
 .bonus__maximum {
-  color: #FFFFFF !important; }
+  color: #FFFFFF !important;
+  display: flex;
+  align-items: center; }
+  .bonus__maximum img {
+    margin-right: 6px !important; }
   .bonus__maximum-active {
     color: #FC900B !important; }
 
