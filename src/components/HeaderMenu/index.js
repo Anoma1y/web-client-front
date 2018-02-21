@@ -34,7 +34,7 @@ class HeaderMenu extends Component {
         return (
             <Menu stackable className={"header__menu"}>
                 <Menu.Item className={"header__menu_logo"}>
-                    <a href={"#"}>
+                    <a href={"http://www.google.com"}>
                         <img src={Logo} alt="Logo" />
                     </a>
                 </Menu.Item>

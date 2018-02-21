@@ -6,7 +6,7 @@ import {
     Grid
 } from 'semantic-ui-react'
 
-import RequestItem from 'components/RequestItem'
+import RequestItem from './RequestItem'
 
 class RequestList extends React.Component {
     renderList () {

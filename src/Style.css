@@ -190,6 +190,9 @@
 
 /***REQUEST COMPONENT***/
 .request__item_wrapper {
+  cursor: default !important; }
+
+.request__item_wrapper {
   padding-top: 1.25rem !important;
   padding-bottom: 1.25rem !important; }
 
