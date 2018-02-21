@@ -9,6 +9,8 @@ $dim-white-color: #A0A6CC !important
 $black-color: #000000 !important
 $orange-color: #FC900B !important
 $red-color: #FF3E33 !important
+
+$header-menu-background-color: #001f38 !important
 //component
 $container-background-color: #4D59A1 !important
 $attentionIdentification-background-color: #F1C0C0
@@ -33,6 +35,18 @@ $calculator-button-color-hover: #FF9209 !important
     @content
   &:-ms-input-placeholder
     @content
+
+.header__menu
+  background-color: $header-menu-background-color
+  border-radius: 0 !important
+  &_logo
+    img
+      width: 100px !important
+  &_item
+    a
+      color: $white-color
+
+
 
 
 .component__main

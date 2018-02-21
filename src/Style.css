@@ -1,4 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
+.header__menu {
+  background-color: #001f38 !important;
+  border-radius: 0 !important; }
+  .header__menu_logo img {
+    width: 100px !important; }
+  .header__menu_item a {
+    color: #FFFFFF !important; }
+
 .component__main {
   margin-top: 5px !important;
   margin-bottom: 15px !important; }
