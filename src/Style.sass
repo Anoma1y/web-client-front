@@ -52,12 +52,14 @@ $calculator-button-color-hover: #FF9209 !important
   font-family: $font-robot
   margin-bottom: 15px !important
   &__icon
-    font-size: 18px !important;
+    font-size: 18px !important
   &__text
-    padding-left: 15px !important
     color: $red-color
   &__link
     text-decoration: underline !important
+  &__textColumn
+    @media screen and (max-width: 767px) and (min-width: 320px)
+      text-align: center
 
 /***TIMER COMPONENT***/
 .timer__item

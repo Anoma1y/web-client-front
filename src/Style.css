@@ -18,10 +18,12 @@
   .attentionIdentification__icon {
     font-size: 18px !important; }
   .attentionIdentification__text {
-    padding-left: 15px !important;
     color: #FF3E33 !important; }
   .attentionIdentification__link {
     text-decoration: underline !important; }
+  @media screen and (max-width: 767px) and (min-width: 320px) {
+    .attentionIdentification__textColumn {
+      text-align: center; } }
 
 /***TIMER COMPONENT***/
 .timer__item_title {

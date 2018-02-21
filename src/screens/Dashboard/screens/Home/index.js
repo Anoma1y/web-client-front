@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Grid,
     Container,
-    Sticky, Icon
+    Sticky
 } from 'semantic-ui-react';
 
 import Timer from 'components/Timer'
