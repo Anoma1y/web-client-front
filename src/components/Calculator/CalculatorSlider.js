@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 export const InputSlider = ({maximumBonusToken, tokenValue, handleTokenRange}) => {
     const getPercent = val => (val * 100) / maximumBonusToken;
     return (
@@ -16,4 +14,4 @@ export const InputSlider = ({maximumBonusToken, tokenValue, handleTokenRange}) =
             style={{backgroundSize: `${getPercent(tokenValue) <= 100 ? getPercent(tokenValue) : 100}% 100%`}}
         />
     )
-}
+};

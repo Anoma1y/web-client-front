@@ -192,3 +192,17 @@
   background-color: transparent !important;
   border: 1px solid #FC900B !important;
   color: #FC900B !important; }
+
+/***SOCIAL NETWORK SIDEBAR***/
+.social__segment {
+  padding: 0 !important;
+  text-align: center !important; }
+
+.social__sidebar a {
+  color: #000000 !important;
+  transition: color .3s ease; }
+  .social__sidebar a:hover {
+    color: #FC900B !important; }
+
+.social__sidebar_icon {
+  margin: 18px 0 !important; }
