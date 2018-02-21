@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Grid,
     Container,
-    Sticky
+    Sticky, Icon
 } from 'semantic-ui-react';
 
 import Timer from 'components/Timer'
@@ -12,6 +12,7 @@ import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
+import { AttentionIdentification } from 'components/AttentionIdentification';
 
 class Home extends Component{
     constructor(props) {
@@ -26,6 +27,11 @@ class Home extends Component{
         const { contextRef } = this.state
 
         return (
+        <Container fluid>
+            <Container fluid>
+                {/*NEED CHECK USER IDENTIFICATION*/}
+                <AttentionIdentification />
+            </Container>
             <Container>
                 <div ref={this.handleContextRef}>
                     <Grid >
@@ -65,6 +71,7 @@ class Home extends Component{
                     </Grid>
                 </div>
             </Container>
+        </Container>
         )
     }
 }
