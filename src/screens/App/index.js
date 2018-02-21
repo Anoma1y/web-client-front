@@ -10,43 +10,31 @@ import Signup from 'screens/Signup'
 import Dashboard from 'screens/Dashboard'
 import ResetPassword from 'screens/ResetPassword'
 import Logo from 'logo.svg'
-const App = (props) => (
+
+const App = () => (
     <Container fluid>
         <Menu stackable style={{backgroundColor: "#001f38"}}>
             <Menu.Item>
-                <img src={Logo} alt="Logo" style={{width: "100px"}}/>
+                <a href={"#"}>
+                    <img src={Logo} alt="Logo" style={{width: "100px"}}/>
+                </a>
             </Menu.Item>
-
-            <Menu.Item
-                name='Home'
-            >
+            <Menu.Item name='Home'>
                 <Link to={"/"} > Home </Link>
             </Menu.Item>
-
-            <Menu.Item
-                name='Login'
-            >
+            <Menu.Item name='Login'>
                 <Link to={"/login"} > Login </Link>
             </Menu.Item>
-
-            <Menu.Item
-                name='Signup'
-            >
+            <Menu.Item name='Signup'>
                 <Link to={"/signup"} > Signup </Link>
             </Menu.Item>
-            <Menu.Item
-                name='Reset'
-            >
+            <Menu.Item name='Reset'>
                 <Link to={"/reset"} > Reset </Link>
             </Menu.Item>
-            <Menu.Item
-                name='Dashboard'
-            >
+            <Menu.Item name='Dashboard'>
                 <Link to={"/dashboard/"} > Dashboard </Link>
             </Menu.Item>
-            <Menu.Item
-                name='Settings'
-            >
+            <Menu.Item name='Settings'>
                 <Link to={"/dashboard/settings"} > Settings </Link>
             </Menu.Item>
         </Menu>
