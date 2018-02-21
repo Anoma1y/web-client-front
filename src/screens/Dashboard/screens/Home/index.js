@@ -28,7 +28,7 @@ class Home extends Component{
 
         return (
         <Container fluid>
-            <Container fluid>
+            <Container fluid className={"attentionIdentification"}>
                 {/*NEED CHECK USER IDENTIFICATION*/}
                 <AttentionIdentification />
             </Container>

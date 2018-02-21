@@ -8,9 +8,11 @@ $white-color: #FFFFFF !important
 $dim-white-color: #A0A6CC !important
 $black-color: #000000 !important
 $orange-color: #FC900B !important
-
+$red-color: #FF3E33 !important
 //component
 $container-background-color: #4D59A1 !important
+$attentionIdentification-background-color: #F1C0C0
+
 
 //calculator
 $total-label-color: #324482 !important
@@ -44,6 +46,18 @@ $calculator-button-color-hover: #FF9209 !important
   background-color: $container-background-color
   border-bottom-right-radius: 4px
   border-bottom-left-radius: 4px
+
+.attentionIdentification
+  background-color: $attentionIdentification-background-color
+  font-family: $font-robot
+  margin-bottom: 15px !important
+  &__icon
+    font-size: 18px !important;
+  &__text
+    padding-left: 15px !important
+    color: $red-color
+  &__link
+    text-decoration: underline !important
 
 /***TIMER COMPONENT***/
 .timer__item

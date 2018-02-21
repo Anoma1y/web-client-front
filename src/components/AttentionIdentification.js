@@ -11,9 +11,9 @@ export const AttentionIdentification = () => {
             <Grid>
                 <Grid.Row centered>
                     <Grid.Column width={15}>
-                        <p>
-                            <Icon name={"warning sign"}/>
-                            <span>Для приобретения токенов необходимо пройти <a href="#">идентификацию пользователя</a></span>
+                        <p className={"attentionIdentification__container"}>
+                            <Icon name={"warning sign"} className={"attentionIdentification__icon"}/>
+                            <span className={"attentionIdentification__text"}>Для приобретения токенов необходимо пройти <a href="#" className={"attentionIdentification__link"}>идентификацию пользователя</a></span>
                         </p>
                     </Grid.Column>
                 </Grid.Row>
