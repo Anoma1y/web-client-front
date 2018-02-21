@@ -405,7 +405,7 @@ class Calculator extends Component {
                                 <Button
                                     circular
                                     className={"calculator__submit"}
-                                    disabled={tokenValue === "0"}
+                                    disabled={tokenValue === "0" || sumValue === "0"}
                                 > Оставить заявку
                                 </Button>
                             </Grid.Column>
