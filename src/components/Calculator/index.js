@@ -314,9 +314,7 @@ class Calculator extends Component {
     }
 
     //Метод для разделения групп разрядов строки
-    separationValue = value => {
-        return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
-    }
+    separationValue = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
 
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
@@ -368,7 +366,7 @@ class Calculator extends Component {
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns={1} style={{paddingTop: 0}}>
+                        <Grid.Row columns={1} only={"computer"} style={{paddingTop: 0}}>
                             <Grid.Column>
                                 <InputSlider
                                     maximumBonusToken={bonus[bonus.length - 1]["limit"]}
