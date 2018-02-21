@@ -1,25 +1,55 @@
 import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import { List, Divider } from 'semantic-ui-react'
+import {
+    Menu,
+    Container
+} from 'semantic-ui-react'
 import Home from 'screens/Home'
 import Login from 'screens/Login'
 import Signup from 'screens/Signup'
 import Dashboard from 'screens/Dashboard'
 import ResetPassword from 'screens/ResetPassword'
-
+import Logo from 'logo.svg'
 const App = (props) => (
-    <div>
-        <header>
-            <List>
-                <List.Item><Link to={'/'}>Home</Link></List.Item>
-                <List.Item><Link to={'/login'}>Login</Link></List.Item>
-                <List.Item><Link to={'/signup'}>Signup</Link></List.Item>
-                <List.Item><Link to={'/reset'}>Reset</Link></List.Item>
-                <List.Item><Link to={'/dashboard'}>Dashboard</Link></List.Item>
-            </List>
-        </header>
-        <Divider/>
+    <Container fluid>
+        <Menu stackable style={{backgroundColor: "#001f38"}}>
+            <Menu.Item>
+                <img src={Logo} alt="Logo" style={{width: "100px"}}/>
+            </Menu.Item>
 
+            <Menu.Item
+                name='Home'
+            >
+                <Link to={"/"} > Home </Link>
+            </Menu.Item>
+
+            <Menu.Item
+                name='Login'
+            >
+                <Link to={"/login"} > Login </Link>
+            </Menu.Item>
+
+            <Menu.Item
+                name='Signup'
+            >
+                <Link to={"/signup"} > Signup </Link>
+            </Menu.Item>
+            <Menu.Item
+                name='Reset'
+            >
+                <Link to={"/reset"} > Reset </Link>
+            </Menu.Item>
+            <Menu.Item
+                name='Dashboard'
+            >
+                <Link to={"/dashboard/"} > Dashboard </Link>
+            </Menu.Item>
+            <Menu.Item
+                name='Settings'
+            >
+                <Link to={"/dashboard/settings"} > Settings </Link>
+            </Menu.Item>
+        </Menu>
         <main>
             <Switch>
                 <Route exact path={'/'} component={Home} />
@@ -29,7 +59,7 @@ const App = (props) => (
                 <Route path={'/reset'} component={ResetPassword} />
             </Switch>
         </main>
-    </div>
+    </Container>
 );
 
 export default App;
