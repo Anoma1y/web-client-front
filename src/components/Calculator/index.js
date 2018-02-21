@@ -11,20 +11,17 @@ import {
     TextArea,
     Button,
     Input,
-    Progress,
-    Icon,
     Card,
     Label,
     Divider,
     Form
-} from 'semantic-ui-react'
-import {Bonus} from './CalculatorBonus'
-import {CurrencyButton} from './CalculatorButton'
-import "../../App.css";
+} from 'semantic-ui-react';
+import { Bonus } from './CalculatorBonus';
+import { CurrencyButton } from './CalculatorButton';
+import { InputSlider } from './CalculatorSlider';
+import WarningIcon  from 'notification.svg';
 
 class Calculator extends Component {
-
-
     //Метод для расчета валюты
     //Принимает 2 параметра: value - текущее значение выбранной валюты
     //type - тип валюты для расчета
@@ -74,7 +71,6 @@ class Calculator extends Component {
     //Возвращает объект бонусов и бонусного процента
     checkBonus = value => {
         const { bonus: bonusList } = this.props.calculator;
-
         let bonusTKN = 0;
         let bonus = [];
         bonusList.forEach((item) => {
@@ -91,42 +87,54 @@ class Calculator extends Component {
         }
     }
 
+    //Метод для расчета стоимость ТОКЕНА
+    //Принимает 1 параметр: type - тип криптовалюты,
+    //Возвращает расчетную стоимость токена, если тип не передан, то вернет токен без расчетов
+    TKNprice = type => {
+        const { TKN, currency } = this.props.calculator;
+        switch(type) {
+            case "BTC":
+                return currency[0].price_usd * TKN;
+            case "ETH":
+                return currency[1].price_usd * TKN;
+            default:
+                return TKN;
+        }
+    }
+
     //Метод для расчета количества токенов из вводимого пользователем значения в Input-валюты
     //Принимает 1 параметр: value - вводимое пользователем значение валюты
     //Для выбранной валюты происходит расчет значений
     //Возвращает объект значений текущего значения Input, заполненость прогресс бара, значения токенов
     //бонусов и расчетного значения транферного значения валют и токенов
     calcCurrency = value => {
-        const {currencyValue, TKN, currency} = this.props.calculator;
+        const { currencyValue } = this.props.calculator;
         let bonus;
         let BTC, ETH, TKNinitialValue, TKNvalue, USD;
-        const TKNVV = TKN * currency[1].price_usd;
+        const TKN_ETH = this.TKNprice("ETH");
         if (currencyValue === "USD") {
             BTC = this.transferUSD(value, "BTC");
             ETH = this.transferUSD(value, "ETH");
-            TKNinitialValue = this.transferToTKN(value, TKNVV);
+            TKNinitialValue = this.transferToTKN(value, TKN_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKNVV);
+            TKNvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TKN_ETH);
             USD = value;
         } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
-            TKNinitialValue = this.transferToTKN(USD, TKNVV);
+            TKNinitialValue = this.transferToTKN(USD, TKN_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKNVV);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN_ETH);
             ETH = value;
         } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
-            TKNinitialValue = this.transferToTKN(USD, TKNVV);
+            TKNinitialValue = this.transferToTKN(USD, TKN_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKNVV);
+            TKNvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TKN_ETH);
             BTC = value;
         }
-
         const progressBar = this.handleProgressBar(TKNvalue);
-        
-        console.log(TKNinitialValue);
         return {
             sumValue: value,
             progressBar,
@@ -181,7 +189,10 @@ class Calculator extends Component {
     //Зависящий от максимального количества токена и вводимого пользователем
     checkMaximum = value => value >= 100;
 
-    bonusCalc = (val, bonus) => (1 * val)  + ((1 * val) * (bonus / 100));
+    //Метод для расчета бонусного значения при вводе токена
+    //Принимает 2 параметра: value - текущее значения вводимое пользователем в Input-токены, bonus - процент бонуса
+    //Возвращает значение токена с бонусным значением
+    bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
 
     //Метод для расчета бонуса от токена, принимает 3 значения: value - текущее значение вводимое пользователем в Input-валюты
     //bonusTKN - бонусное значение токена, TKN - стоимость токена
@@ -200,11 +211,11 @@ class Calculator extends Component {
     //bonusValue - бонусное значение токена
     //Возвращает объект значений для каждой валюты + токена
     transferTKN = (value, bonusValue) => {
-        const { TKN, currency } = this.props.calculator;
-        const TKNVV = TKN * currency[1].price_usd;
-        const USD = TKNVV *  value;
-        const BTC = (TKNVV / currency[0].price_usd) * value;
-        const ETH = (TKNVV / currency[1].price_usd) * value;
+        const { currency } = this.props.calculator;
+        const TKN_ETH = this.TKNprice("ETH");
+        const USD = TKN_ETH *  value;
+        const BTC = (TKN_ETH / currency[0].price_usd) * value;
+        const ETH = (TKN_ETH / currency[1].price_usd) * value;
         return { USD, BTC, ETH, TKN: bonusValue }
     }
 
@@ -235,6 +246,11 @@ class Calculator extends Component {
         this.changeState(this.calcToken(value));
     }
 
+    handleTokenRange = event => {
+        const { value } = event.target;
+        this.changeState(this.calcToken(value));
+    }
+    
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
     //Принимает 1 значение (event - value) - вводимое (пользователем) значение
     //Происходит проверка на отсутствие текста и спец-символов
@@ -303,7 +319,7 @@ class Calculator extends Component {
         const { currencyValue, currency } = this.props.calculator;
         return currency.map(item => {
             return (
-                <Grid.Column widescreen={2} computer={2} tablet={3} mobile={4} key={item["id"]}>
+                <Grid.Column widescreen={3} computer={3} tablet={3} mobile={4} key={item["id"]}>
                     <CurrencyButton
                         buttonTitle={item["symbol"]}
                         handleChange={this.handleChange}
@@ -314,43 +330,49 @@ class Calculator extends Component {
         })
     }
 
+    //Метод для разделения групп разрядов строки
+    separationValue = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
+
     render() {
-        const { percent, isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue, transferData, suffixText } = this.props.calculator;
+        const { isMaximum } = this.props.calculator.progressBar;
+        const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
+
         return (
-            <Card fluid color={'violet'} style={{marginBottom: "20px"}}>
+            <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
                     <Card.Header>Калькулятор</Card.Header>
-                    <Divider />
-                    <Grid verticalAlign={'middle'}>
+                    <Divider className={"white__divider"}/>
+                    <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                         <Grid.Row>
                             { this.renderCurrencyButton() }
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
                                 <Form unstackable>
-                                    <Form.Group>
+                                    <Form.Group  style={{marginBottom: 0}}>
                                         <Form.Field width={8}>
                                             <Input
                                                 fluid
+                                                className={"input__currency"}
                                                 placeholder={"TCT"}
-                                                value={suffixText.suffixToken ? `${tokenValue} TCT` : tokenValue}
+                                                value={suffixText.suffixToken ? `${this.separationValue(tokenValue)} TCT` : tokenValue}
                                                 onChange={this.handleToken}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
                                                 ref={(input) => {this.inputToken = input}}
                                             />
-                                            <Label as={"span"} style={{marginTop: "7px", fontSize: "16px"}}>
-                                                <span>Total: {`${transferData.TKN} TCT`}</span>
+                                            <Label as={"span"} className={"total__label"}>
+                                                <span>Total: {`${this.separationValue(transferData.TKN)} TCT`}</span>
                                             </Label>
                                         </Form.Field>
                                         <Form.Field width={8}>
                                             <Input
                                                 fluid
+                                                className={"input__currency"}
                                                 placeholder={currencyValue}
                                                 onChange={this.handleCurrency}
-                                                value={suffixText.suffixCurrency ? `${sumValue} ${currencyValue}` : sumValue}
+                                                value={suffixText.suffixCurrency ? `${this.separationValue(sumValue)} ${currencyValue}` : sumValue}
                                                 size={"large"}
                                                 onBlur={this.handleBlur}
                                                 onFocus={this.handleFocus}
@@ -361,25 +383,25 @@ class Calculator extends Component {
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns={1}>
+                        <Grid.Row columns={1} only={"computer"} style={{paddingTop: 0}}>
                             <Grid.Column>
-                                <Progress
-                                    percent={percent}
-                                    size={"tiny"}
-                                    color={"red"}/>
-                                <input type={"range"} />
+                                <InputSlider
+                                    maximumBonusToken={bonus[bonus.length - 1]["limit"]}
+                                    tokenValue={tokenValue}
+                                    handleTokenRange={this.handleTokenRange}
+                                />
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row>
+                        <Grid.Row className={"calculator__bonus"}>
                             <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
-                                <p>Бонус</p>
+                                <p className={"bonus__title"}>Bonus</p>
                             </Grid.Column>
                             <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
                             <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
-                                <span className={isMaximum === true ? "active": ""}>
-                                    <Icon name={"warning sign"} />
+                                <span className={isMaximum === true ? "bonus__maximum bonus__maximum-active": "bonus__maximum"}>
+                                    <img src={WarningIcon} alt="Warning Icon" className={"bonus__maximum-icon"} />
                                     Вы достигли лимита
                                 </span>
                             </Grid.Column>
@@ -388,6 +410,7 @@ class Calculator extends Component {
                             <Grid.Column>
                                 <Form as={"div"}>
                                     <TextArea
+                                        className={"calculator__comments"}
                                         autoHeight
                                         placeholder='Оставить комментарий'
                                     />
@@ -396,7 +419,12 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column textAlign={"right"}>
-                                <Button circular>Оставить заявку</Button>
+                                <Button
+                                    circular
+                                    className={"calculator__submit"}
+                                    disabled={transferData.TKN < 1 || transferData.USD === "0"}
+                                > Оставить заявку
+                                </Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

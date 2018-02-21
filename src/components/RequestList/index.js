@@ -1,12 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, Divider } from 'semantic-ui-react'
+import {
+    Card,
+    Divider,
+    Grid
+} from 'semantic-ui-react'
 
-import RequestItem from 'components/RequestItem'
+import RequestItem from './RequestItem'
 
 class RequestList extends React.Component {
     renderList () {
-        return this.props.requests.items.map((item, i) => {
+        const { items: request } = this.props.requests;
+        return request.map((item, index) => {
             let btnOptions = null;
 
             switch (item.status) {
@@ -23,8 +28,8 @@ class RequestList extends React.Component {
                     btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
             }
             return (
-                <Card.Description key={i}>
-                    <Divider />
+
+                <Card.Description key={index}>
                     <RequestItem
                         sum={`${item.sum} ${item.currency}`}
                         amount={`${item.amount} TCT`}
@@ -33,7 +38,9 @@ class RequestList extends React.Component {
                         buttonDisabled={item.status !== 1}
                         buttonInverted={item.status === 1}
                     />
+                    {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}
                 </Card.Description>
+
             )
         })
     }
@@ -41,10 +48,17 @@ class RequestList extends React.Component {
     render () {
         return (
             <div>
-                <Card fluid color={'violet'}>
+                <Card fluid>
                     <Card.Content>
                         <Card.Header>Ваши заявки</Card.Header>
-                        {this.renderList()}
+                        <Divider />
+                        <Grid verticalAlign={'middle'} className={"dashboard__component"}>
+                            <Grid.Row columns={1}>
+                                <Grid.Column>
+                                    {this.renderList()}
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
                     </Card.Content>
                 </Card>
             </div>

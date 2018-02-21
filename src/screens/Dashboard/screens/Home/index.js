@@ -12,20 +12,25 @@ import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
+import { AttentionIdentification } from 'components/AttentionIdentification';
 
 class Home extends Component{
     constructor(props) {
         super(props);
         this.state = {
-
+            isIdentification: false
         }
     }
     handleContextRef = contextRef => this.setState({ contextRef })
 
     render() {
-        const { contextRef } = this.state
+        const { contextRef, isIdentification } = this.state
 
         return (
+        <Container fluid>
+            <Container fluid className={"attentionIdentification"}>
+                {!isIdentification ? <AttentionIdentification /> : ""}
+            </Container>
             <Container>
                 <div ref={this.handleContextRef}>
                     <Grid >
@@ -65,6 +70,7 @@ class Home extends Component{
                     </Grid>
                 </div>
             </Container>
+        </Container>
         )
     }
 }

@@ -8,6 +8,7 @@ export const CurrencyButton = ({buttonTitle, handleChange, currencyValue}) => {
             label={buttonTitle}
             name='radioGroup'
             value={buttonTitle}
+            className={"currency__button"}
             checked={currencyValue === buttonTitle}
             onChange={handleChange}
         />

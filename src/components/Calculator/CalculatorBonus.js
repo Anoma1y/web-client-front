@@ -4,7 +4,7 @@ import { Label } from 'semantic-ui-react'
 
 export const Bonus = ({bonusVal, bonusActive}) => {
     return (
-        <Label as={"span"} circular className={bonusActive === true ? "active" : ""} style={{margin: "0 3px", width: "45px"}}>{bonusVal} %</Label>
+        <Label as={"span"} circular className={bonusActive === true ? "bonus__label bonus__label-active" : "bonus__label"}>{bonusVal} %</Label>
     )
 }
 
