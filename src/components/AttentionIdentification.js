@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import {
     Grid,
     Container,
@@ -18,7 +19,7 @@ export const AttentionIdentification = () => {
                                        <Icon name={"warning sign"} className={"attentionIdentification__icon"}/>
                                     </Grid.Column>
                                     <Grid.Column widescreen={15} computer={15} tablet={15} mobile={16} className={"attentionIdentification__textColumn"}>
-                                        <span className={"attentionIdentification__text"}>Для приобретения токенов необходимо пройти <a href="#" className={"attentionIdentification__link"}>идентификацию пользователя</a>
+                                        <span className={"attentionIdentification__text"}>Для приобретения токенов необходимо пройти <Link to={"/dashboard/settings"} className={"attentionIdentification__link"}>идентификацию пользователя</Link>
                                         </span>
                                     </Grid.Column>
                                 </Grid.Row>
