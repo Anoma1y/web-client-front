@@ -159,10 +159,15 @@
     background-color: #FF9209 !important; }
 
 /***REQUEST COMPONENT***/
+.request__item_wrapper {
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important; }
+
 .request__item_title {
   color: #A0A6CC !important; }
 
 .request__item_value {
+  margin-top: 3px !important;
   color: #FFFFFF !important; }
 
 .request__button {

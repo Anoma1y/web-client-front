@@ -17,14 +17,11 @@ class SocialNetwork extends Component {
     }
     render() {
         return (
-            <Segment className={"social__segment"}>
+            <Segment className={"social__segment component__main"}>
                 <Grid>
                     <Grid.Row centered columns={"equal"} className={"social__sidebar"}>
-
                         {this.renderSocialList()}
-
                     </Grid.Row>
-
                 </Grid>
             </Segment>
         );
