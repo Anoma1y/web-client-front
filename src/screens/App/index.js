@@ -1,8 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import {
-    Container
-} from 'semantic-ui-react';
 import Home from 'screens/Home';
 import Login from 'screens/Login';
 import Signup from 'screens/Signup';
@@ -11,7 +8,7 @@ import ResetPassword from 'screens/ResetPassword';
 import HeaderMenu from 'components/HeaderMenu';
 
 const App = () => (
-    <Container fluid className={"dashboard__header"}>
+    <div className={"dashboard__header"} >
         <HeaderMenu />
         <main>
             <Switch>
@@ -22,7 +19,7 @@ const App = () => (
                 <Route path={'/reset'} component={ResetPassword} />
             </Switch>
         </main>
-    </Container>
+    </div>
 );
 
 export default App;

@@ -4,10 +4,22 @@
   border-radius: 0 !important; }
   .header__menu_logo img {
     width: 100px !important; }
-  .header__menu_item a {
-    color: #999999 !important; }
-    .header__menu_item a:hover {
-      color: #FFFFFF !important; }
+  .header__menu_item {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    cursor: pointer; }
+    .header__menu_item:hover {
+      background-color: #00111f !important; }
+      .header__menu_item:hover svg {
+        stroke: #FFFFFF !important; }
+    .header__menu_item svg {
+      stroke: #999999; }
+    .header__menu_item a {
+      color: #999999 !important; }
+      .header__menu_item a:hover {
+        color: #FFFFFF !important; }
+  .header__menu_item-active svg {
+    stroke: #FFFFFF !important; }
   .header__menu_item-active a {
     color: #FFFFFF !important; }
 
