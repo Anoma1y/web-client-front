@@ -18,19 +18,18 @@ class Home extends Component{
     constructor(props) {
         super(props);
         this.state = {
-
+            isIdentification: false
         }
     }
     handleContextRef = contextRef => this.setState({ contextRef })
 
     render() {
-        const { contextRef } = this.state
+        const { contextRef, isIdentification } = this.state
 
         return (
         <Container fluid>
             <Container fluid className={"attentionIdentification"}>
-                {/*NEED CHECK USER IDENTIFICATION*/}
-                <AttentionIdentification />
+                {!isIdentification ? <AttentionIdentification /> : ""}
             </Container>
             <Container>
                 <div ref={this.handleContextRef}>
