@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import {
     Menu
 } from 'semantic-ui-react';
@@ -28,6 +29,7 @@ class HeaderMenu extends Component {
         }]
     }
     render() {
+        const { pathname } = this.props.routing.location;
         const { menu } = this.state;
         return (
             <Menu stackable className={"header__menu"}>
@@ -36,16 +38,13 @@ class HeaderMenu extends Component {
                         <img src={Logo} alt="Logo" />
                     </a>
                 </Menu.Item>
-                {
-                    menu.map((item, i) => {
-                        return (
-                            <HeaderMenuItem key={i} LinkName={item["name"]} href={item["href"]}/>
-                        )
-                    })
-                }
+                { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname}/> )}
             </Menu>
         );
     }
 }
 
-export default HeaderMenu;
+
+export default connect(state => ({ routing: state.routing }), {
+
+})(HeaderMenu);

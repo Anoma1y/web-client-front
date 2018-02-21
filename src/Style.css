@@ -5,6 +5,10 @@
   .header__menu_logo img {
     width: 100px !important; }
   .header__menu_item a {
+    color: #999999 !important; }
+    .header__menu_item a:hover {
+      color: #FFFFFF !important; }
+  .header__menu_item-active a {
     color: #FFFFFF !important; }
 
 .component__main {
