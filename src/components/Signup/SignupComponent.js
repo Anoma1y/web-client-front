@@ -14,8 +14,7 @@ import {
     setSignupInProgress,
     setError
 } from 'actions/signup';
-import axios from 'axios';
-
+import ApiLib from 'libs/ApiLib/SignUp'
 class SignupComponent extends React.Component {
 
     handleSignup = () => {
@@ -26,28 +25,13 @@ class SignupComponent extends React.Component {
         } else {
             setError(null);
         }
-        axios.head(`http://192.168.0.136:4874/v1/profile/availability?email=${email}`)
-        .then(response => {
-            if (response.status === 200) {
-                setError(null);
-                axios.post(`http://192.168.0.136:4874/v1/profile`,{
-                    email: email,
-                    password: password
-                })
-                .then(response => {
-                    if (response.status === 200) {
-                        setSignupInProgress(true);
-                        goToSuccess();
-                    }
-                })
-                .catch(() => {
-                    setError("Registration Error");
-                })
-            }
+        ApiLib.regUser(email, password).then(() => {
+            setError(null);
+            setSignupInProgress(true);
+            goToSuccess();
+        }).catch((err) =>{
+            setError(err)
         })
-        .catch(() => {
-            setError("Email already used by someone");
-        });
     }
 
     render () {
