@@ -1,49 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
-.settings__identification_header {
-  background-color: #363E71 !important; }
-
-.setting__header_button {
-  background-color: #71779B !important;
-  color: #FFFFFF !important; }
-  .setting__header_button-active {
-    background-color: #FFFFFF !important;
-    color: #55697A !important; }
-  .setting__header_button:hover {
-    background-color: #FFFFFF !important;
-    color: #55697A !important; }
-
-.setting__description {
-  color: #FFFFFF !important;
-  font-family: "Roboto", sans-serif !important; }
-
-.setting__button {
-  margin: 15px 0 !important;
-  background-color: #828ABD !important;
-  color: #FFFFFF !important; }
-  .setting__button:hover {
-    background-color: #FFFFFF !important;
-    color: #55697A !important; }
-
-.setting__imagePreview {
-  margin: 7px 0 !important; }
-
-.setting__change_buttons input {
-  font-family: "Roboto", sans-serif !important;
-  font-weight: 500 !important;
-  background-color: inherit !important;
-  border: none !important;
-  border-bottom: 1px solid #A0A6CC !important;
-  margin-bottom: 15px !important;
-  color: #FFFFFF !important; }
-  .setting__change_buttons input:focus::-webkit-input-placeholder {
-    color: #FFFFFF !important; }
-  .setting__change_buttons input:focus:-moz-placeholder {
-    color: #FFFFFF !important; }
-  .setting__change_buttons input:focus::-moz-placeholder {
-    color: #FFFFFF !important; }
-  .setting__change_buttons input:focus:-ms-input-placeholder {
-    color: #FFFFFF !important; }
-
 .header__menu {
   background-color: #001f38 !important;
   border-radius: 0 !important; }
@@ -74,7 +29,7 @@
 
 .component__main {
   margin-top: 5px !important;
-  margin-bottom: 15px !important; }
+  margin-bottom: 25px !important; }
 
 .white__divider {
   border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important; }
@@ -305,3 +260,49 @@
 
 .social__sidebar_icon {
   margin: 18px 0 !important; }
+
+/***SETTINGS PAGE***/
+.settings__identification_header {
+  background-color: #363E71 !important; }
+
+.setting__header_button {
+  background-color: #71779B !important;
+  color: #FFFFFF !important; }
+  .setting__header_button-active {
+    background-color: #FFFFFF !important;
+    color: #55697A !important; }
+  .setting__header_button:hover {
+    background-color: #FFFFFF !important;
+    color: #55697A !important; }
+
+.setting__description {
+  color: #FFFFFF !important;
+  font-family: "Roboto", sans-serif !important; }
+
+.setting__button {
+  margin: 15px 0 !important;
+  background-color: #828ABD !important;
+  color: #FFFFFF !important; }
+  .setting__button:hover {
+    background-color: #FFFFFF !important;
+    color: #55697A !important; }
+
+.setting__imagePreview {
+  margin: 7px 0 !important; }
+
+.setting__change_buttons input {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500 !important;
+  background-color: inherit !important;
+  border: none !important;
+  border-bottom: 1px solid #A0A6CC !important;
+  margin-bottom: 15px !important;
+  color: #FFFFFF !important; }
+  .setting__change_buttons input:focus::-webkit-input-placeholder {
+    color: #FFFFFF !important; }
+  .setting__change_buttons input:focus:-moz-placeholder {
+    color: #FFFFFF !important; }
+  .setting__change_buttons input:focus::-moz-placeholder {
+    color: #FFFFFF !important; }
+  .setting__change_buttons input:focus:-ms-input-placeholder {
+    color: #FFFFFF !important; }
