@@ -1,6 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Button, Card, Divider} from 'semantic-ui-react'
+import {
+    Button,
+    Card,
+    Divider,
+    Grid
+} from 'semantic-ui-react'
 
 import IdentificationImgUpload from './IdentificationImgUpload'
 
@@ -14,9 +19,10 @@ class Identification extends React.Component {
 
     renderUploadForm() {
         // TODO: Add constants to form type
+        const { individualUser, legalEntity } = this.props.settings;
         switch (this.state.templateForm) {
             case 1:
-                return this.props.settings.individualUser.map((item) => {
+                return individualUser.map((item) => {
                     return (
                         <IdentificationImgUpload
                             description={item.description}
@@ -26,7 +32,7 @@ class Identification extends React.Component {
                     )
                 });
             case 2:
-                return this.props.settings.legalEntity.map((item) => {
+                return legalEntity.map((item) => {
                     return (
                         <IdentificationImgUpload
                             description={item.description}
@@ -41,27 +47,47 @@ class Identification extends React.Component {
     }
 
     renderForm() {
+        const { templateForm } = this.state;
         return (
-            <Card fluid color={'violet'}>
+            <Card fluid className={"settings__identification"}>
                 <Card.Content>
                     <Card.Header>Идентификация</Card.Header>
-                    <Divider />
-                    <Card.Description style={{marginBottom: 15}}>
-                        <Button.Group>
-                            <Button inverted color={'orange'}
-                                onClick={() => this.setState({templateForm: 1})}
-                            >
-                                Individual user
-                            </Button>
-                            <Button inverted color={'orange'}
+                    <Divider className={"white__divider"}/>
+                    <Grid className={"dashboard__component"}>
+                        <Grid.Row className={"settings__identification_header"}>
+                            <Grid.Column>
+                                <Button
+                                    circular
+                                    size={"small"}
+                                    className={templateForm === 1 ? "setting__header_button setting__header_button-active" : "setting__header_button"}
+                                    onClick={() => this.setState({templateForm: 1})}
+                                >Individual user
+                                </Button>
+                                <Button
+                                    circular
+                                    size={"small"}
+                                    className={templateForm === 2 ? "setting__header_button setting__header_button-active" : "setting__header_button"}
                                     onClick={() => this.setState({templateForm: 2})}
-                            >
-                                Legal entity
-                            </Button>
-                        </Button.Group>
-                    </Card.Description>
-                    {this.renderUploadForm()}
-                    <Button fluid>Сохранить изменения</Button>
+                                >Legal entity
+                                </Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                {this.renderUploadForm()}
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Button
+                                    className={"setting__button"}
+                                    fluid
+                                    circular
+                                >Сохранить изменения
+                                </Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
                 </Card.Content>
             </Card>
         )

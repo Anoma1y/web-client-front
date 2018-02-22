@@ -1,9 +1,11 @@
-import React from 'react'
-import { Container, Grid } from 'semantic-ui-react'
-
-import ChangePassword from 'components/Settings/ChangePassword'
-import ChangeEmail from 'components/Settings/ChangeEmail'
-import Identification from 'components/Settings/Identification'
+import React from 'react';
+import {
+    Container,
+    Grid
+} from 'semantic-ui-react';
+import ChangePassword from 'components/Settings/ChangePassword';
+import ChangeEmail from 'components/Settings/ChangeEmail';
+import Identification from 'components/Settings/Identification';
 
 const Settings = () => (
     <Container>

@@ -24,7 +24,8 @@ $bonus-maximum-color: #ff705c !important
 $calculator-button-color: #7C6FA8 !important
 $calculator-button-color-hover: #FF9209 !important
 
-
+//settings
+$header-identification-component: #363E71 !important
 
 //mixin
 =placeholder
@@ -36,8 +37,6 @@ $calculator-button-color-hover: #FF9209 !important
     @content
   &:-ms-input-placeholder
     @content
-.dashboard__header
-
 
 .header__menu
   background-color: $header-menu-background-color
@@ -46,28 +45,52 @@ $calculator-button-color-hover: #FF9209 !important
     img
       width: 100px !important
   &_item
-    padding-left: 25px !important
-    padding-right: 25px !important
+    padding: 0 !important
+    width: 64px !important
+    height: 64px !important
     cursor: pointer
+    @media only screen and (max-width: 991px)
+      display: none !important
+    i
+      font-size: 18px !important
     &:hover
       background-color: darken(#001f38, 5%) !important
-      & svg
-        stroke: $white-color
-    svg
-      stroke: darken(#fff, 40%)
+      & a
+        color: $white-color
     a
+      display: -webkit-box !important
+      display: -ms-flexbox !important
+      display: flex !important
+      -webkit-box-pack: center
+      -ms-flex-pack: center
+      justify-content: center
+      -webkit-box-align: center
+      -ms-flex-align: center
+      align-items: center
+      width: 100% !important
+      height: 100% !important
       color: darken(#fff, 40%) !important
       &:hover
         color: $white-color
   &_item-active
-    svg
-      stroke: $white-color
     a
       color: $white-color
+.mobileMenu__trigger
+  display: none !important
+  color: $white-color
+  font-size: 22px
+  position: absolute !important
+  right: 0 !important
+  i
+    cursor: pointer !important
+    &:hover
+      color: darken(#fff, 10%) !important
+  @media only screen and (max-width: 991px)
+    display: block !important
 
 .component__main
   margin-top: 5px !important
-  margin-bottom: 15px !important
+  margin-bottom: 25px !important
 
 .white__divider
   border-bottom: 1px solid rgba(255,255,255,.5) !important
@@ -125,6 +148,7 @@ $calculator-button-color-hover: #FF9209 !important
     border-radius: 20px
     color: lighten(#ffffff, 60%) !important
     font-weight: 300 !important
+    -webkit-transition: color .3s ease, background-color .3s ease, font-weight .3s ease
     transition: color .3s ease, background-color .3s ease, font-weight .3s ease
     &:hover
       background-color: $white-color
@@ -169,7 +193,7 @@ $calculator-button-color-hover: #FF9209 !important
   padding: 0
   width: 100%
   height: 6px
-  background: #f3f3f3 linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat
+  background: #f3f3f3 -webkit-linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat
   border-radius: 10px
   cursor: pointer
   -webkit-appearance: none
@@ -216,7 +240,11 @@ $calculator-button-color-hover: #FF9209 !important
 
 .bonus__maximum
   color: $white-color
+  display: -webkit-box
+  display: -ms-flexbox
   display: flex
+  -webkit-box-align: center
+  -ms-flex-align: center
   align-items: center
   img
     margin-right: 6px !important
@@ -289,8 +317,53 @@ $calculator-button-color-hover: #FF9209 !important
 .social__sidebar
   a
     color: $black-color
+    -webkit-transition: color .3s ease
     transition: color .3s ease
     &:hover
       color: $orange-color
   &_icon
     margin: 18px 0 !important
+
+
+/***SETTINGS PAGE***/
+.settings__identification_header
+  background-color: $header-identification-component
+.setting__header_button
+  background-color: #71779B !important
+  color: $white-color
+  &-active
+    background-color: $white-color
+    color: #55697A !important
+  &:hover
+    background-color: $white-color
+    color: #55697A !important
+
+.setting__description
+  color: $white-color
+  font-family: $font-robot
+
+.setting__button
+  margin: 15px 0 !important
+  background-color: #828ABD !important
+  color: $white-color
+  &:hover
+    background-color: $white-color
+    color: #55697A !important
+
+.setting__imagePreview
+  margin: 7px 0 !important
+
+.setting__change_buttons
+  input
+    font-family: $font-robot
+    font-weight: 500 !important
+    background-color: inherit !important
+    border: none !important
+    border-bottom: 2px solid $dim-white-color
+    border-radius: 0 !important
+    margin-bottom: 15px !important
+    color: $white-color
+    &:focus, &:hover
+      border-bottom-color: $white-color
+      +placeholder
+        color: $white-color
