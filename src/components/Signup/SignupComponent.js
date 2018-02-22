@@ -24,12 +24,12 @@ import SignUpLib from 'libs/ApiLib/SignUp';
 class SignupComponent extends React.Component {
 
     handleSignup = () => {
-        const { email, password, repeatPassword, setError } = this.props;
+        const { email, password, repeatPassword, setError, handleRegistration } = this.props;
         if (repeatPassword !== password) {
             setError("Passwords do not match");
         } else {
             setError(null);
-            this.props.handleRegistration({email, password});
+            handleRegistration({email, password});
         }
     }
 
@@ -49,6 +49,7 @@ class SignupComponent extends React.Component {
         changeEmail(value);
         this.debounceEmail();
     }
+
     render () {
         const { changePassword, changeRepeatPassword, email, password, repeatPassword, error, isSignupInProgress } = this.props;
         return (
