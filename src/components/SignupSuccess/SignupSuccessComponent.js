@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Input, Button } from 'semantic-ui-react';
-import { push } from 'react-router-redux';
+import { Card } from 'semantic-ui-react';
 
 
 class SignupSuccessComponent extends Component {
@@ -25,7 +24,6 @@ class SignupSuccessComponent extends Component {
     }
 }
 
-
 export default connect(state => ({ signup: state.signup }), {
-    
+
 })(SignupSuccessComponent);

@@ -1,9 +1,12 @@
 import React from 'react';
-import { Card, Input, Button } from 'semantic-ui-react';
+import {
+    Card,
+    Input,
+    Button
+} from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-
 import {
     changeEmail,
     changePassword,
@@ -20,9 +23,9 @@ class SignupComponent extends React.Component {
         if (repeatPassword !== password) {
             setError("Passwords do not match");
             return;
+        } else {
+            setError(null);
         }
-        setError(null);
-
         axios.head(`http://192.168.0.136:4874/v1/profile/availability?email=${email}`)
         .then(response => {
             if (response.status === 200) {
@@ -37,8 +40,8 @@ class SignupComponent extends React.Component {
                         goToSuccess();
                     }
                 })
-                .catch(error => {
-                    console.log(error);
+                .catch(() => {
+                    setError("Registration Error");
                 })
             }
         })
@@ -48,6 +51,7 @@ class SignupComponent extends React.Component {
     }
 
     render () {
+        const { changeEmail, changePassword, changeRepeatPassword, email, password, repeatPassword, error } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>
@@ -57,16 +61,34 @@ class SignupComponent extends React.Component {
                 <Card fluid color={'violet'}>
                     <Card.Content>
                         <Card.Description>
-                            <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeEmail.bind(this)} value={this.props.email}
+                            <Input
+                                icon='at'
+                                iconPosition='left'
+                                placeholder='E-mail'
+                                fluid
+                                style={{marginBottom: 15}}
+                                onChange={changeEmail}
+                                value={email}
                             />
-                            <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changePassword.bind(this)} value={this.props.password}
+                            <Input
+                                icon='key'
+                                iconPosition='left'
+                                placeholder='Пароль'
+                                fluid
+                                style={{marginBottom: 15}}
+                                onChange={changePassword}
+                                value={password}
                             />
-                            <Input icon='repeat' iconPosition='left' placeholder='Повторите пароль' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeRepeatPassword.bind(this)} value={this.props.repeatPassword}
+                            <Input
+                                icon='repeat'
+                                iconPosition='left'
+                                placeholder='Повторите пароль'
+                                fluid
+                                style={{marginBottom: 15}}
+                                onChange={changeRepeatPassword}
+                                value={repeatPassword}
                             />
-                            {this.props.error !== null ? this.props.error : ""}
+                            {error !== null ? error : ""}
                             <Button
                                 fluid
                                 onClick={this.handleSignup}
