@@ -49,6 +49,8 @@ $header-identification-component: #363E71 !important
     width: 64px !important
     height: 64px !important
     cursor: pointer
+    @media only screen and (max-width: 991px)
+      display: none !important
     i
       font-size: 18px !important
     &:hover
@@ -67,6 +69,18 @@ $header-identification-component: #363E71 !important
   &_item-active
     a
       color: $white-color
+.mobileMenu__triger
+  display: none !important
+  color: $white-color
+  font-size: 22px
+  position: absolute !important
+  right: 0 !important
+  i
+    cursor: pointer !important
+    &:hover
+      color: darken(#fff, 10%) !important
+  @media only screen and (max-width: 991px)
+    display: block !important
 
 .component__main
   margin-top: 5px !important
@@ -337,7 +351,7 @@ $header-identification-component: #363E71 !important
     border-radius: 0 !important
     margin-bottom: 15px !important
     color: $white-color
-    &:focus
+    &:focus, &:hover
       border-bottom-color: $white-color
       +placeholder
         color: $white-color

@@ -9,6 +9,9 @@
     width: 64px !important;
     height: 64px !important;
     cursor: pointer; }
+    @media only screen and (max-width: 991px) {
+      .header__menu_item {
+        display: none !important; } }
     .header__menu_item i {
       font-size: 18px !important; }
     .header__menu_item:hover {
@@ -26,6 +29,20 @@
         color: #FFFFFF !important; }
   .header__menu_item-active a {
     color: #FFFFFF !important; }
+
+.mobileMenu__triger {
+  display: none !important;
+  color: #FFFFFF !important;
+  font-size: 22px;
+  position: absolute !important;
+  right: 0 !important; }
+  .mobileMenu__triger i {
+    cursor: pointer !important; }
+    .mobileMenu__triger i:hover {
+      color: #e6e6e6 !important; }
+  @media only screen and (max-width: 991px) {
+    .mobileMenu__triger {
+      display: block !important; } }
 
 .component__main {
   margin-top: 5px !important;
@@ -299,13 +316,13 @@
   border-radius: 0 !important;
   margin-bottom: 15px !important;
   color: #FFFFFF !important; }
-  .setting__change_buttons input:focus {
+  .setting__change_buttons input:focus, .setting__change_buttons input:hover {
     border-bottom-color: #FFFFFF !important; }
-    .setting__change_buttons input:focus::-webkit-input-placeholder {
+    .setting__change_buttons input:focus::-webkit-input-placeholder, .setting__change_buttons input:hover::-webkit-input-placeholder {
       color: #FFFFFF !important; }
-    .setting__change_buttons input:focus:-moz-placeholder {
+    .setting__change_buttons input:focus:-moz-placeholder, .setting__change_buttons input:hover:-moz-placeholder {
       color: #FFFFFF !important; }
-    .setting__change_buttons input:focus::-moz-placeholder {
+    .setting__change_buttons input:focus::-moz-placeholder, .setting__change_buttons input:hover::-moz-placeholder {
       color: #FFFFFF !important; }
-    .setting__change_buttons input:focus:-ms-input-placeholder {
+    .setting__change_buttons input:focus:-ms-input-placeholder, .setting__change_buttons input:hover:-ms-input-placeholder {
       color: #FFFFFF !important; }

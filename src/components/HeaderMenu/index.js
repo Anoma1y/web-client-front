@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {
-    Menu
+    Menu,
+    Icon
 } from 'semantic-ui-react';
 import Logo from 'logo.svg';
 import HeaderMenuItem from './HeaderMenuItem';
@@ -33,11 +34,13 @@ class HeaderMenu extends Component {
                     </a>
                 </Menu.Item>
                 { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
+                <Menu.Item className={"mobileMenu__triger"}>
+                    <Icon name={"bars"} />
+                </Menu.Item>
             </Menu>
         );
     }
 }
-
 
 export default connect(state => ({ routing: state.routing }), {
 
