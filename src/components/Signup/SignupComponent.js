@@ -34,18 +34,24 @@ class SignupComponent extends React.Component {
         }
     }
 
-    deb = _.debounce(() => {
-        const { setError } = this.props;
-        SignUpLib.checkAvailability(this.props.email).then(() => setError(null)).catch(() => setError("Email already used by someone"))
+    debounceEmail = _.debounce(() => {
+        const { setError, email } = this.props;
+        SignUpLib.checkAvailability(this.props.email).then(() => setError(null)).catch(() => {
+            if (email.length !== 0) {
+                setError("Email already used by someone")
+            } else {
+                setError(null);
+            }
+        })
     }, 1500)
 
     handleChangeEmail = (event, {value}) => {
         const { changeEmail } = this.props;
         changeEmail(value);
-        this.deb();
+        this.debounceEmail();
     }
     render () {
-        const { changeEmail, changePassword, changeRepeatPassword, email, password, repeatPassword, error, isSignupInProgress } = this.props;
+        const { changePassword, changeRepeatPassword, email, password, repeatPassword, error, isSignupInProgress } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>
