@@ -12,6 +12,13 @@ import {
 } from 'actions/login'
 
 class LoginComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isPasswordVisible: 0
+        };
+    }
+
     render () {
         return (
             <div>
@@ -24,10 +31,13 @@ class LoginComponent extends React.Component {
                         <Card.Description>
                             <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeEmail.bind(this)} value={this.props.email}
+
                             />
                             <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 5}}
                                    onChange={this.props.changePassword.bind(this)} value={this.props.password}
+                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
+
                             <Item style={{marginBottom: 15, textAlign: 'right'}}>
                                 <Item.Description as='a' onClick={() => this.props.goToReset()}>Забыли пароль?</Item.Description>
                             </Item>
