@@ -17,7 +17,7 @@ class SignupComponent extends React.Component {
         return (
             <div>
                 <Button.Group fluid widths='2'>
-                    <Button onClick={() => this.props.changePage()}>Вход</Button>
+                    <Button onClick={() => this.props.goToLogin()}>Вход</Button>
                     <Button color={'orange'} disabled>Регистрация</Button>
                 </Button.Group>
                 <Card fluid color={'violet'}>
@@ -42,7 +42,7 @@ class SignupComponent extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: () => push('/login'),
+    goToLogin: () => push('/login'),
     changeEmail,
     changePassword,
     changeRepeatPassword,

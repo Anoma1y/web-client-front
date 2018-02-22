@@ -1,23 +1,56 @@
 import React from 'react'
 import { Card, Input, Button, Divider } from 'semantic-ui-react'
+import { connect } from "react-redux";
 
-const PasswordComponent = (props) => (
-    <div>
-        <Card fluid color={'violet'}>
-            <Card.Content>
-                <Card.Header>Новый пароль</Card.Header>
-                <Divider />
-                <Card.Description style={{marginBottom: 15}}>
-                    Придумайте новый пароль
-                </Card.Description>
-                <Card.Description>
-                    <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}}/>
-                    <Input icon='repeat' iconPosition='left' placeholder='Повстарите пароль' fluid style={{marginBottom: 15}}/>
-                    <Button fluid>Отправить</Button>
-                </Card.Description>
-            </Card.Content>
-        </Card>
-    </div>
-);
+import {
+    changeNewPassword,
+    changeRepeatNewPassword,
+    setResetInProgress,
+    setError
+} from 'actions/reset'
 
-export default PasswordComponent
+class PasswordComponent extends React.Component {
+    render () {
+        return (
+            <div>
+                <Card fluid color={'violet'}>
+                    <Card.Content>
+                        <Card.Header>Новый пароль</Card.Header>
+                        <Divider />
+                        <Card.Description style={{marginBottom: 15}}>
+                            Придумайте новый пароль
+                        </Card.Description>
+                        <Card.Description>
+                            <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}}
+                                   onChange={this.props.changeNewPassword.bind(this)} value={this.props.newPassword}
+                            />
+                            <Input icon='repeat' iconPosition='left' placeholder='Повторите пароль' fluid style={{marginBottom: 15}}
+                                   onChange={this.props.changeRepeatNewPassword.bind(this)} value={this.props.repeatNewPassword}
+                            />
+                            <Button fluid>Отправить</Button>
+                        </Card.Description>
+                    </Card.Content>
+                </Card>
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        newPassword: state.reset.newPassword,
+        repeatNewPassword: state.reset.repeatNewPassword,
+        isResetInProgress: state.reset.isResetInProgress,
+        error: state.reset.error
+    };
+};
+
+
+export default connect(
+    mapStateToProps, {
+        changeNewPassword,
+        changeRepeatNewPassword,
+        setResetInProgress,
+        setError,
+    }
+)(PasswordComponent)
