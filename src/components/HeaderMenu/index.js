@@ -8,36 +8,41 @@ import Logo from 'logo.svg';
 import HeaderMenuItem from './HeaderMenuItem';
 
 class HeaderMenu extends Component {
-    state = {
-        menu: [{
-            name: "Home",
-            href: "/dashboard/",
-            iconName: "home"
-        },{
-            name: "Message",
-            href: "/",
-            iconName: "envelope"
-        },{
-            name: "Settings",
-            href: "/dashboard/settings",
-            iconName: "setting"
-        }]
+    constructor(props) {
+        super(props);
+        this.state = {
+            menu: [{
+                name: "Home",
+                href: "/dashboard/",
+                iconName: "home"
+            },{
+                name: "Message",
+                href: "/",
+                iconName: "envelope"
+            },{
+                name: "Settings",
+                href: "/dashboard/settings",
+                iconName: "setting"
+            }],
+        };
     }
     render() {
         const { pathname } = this.props.routing.location;
         const { menu } = this.state;
+
         return (
-            <Menu className={"header__menu"}>
-                <Menu.Item className={"header__menu_logo"}>
-                    <a href={"http://www.google.com"}>
-                        <img src={Logo} alt="Logo" />
-                    </a>
-                </Menu.Item>
-                { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
-                <Menu.Item className={"mobileMenu__trigger"}>
-                    <Icon name={"bars"} />
-                </Menu.Item>
-            </Menu>
+                <Menu className={"header__menu"}>
+                    <Menu.Item className={"header__menu_logo"}>
+                        <a href={"http://www.google.com"}>
+                            <img src={Logo} alt="Logo" />
+                        </a>
+                    </Menu.Item>
+                    { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
+                    <Menu.Item className={"mobileMenu__trigger"}>
+                        <Icon name={"bars"} onClick={this.props.toggleSidebar}/>
+
+                    </Menu.Item>
+                </Menu>
         );
     }
 }

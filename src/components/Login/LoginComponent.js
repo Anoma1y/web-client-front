@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Input, Button, Item, Label, Icon } from 'semantic-ui-react'
+import { Card, Input, Button, Item } from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
