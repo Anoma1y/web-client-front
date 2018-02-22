@@ -16,7 +16,7 @@ import axios from 'axios';
 class SignupComponent extends React.Component {
 
     handleSignup = () => {
-        const { email, password, repeatPassword, setError, goToSuccess } = this.props;
+        const { email, password, repeatPassword, setError, goToSuccess, setSignupInProgress } = this.props;
         if (repeatPassword !== password) {
             setError("Passwords do not match");
             return;
@@ -33,6 +33,7 @@ class SignupComponent extends React.Component {
                 })
                 .then(response => {
                     if (response.status === 200) {
+                        setSignupInProgress(true);
                         goToSuccess();
                     }
                 })
