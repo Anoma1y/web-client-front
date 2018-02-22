@@ -1,0 +1,5 @@
+export const CHANGE_EMAIL = 'reset/CHANGE_EMAIL';
+export const CHANGE_NEW_PASSWORD = 'reset/CHANGE_NEW_PASSWORD';
+export const CHANGE_REPEAT_NEW_PASSWORD = 'reset/CHANGE_REPEAT_NEW_PASSWORD';
+export const SET_RESET_IN_PROGRESS = 'reset/SET_RESET_IN_PROGRESS';
+export const SET_ERROR = 'reset/SET_ERROR';

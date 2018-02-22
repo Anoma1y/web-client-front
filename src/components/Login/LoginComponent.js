@@ -17,7 +17,7 @@ class LoginComponent extends React.Component {
             <div>
                 <Button.Group fluid widths='2'>
                     <Button color={'orange'} disabled>Вход</Button>
-                    <Button onClick={() => this.props.changePage()}>Регистрация</Button>
+                    <Button onClick={() => this.props.goToSignup()}>Регистрация</Button>
                 </Button.Group>
                 <Card fluid color={'violet'}>
                     <Card.Content>
@@ -29,7 +29,7 @@ class LoginComponent extends React.Component {
                                    onChange={this.props.changePassword.bind(this)} value={this.props.password}
                             />
                             <Item style={{marginBottom: 15, textAlign: 'right'}}>
-                                <Item.Description href={'/reset'}>Забыли пароль?</Item.Description>
+                                <Item.Description as='a' onClick={() => this.props.goToReset()}>Забыли пароль?</Item.Description>
                             </Item>
                             <Button fluid>Войти</Button>
                         </Card.Description>
@@ -41,7 +41,8 @@ class LoginComponent extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    changePage: () => push('/signup'),
+    goToSignup: () => push('/signup'),
+    goToReset: () => push('/reset'),
     changeEmail,
     changePassword,
     setAuthInProgress,
