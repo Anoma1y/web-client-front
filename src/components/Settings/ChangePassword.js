@@ -8,7 +8,7 @@ import {
 } from 'semantic-ui-react'
 
 const ChangePassword = (props) => (
-    <Card fluid color={'violet'}>
+    <Card fluid>
         <Card.Content>
             <Card.Header>Изменить пароль</Card.Header>
             <Divider className={"white__divider"}/>

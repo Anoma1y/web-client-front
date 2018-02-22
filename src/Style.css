@@ -13,7 +13,8 @@
     color: #55697A !important; }
 
 .setting__description {
-  color: #FFFFFF !important; }
+  color: #FFFFFF !important;
+  font-family: "Roboto", sans-serif !important; }
 
 .setting__button {
   margin: 15px 0 !important;

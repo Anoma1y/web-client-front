@@ -8,7 +8,7 @@ import {
 } from 'semantic-ui-react'
 
 const ChangeEmail = (props) => (
-    <Card fluid color={'violet'}>
+    <Card fluid>
         <Card.Content>
             <Card.Header>Изменить e-mail</Card.Header>
             <Divider className={"white__divider"}/>
