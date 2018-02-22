@@ -81,7 +81,7 @@ class SignupComponent extends React.Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     goToLogin: () => push('/login'),
-    goToSuccess: () => push('/signup_success'),
+    goToSuccess: () => push('/signupsuccess'),
     changeEmail,
     changePassword,
     changeRepeatPassword,
