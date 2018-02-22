@@ -5,24 +5,21 @@ import {
 } from 'semantic-ui-react';
 import Logo from 'logo.svg';
 import HeaderMenuItem from './HeaderMenuItem';
-import HomeIcon from './Icon/HomeIcon';
-import SettingsIcon from './Icon/SettingsIcon';
-import MessageIcon from './Icon/MessageIcon';
 
 class HeaderMenu extends Component {
     state = {
         menu: [{
             name: "Home",
             href: "/dashboard/",
-            image: HomeIcon
+            iconName: "home"
         },{
-            name: "MessageIcon",
+            name: "Message",
             href: "/",
-            image: MessageIcon
+            iconName: "envelope"
         },{
             name: "Settings",
             href: "/dashboard/settings",
-            image: SettingsIcon
+            iconName: "setting"
         }]
     }
     render() {
@@ -35,7 +32,7 @@ class HeaderMenu extends Component {
                         <img src={Logo} alt="Logo" />
                     </a>
                 </Menu.Item>
-                { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconLink={item["image"]}/> )}
+                { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
             </Menu>
         );
     }

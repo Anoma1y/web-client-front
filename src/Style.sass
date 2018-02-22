@@ -36,7 +36,7 @@ $calculator-button-color-hover: #FF9209 !important
     @content
   &:-ms-input-placeholder
     @content
-.dashboard__header
+r
 
 
 .header__menu
@@ -46,22 +46,28 @@ $calculator-button-color-hover: #FF9209 !important
     img
       width: 100px !important
   &_item
-    padding-left: 25px !important
-    padding-right: 25px !important
+    padding: 0 !important
+    width: 64px !important
+    height: 64px !important
+    //padding-left: 25px !important
+    //padding-right: 25px !important
     cursor: pointer
+    i
+      font-size: 18px !important
     &:hover
       background-color: darken(#001f38, 5%) !important
-      & svg
-        stroke: $white-color
-    svg
-      stroke: darken(#fff, 40%)
+      & a
+        color: $white-color
     a
+      display: flex !important
+      justify-content: center
+      align-items: center
+      width: 100% !important
+      height: 100% !important
       color: darken(#fff, 40%) !important
       &:hover
         color: $white-color
   &_item-active
-    svg
-      stroke: $white-color
     a
       color: $white-color
 
