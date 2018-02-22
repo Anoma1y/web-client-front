@@ -16,8 +16,7 @@ import {
     changeRepeatPassword,
     setSignupInProgress,
     setError,
-    handleRegistration
-
+    handleRegistration,
 } from 'actions/signup';
 import SignUpLib from 'libs/ApiLib/SignUp';
 
@@ -35,9 +34,11 @@ class SignupComponent extends React.Component {
 
     debounceEmail = _.debounce(() => {
         const { setError, email } = this.props;
-        SignUpLib.checkAvailability(email).then(() => setError(null)).catch(() => {
+        SignUpLib.checkAvailability(email).then(() => {
+            setError(null);
+        }).catch(() => {
             if (email.length !== 0) {
-                setError("Email already used by someone")
+                setError("Email already used by someone");
             } else {
                 setError(null);
             }
@@ -73,6 +74,7 @@ class SignupComponent extends React.Component {
                             <Input
                                 icon='key'
                                 iconPosition='left'
+                                type={"password"}
                                 placeholder='Пароль'
                                 fluid
                                 style={{marginBottom: 15}}
@@ -82,6 +84,7 @@ class SignupComponent extends React.Component {
                             <Input
                                 icon='repeat'
                                 iconPosition='left'
+                                type={"password"}
                                 placeholder='Повторите пароль'
                                 fluid
                                 style={{marginBottom: 15}}
@@ -96,7 +99,7 @@ class SignupComponent extends React.Component {
                             <Button
                                 fluid
                                 onClick={this.handleSignup}
-                            >{isSignupInProgress ? <Loader active inline /> : "Зарегистрироваться"}
+                            >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Зарегистрироваться"}
                             </Button>
                         </Card.Description>
                     </Card.Content>

@@ -18,6 +18,6 @@ export const handleRegistration = value => {
                 dispatch(setSignupInProgress(false));
                 dispatch(setError(err));
             })
-        }, 1000)
+        }, 250)
     }
 };
