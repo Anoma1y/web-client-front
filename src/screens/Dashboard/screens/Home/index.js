@@ -28,7 +28,7 @@ class Home extends Component{
 
         return (
             <div>
-                <div fluid className={"attentionIdentification"}>
+                <div className={"attentionIdentification"}>
                     {!isIdentification ? <AttentionIdentification /> : ""}
                 </div>
                 <Container>

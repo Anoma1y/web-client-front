@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default class SignUpLib {
+class SignUpLib {
     static url = "http://192.168.0.136:4874/v1/";
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
@@ -30,6 +30,7 @@ export default class SignUpLib {
                 rej("Email already used by someone");
             })
         });
-
     }
 }
+
+export default SignUpLib;

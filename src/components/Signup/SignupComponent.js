@@ -12,26 +12,20 @@ import {
     changePassword,
     changeRepeatPassword,
     setSignupInProgress,
-    setError
+    setError,
+    handleRegistration
+
 } from 'actions/signup';
-import ApiLib from 'libs/ApiLib/SignUp'
 class SignupComponent extends React.Component {
 
     handleSignup = () => {
-        const { email, password, repeatPassword, setError, goToSuccess, setSignupInProgress } = this.props;
+        const { email, password, repeatPassword, setError } = this.props;
         if (repeatPassword !== password) {
             setError("Passwords do not match");
-            return;
         } else {
             setError(null);
+            this.props.handleRegistration({email, password});
         }
-        ApiLib.regUser(email, password).then(() => {
-            setError(null);
-            setSignupInProgress(true);
-            goToSuccess();
-        }).catch((err) =>{
-            setError(err)
-        })
     }
 
     render () {
@@ -94,6 +88,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     changeRepeatPassword,
     setSignupInProgress,
     setError,
+    handleRegistration
 }, dispatch);
 
 const mapStateToProps = (state) => {
