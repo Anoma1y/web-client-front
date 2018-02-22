@@ -16,7 +16,7 @@ import axios from 'axios';
 class SignupComponent extends React.Component {
 
     handleSignup = () => {
-        const { email, password, repeatPassword, setError } = this.props;
+        const { email, password, repeatPassword, setError, goToSuccess } = this.props;
         if (repeatPassword !== password) {
             setError("Passwords do not match");
             return;
@@ -24,23 +24,25 @@ class SignupComponent extends React.Component {
         setError(null);
 
         axios.head(`http://192.168.0.136:4874/v1/profile/availability?email=${email}`)
-        .then(function (response) {
+        .then(response => {
             if (response.status === 200) {
                 setError(null);
                 axios.post(`http://192.168.0.136:4874/v1/profile`,{
                     email: email,
                     password: password
                 })
-                .then(function(response) {
-                    console.log(response);
+                .then(response => {
+                    if (response.status === 200) {
+                        goToSuccess();
+                    }
                 })
-                .catch(function (error) {
+                .catch(error => {
                     console.log(error);
                 })
             }
         })
-        .catch(function (error) {
-            setError("Email already used by someone")
+        .catch(() => {
+            setError("Email already used by someone");
         });
     }
 
@@ -79,6 +81,7 @@ class SignupComponent extends React.Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     goToLogin: () => push('/login'),
+    goToSuccess: () => push('/signup_success'),
     changeEmail,
     changePassword,
     changeRepeatPassword,
