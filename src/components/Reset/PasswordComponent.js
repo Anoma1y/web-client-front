@@ -10,6 +10,13 @@ import {
 } from 'actions/reset'
 
 class PasswordComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isPasswordVisible: 0
+        };
+    }
+
     render () {
         return (
             <div>
@@ -23,9 +30,11 @@ class PasswordComponent extends React.Component {
                         <Card.Description>
                             <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeNewPassword.bind(this)} value={this.props.newPassword}
+                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
                             <Input icon='repeat' iconPosition='left' placeholder='Повторите пароль' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeRepeatNewPassword.bind(this)} value={this.props.repeatNewPassword}
+                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
                             <Button fluid>Отправить</Button>
                         </Card.Description>

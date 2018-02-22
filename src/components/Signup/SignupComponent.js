@@ -13,6 +13,13 @@ import {
 } from 'actions/signup'
 
 class SignupComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isPasswordVisible: 0
+        };
+    }
+
     render () {
         return (
             <div>
@@ -28,9 +35,11 @@ class SignupComponent extends React.Component {
                             />
                             <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changePassword.bind(this)} value={this.props.password}
+                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
                             <Input icon='repeat' iconPosition='left' placeholder='Повторите пароль' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeRepeatPassword.bind(this)} value={this.props.repeatPassword}
+                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
                             <Button fluid>Зарегистрироваться</Button>
                         </Card.Description>
