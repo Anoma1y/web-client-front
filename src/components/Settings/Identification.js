@@ -47,23 +47,26 @@ class Identification extends React.Component {
     }
 
     renderForm() {
+        const { templateForm } = this.state;
         return (
-            <Card fluid className={""}>
+            <Card fluid className={"settings__identification"}>
                 <Card.Content>
                     <Card.Header>Идентификация</Card.Header>
                     <Divider className={"white__divider"}/>
                     <Grid className={"dashboard__component"}>
-                        <Grid.Row>
+                        <Grid.Row className={"settings__identification_header"}>
                             <Grid.Column>
                                 <Button
-                                    inverted
-                                    color={'orange'}
+                                    circular
+                                    size={"small"}
+                                    className={templateForm === 1 ? "setting__header_button setting__header_button-active" : "setting__header_button"}
                                     onClick={() => this.setState({templateForm: 1})}
                                 >Individual user
                                 </Button>
                                 <Button
-                                    inverted
-                                    color={'orange'}
+                                    circular
+                                    size={"small"}
+                                    className={templateForm === 2 ? "setting__header_button setting__header_button-active" : "setting__header_button"}
                                     onClick={() => this.setState({templateForm: 2})}
                                 >Legal entity
                                 </Button>
@@ -76,7 +79,12 @@ class Identification extends React.Component {
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
-                                <Button fluid>Сохранить изменения</Button>
+                                <Button
+                                    className={"setting__button"}
+                                    fluid
+                                    circular
+                                >Сохранить изменения
+                                </Button>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

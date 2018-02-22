@@ -24,7 +24,8 @@ $bonus-maximum-color: #ff705c !important
 $calculator-button-color: #7C6FA8 !important
 $calculator-button-color-hover: #FF9209 !important
 
-
+//settings
+$header-identification-component: #363E71 !important
 
 //mixin
 =placeholder
@@ -36,9 +37,44 @@ $calculator-button-color-hover: #FF9209 !important
     @content
   &:-ms-input-placeholder
     @content
-r
+.settings__identification_header
+  background-color: $header-identification-component
+.setting__header_button
+  background-color: #71779B !important
+  color: $white-color
+  &-active
+    background-color: $white-color
+    color: #55697A !important
+  &:hover
+    background-color: $white-color
+    color: #55697A !important
 
+.setting__description
+  color: $white-color
 
+.setting__button
+  margin: 15px 0 !important
+  background-color: #828ABD !important
+  color: $white-color
+  &:hover
+    background-color: $white-color
+    color: #55697A !important
+
+.setting__imagePreview
+  margin: 7px 0 !important
+
+.setting__change_buttons
+  input
+    font-family: $font-robot
+    font-weight: 500 !important
+    background-color: inherit !important
+    border: none !important
+    border-bottom: 1px solid $dim-white-color
+    margin-bottom: 15px !important
+    color: $white-color
+    &:focus
+      +placeholder
+        color: $white-color
 .header__menu
   background-color: $header-menu-background-color
   border-radius: 0 !important

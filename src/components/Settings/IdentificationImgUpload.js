@@ -1,5 +1,11 @@
-import React from 'react'
-import { Card, Button, Icon, Input, Image} from 'semantic-ui-react'
+import React from 'react';
+import {
+    Card,
+    Button,
+    Icon,
+    Input,
+    Image
+} from 'semantic-ui-react';
 
 class IdentificationImgUpload extends React.Component {
     constructor(props) {
@@ -40,19 +46,21 @@ class IdentificationImgUpload extends React.Component {
 
     renderImagePreview(imagePreviewUrl) {
         if (!imagePreviewUrl) return null;
-        return <Image src={imagePreviewUrl} style={{maxHeight: 200}} rounded/>
+        return <Image src={imagePreviewUrl}  rounded/>
     }
 
     render() {
         return (
-            <div>
-                <Card.Description style={{marginBottom: 15}}>
+            <div className={"setting__description"}>
+                <Card.Description>
                     {this.props.description}
                 </Card.Description>
-                <Card.Description style={{marginBottom: 15}}>
+                <Card.Description>
                     <Button
+                        className={"setting__button"}
                         compact icon
                         labelPosition={'left'}
+                        circular
                         onClick={(e)=> {
                             document.getElementById(this.props.id).click();
                             this.handleSubmit(e)
@@ -62,7 +70,7 @@ class IdentificationImgUpload extends React.Component {
                         Upload
                     </Button>
                 </Card.Description>
-                <Card.Description style={{marginBottom: 15}}>
+                <Card.Description className={"setting__imagePreview"}>
                     {this.renderImagePreview(this.state.imagePreviewUrl)}
                 </Card.Description>
                 <Input
