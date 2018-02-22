@@ -295,14 +295,17 @@
   font-weight: 500 !important;
   background-color: inherit !important;
   border: none !important;
-  border-bottom: 1px solid #A0A6CC !important;
+  border-bottom: 2px solid #A0A6CC !important;
+  border-radius: 0 !important;
   margin-bottom: 15px !important;
   color: #FFFFFF !important; }
-  .setting__change_buttons input:focus::-webkit-input-placeholder {
-    color: #FFFFFF !important; }
-  .setting__change_buttons input:focus:-moz-placeholder {
-    color: #FFFFFF !important; }
-  .setting__change_buttons input:focus::-moz-placeholder {
-    color: #FFFFFF !important; }
-  .setting__change_buttons input:focus:-ms-input-placeholder {
-    color: #FFFFFF !important; }
+  .setting__change_buttons input:focus {
+    border-bottom-color: #FFFFFF !important; }
+    .setting__change_buttons input:focus::-webkit-input-placeholder {
+      color: #FFFFFF !important; }
+    .setting__change_buttons input:focus:-moz-placeholder {
+      color: #FFFFFF !important; }
+    .setting__change_buttons input:focus::-moz-placeholder {
+      color: #FFFFFF !important; }
+    .setting__change_buttons input:focus:-ms-input-placeholder {
+      color: #FFFFFF !important; }
