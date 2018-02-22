@@ -1,8 +1,8 @@
-import React from 'react'
-import { Card, Input, Button } from 'semantic-ui-react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import React from 'react';
+import { Card, Input, Button } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import {
     changeEmail,
@@ -10,9 +10,40 @@ import {
     changeRepeatPassword,
     setSignupInProgress,
     setError
-} from 'actions/signup'
+} from 'actions/signup';
+import axios from 'axios';
 
 class SignupComponent extends React.Component {
+
+    handleSignup = () => {
+        const { email, password, repeatPassword, setError } = this.props;
+        if (repeatPassword !== password) {
+            setError("Passwords do not match");
+            return;
+        }
+        setError(null);
+
+        axios.head(`http://192.168.0.136:4874/v1/profile/availability?email=${email}`)
+        .then(function (response) {
+            if (response.status === 200) {
+                setError(null);
+                axios.post(`http://192.168.0.136:4874/v1/profile`,{
+                    email: email,
+                    password: password
+                })
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            }
+        })
+        .catch(function (error) {
+            setError("Email already used by someone")
+        });
+    }
+
     render () {
         return (
             <div>
@@ -32,7 +63,12 @@ class SignupComponent extends React.Component {
                             <Input icon='repeat' iconPosition='left' placeholder='Повторите пароль' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeRepeatPassword.bind(this)} value={this.props.repeatPassword}
                             />
-                            <Button fluid>Зарегистрироваться</Button>
+                            {this.props.error !== null ? this.props.error : ""}
+                            <Button
+                                fluid
+                                onClick={this.handleSignup}
+                            >Зарегистрироваться
+                            </Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
