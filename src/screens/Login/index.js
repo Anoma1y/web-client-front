@@ -1,12 +1,12 @@
 import React from 'react'
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Container, Grid } from 'semantic-ui-react'
+import {
+    Container,
+    Grid
+} from 'semantic-ui-react'
 
 import LoginComponent from 'components/Login/LoginComponent'
 
-const Login = props => (
+const Login = () => (
     <Container>
         <Grid>
             <Grid.Row centered>
@@ -18,12 +18,5 @@ const Login = props => (
     </Container>
 );
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: () => push('/signup')
-}, dispatch);
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(Login)
+export default Login;
 

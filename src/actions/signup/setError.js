@@ -1,9 +1,8 @@
 import { SET_ERROR } from './types'
 
-
-export const setError = (e) => {
+export const setError = value => {
     return {
         type: SET_ERROR,
-        payload: e.target.value,
+        payload: value
     }
 };

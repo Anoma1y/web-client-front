@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from 'screens/Home';
 import Login from 'screens/Login';
 import Signup from 'screens/Signup';
+import SignupSuccess from 'screens/SignupSuccess';
 import Dashboard from 'screens/Dashboard';
 import ResetPassword from 'screens/ResetPassword';
 import HeaderMenu from 'components/HeaderMenu';
@@ -15,6 +16,7 @@ const App = () => (
                 <Route exact path={'/'} component={Home} />
                 <Route exact path={'/login'} component={Login} />
                 <Route exact path={'/signup'} component={Signup} />
+                <Route exact path={'/signupsuccess'} component={SignupSuccess} />
                 <Route path={'/dashboard'} component={Dashboard} />
                 <Route path={'/reset'} component={ResetPassword} />
             </Switch>

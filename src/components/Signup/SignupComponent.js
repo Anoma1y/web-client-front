@@ -1,19 +1,58 @@
-import React from 'react'
-import { Card, Input, Button } from 'semantic-ui-react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-
+import React from 'react';
+import {
+    Card,
+    Input,
+    Button,
+    Message,
+    Loader
+} from 'semantic-ui-react';
+import _ from 'underscore'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import {
     changeEmail,
     changePassword,
     changeRepeatPassword,
     setSignupInProgress,
-    setError
-} from 'actions/signup'
+    setError,
+    handleRegistration,
+} from 'actions/signup';
+import SignUpLib from 'libs/ApiLib/SignUp';
 
 class SignupComponent extends React.Component {
+
+    handleSignup = () => {
+        const { email, password, repeatPassword, setError, handleRegistration } = this.props;
+        if (repeatPassword !== password) {
+            setError("Passwords do not match");
+        } else {
+            setError(null);
+            handleRegistration({email, password});
+        }
+    }
+
+    debounceEmail = _.debounce(() => {
+        const { setError, email } = this.props;
+        SignUpLib.checkAvailability(email).then(() => {
+            setError(null);
+        }).catch(() => {
+            if (email.length !== 0) {
+                setError("Email already used by someone");
+            } else {
+                setError(null);
+            }
+        })
+    }, 1500)
+
+    handleChangeEmail = (event, {value}) => {
+        const { changeEmail } = this.props;
+        changeEmail(value);
+        this.debounceEmail();
+    }
+
     render () {
+        const { changePassword, changeRepeatPassword, email, password, repeatPassword, error, isSignupInProgress } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>
@@ -23,16 +62,45 @@ class SignupComponent extends React.Component {
                 <Card fluid color={'violet'}>
                     <Card.Content>
                         <Card.Description>
-                            <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeEmail.bind(this)} value={this.props.email}
+                            <Input
+                                icon='at'
+                                iconPosition='left'
+                                placeholder='E-mail'
+                                fluid
+                                style={{marginBottom: 15}}
+                                onChange={this.handleChangeEmail}
+                                value={email}
                             />
-                            <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changePassword.bind(this)} value={this.props.password}
+                            <Input
+                                icon='key'
+                                iconPosition='left'
+                                type={"password"}
+                                placeholder='Пароль'
+                                fluid
+                                style={{marginBottom: 15}}
+                                onChange={changePassword}
+                                value={password}
                             />
-                            <Input icon='repeat' iconPosition='left' placeholder='Повторите пароль' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeRepeatPassword.bind(this)} value={this.props.repeatPassword}
+                            <Input
+                                icon='repeat'
+                                iconPosition='left'
+                                type={"password"}
+                                placeholder='Повторите пароль'
+                                fluid
+                                style={{marginBottom: 15}}
+                                onChange={changeRepeatPassword}
+                                value={repeatPassword}
                             />
-                            <Button fluid>Зарегистрироваться</Button>
+                            { error !== null ?
+                                <Message warning color={"red"}>
+                                    <Message.Header>{error}</Message.Header>
+                                </Message> : ""
+                            }
+                            <Button
+                                fluid
+                                onClick={this.handleSignup}
+                            >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Зарегистрироваться"}
+                            </Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
@@ -43,11 +111,13 @@ class SignupComponent extends React.Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     goToLogin: () => push('/login'),
+    goToSuccess: () => push('/signupsuccess'),
     changeEmail,
     changePassword,
     changeRepeatPassword,
     setSignupInProgress,
     setError,
+    handleRegistration
 }, dispatch);
 
 const mapStateToProps = (state) => {

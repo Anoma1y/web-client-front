@@ -17,7 +17,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.14",
-    "semantic-ui-react": "^0.78.2"
+    "semantic-ui-react": "^0.78.2",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
