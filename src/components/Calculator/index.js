@@ -13,13 +13,13 @@ import {
     Input,
     Card,
     Label,
+    Icon,
     Divider,
     Form
 } from 'semantic-ui-react';
 import { Bonus } from './CalculatorBonus';
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
-import WarningIcon  from 'notification.svg';
 
 class Calculator extends Component {
     //Метод для расчета валюты
@@ -401,7 +401,7 @@ class Calculator extends Component {
                              </Grid.Column>
                             <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
                                 <span className={isMaximum === true ? "bonus__maximum bonus__maximum-active": "bonus__maximum"}>
-                                    <img src={WarningIcon} alt="Warning Icon" className={"bonus__maximum-icon"} />
+                                    <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
                                     Вы достигли лимита
                                 </span>
                             </Grid.Column>
