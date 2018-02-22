@@ -2,20 +2,24 @@ import { setError } from './setError'
 import { setSignupInProgress } from './setSignupInProgress'
 import ApiLib from 'libs/ApiLib/SignUp'
 import { push } from "react-router-redux";
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
+import _ from 'underscore';
+
+
 
 export const handleRegistration = value => {
     return dispatch => {
         const { email, password } = value;
         dispatch(setSignupInProgress(true));
-        ApiLib.regUser(email, password).then(() => {
-            dispatch(setError(null));
-            setTimeout(() => {
+        setTimeout(() => {
+            ApiLib.regUser(email, password).then(() => {
+                dispatch(setError(null));
                 dispatch(setSignupInProgress(false));
-            },1800)
-            // dispatch(() => push('/signupsuccess'));
-        }).catch((err) =>{
-            dispatch(setError(err));
-        })
+                // dispatch(() => push('/signupsuccess'));
+            }).catch((err) =>{
+                dispatch(setSignupInProgress(false));
+                dispatch(setError(err));
+            })
+        }, 1000)
     }
 };

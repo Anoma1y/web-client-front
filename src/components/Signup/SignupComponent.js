@@ -2,8 +2,12 @@ import React from 'react';
 import {
     Card,
     Input,
-    Button
+    Button,
+    Message,
+    Label,
+    Loader
 } from 'semantic-ui-react';
+import _ from 'underscore'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
@@ -16,6 +20,8 @@ import {
     handleRegistration
 
 } from 'actions/signup';
+import SignUpLib from 'libs/ApiLib/SignUp';
+
 class SignupComponent extends React.Component {
 
     handleSignup = () => {
@@ -28,8 +34,18 @@ class SignupComponent extends React.Component {
         }
     }
 
+    deb = _.debounce(() => {
+        const { setError } = this.props;
+        SignUpLib.checkAvailability(this.props.email).then(() => setError(null)).catch(() => setError("Email already used by someone"))
+    }, 1500)
+
+    handleChangeEmail = (event, {value}) => {
+        const { changeEmail } = this.props;
+        changeEmail(value);
+        this.deb();
+    }
     render () {
-        const { changeEmail, changePassword, changeRepeatPassword, email, password, repeatPassword, error } = this.props;
+        const { changeEmail, changePassword, changeRepeatPassword, email, password, repeatPassword, error, isSignupInProgress } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>
@@ -45,7 +61,7 @@ class SignupComponent extends React.Component {
                                 placeholder='E-mail'
                                 fluid
                                 style={{marginBottom: 15}}
-                                onChange={changeEmail}
+                                onChange={this.handleChangeEmail}
                                 value={email}
                             />
                             <Input
@@ -66,11 +82,15 @@ class SignupComponent extends React.Component {
                                 onChange={changeRepeatPassword}
                                 value={repeatPassword}
                             />
-                            {error !== null ? error : ""}
+                            { error !== null ?
+                                <Message warning color={"red"}>
+                                    <Message.Header>{error}</Message.Header>
+                                </Message> : ""
+                            }
                             <Button
                                 fluid
                                 onClick={this.handleSignup}
-                            >Зарегистрироваться
+                            >{isSignupInProgress ? <Loader active inline /> : "Зарегистрироваться"}
                             </Button>
                         </Card.Description>
                     </Card.Content>
