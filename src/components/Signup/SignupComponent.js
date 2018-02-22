@@ -4,7 +4,6 @@ import {
     Input,
     Button,
     Message,
-    Label,
     Loader
 } from 'semantic-ui-react';
 import _ from 'underscore'
@@ -36,7 +35,7 @@ class SignupComponent extends React.Component {
 
     debounceEmail = _.debounce(() => {
         const { setError, email } = this.props;
-        SignUpLib.checkAvailability(this.props.email).then(() => setError(null)).catch(() => {
+        SignUpLib.checkAvailability(email).then(() => setError(null)).catch(() => {
             if (email.length !== 0) {
                 setError("Email already used by someone")
             } else {
