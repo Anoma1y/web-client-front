@@ -34,7 +34,7 @@ class HeaderMenu extends Component {
                     </a>
                 </Menu.Item>
                 { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
-                <Menu.Item className={"mobileMenu__triger"}>
+                <Menu.Item className={"mobileMenu__trigger"}>
                     <Icon name={"bars"} />
                 </Menu.Item>
             </Menu>

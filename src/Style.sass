@@ -58,8 +58,14 @@ $header-identification-component: #363E71 !important
       & a
         color: $white-color
     a
+      display: -webkit-box !important
+      display: -ms-flexbox !important
       display: flex !important
+      -webkit-box-pack: center
+      -ms-flex-pack: center
       justify-content: center
+      -webkit-box-align: center
+      -ms-flex-align: center
       align-items: center
       width: 100% !important
       height: 100% !important
@@ -69,7 +75,7 @@ $header-identification-component: #363E71 !important
   &_item-active
     a
       color: $white-color
-.mobileMenu__triger
+.mobileMenu__trigger
   display: none !important
   color: $white-color
   font-size: 22px
@@ -142,6 +148,7 @@ $header-identification-component: #363E71 !important
     border-radius: 20px
     color: lighten(#ffffff, 60%) !important
     font-weight: 300 !important
+    -webkit-transition: color .3s ease, background-color .3s ease, font-weight .3s ease
     transition: color .3s ease, background-color .3s ease, font-weight .3s ease
     &:hover
       background-color: $white-color
@@ -186,7 +193,7 @@ $header-identification-component: #363E71 !important
   padding: 0
   width: 100%
   height: 6px
-  background: #f3f3f3 linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat
+  background: #f3f3f3 -webkit-linear-gradient(left, #fdf1b0 0%, #ff541c 100%) no-repeat
   border-radius: 10px
   cursor: pointer
   -webkit-appearance: none
@@ -233,7 +240,11 @@ $header-identification-component: #363E71 !important
 
 .bonus__maximum
   color: $white-color
+  display: -webkit-box
+  display: -ms-flexbox
   display: flex
+  -webkit-box-align: center
+  -ms-flex-align: center
   align-items: center
   img
     margin-right: 6px !important
@@ -306,6 +317,7 @@ $header-identification-component: #363E71 !important
 .social__sidebar
   a
     color: $black-color
+    -webkit-transition: color .3s ease
     transition: color .3s ease
     &:hover
       color: $orange-color
