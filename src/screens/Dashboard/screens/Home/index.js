@@ -27,50 +27,50 @@ class Home extends Component{
         const { contextRef, isIdentification } = this.state
 
         return (
-        <Container fluid>
-            <Container fluid className={"attentionIdentification"}>
-                {!isIdentification ? <AttentionIdentification /> : ""}
-            </Container>
-            <Container>
-                <div ref={this.handleContextRef}>
-                    <Grid >
-                        <Grid.Row centered>
-                            <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>
-                            </Grid.Column>
-                            <Grid.Column widescreen={9} computer={9} tablet={16} mobile={16}>
-                                <Grid.Row>
-                                    <Timer />
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Calculator />
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <RequestList />
-                                </Grid.Row>
-                            </Grid.Column>
-                            <Grid.Column widescreen={5} computer={5} tablet={16} mobile={16}>
-                                <Grid.Row>
-                                    <DownloadList />
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Roadmap />
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <BetaTest />
-                                </Grid.Row>
-                            </Grid.Column>
-                            <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>
-                                <Grid.Row>
-                                    <Sticky context={contextRef}>
-                                        <SocialNetwork />
-                                    </Sticky>
-                                </Grid.Row>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
+            <div>
+                <div fluid className={"attentionIdentification"}>
+                    {!isIdentification ? <AttentionIdentification /> : ""}
                 </div>
-            </Container>
-        </Container>
+                <Container>
+                    <div ref={this.handleContextRef}>
+                        <Grid >
+                            <Grid.Row centered>
+                                <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>
+                                </Grid.Column>
+                                <Grid.Column widescreen={9} computer={9} tablet={16} mobile={16}>
+                                    <Grid.Row>
+                                        <Timer />
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Calculator />
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <RequestList />
+                                    </Grid.Row>
+                                </Grid.Column>
+                                <Grid.Column widescreen={5} computer={5} tablet={16} mobile={16}>
+                                    <Grid.Row>
+                                        <DownloadList />
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Roadmap />
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <BetaTest />
+                                    </Grid.Row>
+                                </Grid.Column>
+                                <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>
+                                    <Grid.Row>
+                                        <Sticky context={contextRef}>
+                                            <SocialNetwork />
+                                        </Sticky>
+                                    </Grid.Row>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </div>
+                </Container>
+            </div>
         )
     }
 }
