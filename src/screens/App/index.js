@@ -8,13 +8,14 @@ import Dashboard from 'screens/Dashboard';
 import ResetPassword from 'screens/ResetPassword';
 import HeaderMenu from 'components/HeaderMenu';
 import { Link } from 'react-router-dom'
-import { Icon, Menu, Segment, Sidebar } from "semantic-ui-react";
-import { bindActionCreators } from "redux";
-import { push } from "react-router-redux";
-import { connect } from "react-redux";
+import {
+    Icon,
+    Menu,
+    Sidebar
+} from "semantic-ui-react";
 import VerificationUser from "screens/SignupSuccess/verification";
-import { putToken } from 'actions/users/putToken';
 import CheckToken from './CheckToken';
+import Logout from './Logout';
 
 class App extends React.Component {
     constructor(props) {
@@ -68,8 +69,9 @@ class App extends React.Component {
                                     <Route exact path={'/login'} component={Login} />
                                     <Route exact path={'/signup'} component={Signup} />
                                     <Route exact path={'/signupsuccess'} component={SignupSuccess} />
-                                    {localStorage.jwt ? <Route path={'/dashboard'} component={Dashboard} /> : null}
+                                    <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : null} />
                                     <Route path={'/reset'} component={ResetPassword} />
+                                    <Route path={'/logout'} component={Logout} />
                                     <Route path={'/Verification'} component={VerificationUser} />
                                 </Switch>
                             </main>
@@ -81,6 +83,3 @@ class App extends React.Component {
     }
 }
 export default App;
-// export default connect(state => ({ user: state.user }), {
-//     putToken
-// })(App);

@@ -23,7 +23,11 @@ class HeaderMenu extends Component {
                 name: "Settings",
                 href: "/dashboard/settings",
                 iconName: "setting"
-            }],
+            },{
+                name: "Logout",
+                href: "/logout",
+                iconName: "log out"
+            }]
         };
     }
     render() {
@@ -40,7 +44,6 @@ class HeaderMenu extends Component {
                     { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
                     <Menu.Item className={"mobileMenu__trigger"}>
                         <Icon name={"bars"} onClick={this.props.toggleSidebar}/>
-
                     </Menu.Item>
                 </Menu>
         );

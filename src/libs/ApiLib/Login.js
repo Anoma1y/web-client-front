@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class SignUpLib {
+class LoginLib {
     static url = "http://192.168.0.136:4874/v1/";
     static logUserURL = "session";
 
@@ -23,4 +23,4 @@ class SignUpLib {
     }
 }
 
-export default SignUpLib;
+export default LoginLib;
