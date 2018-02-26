@@ -25,7 +25,7 @@ const INITIAL_STATE = {
         percent: 0,
         isMaximum: false
     },
-    currencyValue: "USD",
+    currencyValue: "ETH",
     sumValue: 0,
     tokenValue: 10000,
     suffixText: {

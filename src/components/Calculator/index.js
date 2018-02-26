@@ -159,15 +159,15 @@ class Calculator extends Component {
         const currentTokenValue = currencyValue === "BTC" ? BTC : currencyValue === "ETH" ? ETH : USD;
         const progressBar = this.handleProgressBar(value);
         return {
-            sumValue: currentTokenValue,
+            sumValue: currentTokenValue.toFixed(4),
             progressBar,
             tokenValue: value,
             bonus,
             transferData: {
-                USD,
+                USD: USD.toFixed(4),
                 TKN,
-                BTC,
-                ETH
+                BTC: BTC.toFixed(4),
+                ETH: ETH.toFixed(4)
             }
         }
     }
@@ -258,10 +258,9 @@ class Calculator extends Component {
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
     handleCurrency = (event, {value}) => {
-        const checkNumber = /^\d*\.?\d*$/;
-        const checkDoth = /^\./;
-        if (!value.match(checkNumber) || value.match(checkDoth)) {
-            return 0;
+        const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        if(!value.match(checkNumber)) {
+            return;
         }
         this.changeState(this.calcCurrency(value));
     }
