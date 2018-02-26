@@ -4,7 +4,11 @@ import {
     Container,
     Grid
 } from 'semantic-ui-react';
-import { redirectToLogin } from 'actions/signup/'
+import {
+    redirectToLogin,
+    redirectToHome
+} from 'actions/redirect/';
+
 import ApiLib from 'libs/ApiLib/SignUp';
 import _ from 'underscore';
 
@@ -17,13 +21,13 @@ class VerificationUser extends Component {
 
     componentDidMount() {
         const { id, token } = this.parseURL();
-        const { redirectToLogin } = this.props;
+        const { redirectToLogin, redirectToHome} = this.props;
         ApiLib.verificationUser(id, token)
             .then(() => {
-                redirectToLogin()
+                redirectToLogin();
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
+                redirectToHome();
             });
     }
 
@@ -43,5 +47,6 @@ class VerificationUser extends Component {
 }
 
 export default connect(state => ({ routing: state.routing }), {
-    redirectToLogin
+    redirectToLogin,
+    redirectToHome
 })(VerificationUser);
