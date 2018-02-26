@@ -1,5 +1,11 @@
 import React from 'react'
-import { Card, Input, Button, Item } from 'semantic-ui-react'
+import {
+    Card,
+    Input,
+    Button,
+    Item,
+    Message
+} from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
@@ -26,27 +32,33 @@ class LoginComponent extends React.Component {
         });
     }
     render () {
+        const { email, password, error, changeEmail, changePassword, goToSignup } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>
                     <Button color={'orange'} disabled>Вход</Button>
-                    <Button onClick={() => this.props.goToSignup()}>Регистрация</Button>
+                    <Button onClick={() => goToSignup()}>Регистрация</Button>
                 </Button.Group>
                 <Card fluid color={'violet'}>
                     <Card.Content>
                         <Card.Description>
                             <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeEmail.bind(this)} value={this.props.email}
+                                   onChange={changeEmail} value={email}
 
                             />
                             <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 5}}
-                                   onChange={this.props.changePassword.bind(this)} value={this.props.password}
+                                   onChange={changePassword} value={password}
                                    type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
 
                             <Item style={{marginBottom: 15, textAlign: 'right'}}>
                                 <Item.Description as='a' onClick={() => this.props.goToReset()}>Забыли пароль?</Item.Description>
                             </Item>
+                            { error !== null ?
+                                <Message warning color={"red"}>
+                                    <Message.Header>{error}</Message.Header>
+                                </Message> : ""
+                            }
                             <Button 
                                 fluid
                                 onClick={this.handleLoginBtn}

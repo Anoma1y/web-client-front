@@ -13,8 +13,9 @@ import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { connect } from "react-redux";
 import VerificationUser from "screens/SignupSuccess/verification";
+import { putToken } from 'actions/users/putToken';
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,8 +23,12 @@ export default class App extends React.Component {
         };
     }
 
-    toggleVisibility = () => this.setState({ isSidebarVisible: !this.state.isSidebarVisible });
+    componentWillMount() {
+        this.props.putToken(localStorage.getItem("jwt"));
+    }
 
+    toggleVisibility = () => this.setState({ isSidebarVisible: !this.state.isSidebarVisible });
+    
     render () {
         return (
             <div className={"dashboard__header"} >
@@ -77,3 +82,6 @@ export default class App extends React.Component {
         )
     }
 }
+export default connect(state => ({ user: state.user }), {
+    putToken
+})(App);
