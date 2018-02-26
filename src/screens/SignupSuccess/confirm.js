@@ -18,7 +18,14 @@ class VerificationUser extends Component {
     componentDidMount() {
         const { id, token } = this.parseURL();
         const { redirectToLogin } = this.props;
-        ApiLib.verificationUser(id, token).then(redirectToLogin());
+        ApiLib.verificationUser(id, token)
+            .then((data) => {
+                console.log(data);
+                redirectToLogin()
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     render(){

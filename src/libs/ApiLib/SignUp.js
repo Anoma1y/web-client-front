@@ -31,18 +31,9 @@ class SignUpLib {
         });
     }
 
-    static verifyUser(id, token) {
+    static verificationUser(id, token) {
         const verificationURL = this.url + this.regUserURL;
         return axios.put(`${verificationURL}/${id}/verify/${token}`)
-    }
-    static verificationUser(id, token) {
-        return new Promise((res, rej) => {
-            this.verifyUser(id, token).then(() => {
-                res();
-            }).catch((err) => {
-                console.log(err);
-            })
-        })
     }
 }
 
