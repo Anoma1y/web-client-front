@@ -1,7 +1,6 @@
 import { setError } from './setError'
 import ApiLib from 'libs/ApiLib/Login'
 import { push } from "react-router-redux";
-import { Redirect } from 'react-router';
 import { setAuthInProgress } from "./setAuthInProgress";
 import { handleTokenUser } from 'actions/users/handleTokenUser'
 

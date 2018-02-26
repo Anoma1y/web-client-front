@@ -1,8 +1,8 @@
 import React from 'react'
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Container, Grid } from 'semantic-ui-react'
+import {
+    Container,
+    Grid
+} from 'semantic-ui-react'
 
 import SignupSuccessComponent from 'components/SignupSuccess/SignupSuccessComponent'
 
