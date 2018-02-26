@@ -13,7 +13,7 @@ import {
     Menu,
     Sidebar
 } from "semantic-ui-react";
-import VerificationUser from "screens/SignupSuccess/verification";
+import VerificationUser from "screens/SignupSuccess/confirm";
 import CheckToken from './CheckToken';
 import Logout from './Logout';
 
@@ -72,7 +72,7 @@ class App extends React.Component {
                                     <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : null} />
                                     <Route path={'/reset'} component={ResetPassword} />
                                     <Route path={'/logout'} component={Logout} />
-                                    <Route path={'/Verification'} component={VerificationUser} />
+                                    <Route path={'/confirm'} component={VerificationUser} />
                                 </Switch>
                             </main>
 

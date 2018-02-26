@@ -4,7 +4,6 @@ class SignUpLib {
     static url = "http://192.168.0.136:4874/v1/";
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
-
     static checkAvailability(email) {
         const checkURL = this.url + this.checkEmailURL;
         return axios.head(`${checkURL}=${email}`)
@@ -30,6 +29,20 @@ class SignUpLib {
                 rej("Email already used by someone");
             })
         });
+    }
+
+    static verifyUser(id, token) {
+        const verificationURL = this.url + this.regUserURL;
+        return axios.put(`${verificationURL}/${id}/verify/${token}`)
+    }
+    static verificationUser(id, token) {
+        return new Promise((res, rej) => {
+            this.verifyUser(id, token).then(() => {
+                res();
+            }).catch((err) => {
+                console.log(err);
+            })
+        })
     }
 }
 
