@@ -8,6 +8,7 @@ import {
     setResetInProgress,
     setError
 } from 'actions/reset'
+import _ from "underscore";
 
 class PasswordComponent extends React.Component {
     constructor(props) {
@@ -16,8 +17,17 @@ class PasswordComponent extends React.Component {
             isPasswordVisible: 0
         };
     }
+    parseURL = () => {
+        const { search } = this.props.routing.location;
+        return _.object(_.compact(_.map(search.slice(1).split('&'), function(item) {  if (item) return item.split('='); })));
+    }
 
+    handleResetNewPassword = () => {
+        console.log(this.parseURL());
+    }
+    
     render () {
+        const { changeNewPassword, changeRepeatNewPassword, newPassword, repeatNewPassword } = this.props;
         return (
             <div>
                 <Card fluid color={'violet'}>
@@ -29,14 +39,18 @@ class PasswordComponent extends React.Component {
                         </Card.Description>
                         <Card.Description>
                             <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeNewPassword.bind(this)} value={this.props.newPassword}
+                                   onChange={changeNewPassword.bind(this)} value={newPassword}
                                    type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
                             <Input icon='repeat' iconPosition='left' placeholder='Repeat password' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeRepeatNewPassword.bind(this)} value={this.props.repeatNewPassword}
+                                   onChange={changeRepeatNewPassword.bind(this)} value={repeatNewPassword}
                                    type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
-                            <Button fluid>Send</Button>
+                            <Button 
+                                fluid
+                                onClick={this.handleResetNewPassword}
+                            >Send
+                            </Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
@@ -50,7 +64,8 @@ const mapStateToProps = (state) => {
         newPassword: state.reset.newPassword,
         repeatNewPassword: state.reset.repeatNewPassword,
         isResetInProgress: state.reset.isResetInProgress,
-        error: state.reset.error
+        error: state.reset.error,
+        routing: state.routing
     };
 };
 

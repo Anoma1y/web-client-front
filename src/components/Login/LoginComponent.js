@@ -33,7 +33,7 @@ class LoginComponent extends React.Component {
         });
     }
     render () {
-        const { email, password, error, changeEmail, changePassword, goToSignup, isAuthInProgress } = this.props;
+        const { email, password, error, changeEmail, changePassword, isAuthInProgress } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>

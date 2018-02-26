@@ -5,7 +5,6 @@ import { List, Divider } from 'semantic-ui-react'
 import Email from './screens/Email'
 import Password from  './screens/Password'
 
-
 const ResetPassword = ({ match }) => (
     <div>
         <header>
