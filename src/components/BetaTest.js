@@ -14,7 +14,7 @@ class RequestList extends React.Component {
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, tempora?</p>
                         <Form as={"div"}>
                             <Form.Button circular color={"orange"} floated={"right"} className={"betaTest__button"}>
-                                Оставить заявку
+                                Make request
                             </Form.Button>
                         </Form>
                     </Card.Description>

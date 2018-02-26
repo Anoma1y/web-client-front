@@ -8,10 +8,7 @@ import Dashboard from 'screens/Dashboard';
 import ResetPassword from 'screens/ResetPassword';
 import HeaderMenu from 'components/HeaderMenu';
 import { Link } from 'react-router-dom'
-import { Icon, Menu, Segment, Sidebar } from "semantic-ui-react";
-import { bindActionCreators } from "redux";
-import { push } from "react-router-redux";
-import { connect } from "react-redux";
+import { Icon, Menu, Sidebar } from "semantic-ui-react";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -40,19 +37,19 @@ export default class App extends React.Component {
                         <Link to={'/dashboard'}>
                             <Menu.Item name='home'>
                                 <Icon name='home' />
-                                Title
+                                Home
                             </Menu.Item>
                         </Link>
                         <Link to={'/'}>
                             <Menu.Item name='mail'>
                                 <Icon name='mail' />
-                                Title
+                                Mail
                             </Menu.Item>
                         </Link>
                         <Link to={'/dashboard/settings'}>
                             <Menu.Item name='setting' >
                                 <Icon name='setting' />
-                                Title
+                                Settings
                             </Menu.Item>
                         </Link>
                     </Sidebar>

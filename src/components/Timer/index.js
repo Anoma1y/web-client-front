@@ -79,14 +79,14 @@ class Timer extends Component {
         return (
             <Card fluid className={"component__main"}>
                 <Card.Content>
-                    <Card.Header>Прием заявок закроется через</Card.Header>
+                    <Card.Header>Requests will stop being accepted in</Card.Header>
                     <Divider />
                     <Grid className={"dashboard__component"}>
                         <Grid.Row textAlign={"center"} className={"component__timer"}>
-                            <Time timeName={"Дней"} value={timeLeft.day} />
-                            <Time timeName={"Часов"} value={timeLeft.hour} />
-                            <Time timeName={"Минут"} value={timeLeft.minutes} />
-                            <Time timeName={"Секунд"} value={timeLeft.seconds} />
+                            <Time timeName={"Days"} value={timeLeft.day} />
+                            <Time timeName={"Hours"} value={timeLeft.hour} />
+                            <Time timeName={"Minutes"} value={timeLeft.minutes} />
+                            <Time timeName={"Seconds"} value={timeLeft.seconds} />
                         </Grid.Row>
                     </Grid>
                 </Card.Content>

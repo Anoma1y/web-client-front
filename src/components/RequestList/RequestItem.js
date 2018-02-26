@@ -10,13 +10,13 @@ const RequestItem = ({sum, amount, onClick, buttonDisabled, buttonBasic, buttonC
         <Grid.Row columns={3} className={"request__item_wrapper"}>
             <Grid.Column>
                 <Item>
-                    <Item.Header className={"request__item_title"}>Сумма</Item.Header>
+                    <Item.Header className={"request__item_title"}>Amount</Item.Header>
                     <Item.Description className={"request__item_value"}><h3>{sum}</h3></Item.Description>
                 </Item>
             </Grid.Column>
             <Grid.Column>
                 <Item>
-                    <Item.Header className={"request__item_title"}>Токены</Item.Header>
+                    <Item.Header className={"request__item_title"}>Tokens</Item.Header>
                     <Item.Description className={"request__item_value"}><h3>{amount} </h3></Item.Description>
                 </Item>
             </Grid.Column>

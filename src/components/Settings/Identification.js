@@ -51,7 +51,7 @@ class Identification extends React.Component {
         return (
             <Card fluid className={"settings__identification"}>
                 <Card.Content>
-                    <Card.Header>Идентификация</Card.Header>
+                    <Card.Header>Identification</Card.Header>
                     <Divider className={"white__divider"}/>
                     <Grid className={"dashboard__component"}>
                         <Grid.Row className={"settings__identification_header"}>
@@ -83,7 +83,7 @@ class Identification extends React.Component {
                                     className={"setting__button"}
                                     fluid
                                     circular
-                                >Сохранить изменения
+                                >Save changes
                                 </Button>
                             </Grid.Column>
                         </Grid.Row>

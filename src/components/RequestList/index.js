@@ -16,16 +16,16 @@ class RequestList extends React.Component {
 
             switch (item.status) {
                 case 0:
-                    btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
+                    btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
                     break;
                 case 1:
-                    btnOptions = { color: 'orange', text: 'Оплатить', callback: () => {} };
+                    btnOptions = { color: 'orange', text: 'Pay', callback: () => {} };
                     break;
                 case 2:
-                    btnOptions = { color: 'grey', text: 'Оплачено', callback: () => {} };
+                    btnOptions = { color: 'grey', text: 'Paid', callback: () => {} };
                     break;
                 default:
-                    btnOptions = { color: 'grey', text: 'В обработке', callback: () => {} };
+                    btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
             return (
 
@@ -50,7 +50,7 @@ class RequestList extends React.Component {
             <div>
                 <Card fluid>
                     <Card.Content>
-                        <Card.Header>Ваши заявки</Card.Header>
+                        <Card.Header>Your requests</Card.Header>
                         <Divider />
                         <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                             <Grid.Row columns={1}>

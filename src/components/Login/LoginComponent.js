@@ -23,8 +23,8 @@ class LoginComponent extends React.Component {
         return (
             <div>
                 <Button.Group fluid widths='2'>
-                    <Button color={'orange'} disabled>Вход</Button>
-                    <Button onClick={() => this.props.goToSignup()}>Регистрация</Button>
+                    <Button color={'orange'} disabled>Log in</Button>
+                    <Button onClick={() => this.props.goToSignup()}>Registration</Button>
                 </Button.Group>
                 <Card fluid color={'violet'}>
                     <Card.Content>
@@ -33,15 +33,15 @@ class LoginComponent extends React.Component {
                                    onChange={this.props.changeEmail.bind(this)} value={this.props.email}
 
                             />
-                            <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 5}}
+                            <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 5}}
                                    onChange={this.props.changePassword.bind(this)} value={this.props.password}
                                    type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
 
                             <Item style={{marginBottom: 15, textAlign: 'right'}}>
-                                <Item.Description as='a' onClick={() => this.props.goToReset()}>Забыли пароль?</Item.Description>
+                                <Item.Description as='a' onClick={() => this.props.goToReset()}>Forgot password?</Item.Description>
                             </Item>
-                            <Button fluid>Войти</Button>
+                            <Button fluid>Login</Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>

@@ -56,8 +56,8 @@ class SignupComponent extends React.Component {
         return (
             <div>
                 <Button.Group fluid widths='2'>
-                    <Button onClick={() => this.props.goToLogin()}>Вход</Button>
-                    <Button color={'orange'} disabled>Регистрация</Button>
+                    <Button onClick={() => this.props.goToLogin()}>Log in</Button>
+                    <Button color={'orange'} disabled>Registration</Button>
                 </Button.Group>
                 <Card fluid color={'violet'}>
                     <Card.Content>
@@ -75,7 +75,7 @@ class SignupComponent extends React.Component {
                                 icon='key'
                                 iconPosition='left'
                                 type={"password"}
-                                placeholder='Пароль'
+                                placeholder='Password'
                                 fluid
                                 style={{marginBottom: 15}}
                                 onChange={changePassword}
@@ -85,7 +85,7 @@ class SignupComponent extends React.Component {
                                 icon='repeat'
                                 iconPosition='left'
                                 type={"password"}
-                                placeholder='Повторите пароль'
+                                placeholder='Repeat password'
                                 fluid
                                 style={{marginBottom: 15}}
                                 onChange={changeRepeatPassword}
@@ -99,7 +99,7 @@ class SignupComponent extends React.Component {
                             <Button
                                 fluid
                                 onClick={this.handleSignup}
-                            >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Зарегистрироваться"}
+                            >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Register"}
                             </Button>
                         </Card.Description>
                     </Card.Content>

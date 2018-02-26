@@ -10,19 +10,19 @@ import {
 const ChangePassword = (props) => (
     <Card fluid>
         <Card.Content>
-            <Card.Header>Изменить пароль</Card.Header>
+            <Card.Header>Change password</Card.Header>
             <Divider className={"white__divider"}/>
             <Grid className={"dashboard__component"}>
                 <Grid.Row>
                     <Grid.Column className={"setting__change_buttons"}>
-                        <Input placeholder='Текущий пароль' fluid />
-                        <Input placeholder='Новый пароль' fluid />
-                        <Input placeholder='Повторите пароль' fluid />
+                        <Input placeholder='Current password' fluid />
+                        <Input placeholder='New password' fluid />
+                        <Input placeholder='Repeat password' fluid />
                         <Button
                             fluid
                             circular
                             className={"setting__button"}
-                        >Изменить
+                        >Change
                         </Button>
                     </Grid.Column>
                 </Grid.Row>
