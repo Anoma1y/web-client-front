@@ -19,8 +19,7 @@ class VerificationUser extends Component {
         const { id, token } = this.parseURL();
         const { redirectToLogin } = this.props;
         ApiLib.verificationUser(id, token)
-            .then((data) => {
-                console.log(data);
+            .then(() => {
                 redirectToLogin()
             })
             .catch((err) => {
