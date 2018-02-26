@@ -2,7 +2,7 @@ import {
     PUT_TOKEN_USER
 } from 'actions/users/types'
 const INITIAL_STATE = {
-    jwt: ""
+    jwt: null
 };
 
 export default (state = INITIAL_STATE, action) => {

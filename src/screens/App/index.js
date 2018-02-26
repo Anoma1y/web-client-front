@@ -23,9 +23,9 @@ class App extends React.Component {
         };
     }
 
-    componentWillMount() {
-        this.props.putToken(localStorage.getItem("jwt"));
-    }
+    // componentWillMount() {
+    //     this.props.putToken(localStorage.getItem("jwt"));
+    // }
 
     toggleVisibility = () => this.setState({ isSidebarVisible: !this.state.isSidebarVisible });
     
@@ -82,6 +82,7 @@ class App extends React.Component {
         )
     }
 }
-export default connect(state => ({ user: state.user }), {
-    putToken
-})(App);
+export default App;
+// export default connect(state => ({ user: state.user }), {
+//     putToken
+// })(App);

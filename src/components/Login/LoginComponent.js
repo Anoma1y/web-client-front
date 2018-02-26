@@ -4,7 +4,8 @@ import {
     Input,
     Button,
     Item,
-    Message
+    Message,
+    Loader
 } from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -32,7 +33,7 @@ class LoginComponent extends React.Component {
         });
     }
     render () {
-        const { email, password, error, changeEmail, changePassword, goToSignup } = this.props;
+        const { email, password, error, changeEmail, changePassword, goToSignup, isAuthInProgress } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>
@@ -62,7 +63,7 @@ class LoginComponent extends React.Component {
                             <Button 
                                 fluid
                                 onClick={this.handleLoginBtn}
-                            >Войти
+                            >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Войти"}
                             </Button>
                         </Card.Description>
                     </Card.Content>

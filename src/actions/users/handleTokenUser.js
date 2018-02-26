@@ -1,4 +1,3 @@
-import { HANDLE_TOKEN_USER } from './types';
 import { putToken } from './putToken';
 
 export const handleTokenUser = value => {
