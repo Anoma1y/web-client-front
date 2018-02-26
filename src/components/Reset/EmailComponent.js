@@ -14,16 +14,16 @@ class EmailComponent extends React.Component {
             <div>
                 <Card fluid color={'violet'}>
                     <Card.Content>
-                        <Card.Header>Востановление пароля</Card.Header>
+                        <Card.Header>Forgot your password?</Card.Header>
                         <Divider />
                         <Card.Description style={{marginBottom: 15}}>
-                            Введите вашу почту и мы вышлим Вам ссылка на форму для востановления пароля
+                            No problem! Just fill in the email below and we'll send you password reset instructions!
                         </Card.Description>
                         <Card.Description>
                             <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeEmail.bind(this)} value={this.props.email}
                             />
-                            <Button fluid>Отправить</Button>
+                            <Button fluid>Send</Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>

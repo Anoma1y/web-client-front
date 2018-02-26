@@ -10,18 +10,18 @@ import {
 const ChangeEmail = (props) => (
     <Card fluid>
         <Card.Content>
-            <Card.Header>Изменить e-mail</Card.Header>
+            <Card.Header>Change e-mail</Card.Header>
             <Divider className={"white__divider"}/>
             <Grid className={"dashboard__component"}>
                 <Grid.Row>
                     <Grid.Column className={"setting__change_buttons"}>
-                        <Input placeholder='Текущий e-mail' fluid />
-                        <Input placeholder='Новый e-mail' fluid />
+                        <Input placeholder='Current e-mail' fluid />
+                        <Input placeholder='New e-mail' fluid />
                         <Button
                             fluid
                             circular
                             className={"setting__button"}
-                        >Изменить
+                        >Change
                         </Button>
                     </Grid.Column>
                 </Grid.Row>

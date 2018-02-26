@@ -19,7 +19,7 @@ export const AttentionIdentification = () => {
                                        <Icon name={"warning sign"} className={"attentionIdentification__icon"}/>
                                     </Grid.Column>
                                     <Grid.Column widescreen={15} computer={15} tablet={15} mobile={16} className={"attentionIdentification__textColumn"}>
-                                        <span className={"attentionIdentification__text"}>Для приобретения токенов необходимо пройти <Link to={"/dashboard/settings"} className={"attentionIdentification__link"}>идентификацию пользователя</Link>
+                                        <span className={"attentionIdentification__text"}>In order to be able to buy tokens, you need to be <Link to={"/dashboard/settings"} className={"attentionIdentification__link"}>identified</Link>
                                         </span>
                                     </Grid.Column>
                                 </Grid.Row>

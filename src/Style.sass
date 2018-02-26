@@ -54,7 +54,7 @@ $header-identification-component: #363E71 !important
     i
       font-size: 18px !important
     &:hover
-      background-color: darken(#001f38, 5%) !important
+      background-color: fade_out(#fff, 0.9) !important
       & a
         color: $white-color
     a
@@ -69,7 +69,7 @@ $header-identification-component: #363E71 !important
       align-items: center
       width: 100% !important
       height: 100% !important
-      color: darken(#fff, 40%) !important
+      color: fade_out(#fff, 0.7) !important
       &:hover
         color: $white-color
   &_item-active
@@ -84,7 +84,7 @@ $header-identification-component: #363E71 !important
   i
     cursor: pointer !important
     &:hover
-      color: darken(#fff, 10%) !important
+      color: fade_out(#fff, 0.7) !important
   @media only screen and (max-width: 991px)
     display: block !important
 
@@ -117,7 +117,7 @@ $header-identification-component: #363E71 !important
 /***TIMER COMPONENT***/
 .timer__item
   &_title
-    color: darken(#fff, 40%) !important
+    color: fade_out(#fff, 0.5) !important
   &_value
     margin: 0 !important
     color: $white-color
@@ -146,7 +146,7 @@ $header-identification-component: #363E71 !important
     padding: 5px 25px !important
     background-color: #707ab3 !important
     border-radius: 20px
-    color: lighten(#ffffff, 60%) !important
+    color: fade_out(#fff, 0.1) !important
     font-weight: 300 !important
     -webkit-transition: color .3s ease, background-color .3s ease, font-weight .3s ease
     transition: color .3s ease, background-color .3s ease, font-weight .3s ease
@@ -166,8 +166,8 @@ $header-identification-component: #363E71 !important
     border-radius: 0 !important
     background-color: inherit !important
     border: none !important
-    border-bottom: 3px solid darken(#ffffff, 40%) !important
-    color: darken(#ffffff, 40%) !important
+    border-bottom: 3px solid fade_out(#fff, 0.7) !important
+    color: fade_out(#fff, 0.7) !important
     font-family: $font-robot
     font-weight: 300 !important
     font-size: 19px !important

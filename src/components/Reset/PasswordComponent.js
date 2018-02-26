@@ -22,21 +22,21 @@ class PasswordComponent extends React.Component {
             <div>
                 <Card fluid color={'violet'}>
                     <Card.Content>
-                        <Card.Header>Новый пароль</Card.Header>
+                        <Card.Header>New password</Card.Header>
                         <Divider />
                         <Card.Description style={{marginBottom: 15}}>
-                            Придумайте новый пароль
+                            Create a new password
                         </Card.Description>
                         <Card.Description>
-                            <Input icon='key' iconPosition='left' placeholder='Пароль' fluid style={{marginBottom: 15}}
+                            <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeNewPassword.bind(this)} value={this.props.newPassword}
                                    type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
-                            <Input icon='repeat' iconPosition='left' placeholder='Повторите пароль' fluid style={{marginBottom: 15}}
+                            <Input icon='repeat' iconPosition='left' placeholder='Repeat password' fluid style={{marginBottom: 15}}
                                    onChange={this.props.changeRepeatNewPassword.bind(this)} value={this.props.repeatNewPassword}
                                    type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
-                            <Button fluid>Отправить</Button>
+                            <Button fluid>Send</Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>

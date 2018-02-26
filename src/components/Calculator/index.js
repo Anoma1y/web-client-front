@@ -340,7 +340,7 @@ class Calculator extends Component {
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
-                    <Card.Header>Калькулятор</Card.Header>
+                    <Card.Header>Calculator</Card.Header>
                     <Divider className={"white__divider"}/>
                     <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                         <Grid.Row>
@@ -402,7 +402,7 @@ class Calculator extends Component {
                             <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
                                 <span className={isMaximum === true ? "bonus__maximum bonus__maximum-active": "bonus__maximum"}>
                                     <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
-                                    Вы достигли лимита
+                                    You've reached the limit
                                 </span>
                             </Grid.Column>
                         </Grid.Row>
@@ -412,7 +412,7 @@ class Calculator extends Component {
                                     <TextArea
                                         className={"calculator__comments"}
                                         autoHeight
-                                        placeholder='Оставить комментарий'
+                                        placeholder='Leave comment'
                                     />
                                 </Form>
                             </Grid.Column>
@@ -423,7 +423,8 @@ class Calculator extends Component {
                                     circular
                                     className={"calculator__submit"}
                                     disabled={transferData.TKN < 1 || transferData.USD === "0"}
-                                > Оставить заявку
+                                >
+                                    Apply
                                 </Button>
                             </Grid.Column>
                         </Grid.Row>
