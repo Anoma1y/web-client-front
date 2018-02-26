@@ -15,8 +15,6 @@ class RequestList extends React.Component {
     }
     renderList () {
         const { items: request } = this.props.requests;
-        console.log(request);
-
         return request.map((item, index) => {
             let btnOptions = null;
 
@@ -34,7 +32,6 @@ class RequestList extends React.Component {
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
             return (
-
                 <Card.Description key={index}>
                     <RequestItem
                         sum={`${item.amount} ${item.currency}`}

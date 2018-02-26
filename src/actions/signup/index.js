@@ -4,4 +4,3 @@ export { changeRepeatPassword } from './changeRepeatPassword';
 export { setSignupInProgress } from './setSignupInProgress';
 export { setError } from './setError';
 export { handleRegistration } from './handleRegistration';
-export { redirectToLogin } from './redirectToLogin';

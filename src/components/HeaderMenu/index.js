@@ -23,10 +23,6 @@ class HeaderMenu extends Component {
                 name: "Settings",
                 href: "/dashboard/settings",
                 iconName: "setting"
-            },{
-                name: "Logout",
-                href: "/logout",
-                iconName: "log out"
             }]
         };
     }
@@ -42,6 +38,7 @@ class HeaderMenu extends Component {
                         </a>
                     </Menu.Item>
                     { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
+                    {localStorage.jwt ? <HeaderMenuItem LinkName={"Logout"} href={"/logout"} activeLink={pathname} iconName={"log out"}/> : null}
                     <Menu.Item className={"mobileMenu__trigger"}>
                         <Icon name={"bars"} onClick={this.props.toggleSidebar}/>
                     </Menu.Item>

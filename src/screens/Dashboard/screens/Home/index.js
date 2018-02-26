@@ -4,7 +4,6 @@ import {
     Container,
     Sticky
 } from 'semantic-ui-react';
-
 import Timer from 'components/Timer'
 import Calculator from 'components/Calculator'
 import RequestList from 'components/RequestList'
@@ -24,8 +23,7 @@ class Home extends Component{
     handleContextRef = contextRef => this.setState({ contextRef })
 
     render() {
-        const { contextRef, isIdentification } = this.state
-
+        const { contextRef, isIdentification } = this.state;
         return (
             <div>
                 <div className={"attentionIdentification"}>
@@ -75,3 +73,4 @@ class Home extends Component{
     }
 }
 export default Home;
+
