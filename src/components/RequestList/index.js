@@ -5,12 +5,18 @@ import {
     Divider,
     Grid
 } from 'semantic-ui-react'
-
+import { handleRequestItem } from 'actions/request/'
 import RequestItem from './RequestItem'
 
 class RequestList extends React.Component {
+    componentDidMount() {
+        const { jwt: token } = this.props.user;
+        this.props.handleRequestItem(token);
+    }
     renderList () {
         const { items: request } = this.props.requests;
+        console.log(request);
+
         return request.map((item, index) => {
             let btnOptions = null;
 
@@ -31,8 +37,8 @@ class RequestList extends React.Component {
 
                 <Card.Description key={index}>
                     <RequestItem
-                        sum={`${item.sum} ${item.currency}`}
-                        amount={`${item.amount} TCT`}
+                        sum={`${item.amount} ${item.currency}`}
+                        amount={`- TCT`}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}
@@ -68,5 +74,8 @@ class RequestList extends React.Component {
 }
 
 export default connect((state) => ({
-    requests: state.requests
-}), {})(RequestList);
+    requests: state.requests,
+    user: state.user
+}), {
+    handleRequestItem
+})(RequestList);

@@ -9,8 +9,11 @@ import ResetPassword from 'screens/ResetPassword';
 import HeaderMenu from 'components/HeaderMenu';
 import { Link } from 'react-router-dom'
 import { Icon, Menu, Sidebar } from "semantic-ui-react";
+import VerificationUser from "screens/SignupSuccess/confirm";
+import CheckToken from './CheckToken';
+import Logout from './Logout';
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,10 +22,11 @@ export default class App extends React.Component {
     }
 
     toggleVisibility = () => this.setState({ isSidebarVisible: !this.state.isSidebarVisible });
-
+    
     render () {
         return (
             <div className={"dashboard__header"} >
+                <CheckToken />
                 <Sidebar.Pushable style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
                     <Sidebar
                         as={Menu}
@@ -61,9 +65,10 @@ export default class App extends React.Component {
                                     <Route exact path={'/login'} component={Login} />
                                     <Route exact path={'/signup'} component={Signup} />
                                     <Route exact path={'/signupsuccess'} component={SignupSuccess} />
-                                    <Route path={'/dashboard'} component={Dashboard} />
+                                    <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : null} />
                                     <Route path={'/reset'} component={ResetPassword} />
-                                  
+                                    <Route path={'/logout'} component={Logout} />
+                                    <Route path={'/confirm'} component={VerificationUser} />
                                 </Switch>
                             </main>
 
@@ -73,3 +78,4 @@ export default class App extends React.Component {
         )
     }
 }
+export default App;

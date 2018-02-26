@@ -4,7 +4,8 @@ import {
     changeTransferData,
     changeCurrencyValue,
     checkSuffixText,
-    initializingTKN
+    initializingTKN,
+    handleApplication
 } from 'actions/calculator';
 import {
     Grid,
@@ -330,6 +331,12 @@ class Calculator extends Component {
         })
     }
 
+    handleSubmitApplication = () => {
+        const { currencyValue, transferData } = this.props.calculator;
+        const { jwt:token } = this.props.user;
+        this.props.handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), token})
+    }
+
     //Метод для разделения групп разрядов строки
     separationValue = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
 
@@ -422,6 +429,7 @@ class Calculator extends Component {
                                 <Button
                                     circular
                                     className={"calculator__submit"}
+                                    onClick={this.handleSubmitApplication}
                                     disabled={transferData.TKN < 1 || transferData.USD === "0"}
                                 >
                                     Apply
@@ -435,9 +443,10 @@ class Calculator extends Component {
     }
 }
 
-export default connect(state => ({ calculator: state.calculator }), {
+export default connect(state => ({ calculator: state.calculator, user: state.user }), {
     changeCurrencyValue,
     changeTransferData,
     checkSuffixText,
-    initializingTKN
+    initializingTKN,
+    handleApplication
 })(Calculator);

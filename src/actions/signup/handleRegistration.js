@@ -2,8 +2,6 @@ import { setError } from './setError'
 import { setSignupInProgress } from './setSignupInProgress'
 import ApiLib from 'libs/ApiLib/SignUp'
 import { push } from "react-router-redux";
-import { Redirect } from 'react-router';
-
 
 export const handleRegistration = value => {
     return dispatch => {

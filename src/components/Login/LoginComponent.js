@@ -1,5 +1,12 @@
 import React from 'react'
-import { Card, Input, Button, Item } from 'semantic-ui-react'
+import {
+    Card,
+    Input,
+    Button,
+    Item,
+    Message,
+    Loader
+} from 'semantic-ui-react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
@@ -8,6 +15,7 @@ import {
     changeEmail,
     changePassword,
     setAuthInProgress,
+    handleLogin,
     setError
 } from 'actions/login'
 
@@ -18,8 +26,14 @@ class LoginComponent extends React.Component {
             isPasswordVisible: 0
         };
     }
-
+    handleLoginBtn = () => {
+        const { email, password } = this.props;
+        this.props.handleLogin({
+            email, password
+        });
+    }
     render () {
+        const { email, password, error, changeEmail, changePassword, goToSignup, isAuthInProgress } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>
@@ -30,18 +44,27 @@ class LoginComponent extends React.Component {
                     <Card.Content>
                         <Card.Description>
                             <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeEmail.bind(this)} value={this.props.email}
+                                   onChange={changeEmail} value={email}
 
                             />
                             <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 5}}
-                                   onChange={this.props.changePassword.bind(this)} value={this.props.password}
+                                   onChange={changePassword} value={password}
                                    type={this.state.isPasswordVisible ? 'text' : 'password' }
                             />
 
                             <Item style={{marginBottom: 15, textAlign: 'right'}}>
                                 <Item.Description as='a' onClick={() => this.props.goToReset()}>Forgot password?</Item.Description>
                             </Item>
-                            <Button fluid>Login</Button>
+                            { error !== null ?
+                                <Message warning color={"red"}>
+                                    <Message.Header>{error}</Message.Header>
+                                </Message> : ""
+                            }
+                            <Button 
+                                fluid
+                                onClick={this.handleLoginBtn}
+                            >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Войти"}
+                            </Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
@@ -56,6 +79,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     changeEmail,
     changePassword,
     setAuthInProgress,
+    handleLogin,
     setError,
 }, dispatch);
 
