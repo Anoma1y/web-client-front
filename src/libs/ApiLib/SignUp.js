@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class SignUpLib {
-    static url = "http://192.168.0.136:4874/v1/";
+    static url = "http://159.89.10.197:4874/v1/";
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
     static resetPasswordURL = "profile/password"
@@ -43,7 +43,7 @@ class SignUpLib {
             email
         }})
     }
-
+    
     static resetPassword(email) {
         return new Promise((res, rej) => {
             this.resetPasswordFirstStep(email).then(() => {
@@ -54,6 +54,23 @@ class SignUpLib {
             })
         });
     }
+
+    static setNewPassword(value) {
+        const resetURL = this.url + this.resetPasswordURL;
+        const { tid, token, newPassword } = value;
+        return new Promise((res, rej) => {
+            axios.post(resetURL, {
+                token_id: parseInt(tid),
+                token: token,
+                password: newPassword
+            }).then((data) => {
+                res(data);
+            }).catch((err) => {
+                rej(err)
+            })
+        });
+    }
+
 }
 
 export default SignUpLib;
