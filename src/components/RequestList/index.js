@@ -9,12 +9,14 @@ import { handleRequestItem } from 'actions/request/'
 import RequestItem from './RequestItem'
 
 class RequestList extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         const { jwt: token } = this.props.user;
         this.props.handleRequestItem(token);
     }
     renderList () {
         const { items: request } = this.props.requests;
+        console.log(request);
+
         return request.map((item, index) => {
             let btnOptions = null;
 
