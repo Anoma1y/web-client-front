@@ -14,6 +14,7 @@ import { push } from "react-router-redux";
 import { connect } from "react-redux";
 import VerificationUser from "screens/SignupSuccess/verification";
 import { putToken } from 'actions/users/putToken';
+import CheckToken from './CheckToken';
 
 class App extends React.Component {
     constructor(props) {
@@ -23,15 +24,12 @@ class App extends React.Component {
         };
     }
 
-    // componentWillMount() {
-    //     this.props.putToken(localStorage.getItem("jwt"));
-    // }
-
     toggleVisibility = () => this.setState({ isSidebarVisible: !this.state.isSidebarVisible });
     
     render () {
         return (
             <div className={"dashboard__header"} >
+                <CheckToken />
                 <Sidebar.Pushable style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0}}>
                     <Sidebar
                         as={Menu}
@@ -70,7 +68,7 @@ class App extends React.Component {
                                     <Route exact path={'/login'} component={Login} />
                                     <Route exact path={'/signup'} component={Signup} />
                                     <Route exact path={'/signupsuccess'} component={SignupSuccess} />
-                                    <Route path={'/dashboard'} component={Dashboard} />
+                                    {localStorage.jwt ? <Route path={'/dashboard'} component={Dashboard} /> : null}
                                     <Route path={'/reset'} component={ResetPassword} />
                                     <Route path={'/Verification'} component={VerificationUser} />
                                 </Switch>
