@@ -8,6 +8,7 @@ import {
     changeEmail,
     changePassword,
     setAuthInProgress,
+    handleLogin,
     setError
 } from 'actions/login'
 
@@ -18,7 +19,12 @@ class LoginComponent extends React.Component {
             isPasswordVisible: 0
         };
     }
-
+    handleLoginBtn = () => {
+        const { email, password } = this.props;
+        this.props.handleLogin({
+            email, password
+        });
+    }
     render () {
         return (
             <div>
@@ -41,7 +47,11 @@ class LoginComponent extends React.Component {
                             <Item style={{marginBottom: 15, textAlign: 'right'}}>
                                 <Item.Description as='a' onClick={() => this.props.goToReset()}>Забыли пароль?</Item.Description>
                             </Item>
-                            <Button fluid>Войти</Button>
+                            <Button 
+                                fluid
+                                onClick={this.handleLoginBtn}
+                            >Войти
+                            </Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
@@ -56,6 +66,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     changeEmail,
     changePassword,
     setAuthInProgress,
+    handleLogin,
     setError,
 }, dispatch);
 

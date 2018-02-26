@@ -12,6 +12,7 @@ import { Icon, Menu, Segment, Sidebar } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { connect } from "react-redux";
+import VerificationUser from "screens/SignupSuccess/verification";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -66,7 +67,7 @@ export default class App extends React.Component {
                                     <Route exact path={'/signupsuccess'} component={SignupSuccess} />
                                     <Route path={'/dashboard'} component={Dashboard} />
                                     <Route path={'/reset'} component={ResetPassword} />
-                                  
+                                    <Route path={'/Verification'} component={VerificationUser} />
                                 </Switch>
                             </main>
 
