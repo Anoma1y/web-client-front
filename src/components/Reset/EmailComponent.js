@@ -1,15 +1,31 @@
 import React from 'react'
-import { Card, Input, Button, Divider } from 'semantic-ui-react'
+import {
+    Card,
+    Input,
+    Button,
+    Divider,
+    Message,
+    Loader
+} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 import {
     changeEmail,
     setResetInProgress,
-    setError
+    setError,
+    handleReset
 } from 'actions/reset'
 
 class EmailComponent extends React.Component {
+
+    handleResetBtn = () => {
+        const { email, handleReset } = this.props;
+        handleReset(email);
+        // console.log(email);
+    }
+
     render () {
+        const { email, error, changeEmail, isResetInProgress } = this.props;
         return (
             <div>
                 <Card fluid color={'violet'}>
@@ -21,9 +37,18 @@ class EmailComponent extends React.Component {
                         </Card.Description>
                         <Card.Description>
                             <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeEmail.bind(this)} value={this.props.email}
+                                   onChange={changeEmail.bind(this)} value={email}
                             />
-                            <Button fluid>Send</Button>
+                            { error !== null ?
+                                <Message warning color={"red"}>
+                                    <Message.Header>{error}</Message.Header>
+                                </Message> : ""
+                            }
+                            <Button
+                                fluid
+                                onClick={this.handleResetBtn}
+                            >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
+                            </Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
@@ -46,5 +71,6 @@ export default connect(
         changeEmail,
         setResetInProgress,
         setError,
+        handleReset
     }
 )(EmailComponent)
