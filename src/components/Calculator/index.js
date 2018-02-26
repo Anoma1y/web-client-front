@@ -44,7 +44,7 @@ class Calculator extends Component {
         const { currency } = this.props.calculator;
         switch(type) {
             case "USD":
-                return value * currency[1].price_usd;
+                return (value * currency[1].price_usd).toFixed(2);
             case "BTC":
                 return currency[1].price_btc * value;
             default:
@@ -58,7 +58,7 @@ class Calculator extends Component {
         const { currency } = this.props.calculator;
         switch(type) {
             case "USD":
-                return value * currency[0].price_usd;
+                return (value * currency[0].price_usd).toFixed(2);
             case "ETH":
                 return (currency[0].price_usd / currency[1].price_usd) * value;
             default:
@@ -142,7 +142,10 @@ class Calculator extends Component {
             tokenValue: TKNinitialValue.toFixed(4),
             bonus: bonus.bonus,
             transferData: {
-                USD, TKN: TKNvalue.toFixed(4), BTC, ETH
+                USD,
+                TKN: TKNvalue.toFixed(4),
+                BTC,
+                ETH
             }
         }
     }
@@ -156,15 +159,15 @@ class Calculator extends Component {
         const { bonus, bonusTKN } = this.checkBonus(value);
         const bonusValue = this.bonusCalc(value, bonusTKN);
         const { USD, BTC, ETH, TKN } = this.transferTKN(value, bonusValue);
-        const currentTokenValue = currencyValue === "BTC" ? BTC : currencyValue === "ETH" ? ETH : USD;
+        const currentTokenValue = currencyValue === "BTC" ? BTC.toFixed(4) : currencyValue === "ETH" ? ETH.toFixed(4) : USD.toFixed(2);
         const progressBar = this.handleProgressBar(value);
         return {
-            sumValue: currentTokenValue.toFixed(4),
+            sumValue: currentTokenValue,
             progressBar,
             tokenValue: value,
             bonus,
             transferData: {
-                USD: USD.toFixed(4),
+                USD: USD.toFixed(2),
                 TKN,
                 BTC: BTC.toFixed(4),
                 ETH: ETH.toFixed(4)
@@ -258,7 +261,13 @@ class Calculator extends Component {
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
     handleCurrency = (event, {value}) => {
-        const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        const { currencyValue } = this.props.calculator;
+        let checkNumber;
+        if (currencyValue === "USD") {
+            checkNumber = /^\d*(?:\.\d{0,2})?$/g;
+        } else {
+            checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        }
         if(!value.match(checkNumber)) {
             return;
         }
