@@ -63,7 +63,7 @@ class LoginComponent extends React.Component {
                             <Button 
                                 fluid
                                 onClick={this.handleLoginBtn}
-                            >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Войти"}
+                            >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Login"}
                             </Button>
                         </Card.Description>
                     </Card.Content>
