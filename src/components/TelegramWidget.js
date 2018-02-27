@@ -9,7 +9,7 @@ class TelegramWidget extends Component {
     render() {
 
         return (
-            <Card fluid color={'violet'} className={"component__main"}>
+            <Card fluid className={"component__main"}>
                 <Card.Content className={"component__telegram"}>
                     <Card.Header className={"component__title"}>Telegram</Card.Header>
                     <Divider />

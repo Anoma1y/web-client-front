@@ -242,8 +242,9 @@ class Calculator extends Component {
     //Происходит проверка на отсутствие текста и спец-символов
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
-    handleToken = (event, {value}) => {
+    handleToken = (event) => {
         const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        const { value } = event.target;
         if(!value.match(checkNumber)) {
             return;
         }
@@ -260,8 +261,9 @@ class Calculator extends Component {
     //Происходит проверка на отсутствие текста и спец-символов
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
-    handleCurrency = (event, {value}) => {
+    handleCurrency = event => {
         const { currencyValue } = this.props.calculator;
+        const { value } = event.target;
         let checkNumber;
         if (currencyValue === "USD") {
             checkNumber = /^\d*(?:\.\d{0,2})?$/g;
@@ -280,35 +282,6 @@ class Calculator extends Component {
     handleChange = (event, {value}) => {
         const { changeCurrencyValue } = this.props;
         changeCurrencyValue(value);
-    }
-
-    //Метод проверки суффикса (принимает параметры: event (текущий инпут) и handleType (тип: фокус или потеря фокуса из инпута)
-    //Возвращает объект булевых значений для каждого инпута
-    checkSuffix = (event, handleType) => {
-        const suffixText = {
-            suffixToken: true,
-            suffixCurrency: true
-        }
-        if (this.inputToken.inputRef === event.target) {
-            suffixText.suffixToken = handleType !== "FOCUS";
-        } else if (this.inputCurrency.inputRef === event.target) {
-            suffixText.suffixCurrency = handleType !== "FOCUS";
-        }
-        return suffixText;
-    }
-
-    //Метод для возвращения суффикса (текущей валюты) в инпут.
-    handleBlur = (event) => {
-        const { checkSuffixText } = this.props;
-        const suffixText = this.checkSuffix(event, "BLUR");
-        checkSuffixText(suffixText);
-    }
-
-    //Метод для снятия суффикса (текущей валюты) из инпута, для последующего ввода числового значения
-    handleFocus = (event) => {
-        const { checkSuffixText } = this.props;
-        const suffixText = this.checkSuffix(event, "FOCUS");
-        checkSuffixText(suffixText);
     }
 
     renderBonusLabel = () => {
@@ -348,6 +321,35 @@ class Calculator extends Component {
     //Метод для разделения групп разрядов строки
     separationValue = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
 
+    //Метод проверки суффикса (принимает параметры: event (текущий инпут) и handleType (тип: фокус или потеря фокуса из инпута)
+    //Возвращает объект булевых значений для каждого инпута
+    checkSuffix = (event, handleType) => {
+        const suffixText = {
+            suffixToken: true,
+            suffixCurrency: true
+        };
+        //inputRef после ноды
+        if (this.inputToken === event.target) {
+            suffixText.suffixToken = handleType !== "FOCUS";
+        } else if (this.inputCurrency === event.target) {
+            suffixText.suffixCurrency = handleType !== "FOCUS";
+        }
+        return suffixText;
+    }
+
+    //Метод для возвращения суффикса (текущей валюты) в инпут.
+    handleBlur = (event) => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "BLUR");
+        checkSuffixText(suffixText);
+    }
+
+    //Метод для снятия суффикса (текущей валюты) из инпута, для последующего ввода числового значения
+    handleFocus = (event) => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "FOCUS");
+        checkSuffixText(suffixText);
+    }
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
@@ -363,39 +365,47 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Form unstackable>
-                                    <Form.Group  style={{marginBottom: 0}}>
-                                        <Form.Field width={8}>
-                                            <Input
-                                                fluid
-                                                className={"input__currency"}
-                                                placeholder={"TCT"}
-                                                value={suffixText.suffixToken ? `${this.separationValue(tokenValue)} TCT` : tokenValue}
-                                                onChange={this.handleToken}
-                                                size={"large"}
-                                                onBlur={this.handleBlur}
-                                                onFocus={this.handleFocus}
-                                                ref={(input) => {this.inputToken = input}}
-                                            />
+                                <Grid>
+                                    <Grid.Row>
+                                        <Grid.Column width={8} className={"auth_input"}>
+                                            <label>
+                                                <input
+                                                    className={"input__currency populated"}
+                                                    type={"text"}
+                                                    placeholder={"TCT"}
+                                                    value={suffixText.suffixToken ? this.separationValue(tokenValue) : tokenValue}
+                                                    onChange={this.handleToken}
+                                                    onBlur={this.handleBlur}
+                                                    onFocus={this.handleFocus}
+                                                    ref={(input) => {this.inputToken = input}}
+                                                />
+                                                <span>TCT</span>
+                                            </label>
+                                        </Grid.Column>
+                                        <Grid.Column width={8} className={"auth_input"}>
+                                            <label>
+                                                <input
+                                                    type="text"
+                                                    className={"input__currency populated"}
+                                                    placeholder={currencyValue}
+                                                    value={suffixText.suffixCurrency ? this.separationValue(sumValue) : sumValue}
+                                                    onChange={this.handleCurrency}
+                                                    onBlur={this.handleBlur}
+                                                    onFocus={this.handleFocus}
+                                                    ref={(input) => {this.inputCurrency = input}}
+                                                />
+                                                <span>{currencyValue}</span>
+                                            </label>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column width={8}>
                                             <Label as={"span"} className={"total__label"}>
                                                 <span>Total: {`${this.separationValue(transferData.TKN)} TCT`}</span>
                                             </Label>
-                                        </Form.Field>
-                                        <Form.Field width={8}>
-                                            <Input
-                                                fluid
-                                                className={"input__currency"}
-                                                placeholder={currencyValue}
-                                                onChange={this.handleCurrency}
-                                                value={suffixText.suffixCurrency ? `${this.separationValue(sumValue)} ${currencyValue}` : sumValue}
-                                                size={"large"}
-                                                onBlur={this.handleBlur}
-                                                onFocus={this.handleFocus}
-                                                ref={(input) => {this.inputCurrency = input}}
-                                            />
-                                        </Form.Field>
-                                    </Form.Group>
-                                </Form>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1} only={"computer"} style={{paddingTop: 0}}>

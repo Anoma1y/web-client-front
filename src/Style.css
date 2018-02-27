@@ -168,17 +168,13 @@
       content: none !important;
       display: none !important; }
 
-.input__currency input {
-  border-radius: 0 !important;
-  background-color: inherit !important;
-  border: none !important;
-  border-bottom: 3px solid #939393 !important;
+.input__currency {
   color: #939393 !important;
   font-family: "Roboto", sans-serif !important;
   font-weight: 300 !important;
   letter-spacing: .4px;
   font-size: 25px !important; }
-  .input__currency input:focus, .input__currency input:hover {
+  .input__currency:focus, .input__currency:hover {
     color: #000000 !important;
     font-weight: 400 !important;
     border-bottom-color: #004fce !important; }
@@ -186,7 +182,7 @@
 .total__label {
   font-family: "Roboto", sans-serif !important;
   width: 100% !important;
-  margin-top: 10px !important;
+  margin-top: -15px !important;
   border-radius: 2px 2px 2px 2px !important;
   background-color: #324482 !important;
   color: #FFFFFF !important;
@@ -242,7 +238,7 @@
   color: #000000 !important; }
 
 .bonus__label {
-  width: 44px !important;
+  width: 47px !important;
   margin: 0 3px !important;
   color: #FFFFFF !important;
   font-family: "Roboto", sans-serif !important;
