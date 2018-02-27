@@ -61,6 +61,7 @@ class App extends React.Component {
                     </Sidebar>
                     <Sidebar.Pusher style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, overflowY: "scroll" }}>
                             <main>
+
                                 <HeaderMenu toggleSidebar={this.toggleVisibility.bind(this)}/>
                                 <Switch>
                                     <Route exact path={'/'} component={Home} />

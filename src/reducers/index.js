@@ -6,11 +6,12 @@ import CalculatorReducer from './CalculatorReducer';
 import RoadmapReducer from "./RoadmapReducer";
 import TimerReducer from './TimerReducer';
 import SocialNetworkReducer from './SocialNetworkReducer';
-import SettingsReducer from './SettingsReducer'
-import LoginReducer from './LoginReducer'
-import SignupReducer from './SignupReducer'
-import ResetReducer from './ResetReducer'
-import UserReducer from './UserReducer'
+import SettingsReducer from './SettingsReducer';
+import LoginReducer from './LoginReducer';
+import SignupReducer from './SignupReducer';
+import ResetReducer from './ResetReducer';
+import UserReducer from './UserReducer';
+import BetaTestReducer from './BetaTestReducer';
 
 export default combineReducers({
     routing: routerReducer,
@@ -18,6 +19,7 @@ export default combineReducers({
     roadmap: RoadmapReducer,
     calculator: CalculatorReducer,
     timer: TimerReducer,
+    betatest: BetaTestReducer,
     socialNetwork: SocialNetworkReducer,
     settings: SettingsReducer,
     login: LoginReducer,

@@ -30,9 +30,9 @@ class Calculator extends Component {
         const { currency } = this.props.calculator;
         switch(type) {
             case "BTC":
-                return value / currency[0].price_usd;
+                return (value / currency[0].price_usd).toFixed(4);
             case "ETH":
-                return value / currency[1].price_usd;
+                return (value / currency[1].price_usd).toFixed(4);
             default:
                 return;
         }
@@ -328,7 +328,7 @@ class Calculator extends Component {
         const { currencyValue, currency } = this.props.calculator;
         return currency.map(item => {
             return (
-                <Grid.Column widescreen={3} computer={3} tablet={3} mobile={4} key={item["id"]}>
+                <Grid.Column widescreen={2} computer={2} tablet={2} mobile={3} key={item["id"]}>
                     <CurrencyButton
                         buttonTitle={item["symbol"]}
                         handleChange={this.handleChange}
@@ -355,10 +355,10 @@ class Calculator extends Component {
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
-                    <Card.Header>Calculator</Card.Header>
+                    <Card.Header className={"component__title"}>Calculator</Card.Header>
                     <Divider className={"white__divider"}/>
                     <Grid verticalAlign={'middle'} className={"dashboard__component"}>
-                        <Grid.Row>
+                        <Grid.Row className={"calculator__currency"}>
                             { this.renderCurrencyButton() }
                         </Grid.Row>
                         <Grid.Row columns={1}>
@@ -423,6 +423,13 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
+                                <p className={"calculator__text"}>
+                                    Please be aware that the number of tokens bought will be calculated after we receive the funds, not at the moment they were sent. The final amount can change due to exchange rate fluctuations.
+                                </p>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row columns={1}>
+                            <Grid.Column>
                                 <Form as={"div"}>
                                     <TextArea
                                         className={"calculator__comments"}
@@ -436,7 +443,7 @@ class Calculator extends Component {
                             <Grid.Column textAlign={"right"}>
                                 <Button
                                     circular
-                                    className={"calculator__submit"}
+                                    className={"dashboard__submit"}
                                     onClick={this.handleSubmitApplication}
                                     disabled={transferData.TKN < 1 || transferData.USD === "0"}
                                 >

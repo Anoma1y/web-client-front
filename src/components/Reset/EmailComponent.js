@@ -1,15 +1,45 @@
-import React from 'react'
-import { Card, Input, Button, Divider } from 'semantic-ui-react'
-import { connect } from 'react-redux'
+import React from 'react';
+import {
+    Card,
+    Input,
+    Button,
+    Divider,
+    Message,
+    Loader
+} from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 import {
     changeEmail,
     setResetInProgress,
-    setError
+    setError,
+    handleReset
 } from 'actions/reset'
 
 class EmailComponent extends React.Component {
+
+    handleResetBtn = () => {
+        const {
+            email,
+            handleReset,
+            setError
+        } = this.props;
+        const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        if (!email.match(pattern)) {
+            setError("Please enter a valid Email");
+            return;
+        }
+        handleReset(email);
+    }
+
     render () {
+        const {
+            email,
+            error,
+            changeEmail,
+            isResetInProgress
+        } = this.props;
+
         return (
             <div>
                 <Card fluid color={'violet'}>
@@ -21,9 +51,18 @@ class EmailComponent extends React.Component {
                         </Card.Description>
                         <Card.Description>
                             <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={this.props.changeEmail.bind(this)} value={this.props.email}
+                                   onChange={changeEmail.bind(this)} value={email}
                             />
-                            <Button fluid>Send</Button>
+                            { error !== null ?
+                                <Message warning color={"red"}>
+                                    <Message.Header>{error}</Message.Header>
+                                </Message> : ""
+                            }
+                            <Button
+                                fluid
+                                onClick={this.handleResetBtn}
+                            >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
+                            </Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
@@ -32,19 +71,17 @@ class EmailComponent extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        email: state.reset.email,
-        isResetInProgress: state.reset.isResetInProgress,
-        error: state.reset.error
-    };
-};
-
+const mapStateToProps = (state) => ({
+    email: state.reset.email,
+    isResetInProgress: state.reset.isResetInProgress,
+    error: state.reset.error
+});
 
 export default connect(
     mapStateToProps, {
         changeEmail,
         setResetInProgress,
         setError,
+        handleReset
     }
 )(EmailComponent)

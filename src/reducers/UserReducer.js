@@ -3,7 +3,8 @@ import {
     DELETE_TOKEN_USER
 } from 'actions/users/types'
 const INITIAL_STATE = {
-    jwt: null
+    jwt: null,
+    userEmail: "ddd@mail.ru"
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     Card,
-    Input,
     Button,
     Message,
-    Loader
+    Loader,
+    Divider
 } from 'semantic-ui-react';
 import _ from 'underscore'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 import {
     changeEmail,
     changePassword,
@@ -20,20 +21,42 @@ import {
 } from 'actions/signup';
 import SignUpLib from 'libs/ApiLib/SignUp';
 
-class SignupComponent extends React.Component {
+class SignupComponent extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            emailPlaceholder: false,
+            passwordPlaceholder: false,
+            repeatPasswordPlaceholder: false
+        }
+    }
 
     handleSignup = () => {
         const { email, password, repeatPassword, setError, handleRegistration } = this.props;
+        const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        if (!email.match(pattern)) {
+            setError("Please enter a valid Email");
+            return;
+        }
         if (repeatPassword !== password) {
             setError("Passwords do not match");
-        } else {
-            setError(null);
-            handleRegistration({email, password});
+            return;
+        } else if (password.length < 5) {
+            setError("Password must contain more than 5 characters");
+            return;
         }
+        setError(null);
+        handleRegistration({email, password});
     }
 
     debounceEmail = _.debounce(() => {
         const { setError, email } = this.props;
+        const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        if (!email.match(pattern)) {
+            setError("Please enter a valid Email");
+            return;
+        }
         SignUpLib.checkAvailability(email).then(() => {
             setError(null);
         }).catch(() => {
@@ -45,52 +68,93 @@ class SignupComponent extends React.Component {
         })
     }, 1500)
 
-    handleChangeEmail = (event, {value}) => {
-        const { changeEmail } = this.props;
+    handleChangeEmail = event => {
+        const { changeEmail, setError } = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                emailPlaceholder: true
+            })
+        } else {
+            this.setState({
+                emailPlaceholder: false
+            })
+        }
         changeEmail(value);
-        this.debounceEmail();
+        if (value.length !== 0) {
+            this.debounceEmail();
+        } else {
+            setError(null);
+        }
+    }
+
+    handleChangePassword = event => {
+        const { changePassword } = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                passwordPlaceholder: true
+            })
+        } else {
+            this.setState({
+                passwordPlaceholder: false
+            })
+        }
+        changePassword(value);
+    }
+
+    handleChangeRepeatPassword = event => {
+        const { changeRepeatPassword} = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                repeatPasswordPlaceholder: true
+            })
+        } else {
+            this.setState({
+                repeatPasswordPlaceholder: false
+            })
+        }
+        changeRepeatPassword(value);
     }
 
     render () {
-        const { changePassword, changeRepeatPassword, email, password, repeatPassword, error, isSignupInProgress } = this.props;
+        const {
+            email,
+            password,
+            repeatPassword,
+            error,
+            isSignupInProgress
+        } = this.props;
+        const {
+            emailPlaceholder,
+            passwordPlaceholder,
+            repeatPasswordPlaceholder
+        } = this.state;
         return (
             <div>
-                <Button.Group fluid widths='2'>
-                    <Button onClick={() => this.props.goToLogin()}>Log in</Button>
-                    <Button color={'orange'} disabled>Registration</Button>
-                </Button.Group>
-                <Card fluid color={'violet'}>
-                    <Card.Content>
-                        <Card.Description>
-                            <Input
-                                icon='at'
-                                iconPosition='left'
-                                placeholder='E-mail'
-                                fluid
-                                style={{marginBottom: 15}}
-                                onChange={this.handleChangeEmail}
-                                value={email}
-                            />
-                            <Input
-                                icon='key'
-                                iconPosition='left'
-                                type={"password"}
-                                placeholder='Password'
-                                fluid
-                                style={{marginBottom: 15}}
-                                onChange={changePassword}
-                                value={password}
-                            />
-                            <Input
-                                icon='repeat'
-                                iconPosition='left'
-                                type={"password"}
-                                placeholder='Repeat password'
-                                fluid
-                                style={{marginBottom: 15}}
-                                onChange={changeRepeatPassword}
-                                value={repeatPassword}
-                            />
+                <Card fluid className={"signup"}>
+                   <Card.Content>
+                       <Card.Header as={"h1"} className={"login__header"}>
+                           Sign Up
+                       </Card.Header>
+                       <Divider />
+                        <Card.Description className={"signup__content auth_input"}>
+                            <label>
+                                <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
+                                <span>E-Mail</span>
+                            </label>
+                            <label>
+                                <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
+                                <span>Password</span>
+                            </label>
+                            <label>
+                                <input type="password" placeholder={"Repeat Password"} onChange={this.handleChangeRepeatPassword} value={repeatPassword} className={repeatPasswordPlaceholder ? "populated" : ""}/>
+                                <span>Repeat Password</span>
+                            </label>
+                            <p className={"signup__content_confirm"}>
+                                By clicking Sign Up, you agree to the <a href={"https://tsrpay.com/docs/terms_of_service.pdf"} target={"_blank"}>Terms of Service</a> and <a href={"https://tsrpay.com/docs/privacy_policy.pdf"} target={"_blank"}>Privacy Policy</a>
+                            </p>
                             { error !== null ?
                                 <Message warning color={"red"}>
                                     <Message.Header>{error}</Message.Header>
@@ -98,9 +162,13 @@ class SignupComponent extends React.Component {
                             }
                             <Button
                                 fluid
+                                className={"auth_btn"}
                                 onClick={this.handleSignup}
                             >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Register"}
                             </Button>
+                            <p className={"signup__content_login"}>
+                                Already have account? <Link to={"/login"}>Sign In</Link>
+                            </p>
                         </Card.Description>
                     </Card.Content>
                 </Card>

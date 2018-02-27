@@ -4,6 +4,7 @@ class SignUpLib {
     static url = "http://159.89.10.197:4874/v1/";
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
+    static resetPasswordURL = "profile/password"
     static checkAvailability(email) {
         const checkURL = this.url + this.checkEmailURL;
         return axios.head(`${checkURL}=${email}`)
@@ -35,6 +36,41 @@ class SignUpLib {
         const verificationURL = this.url + this.regUserURL;
         return axios.put(`${verificationURL}/${id}/verify/${token}`)
     }
+
+    static resetPasswordFirstStep(email) {
+        const resetURL = this.url + this.resetPasswordURL;
+        return axios.delete(resetURL, { data: {
+            email
+        }})
+    }
+    
+    static resetPassword(email) {
+        return new Promise((res, rej) => {
+            this.resetPasswordFirstStep(email).then(() => {
+                res();
+            }).catch((err) => {
+                console.log(err);
+                rej(err);
+            })
+        });
+    }
+
+    static setNewPassword(value) {
+        const resetURL = this.url + this.resetPasswordURL;
+        const { tid, token, newPassword } = value;
+        return new Promise((res, rej) => {
+            axios.post(resetURL, {
+                token_id: parseInt(tid),
+                token: token,
+                password: newPassword
+            }).then((data) => {
+                res(data);
+            }).catch((err) => {
+                rej(err)
+            })
+        });
+    }
+
 }
 
 export default SignUpLib;

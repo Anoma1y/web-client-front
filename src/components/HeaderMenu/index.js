@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {
     Menu,
-    Icon
+    Container,
+    Grid
 } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Logo from 'logo.svg';
-import HeaderMenuItem from './HeaderMenuItem';
 
 class HeaderMenu extends Component {
     constructor(props) {
@@ -27,26 +28,48 @@ class HeaderMenu extends Component {
         };
     }
     render() {
-        const { pathname } = this.props.routing.location;
-        const { menu } = this.state;
-
+        const { userEmail } = this.props.user;
         return (
-                <Menu className={"header__menu"}>
-                    <Menu.Item className={"header__menu_logo"}>
-                        <a href={"http://www.google.com"}>
-                            <img src={Logo} alt="Logo" />
-                        </a>
-                    </Menu.Item>
-                    { menu.map((item, index) => <HeaderMenuItem key={index} LinkName={item["name"]} href={item["href"]} activeLink={pathname} iconName={item["iconName"]}/> )}
-                    {localStorage.jwt ? <HeaderMenuItem LinkName={"Logout"} href={"/logout"} activeLink={pathname} iconName={"log out"}/> : null}
-                    <Menu.Item className={"mobileMenu__trigger"}>
-                        <Icon name={"bars"} onClick={this.props.toggleSidebar}/>
-                    </Menu.Item>
-                </Menu>
+            <Menu className={"header__menu"}>
+                <Container>
+                    <Grid className={"grid__menu"}>
+                        <Grid.Row>
+                            <Grid.Column width={1}>
+                            </Grid.Column>
+                            <Grid.Column floated={"left"} className={"logo_content"} width={3}>
+                                <Menu className={"menu__color"}>
+                                    <Menu.Item>
+                                        <Link to={"/dashboard/"}>
+                                            <img src={Logo} alt="Logo" />
+                                        </Link>
+                                    </Menu.Item>
+                                </Menu>
+                            </Grid.Column>
+                            <Grid.Column floated={"right"} width={6}>
+                                {localStorage.jwt ?
+                                    <Menu className={"menu__color user__menu"}>
+                                        <Menu.Item className={"user__menu_item user__menu-email"}>
+                                            <Link to={"/dashboard/settings"} >
+                                                {userEmail}
+                                            </Link>
+                                        </Menu.Item>
+                                        <Menu.Item className={"user__menu_item user__menu-logout"}>
+                                            <Link to={"/logout"} >
+                                                Log out
+                                            </Link>
+                                        </Menu.Item>
+                                    </Menu>
+                                : null}
+                            </Grid.Column>
+                            <Grid.Column width={1}>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Container>
+            </Menu>
         );
     }
 }
-
-export default connect(state => ({ routing: state.routing }), {
+export default connect(state => ({ routing: state.routing, user: state.user }), {
 
 })(HeaderMenu);

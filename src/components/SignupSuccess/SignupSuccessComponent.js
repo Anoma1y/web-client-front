@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'semantic-ui-react';
-
+import {
+    Card,
+    Icon,
+    Divider
+} from 'semantic-ui-react';
 
 class SignupSuccessComponent extends Component {
-    renderSucces = () => (
-        <Card fluid color={'violet'}>
-            <Card.Content>
-                <Card.Description style={{textAlign: "center"}}>
-                    <h1>You have registered</h1>
-                    <h3>A confirmation email has been sent to your email</h3>
-                </Card.Description>
-            </Card.Content>
-        </Card>
-    )
     render () {
-        const { isSignupInProgress } = this.props.signup;
+        const { email } = this.props.signup;
         return (
             <div>
-                {isSignupInProgress ? this.renderSucces() : ""}
+                <Card fluid className={"success"}>
+                    <Card.Content>
+                        <Card.Header className={"auth__header"}>
+                            Sign Up
+                        </Card.Header>
+                        <Divider />
+                        <Card.Description className={"success__content"}>
+                            <Icon name={"check circle outline"} className={"success__content_icon"}/>
+                            <p className={"success__content_text"}>We've sent a message to <span className={"success__email"}>{email}</span>. Please check your mail and click activate account to confirm email.</p>
+                        </Card.Description>
+                    </Card.Content>
+                </Card>
             </div>
         )
     }
