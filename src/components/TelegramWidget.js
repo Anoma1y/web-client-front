@@ -5,7 +5,9 @@ import {
 } from 'semantic-ui-react';
 
 class TelegramWidget extends Component {
+
     render() {
+
         return (
             <Card fluid color={'violet'} className={"component__main"}>
                 <Card.Content className={"component__telegram"}>
