@@ -30,9 +30,9 @@ class Calculator extends Component {
         const { currency } = this.props.calculator;
         switch(type) {
             case "BTC":
-                return value / currency[0].price_usd;
+                return (value / currency[0].price_usd).toFixed(4);
             case "ETH":
-                return value / currency[1].price_usd;
+                return (value / currency[1].price_usd).toFixed(4);
             default:
                 return;
         }

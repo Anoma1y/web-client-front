@@ -32,8 +32,16 @@ class PasswordComponent extends Component {
     }
 
     handleResetPassword = () => {
-        const { setError, handleResetNewPassword,newPassword, repeatNewPassword } = this.props;
-        const { tid, token } = this.parseURL();
+        const {
+            setError,
+            handleResetNewPassword,
+            newPassword,
+            repeatNewPassword
+        } = this.props;
+        const {
+            tid,
+            token
+        } = this.parseURL();
         if (repeatNewPassword !== newPassword) {
             setError("Passwords do not match");
             return;
@@ -50,7 +58,15 @@ class PasswordComponent extends Component {
     }
 
     render () {
-        const { changeNewPassword, changeRepeatNewPassword, newPassword, repeatNewPassword,isResetInProgress, error } = this.props;
+        const {
+            changeNewPassword,
+            changeRepeatNewPassword,
+            newPassword,
+            repeatNewPassword,
+            isResetInProgress,
+            error
+        } = this.props;
+
         return (
             <div>
                 <Card fluid color={'violet'}>
@@ -87,15 +103,13 @@ class PasswordComponent extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        newPassword: state.reset.newPassword,
-        repeatNewPassword: state.reset.repeatNewPassword,
-        isResetInProgress: state.reset.isResetInProgress,
-        error: state.reset.error,
-        routing: state.routing
-    };
-};
+const mapStateToProps = (state) => ({
+    newPassword: state.reset.newPassword,
+    repeatNewPassword: state.reset.repeatNewPassword,
+    isResetInProgress: state.reset.isResetInProgress,
+    error: state.reset.error,
+    routing: state.routing
+});
 
 
 export default connect(

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     Card,
     Input,
@@ -6,8 +6,8 @@ import {
     Divider,
     Message,
     Loader
-} from 'semantic-ui-react'
-import { connect } from 'react-redux'
+} from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 import {
     changeEmail,
@@ -19,7 +19,11 @@ import {
 class EmailComponent extends React.Component {
 
     handleResetBtn = () => {
-        const { email, handleReset, setError } = this.props;
+        const {
+            email,
+            handleReset,
+            setError
+        } = this.props;
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
             setError("Please enter a valid Email");
@@ -67,14 +71,11 @@ class EmailComponent extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        email: state.reset.email,
-        isResetInProgress: state.reset.isResetInProgress,
-        error: state.reset.error
-    };
-};
-
+const mapStateToProps = (state) => ({
+    email: state.reset.email,
+    isResetInProgress: state.reset.isResetInProgress,
+    error: state.reset.error
+});
 
 export default connect(
     mapStateToProps, {
