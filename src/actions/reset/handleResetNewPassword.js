@@ -6,14 +6,13 @@ import { setResetInProgress } from "./setResetInProgress";
 export const handleResetNewPassword = value => {
     return dispatch => {
         dispatch(setResetInProgress(true));
-        ApiLib.setNewPassword(value).then((data) => {
+        ApiLib.setNewPassword(value).then(() => {
             dispatch(setError(null));
             dispatch(setResetInProgress(false));
-            console.log(data);
-            // dispatch(push('/dashboard/'));
-        }).catch((err) =>{
+            dispatch(push('/login'));
+        }).catch(() =>{
             dispatch(setResetInProgress(false));
-            dispatch(setError("Email not found"));
+            dispatch(setError("Token not valid"));
         })
     }
 };
