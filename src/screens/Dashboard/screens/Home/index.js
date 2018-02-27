@@ -12,6 +12,7 @@ import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
 import TelegramWidget from 'components/TelegramWidget';
+import CryptoWidget from 'components/CryptoWidget';
 import { AttentionIdentification } from 'components/AttentionIdentification';
 
 class Home extends Component{
@@ -50,6 +51,9 @@ class Home extends Component{
                                 <Grid.Column widescreen={5} computer={5} tablet={16} mobile={16}>
                                     <Grid.Row>
                                         <DownloadList />
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <CryptoWidget />
                                     </Grid.Row>
                                     <Grid.Row>
                                         <Roadmap />
