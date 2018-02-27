@@ -9,7 +9,7 @@ class Roadmap extends Component {
             <div>
                 <Card fluid color={'violet'} className={"component__main"}>
                     <Card.Content>
-                        <Card.Header>{progressBar}% roadmap progress</Card.Header>
+                        <Card.Header className={"component__title"}>{progressBar}% roadmap progress</Card.Header>
                         <Card.Description className={"roadmap__progress"}>
                             <Progress percent={progressBar} size={"small"} className={"roadmap__progress_bar"} />
                         </Card.Description>

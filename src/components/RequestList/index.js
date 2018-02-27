@@ -53,7 +53,7 @@ class RequestList extends React.Component {
             <div>
                 <Card fluid>
                     <Card.Content>
-                        <Card.Header>Your requests</Card.Header>
+                        <Card.Header className={"component__title"}>Your requests</Card.Header>
                         <Divider />
                         <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                             <Grid.Row columns={1}>

@@ -22,7 +22,7 @@ const RequestItem = ({sum, amount, onClick, buttonDisabled, buttonBasic, buttonC
             </Grid.Column>
             <Grid.Column>
                 <Button
-                    className={"request__button"}
+                    className={"dashboard__submit"}
                     circular
                     fluid
                     floated={'right'}
