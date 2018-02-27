@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     Card,
     Input,
@@ -20,20 +20,33 @@ import {
 } from 'actions/signup';
 import SignUpLib from 'libs/ApiLib/SignUp';
 
-class SignupComponent extends React.Component {
+class SignupComponent extends Component {
 
     handleSignup = () => {
         const { email, password, repeatPassword, setError, handleRegistration } = this.props;
+        const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        if (!email.match(pattern)) {
+            setError("Please enter a valid Email");
+            return;
+        }
         if (repeatPassword !== password) {
             setError("Passwords do not match");
-        } else {
-            setError(null);
-            handleRegistration({email, password});
+            return;
+        } else if (password.length < 5) {
+            setError("Password must contain more than 5 characters");
+            return;
         }
+        setError(null);
+        handleRegistration({email, password});
     }
 
     debounceEmail = _.debounce(() => {
         const { setError, email } = this.props;
+        const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        if (!email.match(pattern)) {
+            setError("Please enter a valid Email");
+            return;
+        }
         SignUpLib.checkAvailability(email).then(() => {
             setError(null);
         }).catch(() => {
@@ -47,11 +60,6 @@ class SignupComponent extends React.Component {
 
     handleChangeEmail = (event, {value}) => {
         const { changeEmail } = this.props;
-        // const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
-        // if (!email.match(pattern)) {
-        //     setError("Please enter a valid Email");
-        //     return;
-        // }
         changeEmail(value);
         this.debounceEmail();
     }

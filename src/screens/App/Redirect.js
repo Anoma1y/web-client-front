@@ -5,7 +5,7 @@ import {redirectToHome} from 'actions/redirect'
 class Redirect extends Component {
     componentWillMount() {
         const { user ,redirectToHome } = this.props;
-        if (user.jwt === null || user.jwt === undefined) {
+        if (user.jwt === null || user.jwt === undefined || localStorage.jwt === null) {
             redirectToHome();
         }
     }

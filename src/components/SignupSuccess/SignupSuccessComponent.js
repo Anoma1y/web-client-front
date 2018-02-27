@@ -15,10 +15,9 @@ class SignupSuccessComponent extends Component {
         </Card>
     )
     render () {
-        const { isSignupInProgress } = this.props.signup;
         return (
             <div>
-                {isSignupInProgress ? this.renderSucces() : ""}
+                {this.renderSucces()}
             </div>
         )
     }

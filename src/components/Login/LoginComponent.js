@@ -39,10 +39,6 @@ class LoginComponent extends Component {
             setError("Enter password");
             return;
         }
-        // else if (password.length < 5) {
-        //     setError("Password must contain more than 5 characters");
-        //     return;
-        // }
         setError(null);
         handleLogin({
             email,
