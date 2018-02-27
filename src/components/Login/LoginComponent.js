@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react';
 import {
     Card,
     Input,
@@ -6,10 +6,10 @@ import {
     Item,
     Message,
     Loader
-} from 'semantic-ui-react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+} from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import {
     changeEmail,
@@ -19,21 +19,46 @@ import {
     setError
 } from 'actions/login'
 
-class LoginComponent extends React.Component {
+class LoginComponent extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             isPasswordVisible: 0
         };
     }
+
     handleLoginBtn = () => {
-        const { email, password } = this.props;
-        this.props.handleLogin({
-            email, password
+        const { email, password, setError, handleLogin } = this.props;
+        const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        if (!email.match(pattern)) {
+            setError("Please enter a valid Email");
+            return;
+        }
+        if (password.length === 0) {
+            setError("Enter password");
+            return;
+        }
+        // else if (password.length < 5) {
+        //     setError("Password must contain more than 5 characters");
+        //     return;
+        // }
+        setError(null);
+        handleLogin({
+            email,
+            password
         });
     }
+
     render () {
-        const { email, password, error, changeEmail, changePassword, isAuthInProgress } = this.props;
+        const {
+            email,
+            password,
+            error,
+            changeEmail,
+            changePassword,
+            isAuthInProgress
+        } = this.props;
         return (
             <div>
                 <Button.Group fluid widths='2'>

@@ -8,15 +8,16 @@ export const handleLogin = value => {
     return dispatch => {
         const { email, password } = value;
         dispatch(setAuthInProgress(true));
-            ApiLib.logUser(email, password).then((data) => {
-                dispatch(setError(null));
-                const JWT = data.data.jwt;
-                dispatch(handleTokenUser(JWT));
-                dispatch(setAuthInProgress(false));
-                dispatch(push('/dashboard/'));
-            }).catch((err) =>{
-                dispatch(setAuthInProgress(false));
-                dispatch(setError(err));
-            })
+        ApiLib.logUser(email, password).then((data) => {
+            dispatch(setError(null));
+            const { jwt } = data.data;
+            dispatch(handleTokenUser(jwt));
+            localStorage.setItem("jwt", jwt);
+            dispatch(setAuthInProgress(false));
+            dispatch(push('/dashboard/'));
+        }).catch((err) =>{
+            dispatch(setAuthInProgress(false));
+            dispatch(setError(err));
+        })
     }
 };

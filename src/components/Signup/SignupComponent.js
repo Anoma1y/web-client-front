@@ -47,6 +47,11 @@ class SignupComponent extends React.Component {
 
     handleChangeEmail = (event, {value}) => {
         const { changeEmail } = this.props;
+        // const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        // if (!email.match(pattern)) {
+        //     setError("Please enter a valid Email");
+        //     return;
+        // }
         changeEmail(value);
         this.debounceEmail();
     }
