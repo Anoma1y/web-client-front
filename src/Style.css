@@ -356,7 +356,13 @@
     color: #004fce !important;
     font-size: 14px !important; }
 
-.login__content_btn {
+.login__content_signup {
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin: 20px 0 10px !important; }
+
+.auth_btn {
   background-color: #004fce !important;
   color: #FFFFFF !important;
   text-transform: uppercase !important;
@@ -369,19 +375,13 @@
   -ms-transition: background-color .5s ease !important;
   -o-transition: background-color .5s ease !important;
   transition: background-color .5s ease !important; }
-  .login__content_btn:hover {
+  .auth_btn:hover {
     background-color: #0059e8 !important; }
 
-.login__content_signup {
-  text-align: center !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  margin: 20px 0 10px !important; }
-
-.login__content label {
+.auth_input label {
   position: relative !important;
   display: block !important; }
-  .login__content label input {
+  .auth_input label input {
     -webkit-box-sizing: border-box !important;
     -moz-box-sizing: border-box !important;
     box-sizing: border-box !important;
@@ -393,33 +393,53 @@
     outline: none !important;
     transition: all 0.2s ease-in-out !important;
     border-bottom: 2px solid #939393 !important; }
-    .login__content label input::-webkit-input-placeholder {
+    .auth_input label input::-webkit-input-placeholder {
       transition: all 0.2s ease-in-out !important;
       color: #939393 !important; }
-    .login__content label input:-moz-placeholder {
+    .auth_input label input:-moz-placeholder {
       transition: all 0.2s ease-in-out !important;
       color: #939393 !important; }
-    .login__content label input::-moz-placeholder {
+    .auth_input label input::-moz-placeholder {
       transition: all 0.2s ease-in-out !important;
       color: #939393 !important; }
-    .login__content label input:-ms-input-placeholder {
+    .auth_input label input:-ms-input-placeholder {
       transition: all 0.2s ease-in-out !important;
       color: #939393 !important; }
-    .login__content label input:hover {
+    .auth_input label input:hover {
       border-bottom-color: #004fce !important; }
-    .login__content label input:focus, .login__content label input.populated {
+    .auth_input label input:focus, .auth_input label input.populated {
       padding-top: 28px !important;
       padding-bottom: 12px !important;
       border-bottom-color: #004fce !important; }
-      .login__content label input:focus::placeholder, .login__content label input.populated::placeholder {
+      .auth_input label input:focus::placeholder, .auth_input label input.populated::placeholder {
         color: transparent !important; }
-      .login__content label input:focus + span, .login__content label input.populated + span {
+      .auth_input label input:focus + span, .auth_input label input.populated + span {
         opacity: 1 !important;
         top: 10px !important; }
-  .login__content label span {
+  .auth_input label span {
     color: #004fce !important;
     position: absolute !important;
     top: 0 !important;
+    font-size: 12px !important;
     left: 0 !important;
     opacity: 0 !important;
     transition: all 0.2s ease-in-out !important; }
+
+.signup {
+  font-family: "Roboto", sans-serif !important; }
+
+.signup__content_confirm {
+  width: 75% !important;
+  margin: 20px 0 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important; }
+  .signup__content_confirm a {
+    color: #004fce !important; }
+
+.signup__content_login {
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin: 20px 0 10px !important; }
+  .signup__content_login a {
+    color: #004fce !important; }

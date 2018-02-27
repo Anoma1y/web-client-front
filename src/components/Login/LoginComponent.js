@@ -93,7 +93,7 @@ class LoginComponent extends Component {
                         <Card.Header as={"h1"} className={"login__header"}>
                             Sign In
                         </Card.Header>
-                        <Card.Description className={"login__content"}>
+                        <Card.Description className={"login__content auth_input"}>
                             <label>
                                 <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
                                 <span>E-Mail</span>
@@ -114,7 +114,7 @@ class LoginComponent extends Component {
                             <Button 
                                 fluid
                                 onClick={this.handleLoginBtn}
-                                className={"login__content_btn"}
+                                className={"auth_btn"}
                             >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Sign In"}
                             </Button>
                             <p className={"login__content_signup"}>Don't have account? <Link to={"/signup"}>Sign Up</Link></p>

@@ -1,6 +1,6 @@
 import { CHANGE_REPEAT_PASSWORD } from './types'
 
-export const changeRepeatPassword = event => ({
+export const changeRepeatPassword = value => ({
     type: CHANGE_REPEAT_PASSWORD,
-    payload: event.target.value,
+    payload: value
 });

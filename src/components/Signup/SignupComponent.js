@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     Card,
-    Input,
     Button,
     Message,
     Loader
@@ -10,6 +9,7 @@ import _ from 'underscore'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 import {
     changeEmail,
     changePassword,
@@ -21,6 +21,15 @@ import {
 import SignUpLib from 'libs/ApiLib/SignUp';
 
 class SignupComponent extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            emailPlaceholder: false,
+            passwordPlaceholder: false,
+            repeatPasswordPlaceholder: false
+        }
+    }
 
     handleSignup = () => {
         const { email, password, repeatPassword, setError, handleRegistration } = this.props;
@@ -58,52 +67,89 @@ class SignupComponent extends Component {
         })
     }, 1500)
 
-    handleChangeEmail = (event, {value}) => {
+    handleChangeEmail = event => {
         const { changeEmail } = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                emailPlaceholder: true
+            })
+        } else {
+            this.setState({
+                emailPlaceholder: false
+            })
+        }
         changeEmail(value);
         this.debounceEmail();
     }
-
+    handleChangePassword = event => {
+        const { changePassword } = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                passwordPlaceholder: true
+            })
+        } else {
+            this.setState({
+                passwordPlaceholder: false
+            })
+        }
+        changePassword(value);
+    }
+    handleChangeRepeatPassword = event => {
+        const { changeRepeatPassword} = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                repeatPasswordPlaceholder: true
+            })
+        } else {
+            this.setState({
+                repeatPasswordPlaceholder: false
+            })
+        }
+        changeRepeatPassword(value);
+    }
     render () {
-        const { changePassword, changeRepeatPassword, email, password, repeatPassword, error, isSignupInProgress } = this.props;
+        const {
+            email,
+            password,
+            repeatPassword,
+            error,
+            isSignupInProgress
+        } = this.props;
+        const {
+            emailPlaceholder,
+            passwordPlaceholder,
+            repeatPasswordPlaceholder
+        } = this.state;
         return (
             <div>
-                <Button.Group fluid widths='2'>
-                    <Button onClick={() => this.props.goToLogin()}>Log in</Button>
-                    <Button color={'orange'} disabled>Registration</Button>
-                </Button.Group>
-                <Card fluid color={'violet'}>
-                    <Card.Content>
-                        <Card.Description>
-                            <Input
-                                icon='at'
-                                iconPosition='left'
-                                placeholder='E-mail'
-                                fluid
-                                style={{marginBottom: 15}}
-                                onChange={this.handleChangeEmail}
-                                value={email}
-                            />
-                            <Input
-                                icon='key'
-                                iconPosition='left'
-                                type={"password"}
-                                placeholder='Password'
-                                fluid
-                                style={{marginBottom: 15}}
-                                onChange={changePassword}
-                                value={password}
-                            />
-                            <Input
-                                icon='repeat'
-                                iconPosition='left'
-                                type={"password"}
-                                placeholder='Repeat password'
-                                fluid
-                                style={{marginBottom: 15}}
-                                onChange={changeRepeatPassword}
-                                value={repeatPassword}
-                            />
+                {/*<Button.Group fluid widths='2'>*/}
+                    {/*<Button onClick={() => this.props.goToLogin()}>Log in</Button>*/}
+                    {/*<Button color={'orange'} disabled>Registration</Button>*/}
+                {/*</Button.Group>*/}
+                <Card fluid className={"signup"}>
+                   <Card.Content>
+                       <Card.Header as={"h1"} className={"login__header"}>
+                           Sign Up
+                       </Card.Header>
+                        <Card.Description className={"signup__content auth_input"}>
+                            <label>
+                                <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
+                                <span>E-Mail</span>
+                            </label>
+                            <label>
+                                <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
+                                <span>Password</span>
+                            </label>
+                            <label>
+                                <input type="password" placeholder={"Repeat Password"} onChange={this.handleChangeRepeatPassword} value={repeatPassword} className={repeatPasswordPlaceholder ? "populated" : ""}/>
+                                <span>Repeat Password</span>
+                            </label>
+                            <p className={"signup__content_confirm"}>
+                                By clicking Sign Up, you agree to the <Link to={"/"}>Terms of use</Link> and <Link to={"/"}>Privacy Policy</Link>
+                            </p>
                             { error !== null ?
                                 <Message warning color={"red"}>
                                     <Message.Header>{error}</Message.Header>
@@ -111,9 +157,13 @@ class SignupComponent extends Component {
                             }
                             <Button
                                 fluid
+                                className={"auth_btn"}
                                 onClick={this.handleSignup}
                             >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Register"}
                             </Button>
+                            <p className={"signup__content_login"}>
+                                Already have account? <Link to={"/login"}>Sign In</Link>
+                            </p>
                         </Card.Description>
                     </Card.Content>
                 </Card>
