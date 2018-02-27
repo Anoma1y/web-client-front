@@ -16,7 +16,7 @@ class TelegramWidget extends Component {
                     <Card.Description className={"telegram__container"}>
                         <iframe
                             src="https://tgwidget.com/channel/?id=5a86cb8583ba8857578b4567"
-                            frameborder="0"
+                            frameBorder="0"
                             scrolling="no"
                             horizontalscrolling="no"
                             verticalscrolling="no"

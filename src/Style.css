@@ -149,16 +149,15 @@
   font-family: "Roboto", sans-serif !important; }
   .currency__button input:checked + label {
     color: #000000 !important;
-    background-color: #FFFFFF !important;
     font-weight: 500 !important;
     border-bottom-color: #004fce !important; }
   .currency__button label {
     padding: 5px 25px !important;
     color: #939393 !important;
     border-bottom: 2px solid transparent !important;
+    background-color: transparent !important;
     font-weight: 500 !important; }
     .currency__button label:hover {
-      background-color: #FFFFFF !important;
       color: #000000 !important;
       font-weight: 500 !important;
       border-bottom-color: #004fce !important; }
@@ -243,12 +242,12 @@
   color: #000000 !important; }
 
 .bonus__label {
-  width: 49px !important;
+  width: 44px !important;
   margin: 0 3px !important;
   color: #FFFFFF !important;
   font-family: "Roboto", sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
   border-radius: 3px !important;
   background-color: #939393 !important; }
   .bonus__label-active {
