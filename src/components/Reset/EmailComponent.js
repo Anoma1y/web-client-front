@@ -20,7 +20,7 @@ class EmailComponent extends React.Component {
 
     handleResetBtn = () => {
         const { email, handleReset, setError } = this.props;
-        const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
             setError("Please enter a valid Email");
             return;

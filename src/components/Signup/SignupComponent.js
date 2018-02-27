@@ -24,7 +24,7 @@ class SignupComponent extends Component {
 
     handleSignup = () => {
         const { email, password, repeatPassword, setError, handleRegistration } = this.props;
-        const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
             setError("Please enter a valid Email");
             return;
@@ -42,7 +42,7 @@ class SignupComponent extends Component {
 
     debounceEmail = _.debounce(() => {
         const { setError, email } = this.props;
-        const pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+        const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
             setError("Please enter a valid Email");
             return;
