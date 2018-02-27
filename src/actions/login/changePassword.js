@@ -1,6 +1,6 @@
 import { CHANGE_PASSWORD } from './types'
 
-export const changePassword = event => ({
+export const changePassword = value => ({
     type: CHANGE_PASSWORD,
-    payload: event.target.value,
+    payload: value,
 });

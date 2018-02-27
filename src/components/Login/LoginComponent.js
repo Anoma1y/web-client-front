@@ -10,6 +10,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 
 import {
     changeEmail,
@@ -24,10 +25,38 @@ class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isPasswordVisible: 0
+            emailPlaceholder: false,
+            passwordPlaceholder: false
         };
     }
-
+    handleChangeEmail = event => {
+        const { changeEmail } = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                emailPlaceholder: true
+            })
+        } else {
+            this.setState({
+                emailPlaceholder: false
+            })
+        }
+        changeEmail(value);
+    }
+    handleChangePassword = event => {
+        const { changePassword } = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                passwordPlaceholder: true
+            })
+        } else {
+            this.setState({
+                passwordPlaceholder: false
+            })
+        }
+        changePassword(value);
+    }
     handleLoginBtn = () => {
         const { email, password, setError, handleLogin } = this.props;
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
@@ -51,30 +80,31 @@ class LoginComponent extends Component {
             email,
             password,
             error,
-            changeEmail,
-            changePassword,
             isAuthInProgress
         } = this.props;
+        const {
+            emailPlaceholder,
+            passwordPlaceholder
+        } = this.state;
         return (
             <div>
-                <Button.Group fluid widths='2'>
-                    <Button color={'orange'} disabled>Log in</Button>
-                    <Button onClick={() => this.props.goToSignup()}>Registration</Button>
-                </Button.Group>
-                <Card fluid color={'violet'}>
+                <Card fluid className={"login"}>
                     <Card.Content>
-                        <Card.Description>
-                            <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={changeEmail} value={email}
+                        <Card.Header as={"h1"} className={"login__header"}>
+                            Sign In
+                        </Card.Header>
+                        <Card.Description className={"login__content"}>
+                            <label>
+                                <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
+                                <span>E-Mail</span>
+                            </label>
+                            <label>
+                                <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
+                                <span>Password</span>
+                            </label>
 
-                            />
-                            <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 5}}
-                                   onChange={changePassword} value={password}
-                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
-                            />
-
-                            <Item style={{marginBottom: 15, textAlign: 'right'}}>
-                                <Item.Description as='a' onClick={() => this.props.goToReset()}>Forgot password?</Item.Description>
+                            <Item className={"login__content_forgot"}>
+                                <Item.Description as='a' onClick={() => this.props.goToReset()}>Forget your password?</Item.Description>
                             </Item>
                             { error !== null ?
                                 <Message warning color={"red"}>
@@ -84,8 +114,10 @@ class LoginComponent extends Component {
                             <Button 
                                 fluid
                                 onClick={this.handleLoginBtn}
-                            >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Login"}
+                                className={"login__content_btn"}
+                            >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Sign In"}
                             </Button>
+                            <p className={"login__content_signup"}>Don't have account? <Link to={"/signup"}>Sign Up</Link></p>
                         </Card.Description>
                     </Card.Content>
                 </Card>

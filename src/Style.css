@@ -338,3 +338,88 @@
       color: #FFFFFF !important; }
     .setting__change_buttons input:focus:-ms-input-placeholder, .setting__change_buttons input:hover:-ms-input-placeholder {
       color: #FFFFFF !important; }
+
+.login {
+  font-family: "Roboto", sans-serif !important; }
+
+.login__header {
+  font-size: 20px !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 400 !important;
+  line-height: 35px !important;
+  color: #282828 !important; }
+
+.login__content_forgot {
+  text-align: right !important;
+  margin: 15px 0 !important; }
+  .login__content_forgot a {
+    color: #004fce !important;
+    font-size: 14px !important; }
+
+.login__content_btn {
+  background-color: #004fce !important;
+  color: #FFFFFF !important;
+  text-transform: uppercase !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border-radius: 2px !important;
+  box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important;
+  -webkit-transition: background-color .5s ease !important;
+  -moz-transition: background-color .5s ease !important;
+  -ms-transition: background-color .5s ease !important;
+  -o-transition: background-color .5s ease !important;
+  transition: background-color .5s ease !important; }
+  .login__content_btn:hover {
+    background-color: #0059e8 !important; }
+
+.login__content_signup {
+  text-align: center !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin: 20px 0 10px !important; }
+
+.login__content label {
+  position: relative !important;
+  display: block !important; }
+  .login__content label input {
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    position: relative !important;
+    border: none !important;
+    padding: 20px 0 !important;
+    width: 100% !important;
+    outline: none !important;
+    transition: all 0.2s ease-in-out !important;
+    border-bottom: 2px solid #939393 !important; }
+    .login__content label input::-webkit-input-placeholder {
+      transition: all 0.2s ease-in-out !important;
+      color: #939393 !important; }
+    .login__content label input:-moz-placeholder {
+      transition: all 0.2s ease-in-out !important;
+      color: #939393 !important; }
+    .login__content label input::-moz-placeholder {
+      transition: all 0.2s ease-in-out !important;
+      color: #939393 !important; }
+    .login__content label input:-ms-input-placeholder {
+      transition: all 0.2s ease-in-out !important;
+      color: #939393 !important; }
+    .login__content label input:hover {
+      border-bottom-color: #004fce !important; }
+    .login__content label input:focus, .login__content label input.populated {
+      padding-top: 28px !important;
+      padding-bottom: 12px !important;
+      border-bottom-color: #004fce !important; }
+      .login__content label input:focus::placeholder, .login__content label input.populated::placeholder {
+        color: transparent !important; }
+      .login__content label input:focus + span, .login__content label input.populated + span {
+        opacity: 1 !important;
+        top: 10px !important; }
+  .login__content label span {
+    color: #004fce !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    opacity: 0 !important;
+    transition: all 0.2s ease-in-out !important; }
