@@ -3,7 +3,8 @@ import {
     Card,
     Button,
     Message,
-    Loader
+    Loader,
+    Divider
 } from 'semantic-ui-react';
 import _ from 'underscore'
 import { bindActionCreators } from 'redux';
@@ -19,6 +20,8 @@ import {
     handleRegistration,
 } from 'actions/signup';
 import SignUpLib from 'libs/ApiLib/SignUp';
+import terms_of_service from 'static/terms-of-service.pdf';
+import privasy_policy from 'static/privasy-policy.pdf';
 
 class SignupComponent extends Component {
 
@@ -137,6 +140,7 @@ class SignupComponent extends Component {
                        <Card.Header as={"h1"} className={"login__header"}>
                            Sign Up
                        </Card.Header>
+                       <Divider />
                         <Card.Description className={"signup__content auth_input"}>
                             <label>
                                 <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
@@ -151,7 +155,7 @@ class SignupComponent extends Component {
                                 <span>Repeat Password</span>
                             </label>
                             <p className={"signup__content_confirm"}>
-                                By clicking Sign Up, you agree to the <Link to={"/"}>Terms of use</Link> and <Link to={"/"}>Privacy Policy</Link>
+                                By clicking Sign Up, you agree to the <a href={terms_of_service} target={"_blank"}>Terms of Service</a> and <a href={privasy_policy} target={"_blank"}>Privacy Policy</a>
                             </p>
                             { error !== null ?
                                 <Message warning color={"red"}>

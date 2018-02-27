@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Card,
-    Input,
+    Divider,
     Button,
     Item,
     Message,
@@ -93,6 +93,7 @@ class LoginComponent extends Component {
                         <Card.Header as={"h1"} className={"login__header"}>
                             Sign In
                         </Card.Header>
+                        <Divider />
                         <Card.Description className={"login__content auth_input"}>
                             <label>
                                 <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
