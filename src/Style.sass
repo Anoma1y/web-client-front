@@ -11,7 +11,7 @@ $orange-color: #FC900B !important
 $red-color: #FF3E33 !important
 
 //header menu
-$header-menu-background-color: #001f38 !important
+$header-menu-background-color: rgba(40, 40, 40, 1) !important
 //component
 $container-background-color: #4D59A1 !important
 $attentionIdentification-background-color: #F1C0C0
@@ -37,26 +37,38 @@ $header-identification-component: #363E71 !important
     @content
   &:-ms-input-placeholder
     @content
+.logo_content
+  img
+    width: 100px !important
+.menu__color
+  background-color: $header-menu-background-color
 
 .header__menu
   background-color: $header-menu-background-color
   border-radius: 0 !important
-  &_logo
-    img
-      width: 100px !important
+.grid__menu
+  width: 100% !important
+.user__menu
+  height: 100% !important
+  justify-content: flex-end !important
   &_item
+    font-family: $font-robot
+    font-size: 14px !important
+    font-weight: 500 !important
+    text-align: center !important
+    justify-content: center !important
+    line-height: 18px !important
     padding: 0 !important
-    width: 64px !important
+    width: 95px !important
     height: 64px !important
+    margin-right: 50px !important
     cursor: pointer
-    @media only screen and (max-width: 991px)
-      display: none !important
-    i
-      font-size: 18px !important
     &:hover
-      background-color: fade_out(#fff, 0.9) !important
+      //background-color: fade_out(#fff, 0.9) !important
       & a
         color: $white-color
+    &:last-child
+      margin-right: 0 !important
     a
       display: -webkit-box !important
       display: -ms-flexbox !important
@@ -69,12 +81,21 @@ $header-identification-component: #363E71 !important
       align-items: center
       width: 100% !important
       height: 100% !important
-      color: fade_out(#fff, 0.7) !important
-      &:hover
-        color: $white-color
-  &_item-active
-    a
-      color: $white-color
+      color: rgba(147, 147, 147, 1) !important
+
+  &-logout
+    text-transform: uppercase !important
+    position: relative !important
+    &:after
+      content: ""
+      display: block
+      position: absolute
+      top: 15px
+      right: 122%
+      height: 32px
+      width: 1px
+      background-color: rgba(147, 147, 147, 1)
+
 .mobileMenu__trigger
   display: none !important
   color: $white-color
