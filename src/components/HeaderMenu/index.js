@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {
     Menu,
-    Icon,
     Container,
     Grid
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Logo from 'logo.svg';
-// import HeaderMenuItem from './HeaderMenuItem';
 
 class HeaderMenu extends Component {
     constructor(props) {
@@ -30,69 +28,48 @@ class HeaderMenu extends Component {
         };
     }
     render() {
-        const { toggleSidebar } = this.props;
+        const { userEmail } = this.props.user;
         return (
-                <Menu className={"header__menu"}>
-                    <Container>
-                        <Grid className={"grid__menu"}>
-                            <Grid.Row>
-                                <Grid.Column width={1}>
-                                </Grid.Column>
-                                <Grid.Column floated={"left"} className={"logo_content"} width={3}>
-                                    <Menu className={"menu__color"}>
-                                        <Menu.Item>
-                                            <Link to={"/dashboard/"}>
-                                                <img src={Logo} alt="Logo" />
+            <Menu className={"header__menu"}>
+                <Container>
+                    <Grid className={"grid__menu"}>
+                        <Grid.Row>
+                            <Grid.Column width={1}>
+                            </Grid.Column>
+                            <Grid.Column floated={"left"} className={"logo_content"} width={3}>
+                                <Menu className={"menu__color"}>
+                                    <Menu.Item>
+                                        <Link to={"/dashboard/"}>
+                                            <img src={Logo} alt="Logo" />
+                                        </Link>
+                                    </Menu.Item>
+                                </Menu>
+                            </Grid.Column>
+                            <Grid.Column floated={"right"} width={6}>
+                                {localStorage.jwt ?
+                                    <Menu className={"menu__color user__menu"}>
+                                        <Menu.Item className={"user__menu_item user__menu-email"}>
+                                            <Link to={"/dashboard/settings"} >
+                                                {userEmail}
+                                            </Link>
+                                        </Menu.Item>
+                                        <Menu.Item className={"user__menu_item user__menu-logout"}>
+                                            <Link to={"/logout"} >
+                                                Log out
                                             </Link>
                                         </Menu.Item>
                                     </Menu>
-                                </Grid.Column>
-                                <Grid.Column floated={"right"} width={6}>
-                                    {localStorage.jwt ?
-                                        <Menu className={"menu__color user__menu"}>
-                                            <Menu.Item className={"user__menu_item user__menu-email"}>
-                                                <Link to={"/settings"} >
-                                                    mail@mail.ru
-                                                </Link>
-                                            </Menu.Item>
-                                            <Menu.Item className={"user__menu_item user__menu-logout"}>
-                                                <Link to={"/logout"} >
-                                                    Log out
-                                                </Link>
-                                            </Menu.Item>
-                                        </Menu>
-                                    : null}
-                                </Grid.Column>
-                                <Grid.Column width={1}>
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-                    </Container>
-                </Menu>
+                                : null}
+                            </Grid.Column>
+                            <Grid.Column width={1}>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Container>
+            </Menu>
         );
     }
 }
-{/*<Menu.Item className={"header__menu_logo"}>*/}
-    {/*<a href={"http://www.google.com"}>*/}
-        {/*<img src={Logo} alt="Logo" />*/}
-    {/*</a>*/}
-{/*</Menu.Item>*/}
-{/*<Menu.Item>*/}
-{/*{localStorage.jwt ?*/}
-    {/*<Menu.Item>*/}
-        {/*<Menu.Item name={"Settings"}>*/}
-            {/*<Link to={"/settings"} >*/}
-                {/*mail@mail.ru*/}
-            {/*</Link>*/}
-        {/*</Menu.Item>*/}
-        {/*<Menu.Item name={"logout"}>*/}
-            {/*<Link to={"/logout"} >*/}
-                {/*Log out*/}
-            {/*</Link>*/}
-        {/*</Menu.Item>*/}
-    {/*</Menu.Item>*/}
-    {/*: null}*/}
-{/*</Menu.Item>*/}
-export default connect(state => ({ routing: state.routing }), {
+export default connect(state => ({ routing: state.routing, user: state.user }), {
 
 })(HeaderMenu);
