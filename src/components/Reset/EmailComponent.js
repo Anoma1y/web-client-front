@@ -21,11 +21,15 @@ class EmailComponent extends React.Component {
     handleResetBtn = () => {
         const { email, handleReset } = this.props;
         handleReset(email);
-        // console.log(email);
     }
 
     render () {
-        const { email, error, changeEmail, isResetInProgress } = this.props;
+        const {
+            email,
+            error,
+            changeEmail,
+            isResetInProgress
+        } = this.props;
         return (
             <div>
                 <Card fluid color={'violet'}>

@@ -9,8 +9,8 @@ export const handleReset = email => {
         ApiLib.resetPassword(email).then((data) => {
             dispatch(setError(null));
             dispatch(setResetInProgress(false));
-            // dispatch(push('/dashboard/'));
-        }).catch((err) =>{
+            dispatch(push('/reset/confirmation'));
+        }).catch(() =>{
             dispatch(setResetInProgress(false));
             dispatch(setError("Email not found"));
         })
