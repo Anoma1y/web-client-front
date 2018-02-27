@@ -11,6 +11,7 @@ import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
+import TelegramWidget from 'components/TelegramWidget';
 import { AttentionIdentification } from 'components/AttentionIdentification';
 
 class Home extends Component{
@@ -55,6 +56,9 @@ class Home extends Component{
                                     </Grid.Row>
                                     <Grid.Row>
                                         <BetaTest />
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <TelegramWidget />
                                     </Grid.Row>
                                 </Grid.Column>
                                 <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>

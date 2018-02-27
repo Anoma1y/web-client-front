@@ -347,8 +347,6 @@
   border-radius: 2px !important;
   background-color: #939393 !important;
   cursor: pointer !important; }
-  .betatest__item:hover {
-    background-color: #004fce !important; }
   .betatest__item i {
     color: #FFFFFF !important;
     padding: 0 .25em 0 0.25em !important; }
@@ -362,7 +360,8 @@
   text-transform: uppercase !important;
   font-size: 14px !important;
   font-weight: 600 !important;
-  border-radius: 2px !important; }
+  border-radius: 2px !important;
+  height: 100% !important; }
   .betatest__submit-active {
     background-color: #004fce !important; }
 
