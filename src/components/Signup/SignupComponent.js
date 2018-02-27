@@ -68,7 +68,7 @@ class SignupComponent extends Component {
     }, 1500)
 
     handleChangeEmail = event => {
-        const { changeEmail } = this.props;
+        const { changeEmail, setError } = this.props;
         const { value } = event.target;
         if (value.length > 0) {
             this.setState({
@@ -80,8 +80,13 @@ class SignupComponent extends Component {
             })
         }
         changeEmail(value);
-        this.debounceEmail();
+        if (value.length !== 0) {
+            this.debounceEmail();
+        } else {
+            setError(null);
+        }
     }
+
     handleChangePassword = event => {
         const { changePassword } = this.props;
         const { value } = event.target;
@@ -96,6 +101,7 @@ class SignupComponent extends Component {
         }
         changePassword(value);
     }
+
     handleChangeRepeatPassword = event => {
         const { changeRepeatPassword} = this.props;
         const { value } = event.target;
@@ -110,6 +116,7 @@ class SignupComponent extends Component {
         }
         changeRepeatPassword(value);
     }
+
     render () {
         const {
             email,
@@ -125,10 +132,6 @@ class SignupComponent extends Component {
         } = this.state;
         return (
             <div>
-                {/*<Button.Group fluid widths='2'>*/}
-                    {/*<Button onClick={() => this.props.goToLogin()}>Log in</Button>*/}
-                    {/*<Button color={'orange'} disabled>Registration</Button>*/}
-                {/*</Button.Group>*/}
                 <Card fluid className={"signup"}>
                    <Card.Content>
                        <Card.Header as={"h1"} className={"login__header"}>
