@@ -6,7 +6,7 @@ import { setResetInProgress } from "./setResetInProgress";
 export const handleReset = email => {
     return dispatch => {
         dispatch(setResetInProgress(true));
-        ApiLib.resetPassword(email).then((data) => {
+        ApiLib.resetPassword(email).then(() => {
             dispatch(setError(null));
             dispatch(setResetInProgress(false));
             dispatch(push('/reset/confirmation'));
