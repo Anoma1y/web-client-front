@@ -300,6 +300,27 @@
   .calculator__comments:-ms-input-placeholder {
     color: #939393 !important; }
 
+.ui.dimmer {
+  background-color: rgba(255, 255, 255, 0.85) !important; }
+
+.modal {
+  box-shadow: none !important; }
+
+.modal__success {
+  text-align: center !important; }
+  .modal__success_icon i {
+    font-size: 45px !important;
+    color: #3db261 !important; }
+  .modal__success_text {
+    margin: 15px 0 10px !important; }
+    .modal__success_text span {
+      font-family: "Roboto", sans-serif !important;
+      font-size: 18px !important; }
+  .modal__success_btn {
+    margin-top: 40px !important; }
+    .modal__success_btn button {
+      width: 150px !important; }
+
 /***REQUEST COMPONENT***/
 .request__item_wrapper {
   cursor: default !important; }

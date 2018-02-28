@@ -15,6 +15,7 @@ import {
     Card,
     Label,
     Icon,
+    Modal,
     Divider,
     Form
 } from 'semantic-ui-react';
@@ -312,12 +313,6 @@ class Calculator extends Component {
         })
     }
 
-    handleSubmitApplication = () => {
-        const { currencyValue, transferData } = this.props.calculator;
-        const { jwt:token } = this.props.user;
-        this.props.handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), token})
-    }
-
     //Метод для разделения групп разрядов строки
     separationValue = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
 
@@ -356,7 +351,18 @@ class Calculator extends Component {
         const { changeComments } = this.props;
         changeComments(value);
     }
+    state = { modalOpen: true }
 
+    handleOpen = () => this.setState({ modalOpen: true })
+
+    handleClose = () => this.setState({ modalOpen: false })
+
+    handleSubmitApplication = () => {
+        const { currencyValue, transferData, comments } = this.props.calculator;
+        const { handleApplication } = this.props;
+        const { jwt:token } = this.props.user;
+        handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), comments ,token});
+    }
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus, comments } = this.props.calculator;
@@ -459,14 +465,38 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column textAlign={"right"}>
-                                <Button
-                                    circular
-                                    className={"dashboard__submit"}
-                                    onClick={this.handleSubmitApplication}
-                                    disabled={transferData.TKN < 1 || transferData.USD === "0"}
+
+                                <Modal trigger={<Button
+                                                    circular
+                                                    className={"dashboard__submit"}
+                                                    onClick={this.handleSubmitApplication}
+                                                    disabled={transferData.TKN < 1 || transferData.USD === "0"}
+                                                >
+                                                    Apply
+                                                </Button>
+                                                }
+                                       open={this.state.modalOpen}
+                                       onClose={this.handleClose}
+                                       size={"tiny"}
                                 >
-                                    Apply
-                                </Button>
+                                    <Modal.Content className={"modal__success"}>
+                                        <Modal.Description>
+                                            <div className={"modal__success_icon"}>
+                                                <Icon name={"check circle outline"} />
+                                            </div>
+                                            <div className={"modal__success_text"}>
+                                                <span>Заявка успешно отправлена</span>
+                                            </div>
+                                            <div className={"modal__success_btn"}>
+                                                <Button
+                                                    circular
+                                                    className={"dashboard__submit"}
+                                                >OK
+                                                </Button>
+                                            </div>
+                                        </Modal.Description>
+                                    </Modal.Content>
+                                </Modal>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

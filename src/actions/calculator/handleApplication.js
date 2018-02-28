@@ -5,7 +5,7 @@ export const handleApplication = value => {
     return (dispatch, getState) => {
         ApplicationLib.addApplication(value).then((data) => {
             const items = getState().requests.items;
-            dispatch(addRequestItem([ data.data, ...items ]))
+            dispatch(addRequestItem([ data.data, ...items ]));
         }).catch((err) => {
             console.log(err);
         })
