@@ -1,9 +1,7 @@
 import { CHANGE_EMAIL } from './types'
 
 
-export const changeEmail = (e) => {
-    return {
+export const changeEmail = value => ({
         type: CHANGE_EMAIL,
-        payload: e.target.value,
-    }
-};
+        payload: value
+});

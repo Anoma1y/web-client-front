@@ -13,6 +13,7 @@ export const initialUser = token => {
             dispatch(initIdenfified(is_kyc_passed));
             dispatch(initEmail(email));
             dispatch(putToken(token));
+            dispatch(push('/dashboard/'));
         }).catch(() => {
             dispatch(deleteToken());
             dispatch(push('/login'));

@@ -18,6 +18,26 @@ import {
 
 class EmailComponent extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            emailPlaceholder: false,
+        };
+    }
+    handleChangeEmail = event => {
+        const { changeEmail } = this.props;
+        const { value } = event.target;
+        if (value.length > 0) {
+            this.setState({
+                emailPlaceholder: true
+            })
+        } else {
+            this.setState({
+                emailPlaceholder: false
+            })
+        }
+        changeEmail(value);
+    }
     handleResetBtn = () => {
         const {
             email,
@@ -36,23 +56,31 @@ class EmailComponent extends React.Component {
         const {
             email,
             error,
-            changeEmail,
             isResetInProgress
         } = this.props;
-
+        const { emailPlaceholder } = this.state;
         return (
             <div>
-                <Card fluid color={'violet'}>
+                <Card fluid className={"login"}>
                     <Card.Content>
-                        <Card.Header>Forgot your password?</Card.Header>
+                        <Card.Header as={"h1"} className={"login__header"}>
+                            Forgot your password?
+                        </Card.Header>
                         <Divider />
                         <Card.Description style={{marginBottom: 15}}>
                             No problem! Just fill in the email below and we'll send you password reset instructions!
                         </Card.Description>
-                        <Card.Description>
-                            <Input icon='at' iconPosition='left' placeholder='E-mail' fluid style={{marginBottom: 15}}
-                                   onChange={changeEmail.bind(this)} value={email}
-                            />
+                        <Card.Description className={"auth_input"}>
+                            <label>
+                                <input
+                                    type="text"
+                                    placeholder='EMail'
+                                    onChange={this.handleChangeEmail}
+                                    value={email}
+                                    className={emailPlaceholder ? "populated" : ""}
+                                />
+                                <span>EMail</span>
+                            </label>
                             { error !== null ?
                                 <Message warning color={"red"}>
                                     <Message.Header>{error}</Message.Header>
@@ -60,6 +88,7 @@ class EmailComponent extends React.Component {
                             }
                             <Button
                                 fluid
+                                className={"auth_btn"}
                                 onClick={this.handleResetBtn}
                             >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
                             </Button>
