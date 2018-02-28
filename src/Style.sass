@@ -48,9 +48,17 @@ $header-identification-component: #363E71 !important
   border-radius: 0 !important
 .grid__menu
   width: 100% !important
+.menu__title
+  a
+    font-family: $font-robot
+    font-weight: 500 !important
+    font-size: 18px !important
+    color: $white-color
+
 .user__menu
   height: 100% !important
-  justify-content: flex-end !important
+  &_right
+    justify-content: flex-end !important
   &_item
     font-family: $font-robot
     font-size: 14px !important
@@ -86,15 +94,15 @@ $header-identification-component: #363E71 !important
   &-logout
     text-transform: uppercase !important
     position: relative !important
-    &:after
-      content: ""
-      display: block
-      position: absolute
-      top: 15px
-      right: 122%
-      height: 32px
-      width: 1px
-      background-color: rgba(147, 147, 147, 1)
+    //&:after
+    //  content: ""
+    //  display: block
+    //  position: absolute
+    //  top: 15px
+    //  right: 122%
+    //  height: 32px
+    //  width: 1px
+    //  background-color: rgba(147, 147, 147, 1)
 
 .mobileMenu__trigger
   display: none !important

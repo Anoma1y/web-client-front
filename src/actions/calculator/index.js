@@ -6,3 +6,4 @@ export { changeComments } from './changeComments';
 export { checkSuffixText } from './checkSuffixText';
 export { initializingTKN } from './initializingTKN';
 export { handleApplication } from './handleApplication';
+export { changeModalSuccessful } from './changeModalSuccessful';

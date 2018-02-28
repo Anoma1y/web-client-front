@@ -36,31 +36,51 @@ class HeaderMenu extends Component {
                         <Grid.Row>
                             <Grid.Column width={1}>
                             </Grid.Column>
-                            <Grid.Column floated={"left"} className={"logo_content"} width={3}>
-                                <Menu className={"menu__color"}>
+                            <Grid.Column width={6} floated={"left"}>
+                                <Menu className={"menu__color user__menu menu__title"}>
                                     <Menu.Item>
                                         <Link to={"/dashboard/"}>
-                                            <img src={Logo} alt="Logo" />
+                                            TransCrypt account {email}
                                         </Link>
                                     </Menu.Item>
                                 </Menu>
                             </Grid.Column>
-                            <Grid.Column floated={"right"} width={6}>
-                                {localStorage.jwt ?
-                                    <Menu className={"menu__color user__menu"}>
-                                        <Menu.Item className={"user__menu_item user__menu-email"}>
-                                            <Link to={"/dashboard/settings"} >
-                                                {email}
-                                            </Link>
-                                        </Menu.Item>
-                                        <Menu.Item className={"user__menu_item user__menu-logout"}>
-                                            <Link to={"/logout"} >
-                                                Log out
-                                            </Link>
-                                        </Menu.Item>
-                                    </Menu>
-                                : null}
+
+
+                             <Grid.Column width={4} floated={"right"}>
+                                 <Menu className={"menu__color user__menu user__menu_right"}>
+                                     <Menu.Item className={"user__menu_item user__menu-logout"}>
+                                         <Link to={"/logout"} >
+                                             {localStorage.jwt ? "Log out" : null}
+                                         </Link>
+                                     </Menu.Item>
+                                 </Menu>
                             </Grid.Column>
+                            {/*<Grid.Column floated={"left"} className={"logo_content"} width={3}>*/}
+                                {/*<Menu className={"menu__color"}>*/}
+                                    {/*<Menu.Item>*/}
+                                        {/*<Link to={"/dashboard/"}>*/}
+                                            {/*<img src={Logo} alt="Logo" />*/}
+                                        {/*</Link>*/}
+                                    {/*</Menu.Item>*/}
+                                {/*</Menu>*/}
+                            {/*</Grid.Column>*/}
+                            {/*<Grid.Column floated={"right"} width={6}>*/}
+                                {/*{localStorage.jwt ?*/}
+                                    {/*<Menu className={"menu__color user__menu"}>*/}
+                                        {/*<Menu.Item className={"user__menu_item user__menu-email"}>*/}
+                                            {/*<Link to={"/dashboard/settings"} >*/}
+                                                {/*{email}*/}
+                                            {/*</Link>*/}
+                                        {/*</Menu.Item>*/}
+                                        {/*<Menu.Item className={"user__menu_item user__menu-logout"}>*/}
+                                            {/*<Link to={"/logout"} >*/}
+                                                {/*Log out*/}
+                                            {/*</Link>*/}
+                                        {/*</Menu.Item>*/}
+                                    {/*</Menu>*/}
+                                {/*: null}*/}
+                            {/*</Grid.Column>*/}
                             <Grid.Column width={1}>
                             </Grid.Column>
                         </Grid.Row>

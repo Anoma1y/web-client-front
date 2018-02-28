@@ -12,9 +12,16 @@
 .grid__menu {
   width: 100% !important; }
 
+.menu__title a {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  color: #FFFFFF !important; }
+
 .user__menu {
-  height: 100% !important;
-  justify-content: flex-end !important; }
+  height: 100% !important; }
+  .user__menu_right {
+    justify-content: flex-end !important; }
   .user__menu_item {
     font-family: "Roboto", sans-serif !important;
     font-size: 14px !important;
@@ -47,15 +54,6 @@
   .user__menu-logout {
     text-transform: uppercase !important;
     position: relative !important; }
-    .user__menu-logout:after {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 15px;
-      right: 122%;
-      height: 32px;
-      width: 1px;
-      background-color: #939393; }
 
 .mobileMenu__trigger {
   display: none !important;

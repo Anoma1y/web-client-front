@@ -6,6 +6,7 @@ import {
     changeComments,
     checkSuffixText,
     initializingTKN,
+    changeModalSuccessful,
     handleApplication
 } from 'actions/calculator';
 import {
@@ -351,11 +352,11 @@ class Calculator extends Component {
         const { changeComments } = this.props;
         changeComments(value);
     }
-    state = { modalOpen: true }
 
-    handleOpen = () => this.setState({ modalOpen: true })
-
-    handleClose = () => this.setState({ modalOpen: false })
+    handleCloseModal = () => {
+        const { changeModalSuccessful } = this.props;
+        changeModalSuccessful(false);
+    }
 
     handleSubmitApplication = () => {
         const { currencyValue, transferData, comments } = this.props.calculator;
@@ -365,7 +366,15 @@ class Calculator extends Component {
     }
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus, comments } = this.props.calculator;
+        const {
+            tokenValue,
+            currencyValue,
+            sumValue,
+            transferData,
+            suffixText,
+            bonus,
+            comments,
+            modalSuccessful } = this.props.calculator;
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
@@ -475,8 +484,7 @@ class Calculator extends Component {
                                                     Apply
                                                 </Button>
                                                 }
-                                       open={this.state.modalOpen}
-                                       onClose={this.handleClose}
+                                       open={modalSuccessful}
                                        size={"tiny"}
                                 >
                                     <Modal.Content className={"modal__success"}>
@@ -491,6 +499,7 @@ class Calculator extends Component {
                                                 <Button
                                                     circular
                                                     className={"dashboard__submit"}
+                                                    onClick={this.handleCloseModal}
                                                 >OK
                                                 </Button>
                                             </div>
@@ -512,5 +521,6 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     checkSuffixText,
     changeComments,
     initializingTKN,
+    changeModalSuccessful,
     handleApplication,
 })(Calculator);
