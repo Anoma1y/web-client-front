@@ -15,7 +15,7 @@ export const initialUser = token => {
             dispatch(putToken(token));
         }).catch(() => {
             dispatch(deleteToken());
-            dispatch(push('/'));
+            dispatch(push('/login'));
         })
     }
 };

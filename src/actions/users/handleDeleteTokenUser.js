@@ -7,7 +7,7 @@ export const handleDeleteTokenUser = value => {
         Logout.logout(value).then(() => {
             localStorage.removeItem("jwt");
             dispatch(deleteToken());
-            dispatch(push('/'));
+            dispatch(push('/login'));
         }).catch(() => {
             console.log("Error");
         })

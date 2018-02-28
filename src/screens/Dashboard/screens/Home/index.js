@@ -15,11 +15,18 @@ import SocialNetwork from 'components/SocialNetwork';
 import TelegramWidget from 'components/TelegramWidget';
 import CryptoWidget from 'components/CryptoWidget';
 import { AttentionIdentification } from 'components/AttentionIdentification';
+import { redirectToHome } from "actions/redirect";
 
 class Home extends Component{
+
     state = {
 
     }
+
+    // componentWillMount() {
+    //     Login.getUser(localStorage.getItem("jwt")).then(()=>{}).catch((err)=>{this.props.redirectToHome()});
+    // }
+
     handleContextRef = contextRef => {
         this.setState({contextRef})
     }
@@ -82,9 +89,8 @@ class Home extends Component{
         )
     }
 }
+
 export default connect(state => ({ user: state.user }), {
-
+    redirectToHome
 })(Home);
-
-// export default Home;
 

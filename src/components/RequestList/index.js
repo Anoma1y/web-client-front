@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
     Card,
@@ -8,11 +8,13 @@ import {
 import { handleRequestItem } from 'actions/request/'
 import RequestItem from './RequestItem'
 
-class RequestList extends React.Component {
+class RequestList extends Component {
+
     componentDidMount() {
-        const { jwt: token } = this.props.user;
-        this.props.handleRequestItem(token);
+        // const { jwt: token } = this.props.user;
+        this.props.handleRequestItem(localStorage.jwt);
     }
+
     renderList () {
         const { items: request } = this.props.requests;
         return request.map((item, index) => {

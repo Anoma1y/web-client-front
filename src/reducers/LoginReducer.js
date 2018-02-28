@@ -6,8 +6,8 @@ import {
 } from 'actions/login/types'
 
 const INITIAL_STATE = {
-    email: 'ddd@mail.ru',
-    password: '12345',
+    email: '',
+    password: '',
     isAuthInProgress: false,
     error: null
 };

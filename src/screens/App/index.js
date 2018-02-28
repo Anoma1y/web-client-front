@@ -18,9 +18,9 @@ class App extends React.Component {
             <div className={"dashboard__header"} >
                 <CheckToken />
                 <main>
-                    <HeaderMenu />
+                    <HeaderMenu/>
                     <Switch>
-                        <Route exact path={'/'} component={Home} />
+                        <Route exact path={'/'} component={Login} />
                         <Route exact path={'/login'} component={Login} />
                         <Route exact path={'/signup'} component={Signup} />
                         <Route exact path={'/signupsuccess'} component={SignupSuccess} />
