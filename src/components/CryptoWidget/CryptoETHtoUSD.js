@@ -12,7 +12,7 @@ class CryptoETHtoUSD extends Component {
 
     render() {
         return (
-            <div ref={node => (this.scriptNode = node)} />
+            <div ref={node => (this.scriptNode = node)} className={"crypto__widget"}/>
         );
     }
 }

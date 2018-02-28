@@ -45,11 +45,9 @@ class RequestList extends Component {
                     />
                     {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}
                 </Card.Description>
-
             )
         })
     }
-
     render () {
         return (
             <div>

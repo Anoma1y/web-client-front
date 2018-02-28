@@ -444,14 +444,17 @@ class Calculator extends Component {
                             <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
                                 <p className={"bonus__title"}>Bonus</p>
                             </Grid.Column>
-                            <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
-                            <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
-                                <span className={isMaximum === true ? "bonus__maximum bonus__maximum-active": "bonus__maximum"}>
-                                    <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
-                                    You've reached the limit
-                                </span>
+                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={6}>
+                                {
+                                    isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
+                                                    <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
+                                                    You've reached the limit
+                                                 </span>
+                                        : null
+                                }
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
