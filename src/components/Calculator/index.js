@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
     changeTransferData,
     changeCurrencyValue,
+    changeComments,
     checkSuffixText,
     initializingTKN,
     handleApplication
@@ -11,7 +12,6 @@ import {
     Grid,
     TextArea,
     Button,
-    Input,
     Card,
     Label,
     Icon,
@@ -338,21 +338,28 @@ class Calculator extends Component {
     }
 
     //Метод для возвращения суффикса (текущей валюты) в инпут.
-    handleBlur = (event) => {
+    handleBlur = event => {
         const { checkSuffixText } = this.props;
         const suffixText = this.checkSuffix(event, "BLUR");
         checkSuffixText(suffixText);
     }
 
     //Метод для снятия суффикса (текущей валюты) из инпута, для последующего ввода числового значения
-    handleFocus = (event) => {
+    handleFocus = event => {
         const { checkSuffixText } = this.props;
         const suffixText = this.checkSuffix(event, "FOCUS");
         checkSuffixText(suffixText);
     }
+
+    handleChangeComments = event => {
+        const { value } = event.target;
+        const { changeComments } = this.props;
+        changeComments(value);
+    }
+
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
+        const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus, comments } = this.props.calculator;
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
@@ -444,6 +451,8 @@ class Calculator extends Component {
                                         className={"calculator__comments"}
                                         autoHeight
                                         placeholder='Leave comment'
+                                        onChange={this.handleChangeComments}
+                                        value={comments}
                                     />
                                 </Form>
                             </Grid.Column>
@@ -471,6 +480,7 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     changeCurrencyValue,
     changeTransferData,
     checkSuffixText,
+    changeComments,
     initializingTKN,
-    handleApplication
+    handleApplication,
 })(Calculator);

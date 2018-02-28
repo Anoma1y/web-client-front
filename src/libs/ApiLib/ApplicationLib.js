@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 class ApplicationLib {
-    static url = "http://159.89.10.197:4874/v1/";
+    static url = "http://192.168.0.136:4874/v1/";
     static applicationURL = "application";
 
-    static CalculatorApplication(currency, amount, token) {
+    static CalculatorApplication(currency, amount, comment, token) {
         const appURL = this.url + this.applicationURL;
-        const data = { currency, amount };
+        const data = { currency, amount, comment };
         const header = {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -19,9 +19,9 @@ class ApplicationLib {
     }
 
     static addApplication(value) {
-        const { currency, amount, token } = value;
+        const { currency, amount, comment, token } = value;
         return new Promise((res, rej) => {
-            this.CalculatorApplication(currency, amount, token).then((data) => {
+            this.CalculatorApplication(currency, amount, comment, token).then((data) => {
                 res(data)
             }).catch(() => {
                 rej("Error");

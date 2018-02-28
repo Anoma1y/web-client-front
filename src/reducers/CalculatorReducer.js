@@ -35,6 +35,7 @@ const INITIAL_STATE = {
     transferData: {
         USD: 0, TKN: 0, BTC: 0, ETH: 0
     },
+    comments: "",
     currency: [
         {
             "id": "bitcoin",
@@ -61,16 +62,18 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case C.INITIALIZING_TKN:
-            return {...state, TKN: action.payload};
+            return { ...state, TKN: action.payload };
         case C.CHANGE_CURRENT_CURRENCY:
-            return {...state, currencyValue: action.payload};
+            return { ...state, currencyValue: action.payload };
         case C.CHANGE_SUM_VALUE:
-            return {...state, sumValue: action.payload};
+            return { ...state, sumValue: action.payload };
         case C.CHANGE_TRANSFER_DATA:
             const { sumValue, progressBar, tokenValue, bonus, transferData } = action.payload;
-            return {...state,  sumValue, progressBar, tokenValue, bonus, transferData};
+            return { ...state,  sumValue, progressBar, tokenValue, bonus, transferData };
         case C.CHECK_SUFFIX_TEXT:
-            return {...state, suffixText: action.payload};
+            return { ...state, suffixText: action.payload };
+        case C.CHANGE_COMMENTS:
+            return { ...state, comments: action.payload };
         default:
             return state;
     }
