@@ -2,6 +2,7 @@ import ApplicationLib from 'libs/ApiLib/ApplicationLib'
 import { addRequestItem } from 'actions/request/addRequestItem'
 import {
     changeModalSuccessful,
+    changeQuerySuccessful,
     changeComments
 } from 'actions/calculator';
 
@@ -10,10 +11,12 @@ export const handleApplication = value => {
         ApplicationLib.addApplication(value).then((data) => {
             const items = getState().requests.items;
             dispatch(changeModalSuccessful(true));
+            dispatch(changeQuerySuccessful(true));
             dispatch(addRequestItem([ data.data, ...items ]));
             dispatch(changeComments(""));
-        }).catch((err) => {
-            console.log(err);
+        }).catch(() => {
+            dispatch(changeModalSuccessful(true));
+            dispatch(changeQuerySuccessful(false));
         })
     }
 };

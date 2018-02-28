@@ -374,7 +374,9 @@ class Calculator extends Component {
             suffixText,
             bonus,
             comments,
-            modalSuccessful } = this.props.calculator;
+            modalSuccessful,
+            querySuccess
+        } = this.props.calculator;
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
@@ -476,7 +478,6 @@ class Calculator extends Component {
                             <Grid.Column textAlign={"right"}>
 
                                 <Modal trigger={<Button
-                                                    circular
                                                     className={"dashboard__submit"}
                                                     onClick={this.handleSubmitApplication}
                                                     disabled={transferData.TKN < 1 || transferData.USD === "0"}
@@ -489,15 +490,14 @@ class Calculator extends Component {
                                 >
                                     <Modal.Content className={"modal__success"}>
                                         <Modal.Description>
-                                            <div className={"modal__success_icon"}>
-                                                <Icon name={"check circle outline"} />
+                                            <div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
+                                                <Icon name={querySuccess ? "check circle outline" : "warning circle"} />
                                             </div>
                                             <div className={"modal__success_text"}>
-                                                <span>Заявка успешно отправлена</span>
+                                                <span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>
                                             </div>
-                                            <div className={"modal__success_btn"}>
+                                            <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                                 <Button
-                                                    circular
                                                     className={"dashboard__submit"}
                                                     onClick={this.handleCloseModal}
                                                 >OK

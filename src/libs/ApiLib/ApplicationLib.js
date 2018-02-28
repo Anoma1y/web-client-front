@@ -6,6 +6,7 @@ class ApplicationLib {
 
     static CalculatorApplication(currency, amount, comment, token) {
         const appURL = this.url + this.applicationURL;
+
         const data = { currency, amount, comment };
         const header = {
             headers: {
@@ -19,9 +20,9 @@ class ApplicationLib {
     }
 
     static addApplication(value) {
-        const { currency, amount, comment, token } = value;
+        const { currency, amount, comments, token } = value;
         return new Promise((res, rej) => {
-            this.CalculatorApplication(currency, amount, comment, token).then((data) => {
+            this.CalculatorApplication(currency, amount, comments, token).then((data) => {
                 res(data)
             }).catch(() => {
                 rej("Error");

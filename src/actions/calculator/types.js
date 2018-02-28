@@ -5,3 +5,4 @@ export const CHANGE_COMMENTS = 'calculator/CHANGE_COMMENTS';
 export const CHECK_SUFFIX_TEXT = 'calculator/CHECK_SUFFIX_TEXT';
 export const INITIALIZING_TKN = 'calculator/INITIALIZING_TKN';
 export const CHANGE_MODAL_SUCCESSFUL = 'calculator/CHANGE_MODAL_SUCCESSFUL';
+export const CHANGE_QUERY_SUCCESSFUL = 'calculator/CHANGE_QUERY_SUCCESSFUL';

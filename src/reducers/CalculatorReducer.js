@@ -29,6 +29,7 @@ const INITIAL_STATE = {
     sumValue: 0,
     tokenValue: 10000,
     modalSuccessful: false,
+    querySuccess: null,
     suffixText: {
         suffixToken: true,
         suffixCurrency: true
@@ -77,6 +78,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, comments: action.payload };
         case C.CHANGE_MODAL_SUCCESSFUL:
             return { ...state, modalSuccessful: action.payload };
+        case C.CHANGE_QUERY_SUCCESSFUL:
+            return { ...state, querySuccess: action.payload };
         default:
             return state;
     }

@@ -319,6 +319,14 @@
     .modal__success_btn button {
       width: 150px !important; }
 
+.modal__success-error button {
+  background-color: #FF3E33 !important; }
+  .modal__success-error button:hover {
+    background-color: #ff564d !important; }
+
+.modal__error-icon i {
+  color: #FF3E33 !important; }
+
 /***REQUEST COMPONENT***/
 .request__item_wrapper {
   cursor: default !important; }
