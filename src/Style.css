@@ -2,6 +2,12 @@
 .logo_content img {
   width: 100px !important; }
 
+#root {
+  height: 100vh; }
+
+.auth__container {
+  height: calc(100vh - 85.38px) !important; }
+
 .menu__color {
   background-color: #282828 !important; }
 
@@ -506,7 +512,9 @@
     .setting__change_buttons input:focus:-ms-input-placeholder, .setting__change_buttons input:hover:-ms-input-placeholder {
       color: #FFFFFF !important; }
 
-.login {
+.login, .signup {
+  margin-top: 90px !important;
+  margin-bottom: 20px !important;
   font-family: "Roboto", sans-serif !important; }
 
 .login__header {
@@ -591,9 +599,6 @@
     left: 0 !important;
     opacity: 0 !important;
     transition: all 0.2s ease-in-out !important; }
-
-.signup {
-  font-family: "Roboto", sans-serif !important; }
 
 .signup__content_confirm {
   width: 75% !important;

@@ -15,7 +15,7 @@ import Redirect from './Redirect';
 class App extends React.Component {
      render () {
         return (
-            <div className={"dashboard__header"} >
+            <div>
                 <CheckToken />
                 <main>
                     <HeaderMenu/>

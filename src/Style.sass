@@ -40,6 +40,12 @@ $header-identification-component: #363E71 !important
 .logo_content
   img
     width: 100px !important
+#root
+  height: 100vh
+.auth__container
+  height: calc(100vh - 85.38px) !important
+
+
 .menu__color
   background-color: $header-menu-background-color
 
@@ -536,7 +542,9 @@ $header-identification-component: #363E71 !important
       +placeholder
         color: $white-color
 
-.login
+.login, .signup
+  margin-top: 90px !important
+  margin-bottom: 20px !important
   font-family: $font-robot
 
 .login__header
@@ -612,8 +620,6 @@ $header-identification-component: #363E71 !important
       opacity: 0 !important
       transition: all 0.2s ease-in-out !important
 
-.signup
-  font-family: $font-robot
 .signup__content
   &_confirm
     width: 75% !important
