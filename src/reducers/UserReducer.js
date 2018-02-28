@@ -4,7 +4,8 @@ import {
 } from 'actions/users/types'
 const INITIAL_STATE = {
     jwt: null,
-    userEmail: "ddd@mail.ru"
+    userEmail: "ddd@mail.ru",
+    isIdentification: false
 };
 
 export default (state = INITIAL_STATE, action) => {

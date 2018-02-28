@@ -143,15 +143,21 @@ $header-identification-component: #363E71 !important
     background-color: lighten(rgba(0, 79, 206, 1), 5%) !important
 
 .attentionIdentification
-  background-color: $attentionIdentification-background-color
+  background-color: rgba(208, 88, 88, 1) !important
   font-family: $font-robot
+  font-weight: normal !important
   margin-bottom: 15px !important
   &__icon
     font-size: 18px !important
+    color: $white-color
   &__text
-    color: $red-color
+    color: $white-color
+    font-size: 15px !important
   &__link
+    color: $white-color
     text-decoration: underline !important
+    &:hover
+      color: darken(#fff, 10%) !important
   &__textColumn
     @media screen and (max-width: 767px) and (min-width: 320px)
       text-align: center
@@ -277,12 +283,14 @@ $header-identification-component: #363E71 !important
 
 .bonus__label
   width: 47px !important
+  height: 20px !important
   margin: 0 3px !important
   color: $white-color
   font-family: $font-robot
   font-size: 13px !important
   font-weight: 400 !important
   border-radius: 3px !important
+  overflow: hidden !important
   background-color: rgba(147, 147, 147, 1) !important
   &-active
     background-color: $orange-color
@@ -319,7 +327,7 @@ $header-identification-component: #363E71 !important
   line-height: 35px !important
   border-radius: 3px !important
   height: 90px !important
-  color:  rgba(147, 147, 147, 1) !important
+  color:  rgba(0, 0, 0, 1) !important
   border-color: rgba(147, 147, 147, 1) !important
   +placeholder
     color: rgba(147, 147, 147, 1) !important
@@ -405,18 +413,20 @@ $header-identification-component: #363E71 !important
 
 .social__sidebar
   a
-    color: $black-color
+    color: rgba(147, 147, 147, 1) !important
     -webkit-transition: color .3s ease
     transition: color .3s ease
     &:hover
-      color: $orange-color
+      color: rgba(0, 79, 206, 1) !important
   &_icon
+    font-size: 20px !important
     margin: 18px 0 !important
 
 
 /***SETTINGS PAGE***/
 .settings__identification_header
   background-color: $header-identification-component
+
 .setting__header_button
   background-color: #71779B !important
   color: $white-color
@@ -565,3 +575,18 @@ $header-identification-component: #363E71 !important
   .success__email
     font-family: $font-robot
     font-weight: 600 !important
+
+
+.crypto__widget
+  position: relative
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    right: 1px
+    top: 1px
+    width: 50%
+    height: 48px
+    background-color: #F6F9FB
+  &_radio
+    color: rgba(0, 79, 206, 1) !important

@@ -353,7 +353,6 @@ class Calculator extends Component {
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
-
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>

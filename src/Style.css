@@ -105,15 +105,21 @@
     background-color: #0059e8 !important; }
 
 .attentionIdentification {
-  background-color: #F1C0C0;
+  background-color: #d05858 !important;
   font-family: "Roboto", sans-serif !important;
+  font-weight: normal !important;
   margin-bottom: 15px !important; }
   .attentionIdentification__icon {
-    font-size: 18px !important; }
+    font-size: 18px !important;
+    color: #FFFFFF !important; }
   .attentionIdentification__text {
-    color: #FF3E33 !important; }
+    color: #FFFFFF !important;
+    font-size: 15px !important; }
   .attentionIdentification__link {
+    color: #FFFFFF !important;
     text-decoration: underline !important; }
+    .attentionIdentification__link:hover {
+      color: #e6e6e6 !important; }
   @media screen and (max-width: 767px) and (min-width: 320px) {
     .attentionIdentification__textColumn {
       text-align: center; } }
@@ -239,12 +245,14 @@
 
 .bonus__label {
   width: 47px !important;
+  height: 20px !important;
   margin: 0 3px !important;
   color: #FFFFFF !important;
   font-family: "Roboto", sans-serif !important;
   font-size: 13px !important;
   font-weight: 400 !important;
   border-radius: 3px !important;
+  overflow: hidden !important;
   background-color: #939393 !important; }
   .bonus__label-active {
     background-color: #FC900B !important; }
@@ -281,7 +289,7 @@
   line-height: 35px !important;
   border-radius: 3px !important;
   height: 90px !important;
-  color: #939393 !important;
+  color: black !important;
   border-color: #939393 !important; }
   .calculator__comments::-webkit-input-placeholder {
     color: #939393 !important; }
@@ -366,13 +374,14 @@
   text-align: center !important; }
 
 .social__sidebar a {
-  color: #000000 !important;
+  color: #939393 !important;
   -webkit-transition: color .3s ease;
   transition: color .3s ease; }
   .social__sidebar a:hover {
-    color: #FC900B !important; }
+    color: #004fce !important; }
 
 .social__sidebar_icon {
+  font-size: 20px !important;
   margin: 18px 0 !important; }
 
 /***SETTINGS PAGE***/
@@ -544,3 +553,17 @@
   .success__content .success__email {
     font-family: "Roboto", sans-serif !important;
     font-weight: 600 !important; }
+
+.crypto__widget {
+  position: relative; }
+  .crypto__widget:after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 50%;
+    height: 48px;
+    background-color: #F6F9FB; }
+  .crypto__widget_radio {
+    color: #004fce !important; }

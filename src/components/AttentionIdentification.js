@@ -17,7 +17,7 @@ export const AttentionIdentification = () => {
                                 <Grid.Row>
                                     <Grid.Column width={1}>
                                     </Grid.Column>
-                                    <Grid.Column widescreen={1} computer={1}  tablet={1} mobile={16} textAlign={"center"}>
+                                    <Grid.Column widescreen={1} computer={1}  tablet={1} mobile={16}>
                                        <Icon name={"warning sign"} className={"attentionIdentification__icon"}/>
                                     </Grid.Column>
                                     <Grid.Column widescreen={13} computer={13} tablet={13} mobile={16} className={"attentionIdentification__textColumn"}>
