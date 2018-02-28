@@ -40,6 +40,12 @@ $header-identification-component: #363E71 !important
 .logo_content
   img
     width: 100px !important
+#root
+  height: 100vh
+.auth__container
+  height: calc(100vh - 85.38px) !important
+
+
 .menu__color
   background-color: $header-menu-background-color
 
@@ -48,8 +54,16 @@ $header-identification-component: #363E71 !important
   border-radius: 0 !important
 .grid__menu
   width: 100% !important
+.menu__title
+  a
+    font-family: $font-robot
+    font-weight: 500 !important
+    font-size: 18px !important
+    color: $white-color
+
 .user__menu
   height: 100% !important
+  //&_right
   justify-content: flex-end !important
   &_item
     font-family: $font-robot
@@ -64,7 +78,6 @@ $header-identification-component: #363E71 !important
     margin-right: 50px !important
     cursor: pointer
     &:hover
-      //background-color: fade_out(#fff, 0.9) !important
       & a
         color: $white-color
     &:last-child
@@ -143,15 +156,21 @@ $header-identification-component: #363E71 !important
     background-color: lighten(rgba(0, 79, 206, 1), 5%) !important
 
 .attentionIdentification
-  background-color: $attentionIdentification-background-color
+  background-color: rgba(208, 88, 88, 1) !important
   font-family: $font-robot
+  font-weight: normal !important
   margin-bottom: 15px !important
   &__icon
     font-size: 18px !important
+    color: $white-color
   &__text
-    color: $red-color
+    color: $white-color
+    font-size: 15px !important
   &__link
+    color: $white-color
     text-decoration: underline !important
+    &:hover
+      color: darken(#fff, 10%) !important
   &__textColumn
     @media screen and (max-width: 767px) and (min-width: 320px)
       text-align: center
@@ -207,25 +226,20 @@ $header-identification-component: #363E71 !important
       display: none !important
 
 .input__currency
-  input
-    border-radius: 0 !important
-    background-color: inherit !important
-    border: none !important
-    border-bottom: 3px solid rgba(147, 147, 147, 1) !important
-    color: rgba(147, 147, 147, 1) !important
-    font-family: $font-robot
-    font-weight: 300 !important
-    letter-spacing: .4px
-    font-size: 25px !important
-    &:focus, &:hover
-      color: $black-color
-      font-weight: 400 !important
-      border-bottom-color: rgba(0, 79, 206, 1) !important
+  color: rgba(147, 147, 147, 1) !important
+  font-family: $font-robot
+  font-weight: 300 !important
+  letter-spacing: .4px
+  font-size: 25px !important
+  &:focus, &:hover
+    color: $black-color
+    font-weight: 400 !important
+    border-bottom-color: rgba(0, 79, 206, 1) !important
 
 .total__label
   font-family: $font-robot
   width: 100% !important
-  margin-top: 10px !important
+  margin-top: -15px !important
   border-radius: 2px 2px 2px 2px !important
   background-color: $total-label-color
   color: $white-color
@@ -281,13 +295,15 @@ $header-identification-component: #363E71 !important
   color: $black-color
 
 .bonus__label
-  width: 44px !important
+  width: 47px !important
+  height: 20px !important
   margin: 0 3px !important
   color: $white-color
   font-family: $font-robot
   font-size: 13px !important
   font-weight: 400 !important
   border-radius: 3px !important
+  overflow: hidden !important
   background-color: rgba(147, 147, 147, 1) !important
   &-active
     background-color: $orange-color
@@ -324,16 +340,39 @@ $header-identification-component: #363E71 !important
   line-height: 35px !important
   border-radius: 3px !important
   height: 90px !important
-  color:  rgba(147, 147, 147, 1) !important
+  color:  rgba(0, 0, 0, 1) !important
   border-color: rgba(147, 147, 147, 1) !important
   +placeholder
     color: rgba(147, 147, 147, 1) !important
 
+.ui.dimmer
+  background-color: rgba(255,255,255,.85) !important
+.modal
+  box-shadow: none !important
 
-
-
-
-
+.modal__success
+  text-align: center !important
+  &_icon
+    i
+      font-size: 45px !important
+      color: rgba(61, 178, 97, 1) !important
+  &_text
+    margin: 15px 0 10px !important
+    span
+      font-family: $font-robot
+      font-size: 18px !important
+  &_btn
+    margin-top: 40px !important
+    button
+      width: 150px !important
+.modal__success-error
+  button
+    background-color: $red-color
+    &:hover
+      background-color: lighten(#FF3E33, 5%) !important
+.modal__error-icon
+  i
+    color: $red-color
 /***REQUEST COMPONENT***/
 .request__item_wrapper
   cursor: default !important
@@ -351,6 +390,45 @@ $header-identification-component: #363E71 !important
     color: rgba(40, 40, 40, 1) !important
 
 
+
+
+.pay__modal
+  position: relative
+  .close__modal
+    position: absolute
+    top: 0
+    z-index: 1 !important
+    right: 0
+    i
+      z-index: 9999 !important
+      font-size: 18px !important
+      cursor: pointer !important
+  .pay__header
+    font-family: $font-robot
+    font-size: 18px !important
+    font-weight: 500 !important
+  .pay__qrcode
+    border: 25px solid #E4EEFB !important
+    width: 60% !important
+    margin: 0 auto !important
+    img
+      width: 90% !important
+  .pay__address
+    margin-top: -10px !important
+  .pay__copy
+    margin-top: -18px !important
+  .pay__input
+    width: 60% !important
+    input
+      height: 25px !important
+      font-family: $font-robot
+      text-align: center !important
+      font-size: 15px !important
+      font-weight: 500 !important
+      background-color: #131313 !important
+      color: $white-color
+  .dashboard__submit
+    width: 60% !important
 /***DOWNLOAD COMPONENT***/
 //download__container
 
@@ -410,18 +488,20 @@ $header-identification-component: #363E71 !important
 
 .social__sidebar
   a
-    color: $black-color
+    color: rgba(147, 147, 147, 1) !important
     -webkit-transition: color .3s ease
     transition: color .3s ease
     &:hover
-      color: $orange-color
+      color: rgba(0, 79, 206, 1) !important
   &_icon
+    font-size: 20px !important
     margin: 18px 0 !important
 
 
 /***SETTINGS PAGE***/
 .settings__identification_header
   background-color: $header-identification-component
+
 .setting__header_button
   background-color: #71779B !important
   color: $white-color
@@ -462,7 +542,9 @@ $header-identification-component: #363E71 !important
       +placeholder
         color: $white-color
 
-.login
+.login, .signup
+  margin-top: 90px !important
+  margin-bottom: 20px !important
   font-family: $font-robot
 
 .login__header
@@ -538,8 +620,6 @@ $header-identification-component: #363E71 !important
       opacity: 0 !important
       transition: all 0.2s ease-in-out !important
 
-.signup
-  font-family: $font-robot
 .signup__content
   &_confirm
     width: 75% !important
@@ -570,3 +650,18 @@ $header-identification-component: #363E71 !important
   .success__email
     font-family: $font-robot
     font-weight: 600 !important
+
+
+.crypto__widget
+  position: relative
+  &:after
+    content: ""
+    display: block
+    position: absolute
+    right: 1px
+    top: 1px
+    width: 50%
+    height: 48px
+    background-color: #F6F9FB
+  &_radio
+    color: rgba(0, 79, 206, 1) !important

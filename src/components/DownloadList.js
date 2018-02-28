@@ -8,7 +8,7 @@ import {
 class DownloadList extends Component {
     render() {
         return (
-            <Card fluid color={'violet'} className={"component__main"}>
+            <Card fluid className={"component__main"}>
                 <Card.Content className={"component__download"}>
                     <Card.Header className={"component__title"}>Download</Card.Header>
                     <Divider />

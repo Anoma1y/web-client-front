@@ -28,7 +28,7 @@ class BetaTest extends React.Component {
             appleChecked
         } = this.props.betatest;
         return (
-            <Card fluid color={'violet'} className={"component__main"}>
+            <Card fluid className={"component__main"}>
                 <Card.Content>
                     <Card.Header className={"component__title"}>Beta Test</Card.Header>
                     <Card.Description className={"betatest"}>

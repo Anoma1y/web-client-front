@@ -25,9 +25,11 @@ const INITIAL_STATE = {
         percent: 0,
         isMaximum: false
     },
-    currencyValue: "ETH",
+    currencyValue: 'ETH',
     sumValue: 0,
     tokenValue: 10000,
+    modalSuccessful: false,
+    querySuccess: null,
     suffixText: {
         suffixToken: true,
         suffixCurrency: true
@@ -35,25 +37,26 @@ const INITIAL_STATE = {
     transferData: {
         USD: 0, TKN: 0, BTC: 0, ETH: 0
     },
+    comments: '',
     currency: [
         {
-            "id": "bitcoin",
-            "name": "Bitcoin",
-            "symbol": "BTC",
-            "price_usd": "11220.7"
+            'id': 'bitcoin',
+            'name': 'Bitcoin',
+            'symbol': 'BTC',
+            'price_usd': '11220.7'
         },
         {
-            "id": "ethereum",
-            "name": "Ethereum",
-            "symbol": "ETH",
-            "price_usd": "898.857",
-            "price_btc": "0.0814146"
+            'id': 'ethereum',
+            'name': 'Ethereum',
+            'symbol': 'ETH',
+            'price_usd': '898.857',
+            'price_btc': '0.0814146'
         },
         {
-            "id": "usd",
-            "name": "USD",
-            "symbol": "USD",
-            "price_usd": "1"
+            'id': 'usd',
+            'name': 'USD',
+            'symbol': 'USD',
+            'price_usd': '1'
         }
     ]
 };
@@ -61,16 +64,22 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case C.INITIALIZING_TKN:
-            return {...state, TKN: action.payload};
+            return { ...state, TKN: action.payload };
         case C.CHANGE_CURRENT_CURRENCY:
-            return {...state, currencyValue: action.payload};
+            return { ...state, currencyValue: action.payload };
         case C.CHANGE_SUM_VALUE:
-            return {...state, sumValue: action.payload};
+            return { ...state, sumValue: action.payload };
         case C.CHANGE_TRANSFER_DATA:
             const { sumValue, progressBar, tokenValue, bonus, transferData } = action.payload;
-            return {...state,  sumValue, progressBar, tokenValue, bonus, transferData};
+            return { ...state,  sumValue, progressBar, tokenValue, bonus, transferData };
         case C.CHECK_SUFFIX_TEXT:
-            return {...state, suffixText: action.payload};
+            return { ...state, suffixText: action.payload };
+        case C.CHANGE_COMMENTS:
+            return { ...state, comments: action.payload };
+        case C.CHANGE_MODAL_SUCCESSFUL:
+            return { ...state, modalSuccessful: action.payload };
+        case C.CHANGE_QUERY_SUCCESSFUL:
+            return { ...state, querySuccess: action.payload };
         default:
             return state;
     }

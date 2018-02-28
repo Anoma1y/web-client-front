@@ -3,6 +3,7 @@ import axios from 'axios';
 class LoginLib {
     static url = "http://159.89.10.197:4874/v1/";
     static logUserURL = "session";
+    static userGetURL = "me";
 
     static loginUser(email, password) {
         const logURL = this.url + this.logUserURL;
@@ -20,6 +21,15 @@ class LoginLib {
                 rej("Wrong login or password");
             })
         });
+    }
+
+    static getUser(token) {
+        const userURL = this.url + this.userGetURL;
+        return axios.get(userURL,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 }
 

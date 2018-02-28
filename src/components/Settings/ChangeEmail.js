@@ -3,7 +3,6 @@ import {
     Button,
     Card,
     Divider,
-    Input,
     Grid
 } from 'semantic-ui-react'
 
@@ -14,13 +13,19 @@ const ChangeEmail = (props) => (
             <Divider className={"white__divider"}/>
             <Grid className={"dashboard__component"}>
                 <Grid.Row>
-                    <Grid.Column className={"setting__change_buttons"}>
-                        <Input placeholder='Current e-mail' fluid />
-                        <Input placeholder='New e-mail' fluid />
+                    <Grid.Column className={"setting__change_buttons auth_input"}>
+                        <label>
+                            <input type="text" placeholder={"Current Email"} className={""}/>
+                            <span>Current Email</span>
+                        </label>
+                        <label>
+                            <input type="text" placeholder={"New Email"} className={""}/>
+                            <span>New Email</span>
+                        </label>
                         <Button
                             fluid
                             circular
-                            className={"setting__button"}
+                            className={"auth_btn"}
                         >Change
                         </Button>
                     </Grid.Column>

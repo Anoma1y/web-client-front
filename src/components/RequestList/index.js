@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
     Card,
@@ -8,11 +8,13 @@ import {
 import { handleRequestItem } from 'actions/request/'
 import RequestItem from './RequestItem'
 
-class RequestList extends React.Component {
+class RequestList extends Component {
+
     componentDidMount() {
-        const { jwt: token } = this.props.user;
-        this.props.handleRequestItem(token);
+        // const { jwt: token } = this.props.user;
+        this.props.handleRequestItem(localStorage.jwt);
     }
+
     renderList () {
         const { items: request } = this.props.requests;
         return request.map((item, index) => {
@@ -43,17 +45,15 @@ class RequestList extends React.Component {
                     />
                     {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}
                 </Card.Description>
-
             )
         })
     }
-
     render () {
         return (
             <div>
                 <Card fluid>
                     <Card.Content>
-                        <Card.Header className={"component__title"}>Your requests</Card.Header>
+                        <Card.Header className={"component__title"}>Your Applications</Card.Header>
                         <Divider />
                         <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                             <Grid.Row columns={1}>

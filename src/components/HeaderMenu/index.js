@@ -28,7 +28,7 @@ class HeaderMenu extends Component {
         };
     }
     render() {
-        const { userEmail } = this.props.user;
+        const { email } = this.props.user;
         return (
             <Menu className={"header__menu"}>
                 <Container>
@@ -50,7 +50,7 @@ class HeaderMenu extends Component {
                                     <Menu className={"menu__color user__menu"}>
                                         <Menu.Item className={"user__menu_item user__menu-email"}>
                                             <Link to={"/dashboard/settings"} >
-                                                {userEmail}
+                                                {email}
                                             </Link>
                                         </Menu.Item>
                                         <Menu.Item className={"user__menu_item user__menu-logout"}>

@@ -1,41 +1,110 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {
     Button,
     Grid,
-    Item
-} from 'semantic-ui-react'
+    Item,
+    Modal,
+    Icon,
+    Input
+} from 'semantic-ui-react';
 
-const RequestItem = ({sum, amount, onClick, buttonDisabled, buttonBasic, buttonColor, buttonText}) => (
-    <Grid verticalAlign={'middle'} className={"request__item"}>
-        <Grid.Row columns={3} className={"request__item_wrapper"}>
-            <Grid.Column>
-                <Item>
-                    <Item.Header className={"request__item_title"}>Amount</Item.Header>
-                    <Item.Description className={"request__item_value"}><h3>{sum}</h3></Item.Description>
-                </Item>
-            </Grid.Column>
-            <Grid.Column>
-                <Item>
-                    <Item.Header className={"request__item_title"}>Tokens</Item.Header>
-                    <Item.Description className={"request__item_value"}><h3>{amount} </h3></Item.Description>
-                </Item>
-            </Grid.Column>
-            <Grid.Column>
-                <Button
-                    className={"dashboard__submit"}
-                    circular
-                    fluid
-                    floated={'right'}
-                    onClick={onClick}
-                    disabled={buttonDisabled}
-                    basic={buttonBasic}
-                    color={buttonColor}
-                >
-                {buttonText}
-                </Button>
-            </Grid.Column>
-        </Grid.Row>
-    </Grid>
-);
+class RequestItem extends Component {
+    handleRequestBtn = () => {
+        this.setState({
+            payModalSuccessful: true
+        })
+    }
+    closePayModal = () => {
+        this.setState({
+            payModalSuccessful: false
+        })
+    }
+    state = {
+        payModalSuccessful: false
+    }
+
+    render() {
+        const {sum, amount, buttonDisabled, buttonBasic, buttonColor, buttonText} = this.props;
+        return (
+            <Grid verticalAlign={'middle'} className={"request__item"}>
+                <Grid.Row columns={3} className={"request__item_wrapper"}>
+                    <Grid.Column>
+                        <Item>
+                            <Item.Header className={"request__item_title"}>Amount</Item.Header>
+                            <Item.Description className={"request__item_value"}><h3>{sum}</h3></Item.Description>
+                        </Item>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Item>
+                            <Item.Header className={"request__item_title"}>Tokens</Item.Header>
+                            <Item.Description className={"request__item_value"}><h3>{amount} </h3></Item.Description>
+                        </Item>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Modal trigger={
+                            <Button
+                                className={"dashboard__submit"}
+                                circular
+                                fluid
+                                floated={'right'}
+                                onClick={this.handleRequestBtn}
+                                disabled={buttonDisabled}
+                                basic={buttonBasic}
+                                color={buttonColor}
+                            >
+                            {buttonText}
+                            </Button>
+                        }
+                               open={this.state.payModalSuccessful}
+                               size={"tiny"}
+                        >
+                            <Modal.Content className={"pay__modal"}>
+                                <Modal.Description>
+                                    <div className="close__modal">
+                                        <Icon name={"close"} onClick={this.closePayModal}/>
+                                    </div>
+                                    <Grid textAlign={"center"}>
+                                        <Grid.Row>
+                                            <Grid.Column>
+                                                <p className="pay__header">
+                                                    Оплата заявки
+                                                </p>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column>
+                                                <div className="pay__qrcode">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="QR Code"/>
+                                                </div>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row className={"pay__address"}>
+                                            <Grid.Column>
+                                                <Input
+                                                    type="text"
+                                                    className={"pay__input"}
+                                                    disabled
+                                                    value={"kljqklerjqwj2341234kj3kjqewrsqwe"}/>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row className={"pay__copy"}>
+                                            <Grid.Column>
+                                                <Button
+                                                    className={"dashboard__submit"}
+                                                >Скопировать адрес
+                                                </Button>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                </Modal.Description>
+                            </Modal.Content>
+                        </Modal>
+
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        )
+    }
+};
 
 export default RequestItem;

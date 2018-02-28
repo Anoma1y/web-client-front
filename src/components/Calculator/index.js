@@ -3,18 +3,20 @@ import { connect } from 'react-redux';
 import {
     changeTransferData,
     changeCurrencyValue,
+    changeComments,
     checkSuffixText,
     initializingTKN,
+    changeModalSuccessful,
     handleApplication
 } from 'actions/calculator';
 import {
     Grid,
     TextArea,
     Button,
-    Input,
     Card,
     Label,
     Icon,
+    Modal,
     Divider,
     Form
 } from 'semantic-ui-react';
@@ -242,8 +244,9 @@ class Calculator extends Component {
     //Происходит проверка на отсутствие текста и спец-символов
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
-    handleToken = (event, {value}) => {
+    handleToken = (event) => {
         const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        const { value } = event.target;
         if(!value.match(checkNumber)) {
             return;
         }
@@ -260,8 +263,9 @@ class Calculator extends Component {
     //Происходит проверка на отсутствие текста и спец-символов
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
-    handleCurrency = (event, {value}) => {
+    handleCurrency = event => {
         const { currencyValue } = this.props.calculator;
+        const { value } = event.target;
         let checkNumber;
         if (currencyValue === "USD") {
             checkNumber = /^\d*(?:\.\d{0,2})?$/g;
@@ -280,35 +284,6 @@ class Calculator extends Component {
     handleChange = (event, {value}) => {
         const { changeCurrencyValue } = this.props;
         changeCurrencyValue(value);
-    }
-
-    //Метод проверки суффикса (принимает параметры: event (текущий инпут) и handleType (тип: фокус или потеря фокуса из инпута)
-    //Возвращает объект булевых значений для каждого инпута
-    checkSuffix = (event, handleType) => {
-        const suffixText = {
-            suffixToken: true,
-            suffixCurrency: true
-        }
-        if (this.inputToken.inputRef === event.target) {
-            suffixText.suffixToken = handleType !== "FOCUS";
-        } else if (this.inputCurrency.inputRef === event.target) {
-            suffixText.suffixCurrency = handleType !== "FOCUS";
-        }
-        return suffixText;
-    }
-
-    //Метод для возвращения суффикса (текущей валюты) в инпут.
-    handleBlur = (event) => {
-        const { checkSuffixText } = this.props;
-        const suffixText = this.checkSuffix(event, "BLUR");
-        checkSuffixText(suffixText);
-    }
-
-    //Метод для снятия суффикса (текущей валюты) из инпута, для последующего ввода числового значения
-    handleFocus = (event) => {
-        const { checkSuffixText } = this.props;
-        const suffixText = this.checkSuffix(event, "FOCUS");
-        checkSuffixText(suffixText);
     }
 
     renderBonusLabel = () => {
@@ -339,19 +314,69 @@ class Calculator extends Component {
         })
     }
 
-    handleSubmitApplication = () => {
-        const { currencyValue, transferData } = this.props.calculator;
-        const { jwt:token } = this.props.user;
-        this.props.handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), token})
-    }
-
     //Метод для разделения групп разрядов строки
     separationValue = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
 
+    //Метод проверки суффикса (принимает параметры: event (текущий инпут) и handleType (тип: фокус или потеря фокуса из инпута)
+    //Возвращает объект булевых значений для каждого инпута
+    checkSuffix = (event, handleType) => {
+        const suffixText = {
+            suffixToken: true,
+            suffixCurrency: true
+        };
+        //inputRef после ноды
+        if (this.inputToken === event.target) {
+            suffixText.suffixToken = handleType !== "FOCUS";
+        } else if (this.inputCurrency === event.target) {
+            suffixText.suffixCurrency = handleType !== "FOCUS";
+        }
+        return suffixText;
+    }
+
+    //Метод для возвращения суффикса (текущей валюты) в инпут.
+    handleBlur = event => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "BLUR");
+        checkSuffixText(suffixText);
+    }
+
+    //Метод для снятия суффикса (текущей валюты) из инпута, для последующего ввода числового значения
+    handleFocus = event => {
+        const { checkSuffixText } = this.props;
+        const suffixText = this.checkSuffix(event, "FOCUS");
+        checkSuffixText(suffixText);
+    }
+
+    handleChangeComments = event => {
+        const { value } = event.target;
+        const { changeComments } = this.props;
+        changeComments(value);
+    }
+
+    handleCloseModal = () => {
+        const { changeModalSuccessful } = this.props;
+        changeModalSuccessful(false);
+    }
+
+    handleSubmitApplication = () => {
+        const { currencyValue, transferData, comments } = this.props.calculator;
+        const { handleApplication } = this.props;
+        const { jwt:token } = this.props.user;
+        handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), comments ,token});
+    }
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
-        const { tokenValue, currencyValue, sumValue, transferData, suffixText, bonus } = this.props.calculator;
-
+        const {
+            tokenValue,
+            currencyValue,
+            sumValue,
+            transferData,
+            suffixText,
+            bonus,
+            comments,
+            modalSuccessful,
+            querySuccess
+        } = this.props.calculator;
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
@@ -363,39 +388,47 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Form unstackable>
-                                    <Form.Group  style={{marginBottom: 0}}>
-                                        <Form.Field width={8}>
-                                            <Input
-                                                fluid
-                                                className={"input__currency"}
-                                                placeholder={"TCT"}
-                                                value={suffixText.suffixToken ? `${this.separationValue(tokenValue)} TCT` : tokenValue}
-                                                onChange={this.handleToken}
-                                                size={"large"}
-                                                onBlur={this.handleBlur}
-                                                onFocus={this.handleFocus}
-                                                ref={(input) => {this.inputToken = input}}
-                                            />
+                                <Grid>
+                                    <Grid.Row>
+                                        <Grid.Column width={8} className={"auth_input"}>
+                                            <label>
+                                                <input
+                                                    className={"input__currency populated"}
+                                                    type={"text"}
+                                                    placeholder={"TCT"}
+                                                    value={suffixText.suffixToken ? this.separationValue(tokenValue) : tokenValue}
+                                                    onChange={this.handleToken}
+                                                    onBlur={this.handleBlur}
+                                                    onFocus={this.handleFocus}
+                                                    ref={(input) => {this.inputToken = input}}
+                                                />
+                                                <span>TCT</span>
+                                            </label>
+                                        </Grid.Column>
+                                        <Grid.Column width={8} className={"auth_input"}>
+                                            <label>
+                                                <input
+                                                    type="text"
+                                                    className={"input__currency populated"}
+                                                    placeholder={currencyValue}
+                                                    value={suffixText.suffixCurrency ? this.separationValue(sumValue) : sumValue}
+                                                    onChange={this.handleCurrency}
+                                                    onBlur={this.handleBlur}
+                                                    onFocus={this.handleFocus}
+                                                    ref={(input) => {this.inputCurrency = input}}
+                                                />
+                                                <span>{currencyValue}</span>
+                                            </label>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column width={8}>
                                             <Label as={"span"} className={"total__label"}>
                                                 <span>Total: {`${this.separationValue(transferData.TKN)} TCT`}</span>
                                             </Label>
-                                        </Form.Field>
-                                        <Form.Field width={8}>
-                                            <Input
-                                                fluid
-                                                className={"input__currency"}
-                                                placeholder={currencyValue}
-                                                onChange={this.handleCurrency}
-                                                value={suffixText.suffixCurrency ? `${this.separationValue(sumValue)} ${currencyValue}` : sumValue}
-                                                size={"large"}
-                                                onBlur={this.handleBlur}
-                                                onFocus={this.handleFocus}
-                                                ref={(input) => {this.inputCurrency = input}}
-                                            />
-                                        </Form.Field>
-                                    </Form.Group>
-                                </Form>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1} only={"computer"} style={{paddingTop: 0}}>
@@ -411,14 +444,17 @@ class Calculator extends Component {
                             <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
                                 <p className={"bonus__title"}>Bonus</p>
                             </Grid.Column>
-                            <Grid.Column widescreen={6} computer={8} tablet={8} mobile={8}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={8}>
                                 { this.renderBonusLabel() }
                              </Grid.Column>
-                            <Grid.Column widescreen={8} computer={6} tablet={6} mobile={6}>
-                                <span className={isMaximum === true ? "bonus__maximum bonus__maximum-active": "bonus__maximum"}>
-                                    <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
-                                    You've reached the limit
-                                </span>
+                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={6}>
+                                {
+                                    isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
+                                                    <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
+                                                    You've reached the limit
+                                                 </span>
+                                        : null
+                                }
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
@@ -435,20 +471,44 @@ class Calculator extends Component {
                                         className={"calculator__comments"}
                                         autoHeight
                                         placeholder='Leave comment'
+                                        onChange={this.handleChangeComments}
+                                        value={comments}
                                     />
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column textAlign={"right"}>
-                                <Button
-                                    circular
-                                    className={"dashboard__submit"}
-                                    onClick={this.handleSubmitApplication}
-                                    disabled={transferData.TKN < 1 || transferData.USD === "0"}
+
+                                <Modal trigger={<Button
+                                                    className={"dashboard__submit"}
+                                                    onClick={this.handleSubmitApplication}
+                                                    disabled={transferData.TKN < 1 || transferData.USD === "0"}
+                                                >
+                                                    Apply
+                                                </Button>
+                                                }
+                                       open={modalSuccessful}
+                                       size={"tiny"}
                                 >
-                                    Apply
-                                </Button>
+                                    <Modal.Content className={"modal__success"}>
+                                        <Modal.Description>
+                                            <div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
+                                                <Icon name={querySuccess ? "check circle outline" : "warning circle"} />
+                                            </div>
+                                            <div className={"modal__success_text"}>
+                                                <span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>
+                                            </div>
+                                            <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
+                                                <Button
+                                                    className={"dashboard__submit"}
+                                                    onClick={this.handleCloseModal}
+                                                >OK
+                                                </Button>
+                                            </div>
+                                        </Modal.Description>
+                                    </Modal.Content>
+                                </Modal>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -462,6 +522,8 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     changeCurrencyValue,
     changeTransferData,
     checkSuffixText,
+    changeComments,
     initializingTKN,
-    handleApplication
+    changeModalSuccessful,
+    handleApplication,
 })(Calculator);

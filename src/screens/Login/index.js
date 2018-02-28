@@ -7,8 +7,8 @@ import {
 import LoginComponent from 'components/Login/LoginComponent'
 
 const Login = () => (
-    <Container>
-        <Grid>
+    <Container className={"auth__container"}>
+        <Grid className={"auth__content"}>
             <Grid.Row centered>
                 <Grid.Column widescreen={7} computer={7} tablet={16} mobile={16}>
                     <LoginComponent/>

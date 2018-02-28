@@ -7,7 +7,7 @@ class Roadmap extends Component {
         const { progressBar } = this.props.roadmap;
         return (
             <div>
-                <Card fluid color={'violet'} className={"component__main"}>
+                <Card fluid className={"component__main"}>
                     <Card.Content>
                         <Card.Header className={"component__title"}>{progressBar}% roadmap progress</Card.Header>
                         <Card.Description className={"roadmap__progress"}>

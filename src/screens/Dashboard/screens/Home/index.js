@@ -4,6 +4,7 @@ import {
     Container,
     Sticky
 } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import Timer from 'components/Timer'
 import Calculator from 'components/Calculator'
 import RequestList from 'components/RequestList'
@@ -12,19 +13,28 @@ import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
 import TelegramWidget from 'components/TelegramWidget';
+import CryptoWidget from 'components/CryptoWidget';
 import { AttentionIdentification } from 'components/AttentionIdentification';
+import { redirectToHome } from "actions/redirect";
 
 class Home extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            isIdentification: false
-        }
+
+    state = {
+
     }
-    handleContextRef = contextRef => this.setState({ contextRef })
+
+    // componentWillMount() {
+    //     Login.getUser(localStorage.getItem("jwt")).then(()=>{}).catch((err)=>{this.props.redirectToHome()});
+    // }
+
+    handleContextRef = contextRef => {
+        this.setState({contextRef})
+    }
 
     render() {
-        const { contextRef, isIdentification } = this.state;
+        
+        const { contextRef } = this.state;
+        const { isIdentification } = this.props.user;
         return (
             <div>
                 <div className={"attentionIdentification"}>
@@ -52,6 +62,9 @@ class Home extends Component{
                                         <DownloadList />
                                     </Grid.Row>
                                     <Grid.Row>
+                                        <CryptoWidget />
+                                    </Grid.Row>
+                                    <Grid.Row>
                                         <Roadmap />
                                     </Grid.Row>
                                     <Grid.Row>
@@ -76,5 +89,8 @@ class Home extends Component{
         )
     }
 }
-export default Home;
+
+export default connect(state => ({ user: state.user }), {
+    redirectToHome
+})(Home);
 

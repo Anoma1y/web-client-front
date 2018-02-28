@@ -3,7 +3,6 @@ import {
     Button,
     Card,
     Divider,
-    Input,
     Grid
 } from 'semantic-ui-react'
 
@@ -14,14 +13,23 @@ const ChangePassword = (props) => (
             <Divider className={"white__divider"}/>
             <Grid className={"dashboard__component"}>
                 <Grid.Row>
-                    <Grid.Column className={"setting__change_buttons"}>
-                        <Input placeholder='Current password' fluid />
-                        <Input placeholder='New password' fluid />
-                        <Input placeholder='Repeat password' fluid />
+                    <Grid.Column className={"setting__change_buttons auth_input"}>
+                        <label>
+                            <input type="text" placeholder={'Current password'} />
+                            <span>Current password</span>
+                        </label>
+                        <label>
+                            <input type="text" placeholder={'New password'} />
+                            <span>New password</span>
+                        </label>
+                        <label>
+                            <input type="text" placeholder={'Repeat password'} />
+                            <span>Repeat password</span>
+                        </label>
                         <Button
                             fluid
                             circular
-                            className={"setting__button"}
+                            className={"auth_btn"}
                         >Change
                         </Button>
                     </Grid.Column>

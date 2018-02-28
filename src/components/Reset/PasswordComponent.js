@@ -69,7 +69,7 @@ class PasswordComponent extends Component {
 
         return (
             <div>
-                <Card fluid color={'violet'}>
+                <Card fluid color={'violet'} className={"login"}>
                     <Card.Content>
                         <Card.Header as={"h1"} textAlign={"center"}>New password</Card.Header>
                         <Divider />
