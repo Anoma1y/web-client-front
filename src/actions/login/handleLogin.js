@@ -21,7 +21,7 @@ export const handleLogin = value => {
                 } = user.data;
                 dispatch(initIdenfified(is_kyc_passed));
                 dispatch(initEmail(email));
-            })
+            });
             const { jwt } = data.data;
             dispatch(handleTokenUser(jwt));
             localStorage.setItem("jwt", jwt);
