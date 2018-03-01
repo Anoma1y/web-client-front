@@ -14,7 +14,7 @@ import {
     TextArea,
     Button,
     Card,
-    Label,
+    Accordion,
     Icon,
     Modal,
     Divider,
@@ -143,6 +143,7 @@ class Calculator extends Component {
             progressBar,
             tokenValue: TKNinitialValue.toFixed(4),
             bonus: bonus.bonus,
+            currentBonus: bonus.bonusTKN,
             transferData: {
                 USD,
                 TKN: TKNvalue.toFixed(4),
@@ -168,6 +169,7 @@ class Calculator extends Component {
             progressBar,
             tokenValue: value,
             bonus,
+            currentBonus: bonusTKN,
             transferData: {
                 USD: USD.toFixed(2),
                 TKN,
@@ -250,6 +252,9 @@ class Calculator extends Component {
         if(!value.match(checkNumber)) {
             return;
         }
+        if (value.length >= 25) {
+            return;
+        }
         this.changeState(this.calcToken(value));
     }
 
@@ -273,6 +278,9 @@ class Calculator extends Component {
             checkNumber = /^\d*(?:\.\d{0,4})?$/g;
         }
         if(!value.match(checkNumber)) {
+            return;
+        }
+        if (value.length >= 25) {
             return;
         }
         this.changeState(this.calcCurrency(value));
@@ -364,6 +372,15 @@ class Calculator extends Component {
         const { jwt:token } = this.props.user;
         handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), comments ,token});
     }
+    state = { activeIndex: -1 }
+
+    handleAccordionBtn = (e, titleProps) => {
+        const { index } = titleProps
+        const { activeIndex } = this.state
+        const newIndex = activeIndex === index ? -1 : index
+
+        this.setState({ activeIndex: newIndex })
+    }
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const {
@@ -373,6 +390,7 @@ class Calculator extends Component {
             transferData,
             suffixText,
             bonus,
+            currentBonus,
             comments,
             modalSuccessful,
             querySuccess
@@ -395,14 +413,14 @@ class Calculator extends Component {
                                                 <input
                                                     className={"input__currency populated"}
                                                     type={"text"}
-                                                    placeholder={"TCT"}
+                                                    placeholder={"TSR"}
                                                     value={suffixText.suffixToken ? this.separationValue(tokenValue) : tokenValue}
                                                     onChange={this.handleToken}
                                                     onBlur={this.handleBlur}
                                                     onFocus={this.handleFocus}
                                                     ref={(input) => {this.inputToken = input}}
                                                 />
-                                                <span>TCT</span>
+                                                <span>TSR</span>
                                             </label>
                                         </Grid.Column>
                                         <Grid.Column width={8} className={"auth_input"}>
@@ -421,17 +439,10 @@ class Calculator extends Component {
                                             </label>
                                         </Grid.Column>
                                     </Grid.Row>
-                                    <Grid.Row>
-                                        <Grid.Column width={8}>
-                                            <Label as={"span"} className={"total__label"}>
-                                                <span>Total: {`${this.separationValue(transferData.TKN)} TCT`}</span>
-                                            </Label>
-                                        </Grid.Column>
-                                    </Grid.Row>
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns={1} only={"computer"} style={{paddingTop: 0}}>
+                        <Grid.Row columns={1} only={"computer"} style={{paddingTop: "10px"}}>
                             <Grid.Column>
                                 <InputSlider
                                     maximumBonusToken={bonus[bonus.length - 1]["limit"]}
@@ -441,13 +452,7 @@ class Calculator extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"calculator__bonus"}>
-                            <Grid.Column widescreen={2} computer={2} tablet={2} mobile={2}>
-                                <p className={"bonus__title"}>Bonus</p>
-                            </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={8}>
-                                { this.renderBonusLabel() }
-                             </Grid.Column>
-                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={6}>
+                            <Grid.Column widescreen={6} computer={8} tablet={12} mobile={16} floated={"right"}>
                                 {
                                     isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
                                                     <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
@@ -457,24 +462,65 @@ class Calculator extends Component {
                                 }
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns={1}>
+                        {isMaximum ? <Divider/> : null}
+                        <Grid.Row>
                             <Grid.Column>
-                                <p className={"calculator__text"}>
-                                    Please be aware that the number of tokens bought will be calculated after we receive the funds, not at the moment they were sent. The final amount can change due to exchange rate fluctuations.
-                                </p>
+                                <Grid className={"calculator__paymount"}>
+                                    <Grid.Row className={"calculator__paymount_info"}>
+                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                            You ordered
+                                        </Grid.Column>
+                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                            {this.separationValue(tokenValue)} tokens
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row className={"calculator__paymount_info"}>
+                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                            Bonus
+                                        </Grid.Column>
+                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                            {currentBonus ? `${currentBonus} %` : "0"}
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row className={"calculator__paymount_info"}>
+                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                            Total tokens
+                                        </Grid.Column>
+                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                            {this.separationValue(transferData.TKN)} tokens
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Divider className={"calculator__paymount_divider"}/>
+                                    <Grid.Row className={"calculator__paymount_info calculator__paymount_amount"}>
+
+                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                            Payment amount
+                                        </Grid.Column>
+                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                            {this.separationValue(transferData[currencyValue])} {currencyValue}
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Form as={"div"}>
-                                    <TextArea
-                                        className={"calculator__comments"}
-                                        autoHeight
-                                        placeholder='Leave comment'
-                                        onChange={this.handleChangeComments}
-                                        value={comments}
-                                    />
-                                </Form>
+                                <Accordion styled className={"calculator__accordion"}>
+                                    <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleAccordionBtn} className={"calculator__accordion_title"}>
+                                        <p>Leave a comment </p><Icon name='chevron right' />
+                                    </Accordion.Title>
+                                    <Accordion.Content active={this.state.activeIndex === 0} className={"calculator__accordion_content"}>
+                                        <Form as={"div"}>
+                                            <TextArea
+                                                className={"calculator__comments"}
+                                                autoHeight
+                                                placeholder='Leave comment'
+                                                onChange={this.handleChangeComments}
+                                                value={comments}
+                                            />
+                                        </Form>
+                                    </Accordion.Content>
+                                </Accordion>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>

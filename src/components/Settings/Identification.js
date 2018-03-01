@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     Button,
     Card,
     Divider,
-    Grid
-} from 'semantic-ui-react'
+    Grid,
+    Select,
+    Tab
+} from 'semantic-ui-react';
+import IdentificationImgUpload from './IdentificationImgUpload';
+import LegalEntity from './LegalEntity'
+import IndividualUser from "./IndividualUser";
 
-import IdentificationImgUpload from './IdentificationImgUpload'
-
-class Identification extends React.Component {
+const panes = [
+    { menuItem: 'Individual user', render: () => <Tab.Pane><IndividualUser /></Tab.Pane> },
+    { menuItem: 'Legal entity', render: () => <Tab.Pane><LegalEntity /></Tab.Pane> },
+]
+class Identification extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,87 +24,28 @@ class Identification extends React.Component {
         }
     }
 
-    renderUploadForm() {
-        // TODO: Add constants to form type
-        const { individualUser, legalEntity } = this.props.settings;
-        switch (this.state.templateForm) {
-            case 1:
-                return individualUser.map((item) => {
-                    return (
-                        <IdentificationImgUpload
-                            description={item.description}
-                            id={item.id}
-                            key={item.id}
-                        />
-                    )
-                });
-            case 2:
-                return legalEntity.map((item) => {
-                    return (
-                        <IdentificationImgUpload
-                            description={item.description}
-                            id={item.id}
-                            key={item.id}
-                        />
-                    )
-                });
-            default:
-                return
-        }
-    }
-
-    renderForm() {
+    render() {
         const { templateForm } = this.state;
+        const certifyOption = [
+            {key: "1", value: "1", text: "Proceeds from commercial activity"},
+            {key: "2", value: "2", text: "Credit funds"},
+            {key: "3", value: "3", text: "Company profits"},
+            {key: "4", value: "4", text: "Sale of property"},
+            {key: "5", value: "5", text: "Proceeds from the sale of securities, investment activities"},
+            {key: "6", value: "6", text: "Other - specify"}
+        ]
         return (
             <Card fluid className={"settings__identification"}>
                 <Card.Content>
-                    <Card.Header>Identification</Card.Header>
-                    <Divider className={"white__divider"}/>
-                    <Grid className={"dashboard__component"}>
-                        <Grid.Row className={"settings__identification_header"}>
-                            <Grid.Column>
-                                <Button
-                                    circular
-                                    size={"small"}
-                                    className={templateForm === 1 ? "setting__header_button setting__header_button-active" : "setting__header_button"}
-                                    onClick={() => this.setState({templateForm: 1})}
-                                >Individual user
-                                </Button>
-                                <Button
-                                    circular
-                                    size={"small"}
-                                    className={templateForm === 2 ? "setting__header_button setting__header_button-active" : "setting__header_button"}
-                                    onClick={() => this.setState({templateForm: 2})}
-                                >Legal entity
-                                </Button>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column>
-                                {this.renderUploadForm()}
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column>
-                                <Button
-                                    className={"setting__button"}
-                                    fluid
-                                    circular
-                                >Save changes
-                                </Button>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
+                    <Card.Header className={"settings__identification_header"}>Identification</Card.Header>
+                    <Card.Description>
+                        <Grid className={"dashboard__component"}>
+                            <Tab menu={{ secondary: true, pointing: true }} panes={panes} className={"settings__identification_tabs"}/>
+                        </Grid>
+                    </Card.Description>
                 </Card.Content>
-            </Card>
-        )
-    }
 
-    render() {
-        return (
-            <div>
-                {this.renderForm()}
-            </div>
+            </Card>
         )
     }
 }

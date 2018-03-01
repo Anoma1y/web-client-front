@@ -32,7 +32,6 @@ class Home extends Component{
     }
 
     render() {
-        
         const { contextRef } = this.state;
         const { isIdentification } = this.props.user;
         return (
@@ -90,7 +89,9 @@ class Home extends Component{
     }
 }
 
-export default connect(state => ({ user: state.user }), {
+export default connect(state => ({ 
+    user: state.user
+}), {
     redirectToHome
 })(Home);
 

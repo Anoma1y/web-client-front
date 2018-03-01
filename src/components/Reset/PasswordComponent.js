@@ -9,7 +9,6 @@ import {
 } from 'actions/reset';
 import {
     Card,
-    Input,
     Button,
     Divider,
     Message,
@@ -22,7 +21,9 @@ class PasswordComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isPasswordVisible: 0
+            isPasswordVisible: 0,
+            newPassword: false,
+            repeatNewPassword: false
         };
     }
 
@@ -31,7 +32,8 @@ class PasswordComponent extends Component {
         return _.object(_.compact(_.map(search.slice(1).split('&'), function(item) {  if (item) return item.split('='); })));
     }
 
-    handleResetPassword = () => {
+    handleResetPassword = event => {
+        event.preventDefault();
         const {
             setError,
             handleResetNewPassword,
@@ -56,11 +58,20 @@ class PasswordComponent extends Component {
             setError("Invalid Token");
         }
     }
-
+    handleChangeNewPassword = event => {
+        const { value } = event.target;
+        const { changeNewPassword } = this.props;
+        value.length > 0 ? this.setState({ newPassword: true }) : this.setState({ newPassword: false });
+        changeNewPassword(value);
+    }
+    handleChangeRepeatNewPassword = event => {
+        const { value } = event.target;
+        const { changeRepeatNewPassword } = this.props;
+        value.length > 0 ? this.setState({ repeatNewPassword: true }) : this.setState({ repeatNewPassword: false });
+        changeRepeatNewPassword(value);
+    }
     render () {
         const {
-            changeNewPassword,
-            changeRepeatNewPassword,
             newPassword,
             repeatNewPassword,
             isResetInProgress,
@@ -71,30 +82,46 @@ class PasswordComponent extends Component {
             <div>
                 <Card fluid color={'violet'} className={"login"}>
                     <Card.Content>
-                        <Card.Header as={"h1"} textAlign={"center"}>New password</Card.Header>
+                        <Card.Header as={"h1"} className={"login__header"}>
+                            New Password
+                        </Card.Header>
                         <Divider />
                         <Card.Description style={{marginBottom: 15}} as={"p"}>
                             Create a new password
                         </Card.Description>
                         <Card.Description>
-                            <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 15}}
-                                   onChange={changeNewPassword.bind(this)} value={newPassword}
-                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
-                            />
-                            <Input icon='repeat' iconPosition='left' placeholder='Repeat password' fluid style={{marginBottom: 15}}
-                                   onChange={changeRepeatNewPassword.bind(this)} value={repeatNewPassword}
-                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
-                            />
-                            { error !== null ?
-                                <Message warning color={"red"}>
-                                    <Message.Header>{error}</Message.Header>
-                                </Message> : ""
-                            }
-                            <Button 
-                                fluid
-                                onClick={this.handleResetPassword}
-                            >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
-                            </Button>
+                            <form action="#" className={"auth_input"}>
+                                <label>
+                                    <input
+                                        type="password"
+                                        onChange={this.handleChangeNewPassword}
+                                        placeholder='Password'
+                                        value={newPassword}
+                                        className={this.state.newPassword ? "populated" : ""}
+                                    />
+                                    <span>Password</span>
+                                </label>
+                                <label>
+                                    <input
+                                        type="password"
+                                        placeholder='Repeat password'
+                                        onChange={this.handleChangeRepeatNewPassword}
+                                        value={repeatNewPassword}
+                                        className={this.state.repeatNewPassword ? "populated" : ""}
+                                    />
+                                    <span>'Repeat password'</span>
+                                </label>
+                                { error !== null ?
+                                    <Message warning color={"red"}>
+                                        <Message.Header>{error}</Message.Header>
+                                    </Message> : ""
+                                }
+                                <Button
+                                    className={"auth_btn reset_btn"}
+                                    onClick={this.handleResetPassword}
+                                >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
+                                </Button>
+                            </form>
                         </Card.Description>
                     </Card.Content>
                 </Card>

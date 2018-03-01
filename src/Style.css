@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
 .logo_content img {
-  width: 100px !important; }
+  width: 170px !important; }
+
+.menu__logo {
+  height: 100% !important; }
+  @media screen and (max-width: 767px) {
+    .menu__logo .item {
+      margin: 0 auto !important; } }
 
 #root {
   height: 100vh; }
@@ -14,6 +20,68 @@
 .header__menu {
   background-color: #282828 !important;
   border-radius: 0 !important; }
+
+.right__menu {
+  display: flex;
+  height: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-around !important; }
+  @media screen and (min-width: 768px) {
+    .right__menu {
+      justify-content: flex-end !important; } }
+  .right__menu .menu_logout {
+    text-transform: uppercase !important;
+    position: relative !important; }
+    .right__menu .menu_logout:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 15px;
+      height: 32px;
+      width: 1px;
+      background-color: #939393; }
+      @media screen and (max-width: 767px) {
+        .right__menu .menu_logout:after {
+          content: none; } }
+      @media screen and (min-width: 1200px) {
+        .right__menu .menu_logout:after {
+          right: 142%; } }
+      @media screen and (max-width: 1199px) {
+        .right__menu .menu_logout:after {
+          right: 152%; } }
+      @media screen and (max-width: 991px) {
+        .right__menu .menu_logout:after {
+          right: 145%; } }
+  .right__menu_item {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    justify-content: center !important;
+    line-height: 18px !important;
+    padding: 0 !important;
+    position: relative;
+    height: 64px !important;
+    margin-right: 50px !important;
+    cursor: pointer; }
+    .right__menu_item:hover a {
+      color: #FFFFFF !important; }
+    .right__menu_item:last-child {
+      margin-right: 0 !important; }
+    .right__menu_item a {
+      display: -webkit-box !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      width: 100% !important;
+      height: 100% !important;
+      color: #939393 !important; }
 
 .grid__menu {
   width: 100% !important; }
@@ -124,6 +192,10 @@
   .attentionIdentification__icon {
     font-size: 18px !important;
     color: #FFFFFF !important; }
+    @media screen and (max-width: 767px) {
+      .attentionIdentification__icon {
+        display: block !important;
+        margin: 2px auto !important; } }
   .attentionIdentification__text {
     color: #FFFFFF !important;
     font-size: 15px !important; }
@@ -249,6 +321,16 @@
     border-radius: 100%;
     box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1); }
 
+.calculator__paymount {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500 !important;
+  overflow: hidden !important; }
+  .calculator__paymount_info:not(.calculator__paymount_amount) {
+    margin-top: -15px !important; }
+  .calculator__paymount_divider {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important; }
+
 .calculator__bonus {
   cursor: default !important; }
 
@@ -278,6 +360,8 @@
   -ms-flex-align: center;
   align-items: center;
   font-family: "Roboto", sans-serif !important;
+  justify-content: flex-end !important;
+  margin-right: 15px !important;
   font-weight: 500 !important;
   font-size: 14px !important; }
   .bonus__maximum i {
@@ -294,6 +378,16 @@
   text-align: left !important;
   line-height: 20px !important; }
 
+.calculator__accordion {
+  box-shadow: none !important; }
+  .calculator__accordion .active i {
+    transform: rotate(90deg) !important; }
+  .calculator__accordion_title {
+    display: flex !important;
+    font-family: "Roboto", sans-serif !important;
+    font-size: 14px !important;
+    justify-content: space-between !important; }
+
 .calculator__comments {
   font-family: "Roboto", sans-serif !important;
   font-weight: normal !important;
@@ -302,7 +396,7 @@
   border-radius: 3px !important;
   height: 90px !important;
   color: black !important;
-  border-color: #939393 !important; }
+  border: 1px solid #939393 !important; }
   .calculator__comments::-webkit-input-placeholder {
     color: #939393 !important; }
   .calculator__comments:-moz-placeholder {
@@ -317,6 +411,9 @@
 
 .modal {
   box-shadow: none !important; }
+
+.modal {
+  display: flex !important; }
 
 .modal__success {
   text-align: center !important; }
@@ -464,8 +561,36 @@
   margin: 18px 0 !important; }
 
 /***SETTINGS PAGE***/
-.settings__identification_header {
-  background-color: #363E71 !important; }
+.settings__identification {
+  font-family: "Roboto", sans-serif !important; }
+  .settings__identification_header {
+    margin-bottom: 25px !important; }
+  .settings__identification_tabs {
+    padding: 0 !important; }
+    .settings__identification_tabs .secondary {
+      background-color: #f1f6fd !important;
+      border-bottom: none !important;
+      padding: 0 20px !important;
+      font-family: "Roboto", sans-serif !important;
+      font-weight: 400 !important;
+      font-size: 17px !important; }
+      .settings__identification_tabs .secondary .active {
+        border-bottom-color: #004fce !important;
+        color: #004fce !important; }
+  .settings__identification input {
+    font-family: "Roboto", sans-serif !important; }
+
+.header__input_text {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+  margin: 5px 0 10px !important; }
+
+.header_text_uppercase {
+  text-transform: uppercase !important; }
+
+.blue__divider {
+  background-color: #004fce !important; }
 
 .setting__header_button {
   background-color: #71779B !important;
@@ -478,16 +603,15 @@
     color: #55697A !important; }
 
 .setting__description {
-  color: #FFFFFF !important;
-  font-family: "Roboto", sans-serif !important; }
+  color: #000000 !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500 !important; }
 
 .setting__button {
-  margin: 15px 0 !important;
-  background-color: #828ABD !important;
-  color: #FFFFFF !important; }
-  .setting__button:hover {
-    background-color: #FFFFFF !important;
-    color: #55697A !important; }
+  margin: 15px 0 !important; }
+
+.setting__submit {
+  width: 30% !important; }
 
 .setting__imagePreview {
   margin: 7px 0 !important; }
@@ -511,6 +635,24 @@
       color: #FFFFFF !important; }
     .setting__change_buttons input:focus:-ms-input-placeholder, .setting__change_buttons input:hover:-ms-input-placeholder {
       color: #FFFFFF !important; }
+
+.beneficial_btn {
+  float: right !important;
+  background-color: #FFFFFF !important;
+  color: #004fce !important;
+  text-transform: uppercase !important;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important; }
+  .beneficial_btn:hover {
+    background-color: #f2f2f2 !important;
+    color: #1c73ff !important; }
+
+.beneficial_icon {
+  font-size: 18px !important;
+  color: #004fce !important; }
+  .beneficial_icon:hover {
+    color: #1c73ff !important; }
 
 .login, .signup {
   margin-top: 90px !important;
@@ -632,6 +774,21 @@
     font-family: "Roboto", sans-serif !important;
     font-weight: 600 !important; }
 
+.component__telegram {
+  padding: 0 !important; }
+
+.telegram__wrapper {
+  border-radius: 0 !important;
+  box-shadow: none !important; }
+
+@media screen and (min-width: 1200px) {
+  .component__cryptocurrency {
+    min-height: 314px !important; } }
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .component__cryptocurrency {
+    min-height: 284px !important; } }
+
 .crypto__widget {
   position: relative; }
   .crypto__widget:after {
@@ -640,8 +797,21 @@
     position: absolute;
     right: 1px;
     top: 1px;
-    width: 50%;
+    width: 63%;
     height: 48px;
     background-color: #F6F9FB; }
+  .crypto__widget:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 51px;
+    right: 1px;
+    width: 99%;
+    height: 50px;
+    background-color: #FFFFFF !important; }
   .crypto__widget_radio {
     color: #004fce !important; }
+
+.reset_btn {
+  margin-top: 20px !important;
+  width: 100% !important; }

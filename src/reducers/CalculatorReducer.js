@@ -21,6 +21,7 @@ const INITIAL_STATE = {
             active: false
         }
     ],
+    currentBonus: 0,
     progressBar: {
         percent: 0,
         isMaximum: false
@@ -70,8 +71,8 @@ export default (state = INITIAL_STATE, action) => {
         case C.CHANGE_SUM_VALUE:
             return { ...state, sumValue: action.payload };
         case C.CHANGE_TRANSFER_DATA:
-            const { sumValue, progressBar, tokenValue, bonus, transferData } = action.payload;
-            return { ...state,  sumValue, progressBar, tokenValue, bonus, transferData };
+            const { sumValue, progressBar, tokenValue, bonus, currentBonus ,transferData } = action.payload;
+            return { ...state,  sumValue, progressBar, tokenValue, bonus, currentBonus, transferData };
         case C.CHECK_SUFFIX_TEXT:
             return { ...state, suffixText: action.payload };
         case C.CHANGE_COMMENTS:
@@ -80,6 +81,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, modalSuccessful: action.payload };
         case C.CHANGE_QUERY_SUCCESSFUL:
             return { ...state, querySuccess: action.payload };
+        case C.CHANGE_CURRENT_BONUS:
+            return { ...state, currentBonus: action.payload };
         default:
             return state;
     }

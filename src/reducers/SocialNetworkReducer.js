@@ -3,15 +3,14 @@ const INITIAL_STATE = {
         name: "facebook f",
         href: "https://www.facebook.com/tsrpay/"
     },{
-        name: "vk",
-        href: "https://vk.com/tsrpay"
-    },{
         name: "telegram",
         href: "https://t.me/tsrpay"
-
     },{
         name: "twitter",
         href: "https://twitter.com/tsrpay"
+    },{
+        name: "instagram",
+        href: "https://www.instagram.com/tsrpay"
     },{
         name: "medium",
         href: "https://medium.com/@tsrpay"

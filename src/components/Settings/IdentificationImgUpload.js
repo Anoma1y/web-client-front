@@ -3,6 +3,7 @@ import {
     Card,
     Button,
     Icon,
+    Grid,
     Input,
     Image
 } from 'semantic-ui-react';
@@ -44,41 +45,42 @@ class IdentificationImgUpload extends React.Component {
         reader.readAsDataURL(file)
     }
 
-    renderImagePreview(imagePreviewUrl) {
+    renderImagePreview = (imagePreviewUrl) => {
         if (!imagePreviewUrl) return null;
         return <Image src={imagePreviewUrl}  rounded/>
     }
 
     render() {
         return (
-            <div className={"setting__description"}>
-                <Card.Description>
-                    {this.props.description}
-                </Card.Description>
-                <Card.Description>
-                    <Button
-                        className={"setting__button"}
-                        compact icon
-                        labelPosition={'left'}
-                        circular
-                        onClick={(e)=> {
-                            document.getElementById(this.props.id).click();
-                            this.handleSubmit(e)
-                        }}
-                    >
-                        <Icon name={'upload'}/>
-                        Upload
-                    </Button>
-                </Card.Description>
-                <Card.Description className={"setting__imagePreview"}>
-                    {this.renderImagePreview(this.state.imagePreviewUrl)}
-                </Card.Description>
-                <Input
-                    type={'file'}
-                    id={this.props.id}
-                    style={{display: 'none'}}
-                    onChange={(e)=>this.handleImageChange(e)}/>
-            </div>
+            <Grid className={"setting__description"}>
+                <Grid.Row>
+                    <Grid.Column width={16}>
+                        <Card.Description>
+                            {this.props.description}
+                        </Card.Description>
+                        <Card.Description className={"setting__imagePreview"}>
+                            {this.renderImagePreview(this.state.imagePreviewUrl)}
+                        </Card.Description>
+                        <Card.Description>
+                            <Button
+                                className={"auth_btn setting__button"}
+                                floated={"right"}
+                                onClick={(e)=> {
+                                    document.getElementById(this.props.id).click();
+                                    this.handleSubmit(e)
+                                }}
+                            >
+                                Upload
+                            </Button>
+                        </Card.Description>
+                        <Input
+                            type={'file'}
+                            id={this.props.id}
+                            style={{display: 'none'}}
+                            onChange={(e)=>this.handleImageChange(e)}/>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
         )
     }
 }

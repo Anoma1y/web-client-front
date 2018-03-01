@@ -36,8 +36,8 @@ class HeaderMenu extends Component {
                         <Grid.Row>
                             <Grid.Column width={1}>
                             </Grid.Column>
-                            <Grid.Column floated={"left"} className={"logo_content"} width={3}>
-                                <Menu className={"menu__color"}>
+                            <Grid.Column floated={"left"} className={"logo_content"} widescreen={4} computer={4} tablet={4} mobile={16}>
+                                <Menu className={"menu__color menu__logo"}>
                                     <Menu.Item>
                                         <Link to={"/dashboard/"}>
                                             <img src={Logo} alt="Logo" />
@@ -45,21 +45,22 @@ class HeaderMenu extends Component {
                                     </Menu.Item>
                                 </Menu>
                             </Grid.Column>
-                            <Grid.Column floated={"right"} width={6}>
-                                {localStorage.jwt ?
-                                    <Menu className={"menu__color user__menu"}>
-                                        <Menu.Item className={"user__menu_item user__menu-email"}>
-                                            <Link to={"/dashboard/settings"} >
+                            <Grid.Column floated={"right"} className={"user_content"} widescreen={6} computer={6} tablet={6} mobile={16}>
+                                {localStorage.getItem("jwt") ?
+                                    <div className={"right__menu menu_login"}>
+                                        <div className={"right__menu_item"}>
+                                            <Link to={"/dashboard/settings"}>
                                                 {email}
                                             </Link>
-                                        </Menu.Item>
-                                        <Menu.Item className={"user__menu_item user__menu-logout"}>
-                                            <Link to={"/logout"} >
+                                        </div>
+
+                                        <div className={"right__menu_item menu_logout"}>
+                                            <Link to={"/logout"}>
                                                 Log out
                                             </Link>
-                                        </Menu.Item>
-                                    </Menu>
-                                : null}
+                                        </div>
+                                    </div> : null
+                                }
                             </Grid.Column>
                             <Grid.Column width={1}>
                             </Grid.Column>

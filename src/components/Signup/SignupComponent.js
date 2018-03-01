@@ -32,7 +32,8 @@ class SignupComponent extends Component {
         }
     }
 
-    handleSignup = () => {
+    handleSignup = event => {
+        event.preventDefault();
         const { email, password, repeatPassword, setError, handleRegistration } = this.props;
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
@@ -140,32 +141,34 @@ class SignupComponent extends Component {
                        </Card.Header>
                        <Divider />
                         <Card.Description className={"signup__content auth_input"}>
-                            <label>
-                                <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
-                                <span>E-Mail</span>
-                            </label>
-                            <label>
-                                <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
-                                <span>Password</span>
-                            </label>
-                            <label>
-                                <input type="password" placeholder={"Repeat Password"} onChange={this.handleChangeRepeatPassword} value={repeatPassword} className={repeatPasswordPlaceholder ? "populated" : ""}/>
-                                <span>Repeat Password</span>
-                            </label>
-                            <p className={"signup__content_confirm"}>
-                                By clicking Sign Up, you agree to the <a href={"https://tsrpay.com/docs/terms-of-service.pdf"} target={"_blank"}>Terms of Service</a> and <a href={"https://tsrpay.com/docs/privacy-policy.pdf"} target={"_blank"}>Privacy Policy</a>
-                            </p>
-                            { error !== null ?
-                                <Message warning color={"red"}>
-                                    <Message.Header>{error}</Message.Header>
-                                </Message> : ""
-                            }
-                            <Button
-                                fluid
-                                className={"auth_btn"}
-                                onClick={this.handleSignup}
-                            >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Register"}
-                            </Button>
+                            <form action="#">
+                                <label>
+                                    <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
+                                    <span>E-Mail</span>
+                                </label>
+                                <label>
+                                    <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
+                                    <span>Password</span>
+                                </label>
+                                <label>
+                                    <input type="password" placeholder={"Repeat Password"} onChange={this.handleChangeRepeatPassword} value={repeatPassword} className={repeatPasswordPlaceholder ? "populated" : ""}/>
+                                    <span>Repeat Password</span>
+                                </label>
+                                <p className={"signup__content_confirm"}>
+                                    By clicking Sign Up, you agree to the <a href={"https://tsrpay.com/docs/terms-of-service.pdf"} target={"_blank"}>Terms of Service</a> and <a href={"https://tsrpay.com/docs/privacy-policy.pdf"} target={"_blank"}>Privacy Policy</a>
+                                </p>
+                                { error !== null ?
+                                    <Message warning color={"red"}>
+                                        <Message.Header>{error}</Message.Header>
+                                    </Message> : ""
+                                }
+                                <Button
+                                    fluid
+                                    className={"auth_btn"}
+                                    onClick={this.handleSignup}
+                                >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Register"}
+                                </Button>
+                            </form>
                             <p className={"signup__content_login"}>
                                 Already have account? <Link to={"/login"}>Sign In</Link>
                             </p>
