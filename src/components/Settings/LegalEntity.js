@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Grid, Select, Button, Divider } from 'semantic-ui-react';
+import {
+    Grid,
+    Select,
+    Icon,
+    Button,
+    Divider
+} from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
 class LegalEntity extends Component {
@@ -499,7 +505,15 @@ class LegalEntity extends Component {
                         </label>
                     </Grid.Column>
                 </Grid.Row>
-
+                <Grid.Row>
+                    <Grid.Column width={4} floated={"right"}>
+                        <Button
+                            className={"beneficial_btn"}
+                        >
+                            <Icon name={"plus"} className={"beneficial_icon"}/> Add Beneficial
+                        </Button>
+                    </Grid.Column>
+                </Grid.Row>
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <IdentificationImgUpload
