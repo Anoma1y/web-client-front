@@ -328,7 +328,8 @@
   .calculator__paymount_info:not(.calculator__paymount_amount) {
     margin-top: -15px !important; }
   .calculator__paymount_divider {
-    margin: 0 !important; }
+    margin-top: 0 !important;
+    margin-bottom: 0 !important; }
 
 .calculator__bonus {
   cursor: default !important; }

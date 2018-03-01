@@ -374,7 +374,7 @@ class Calculator extends Component {
     }
     state = { activeIndex: -1 }
 
-    handleClick = (e, titleProps) => {
+    handleAccordionBtn = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
         const newIndex = activeIndex === index ? -1 : index
@@ -506,7 +506,7 @@ class Calculator extends Component {
                         <Grid.Row columns={1}>
                             <Grid.Column>
                                 <Accordion styled className={"calculator__accordion"}>
-                                    <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick} className={"calculator__accordion_title"}>
+                                    <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleAccordionBtn} className={"calculator__accordion_title"}>
                                         <p>Leave a comment </p><Icon name='chevron right' />
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === 0} className={"calculator__accordion_content"}>
