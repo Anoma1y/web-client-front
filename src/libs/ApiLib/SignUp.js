@@ -4,7 +4,8 @@ class SignUpLib {
     static url = "http://159.89.10.197:4874/v1/";
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
-    static resetPasswordURL = "profile/password"
+    static resetPasswordURL = "profile/password";
+
     static checkAvailability(email) {
         const checkURL = this.url + this.checkEmailURL;
         return axios.head(`${checkURL}=${email}`)

@@ -640,8 +640,17 @@
     position: absolute;
     right: 1px;
     top: 1px;
-    width: 50%;
+    width: 63%;
     height: 48px;
     background-color: #F6F9FB; }
+  .crypto__widget:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 51px;
+    right: 1px;
+    width: 99%;
+    height: 50px;
+    background-color: #FFFFFF !important; }
   .crypto__widget_radio {
     color: #004fce !important; }

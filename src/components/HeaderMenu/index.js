@@ -36,7 +36,7 @@ class HeaderMenu extends Component {
                         <Grid.Row>
                             <Grid.Column width={1}>
                             </Grid.Column>
-                            <Grid.Column floated={"left"} className={"logo_content"} width={3}>
+                            <Grid.Column floated={"left"} className={"logo_content"} width={4}>
                                 <Menu className={"menu__color"}>
                                     <Menu.Item>
                                         <Link to={"/dashboard/"}>
