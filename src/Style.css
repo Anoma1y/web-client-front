@@ -318,6 +318,9 @@
 .modal {
   box-shadow: none !important; }
 
+.modal {
+  display: flex !important; }
+
 .modal__success {
   text-align: center !important; }
   .modal__success_icon i {

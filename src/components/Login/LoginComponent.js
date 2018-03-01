@@ -57,7 +57,8 @@ class LoginComponent extends Component {
         }
         changePassword(value);
     }
-    handleLoginBtn = () => {
+    handleLoginBtn = event => {
+        event.preventDefault();
         const { email, password, setError, handleLogin } = this.props;
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
@@ -95,29 +96,31 @@ class LoginComponent extends Component {
                         </Card.Header>
                         <Divider />
                         <Card.Description className={"login__content auth_input"}>
-                            <label>
-                                <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
-                                <span>E-Mail</span>
-                            </label>
-                            <label>
-                                <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
-                                <span>Password</span>
-                            </label>
+                            <form action="#">
+                                <label>
+                                    <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
+                                    <span>E-Mail</span>
+                                </label>
+                                <label>
+                                    <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
+                                    <span>Password</span>
+                                </label>
 
-                            <Item className={"login__content_forgot"}>
-                                <Item.Description as='a' onClick={() => this.props.goToReset()}>Forget your password?</Item.Description>
-                            </Item>
-                            { error !== null ?
-                                <Message warning color={"red"}>
-                                    <Message.Header>{error}</Message.Header>
-                                </Message> : ""
-                            }
-                            <Button 
-                                fluid
-                                onClick={this.handleLoginBtn}
-                                className={"auth_btn"}
-                            >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Sign In"}
-                            </Button>
+                                <Item className={"login__content_forgot"}>
+                                    <Item.Description as='a' onClick={() => this.props.goToReset()}>Forget your password?</Item.Description>
+                                </Item>
+                                { error !== null ?
+                                    <Message warning color={"red"}>
+                                        <Message.Header>{error}</Message.Header>
+                                    </Message> : ""
+                                }
+                                <Button
+                                    fluid
+                                    onClick={this.handleLoginBtn}
+                                    className={"auth_btn"}
+                                >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Sign In"}
+                                </Button>
+                            </form>
                             <p className={"login__content_signup"}>Don't have account? <Link to={"/signup"}>Sign Up</Link></p>
                         </Card.Description>
                     </Card.Content>

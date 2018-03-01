@@ -77,24 +77,26 @@ class PasswordComponent extends Component {
                             Create a new password
                         </Card.Description>
                         <Card.Description>
-                            <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 15}}
-                                   onChange={changeNewPassword.bind(this)} value={newPassword}
-                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
-                            />
-                            <Input icon='repeat' iconPosition='left' placeholder='Repeat password' fluid style={{marginBottom: 15}}
-                                   onChange={changeRepeatNewPassword.bind(this)} value={repeatNewPassword}
-                                   type={this.state.isPasswordVisible ? 'text' : 'password' }
-                            />
-                            { error !== null ?
-                                <Message warning color={"red"}>
-                                    <Message.Header>{error}</Message.Header>
-                                </Message> : ""
-                            }
-                            <Button 
-                                fluid
-                                onClick={this.handleResetPassword}
-                            >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
-                            </Button>
+                            <form action="#">
+                                <Input icon='key' iconPosition='left' placeholder='Password' fluid style={{marginBottom: 15}}
+                                       onChange={changeNewPassword.bind(this)} value={newPassword}
+                                       type={this.state.isPasswordVisible ? 'text' : 'password' }
+                                />
+                                <Input icon='repeat' iconPosition='left' placeholder='Repeat password' fluid style={{marginBottom: 15}}
+                                       onChange={changeRepeatNewPassword.bind(this)} value={repeatNewPassword}
+                                       type={this.state.isPasswordVisible ? 'text' : 'password' }
+                                />
+                                { error !== null ?
+                                    <Message warning color={"red"}>
+                                        <Message.Header>{error}</Message.Header>
+                                    </Message> : ""
+                                }
+                                <Button
+                                    fluid
+                                    onClick={this.handleResetPassword}
+                                >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
+                                </Button>
+                            </form>
                         </Card.Description>
                     </Card.Content>
                 </Card>

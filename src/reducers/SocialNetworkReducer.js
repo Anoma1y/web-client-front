@@ -5,10 +5,12 @@ const INITIAL_STATE = {
     },{
         name: "telegram",
         href: "https://t.me/tsrpay"
-
     },{
         name: "twitter",
         href: "https://twitter.com/tsrpay"
+    },{
+        name: "instagram",
+        href: "https://www.instagram.com/tsrpay"
     },{
         name: "medium",
         href: "https://medium.com/@tsrpay"
