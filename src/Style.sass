@@ -653,13 +653,16 @@ $header-identification-component: #363E71 !important
 
 .component__telegram
   padding: 0 !important
-  
+
 .telegram__wrapper
   border-radius: 0 !important
   box-shadow: none !important
 
 .component__cryptocurrency
-  min-height: 314px !important
+  @media screen and (min-width: 1200px)
+    min-height: 314px !important
+  @media screen and (min-width: 992px) and (max-width: 1199px)
+    min-height: 284px !important
 
 .crypto__widget
   position: relative

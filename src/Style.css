@@ -639,8 +639,13 @@
   border-radius: 0 !important;
   box-shadow: none !important; }
 
-.component__cryptocurrency {
-  min-height: 314px !important; }
+@media screen and (min-width: 1200px) {
+  .component__cryptocurrency {
+    min-height: 314px !important; } }
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .component__cryptocurrency {
+    min-height: 284px !important; } }
 
 .crypto__widget {
   position: relative; }
