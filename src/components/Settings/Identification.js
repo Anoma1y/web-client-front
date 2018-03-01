@@ -37,16 +37,14 @@ class Identification extends Component {
         return (
             <Card fluid className={"settings__identification"}>
                 <Card.Content>
-                    <Card.Header>Identification</Card.Header>
+                    <Card.Header className={"settings__identification_header"}>Identification</Card.Header>
                     <Card.Description>
                         <Grid className={"dashboard__component"}>
-                                    <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
-
-
-
+                            <Tab menu={{ secondary: true, pointing: true }} panes={panes} className={"settings__identification_tabs"}/>
                         </Grid>
                     </Card.Description>
                 </Card.Content>
+
             </Card>
         )
     }

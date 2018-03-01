@@ -15,7 +15,7 @@ class LegalEntity extends Component {
         return (
             <Grid>
                 <Grid.Row>
-                    <Grid.Column width={16}>
+                    <Grid.Column width={16} className={"header__input_text header_text_uppercase"}>
                         Information about the person authorised to represent the company
                     </Grid.Column>
                     <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
@@ -87,7 +87,7 @@ class LegalEntity extends Component {
                     </Grid.Column>
                 </Grid.Row>
 
-
+                <Divider className={"blue__divider"}/>
                 <Grid.Row>
                     <Grid.Column>
                         <IdentificationImgUpload
@@ -138,7 +138,7 @@ class LegalEntity extends Component {
                     <Grid.Column>
                         <Grid>
                             <Grid.Row>
-                                <Grid.Column width={16} className={"auth_input"}>
+                                <Grid.Column width={16} className={"auth_input header__input_text header_text_uppercase"}>
                                     Information about the company
                                 </Grid.Column>
                             </Grid.Row>
@@ -279,7 +279,7 @@ class LegalEntity extends Component {
                             </Grid.Row>
 
                             <Grid.Row>
-                                <Grid.Column width={16} className={"auth_input"}>
+                                <Grid.Column width={16} className={"auth_input header__input_text header_text_uppercase"}>
                                     I hereby certify that origin of funds that is available to company is legal, and its source is
                                 </Grid.Column>
                                 <Grid.Column width={16} className={"auth_input"}>
@@ -331,9 +331,10 @@ class LegalEntity extends Component {
 
                     </Grid.Column>
                 </Grid.Row>
+                <Divider className={"blue__divider"}/>
 
                 <Grid.Row>
-                    <Grid.Column width={16}>
+                    <Grid.Column width={16} className={"header__input_text header_text_uppercase"}>
                         Beneficial owner’s declaration - who own or control at least 25% of the company’s shares directly or through other companies
                     </Grid.Column>
                     <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>

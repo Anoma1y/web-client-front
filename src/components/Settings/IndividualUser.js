@@ -7,7 +7,7 @@ class IndividualUser extends Component {
         return (
             <Grid>
                 <Grid.Row>
-                    <Grid.Column width={16}>
+                    <Grid.Column width={16} className={"header__input_text header_text_uppercase"}>
                         Information about the person authorised to represent the company
                     </Grid.Column>
                     <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
@@ -83,7 +83,7 @@ class IndividualUser extends Component {
                 <Grid.Row>
                     <Grid.Column>
                         <IdentificationImgUpload
-                            description={"Submit a personal identity document with photo: One of the following Passport, ID, Residence Document (both sides)"}
+                            description={"Submit a personal identity document with photo: Passport, ID, Residence document (both sides)"}
                             id={"personal_identity"}
                             key={"personal_identity"}
                         />

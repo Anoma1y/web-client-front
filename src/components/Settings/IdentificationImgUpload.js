@@ -45,7 +45,7 @@ class IdentificationImgUpload extends React.Component {
         reader.readAsDataURL(file)
     }
 
-    renderImagePreview(imagePreviewUrl) {
+    renderImagePreview = (imagePreviewUrl) => {
         if (!imagePreviewUrl) return null;
         return <Image src={imagePreviewUrl}  rounded/>
     }
@@ -58,6 +58,9 @@ class IdentificationImgUpload extends React.Component {
                         <Card.Description>
                             {this.props.description}
                         </Card.Description>
+                        <Card.Description className={"setting__imagePreview"}>
+                            {this.renderImagePreview(this.state.imagePreviewUrl)}
+                        </Card.Description>
                         <Card.Description>
                             <Button
                                 className={"auth_btn setting__button"}
@@ -69,9 +72,6 @@ class IdentificationImgUpload extends React.Component {
                             >
                                 Upload
                             </Button>
-                        </Card.Description>
-                        <Card.Description className={"setting__imagePreview"}>
-                            {this.renderImagePreview(this.state.imagePreviewUrl)}
                         </Card.Description>
                         <Input
                             type={'file'}

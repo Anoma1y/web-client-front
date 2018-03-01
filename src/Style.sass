@@ -80,11 +80,11 @@ $header-identification-component: #363E71 !important
       position: absolute
       top: 15px
       @media screen and (min-width: 1200px)
-        right: 117%
+        right: 142%
       @media screen and (max-width: 1199px)
         right: 152%
       @media screen and (max-width: 991px)
-        right: 175%
+        right: 145%
       height: 32px
       width: 1px
       background-color: rgba(147, 147, 147, 1)
@@ -587,8 +587,38 @@ $header-identification-component: #363E71 !important
 
 
 /***SETTINGS PAGE***/
-.settings__identification_header
-  background-color: $header-identification-component
+
+.settings__identification
+  font-family: $font-robot
+  &_header
+    margin-bottom: 25px !important
+  &_tabs
+    padding: 0 !important
+    .secondary
+      background-color: #f1f6fd !important
+      border-bottom: none !important
+      padding: 0 20px !important
+      font-family: $font-robot
+      font-weight: 400 !important
+      font-size: 17px !important
+      .active
+        border-bottom-color: rgba(0, 79, 206, 1) !important
+        color: rgba(0, 79, 206, 1) !important
+  input
+    font-family: $font-robot
+.header__input_text
+  font-family: $font-robot
+  font-weight: 500 !important
+  color: $black-color
+  margin: 5px 0 10px !important
+
+.header_text_uppercase
+  text-transform: uppercase !important
+
+
+.blue__divider
+  background-color: rgba(0, 79, 206, 1) !important
+
 
 .setting__header_button
   background-color: #71779B !important
@@ -772,3 +802,5 @@ $header-identification-component: #363E71 !important
 
   &_radio
     color: rgba(0, 79, 206, 1) !important
+
+
