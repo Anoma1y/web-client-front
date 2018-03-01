@@ -40,6 +40,13 @@ $header-identification-component: #363E71 !important
 .logo_content
   img
     width: 170px !important
+.menu__logo
+  height: 100% !important
+  @media screen and (max-width: 767px)
+    .item
+      margin: 0 auto !important
+.user_content
+
 #root
   height: 100vh
 .auth__container
@@ -52,24 +59,32 @@ $header-identification-component: #363E71 !important
 .header__menu
   background-color: $header-menu-background-color
   border-radius: 0 !important
-.menu__logo
-  height: 100% !important
+
 
 .right__menu
   display: flex
   height: 100%
   min-height: 48px
   align-items: center
-  justify-content: flex-end
-  .logout
+  justify-content: space-around !important
+  @media screen and (min-width: 768px)
+    justify-content: flex-end !important
+  .menu_logout
     text-transform: uppercase !important
     position: relative !important
     &:after
       content: ""
+      @media screen and (max-width: 767px)
+        content: none
       display: block
       position: absolute
       top: 15px
-      right: 142%
+      @media screen and (min-width: 1200px)
+        right: 117%
+      @media screen and (max-width: 1199px)
+        right: 152%
+      @media screen and (max-width: 991px)
+        right: 175%
       height: 32px
       width: 1px
       background-color: rgba(147, 147, 147, 1)
@@ -215,6 +230,9 @@ $header-identification-component: #363E71 !important
   &__icon
     font-size: 18px !important
     color: $white-color
+    @media screen and (max-width: 767px)
+      display: block !important
+      margin: 2px auto !important
   &__text
     color: $white-color
     font-size: 15px !important
@@ -567,17 +585,14 @@ $header-identification-component: #363E71 !important
     color: #55697A !important
 
 .setting__description
-  color: $white-color
+  color: $black-color
   font-family: $font-robot
+  font-weight: 500 !important
 
 .setting__button
   margin: 15px 0 !important
-  background-color: #828ABD !important
-  color: $white-color
-  &:hover
-    background-color: $white-color
-    color: #55697A !important
-
+.setting__submit
+  width: 30% !important
 .setting__imagePreview
   margin: 7px 0 !important
 

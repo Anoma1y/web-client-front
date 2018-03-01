@@ -1,14 +1,11 @@
 const INITIAL_STATE = {
     individualUser: [
         {
-            description: 'A scanned copy of your official photo ID' +
-            '(passport) in good quality and high resolution',
+            description: `Submit a personal identity document with photo: One of the following: Passport, ID or Residence Document (both sides)`,
             id: 'one_passport'
         },
         {
-            description: 'Proof of address (a recent utility bill,' +
-            'with your name indicated, or other' +
-            'official document verifying your address)',
+            description: 'Utility bill or any other document with a date no later than 2 months before the presentation (this confirms the address)',
             id: 'one_address'
         },
     ],

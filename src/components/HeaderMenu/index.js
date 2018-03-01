@@ -36,7 +36,7 @@ class HeaderMenu extends Component {
                         <Grid.Row>
                             <Grid.Column width={1}>
                             </Grid.Column>
-                            <Grid.Column floated={"left"} className={"logo_content"} width={4}>
+                            <Grid.Column floated={"left"} className={"logo_content"} widescreen={4} computer={4} tablet={4} mobile={16}>
                                 <Menu className={"menu__color menu__logo"}>
                                     <Menu.Item>
                                         <Link to={"/dashboard/"}>
@@ -45,15 +45,15 @@ class HeaderMenu extends Component {
                                     </Menu.Item>
                                 </Menu>
                             </Grid.Column>
-                            <Grid.Column floated={"right"} width={6}>
-                                    <div className={"right__menu"}>
+                            <Grid.Column floated={"right"} className={"user_content"} widescreen={6} computer={6} tablet={6} mobile={16}>
+                                    <div className={"right__menu menu_login"}>
                                         <div className={"right__menu_item"}>
                                             <Link to={"/dashboard/settings"} >
                                                 {"dlafjkfjkadklfjasdfjasdf@mgmail.com"}
                                             </Link>
                                         </div>
 
-                                        <div className={"right__menu_item logout"}>
+                                        <div className={"right__menu_item menu_logout"}>
                                             <Link to={"/logout"} >
                                                 Log out
                                             </Link>
