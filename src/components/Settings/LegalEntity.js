@@ -6,6 +6,7 @@ import {
     Button,
     Divider
 } from 'semantic-ui-react';
+import Beneficial from './Beneficial';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
 class LegalEntity extends Component {
@@ -35,7 +36,17 @@ class LegalEntity extends Component {
             companyWebsites: false,
 
 
-
+            beneficial: [{
+                Name: "",
+                Addres: "",
+                Country: "",
+                Dateofbirth: "",
+                Phone: "",
+                Surname: "",
+                City: "",
+                Zip: "",
+                Email: ""
+            }]
 
         }
     }
@@ -60,7 +71,22 @@ class LegalEntity extends Component {
     handleCompanyPhone = (event, {value}) => value.length > 0 ? this.setState({companyPhone: true}) : this.setState({companyPhone: false})
     handleCompanyDescriptioncompanydoes = (event, {value}) => value.length > 0 ? this.setState({companyDescriptioncompanydoes: true}) : this.setState({companyDescriptioncompanydoes: false})
     handleCompanyWebsites = (event, {value}) => value.length > 0 ? this.setState({companyWebsites: true}) : this.setState({companyWebsites: false})
-
+    handleAddBeneficial = () => {
+        const { beneficial } = this.state;
+        this.setState({
+            beneficial: [...beneficial, {
+                Name: "",
+                Addres: "",
+                Country: "",
+                Dateofbirth: "",
+                Phone: "",
+                Surname: "",
+                City: "",
+                Zip: "",
+                Email: ""
+            }]
+        })
+    }
     render() {
         const certifyOption = [
             {key: "1", value: "1", text: "Proceeds from commercial activity"},
@@ -433,82 +459,34 @@ class LegalEntity extends Component {
                 </Grid.Row>
                 <Divider className={"blue__divider"}/>
 
+
+
+
+
+
+
+
+
+
+
+
+
                 <Grid.Row>
                     <Grid.Column width={16} className={"header__input_text header_text_uppercase"}>
                         Beneficial owner’s declaration - who own or control at least 25% of the company’s shares directly or through other companies
                     </Grid.Column>
-                    <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"Name"}
-                            />
-                            <span>Name</span>
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"Addres"}
-                            />
-                            <span>Addres</span>
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"Country"}
-                            />
-                            <span>Country</span>
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"Date of birth"}
-                            />
-                            <span>Date of birth</span>
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"Phone"}
-                            />
-                            <span>Phone</span>
-                        </label>
-                    </Grid.Column>
-                    <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"Surname"}
-                            />
-                            <span>Surname</span>
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"City"}
-                            />
-                            <span>City</span>
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"Zip"}
-                            />
-                            <span>Zip</span>
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                placeholder={"E-mail"}
-                            />
-                            <span>E-mail</span>
-                        </label>
+                    <Grid.Column width={16}>
+                        {this.state.beneficial.map((item, index) => {
+                            return <Beneficial key={index}/>
+                        })}
                     </Grid.Column>
                 </Grid.Row>
+
                 <Grid.Row>
                     <Grid.Column width={4} floated={"right"}>
                         <Button
                             className={"beneficial_btn"}
+                            onClick={this.handleAddBeneficial}
                         >
                             <Icon name={"plus"} className={"beneficial_icon"}/> Add Beneficial
                         </Button>
