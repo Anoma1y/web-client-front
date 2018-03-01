@@ -38,7 +38,8 @@ class EmailComponent extends React.Component {
         }
         changeEmail(value);
     }
-    handleResetBtn = () => {
+    handleResetBtn = event => {
+        event.preventDefault();
         const {
             email,
             handleReset,

@@ -21,10 +21,10 @@ class VerificationUser extends Component {
 
     componentDidMount() {
         const { id, token } = this.parseURL();
-        const { redirectToLogin, redirectToHome} = this.props;
+        const { redirectToSignup, redirectToHome} = this.props;
         ApiLib.verificationUser(id, token)
             .then(() => {
-                redirectToLogin();
+                redirectToSignup();
             })
             .catch(() => {
                 redirectToHome();

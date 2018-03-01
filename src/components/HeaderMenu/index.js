@@ -46,19 +46,21 @@ class HeaderMenu extends Component {
                                 </Menu>
                             </Grid.Column>
                             <Grid.Column floated={"right"} className={"user_content"} widescreen={6} computer={6} tablet={6} mobile={16}>
+                                {localStorage.getItem("jwt") ?
                                     <div className={"right__menu menu_login"}>
                                         <div className={"right__menu_item"}>
-                                            <Link to={"/dashboard/settings"} >
+                                            <Link to={"/dashboard/settings"}>
                                                 {email}
                                             </Link>
                                         </div>
 
                                         <div className={"right__menu_item menu_logout"}>
-                                            <Link to={"/logout"} >
+                                            <Link to={"/logout"}>
                                                 Log out
                                             </Link>
                                         </div>
-                                    </div>
+                                    </div> : null
+                                }
                             </Grid.Column>
                             <Grid.Column width={1}>
                             </Grid.Column>

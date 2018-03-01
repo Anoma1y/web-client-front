@@ -810,3 +810,7 @@
     background-color: #FFFFFF !important; }
   .crypto__widget_radio {
     color: #004fce !important; }
+
+.reset_btn {
+  margin-top: 20px !important;
+  width: 100% !important; }

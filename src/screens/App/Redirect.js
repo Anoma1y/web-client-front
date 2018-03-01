@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {redirectToLogin} from 'actions/redirect'
+import {
+    redirectToLogin,
+    redirectToSignup
+} from 'actions/redirect'
 
 class Redirect extends Component {
     componentWillMount() {
-        const { user ,redirectToLogin } = this.props;
+        const { user ,redirectToSignup } = this.props;
         if (user.jwt === null || user.jwt === undefined || localStorage.jwt === null) {
-            redirectToLogin();
+            redirectToSignup();
         }
     }
     render() {
@@ -19,6 +22,7 @@ class Redirect extends Component {
 }
 
 export default connect(state => ({ user: state.user }), {
-    redirectToLogin
+    redirectToLogin,
+    redirectToSignup
 })(Redirect);
 

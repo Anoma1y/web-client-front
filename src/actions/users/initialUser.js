@@ -6,6 +6,7 @@ import {
     putToken,
     deleteToken
 } from 'actions/users';
+import { redirectToSignup } from 'actions/redirect';
 export const initialUser = token => {
     return dispatch => {
         Login.getUser(token).then((user) =>{
@@ -13,10 +14,11 @@ export const initialUser = token => {
             dispatch(initIdenfified(is_kyc_passed));
             dispatch(initEmail(email));
             dispatch(putToken(token));
-            // dispatch(push('/dashboard/'));
+            dispatch(push('/dashboard/'));
         }).catch(() => {
             dispatch(deleteToken());
-            dispatch(push('/login'));
+            localStorage.removeItem("jwt");
+            dispatch(redirectToSignup());
         })
     }
 };
