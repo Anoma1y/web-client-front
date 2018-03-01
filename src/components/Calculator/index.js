@@ -14,7 +14,7 @@ import {
     TextArea,
     Button,
     Card,
-    Label,
+    Accordion,
     Icon,
     Modal,
     Divider,
@@ -372,6 +372,15 @@ class Calculator extends Component {
         const { jwt:token } = this.props.user;
         handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), comments ,token});
     }
+    state = { activeIndex: -1 }
+
+    handleClick = (e, titleProps) => {
+        const { index } = titleProps
+        const { activeIndex } = this.state
+        const newIndex = activeIndex === index ? -1 : index
+
+        this.setState({ activeIndex: newIndex })
+    }
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const {
@@ -496,15 +505,22 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <Form as={"div"}>
-                                    <TextArea
-                                        className={"calculator__comments"}
-                                        autoHeight
-                                        placeholder='Leave comment'
-                                        onChange={this.handleChangeComments}
-                                        value={comments}
-                                    />
-                                </Form>
+                                <Accordion styled className={"calculator__accordion"}>
+                                    <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick} className={"calculator__accordion_title"}>
+                                        <p>Leave a comment </p><Icon name='chevron right' />
+                                    </Accordion.Title>
+                                    <Accordion.Content active={this.state.activeIndex === 0} className={"calculator__accordion_content"}>
+                                        <Form as={"div"}>
+                                            <TextArea
+                                                className={"calculator__comments"}
+                                                autoHeight
+                                                placeholder='Leave comment'
+                                                onChange={this.handleChangeComments}
+                                                value={comments}
+                                            />
+                                        </Form>
+                                    </Accordion.Content>
+                                </Accordion>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row columns={1}>

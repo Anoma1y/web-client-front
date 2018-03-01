@@ -418,6 +418,16 @@ $header-identification-component: #363E71 !important
   color: rgba(147, 147, 147, 1) !important
   text-align: left !important
   line-height: 20px !important
+.calculator__accordion
+  box-shadow: none !important
+  .active
+    i
+      transform: rotate(90deg) !important
+  &_title
+    display: flex !important
+    font-family: $font-robot
+    font-size: 14px !important
+    justify-content: space-between !important
 
 .calculator__comments
   font-family: $font-robot
@@ -427,7 +437,7 @@ $header-identification-component: #363E71 !important
   border-radius: 3px !important
   height: 90px !important
   color:  rgba(0, 0, 0, 1) !important
-  border-color: rgba(147, 147, 147, 1) !important
+  border: 1px solid rgba(147, 147, 147, 1) !important
   +placeholder
     color: rgba(147, 147, 147, 1) !important
 

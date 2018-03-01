@@ -483,7 +483,7 @@ class LegalEntity extends Component {
                 </Grid.Row>
 
                 <Grid.Row>
-                    <Grid.Column width={4} floated={"right"}>
+                    <Grid.Column width={16} floated={"right"}>
                         <Button
                             className={"beneficial_btn"}
                             onClick={this.handleAddBeneficial}
