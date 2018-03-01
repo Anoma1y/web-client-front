@@ -404,14 +404,14 @@ class Calculator extends Component {
                                                 <input
                                                     className={"input__currency populated"}
                                                     type={"text"}
-                                                    placeholder={"TCT"}
+                                                    placeholder={"TSR"}
                                                     value={suffixText.suffixToken ? this.separationValue(tokenValue) : tokenValue}
                                                     onChange={this.handleToken}
                                                     onBlur={this.handleBlur}
                                                     onFocus={this.handleFocus}
                                                     ref={(input) => {this.inputToken = input}}
                                                 />
-                                                <span>TCT</span>
+                                                <span>TSR</span>
                                             </label>
                                         </Grid.Column>
                                         <Grid.Column width={8} className={"auth_input"}>

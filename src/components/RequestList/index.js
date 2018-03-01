@@ -37,7 +37,7 @@ class RequestList extends Component {
                 <Card.Description key={index}>
                     <RequestItem
                         sum={`${item.amount} ${item.currency}`}
-                        amount={`- TCT`}
+                        amount={`- TSR`}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}
