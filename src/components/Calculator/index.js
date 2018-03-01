@@ -252,6 +252,9 @@ class Calculator extends Component {
         if(!value.match(checkNumber)) {
             return;
         }
+        if (value.length >= 25) {
+            return;
+        }
         this.changeState(this.calcToken(value));
     }
 
@@ -275,6 +278,9 @@ class Calculator extends Component {
             checkNumber = /^\d*(?:\.\d{0,4})?$/g;
         }
         if(!value.match(checkNumber)) {
+            return;
+        }
+        if (value.length >= 25) {
             return;
         }
         this.changeState(this.calcCurrency(value));
@@ -427,7 +433,7 @@ class Calculator extends Component {
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns={1} only={"computer"} style={{paddingTop: 0}}>
+                        <Grid.Row columns={1} only={"computer"} style={{paddingTop: "10px"}}>
                             <Grid.Column>
                                 <InputSlider
                                     maximumBonusToken={bonus[bonus.length - 1]["limit"]}
@@ -437,7 +443,7 @@ class Calculator extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"calculator__bonus"}>
-                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={6} floated={"right"}>
+                            <Grid.Column widescreen={6} computer={8} tablet={12} mobile={16} floated={"right"}>
                                 {
                                     isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
                                                     <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
@@ -447,6 +453,7 @@ class Calculator extends Component {
                                 }
                             </Grid.Column>
                         </Grid.Row>
+                        {isMaximum ? <Divider/> : null}
                         <Grid.Row>
                             <Grid.Column>
                                 <Grid className={"calculator__paymount"}>

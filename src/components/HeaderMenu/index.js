@@ -49,7 +49,7 @@ class HeaderMenu extends Component {
                                     <div className={"right__menu menu_login"}>
                                         <div className={"right__menu_item"}>
                                             <Link to={"/dashboard/settings"} >
-                                                {"dlafjkfjkadklfjasdfjasdf@mgmail.com"}
+                                                {email}
                                             </Link>
                                         </div>
 

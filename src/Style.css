@@ -323,7 +323,8 @@
 
 .calculator__paymount {
   font-family: "Roboto", sans-serif !important;
-  font-weight: 500 !important; }
+  font-weight: 500 !important;
+  overflow: hidden !important; }
   .calculator__paymount_info:not(.calculator__paymount_amount) {
     margin-top: -15px !important; }
   .calculator__paymount_divider {
@@ -358,6 +359,8 @@
   -ms-flex-align: center;
   align-items: center;
   font-family: "Roboto", sans-serif !important;
+  justify-content: flex-end !important;
+  margin-right: 15px !important;
   font-weight: 500 !important;
   font-size: 14px !important; }
   .bonus__maximum i {
