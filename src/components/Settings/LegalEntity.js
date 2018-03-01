@@ -3,6 +3,58 @@ import { Grid, Select, Button, Divider } from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
 class LegalEntity extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            Name: false,
+            Addres: false,
+            Country: false,
+            Dateofbirth: false,
+            Phone: false,
+            Surname: false,
+            City: false,
+            Zip: false,
+            Email: false,
+            companyCompanyName: false,
+            companyTaxIDnumber: false,
+            companyTaxrezidencecountry: false,
+            companyCity: false,
+            companyZip: false,
+            companyLegaladdress: false,
+            companyActualbusinessplaceaddress: false,
+            companyLinktopubliccompanyregister: false,
+            companyEmail: false,
+            companyPhone: false,
+            companyDescriptioncompanydoes: false,
+            companyWebsites: false,
+
+
+
+
+        }
+    }
+    handleName = (event, {value}) => value.length > 0 ? this.setState({Name: true}) : this.setState({Name: false})
+    handleAddres = (event, {value}) => value.length > 0 ? this.setState({Addres: true}) : this.setState({Addres: false})
+    handleCountry = (event, {value}) => value.length > 0 ? this.setState({Country: true}) : this.setState({Country: false})
+    handleDateofbirth = (event, {value}) => value.length > 0 ? this.setState({Dateofbirth: true}) : this.setState({Dateofbirth: false})
+    handlePhone = (event, {value}) => value.length > 0 ? this.setState({Phone: true}) : this.setState({Phone: false})
+    handleSurname = (event, {value}) => value.length > 0 ? this.setState({Surname: true}) : this.setState({Surname: false})
+    handleCity = (event, {value}) => value.length > 0 ? this.setState({City: true}) : this.setState({City: false})
+    handleZip = (event, {value}) => value.length > 0 ? this.setState({Zip: true}) : this.setState({Zip: false})
+    handleEmail = (event, {value}) => value.length > 0 ? this.setState({Email: true}) : this.setState({Email: false})
+    handleCompanyCompanyName = (event, {value}) => value.length > 0 ? this.setState({companyCompanyName: true}) : this.setState({companyCompanyName: false})
+    handleCompanyTaxIDnumber = (event, {value}) => value.length > 0 ? this.setState({companyTaxIDnumber: true}) : this.setState({companyTaxIDnumber: false})
+    handleCompanyTaxrezidencecountry = (event, {value}) => value.length > 0 ? this.setState({companyTaxrezidencecountry: true}) : this.setState({companyTaxrezidencecountry: false})
+    handleCompanyCity = (event, {value}) => value.length > 0 ? this.setState({companyCity: true}) : this.setState({companyCity: false})
+    handleCompanyZip = (event, {value}) => value.length > 0 ? this.setState({companyZip: true}) : this.setState({companyZip: false})
+    handleCompanyLegaladdress = (event, {value}) => value.length > 0 ? this.setState({companyLegaladdress: true}) : this.setState({companyLegaladdress: false})
+    handleCompanyActualbusinessplaceaddress = (event, {value}) => value.length > 0 ? this.setState({companyActualbusinessplaceaddress: true}) : this.setState({companyActualbusinessplaceaddress: false})
+    handleCompanyLinktopubliccompanyregister = (event, {value}) => value.length > 0 ? this.setState({companyLinktopubliccompanyregister: true}) : this.setState({companyLinktopubliccompanyregister: false})
+    handleCompanyEmail = (event, {value}) => value.length > 0 ? this.setState({companyEmail: true}) : this.setState({companyEmail: false})
+    handleCompanyPhone = (event, {value}) => value.length > 0 ? this.setState({companyPhone: true}) : this.setState({companyPhone: false})
+    handleCompanyDescriptioncompanydoes = (event, {value}) => value.length > 0 ? this.setState({companyDescriptioncompanydoes: true}) : this.setState({companyDescriptioncompanydoes: false})
+    handleCompanyWebsites = (event, {value}) => value.length > 0 ? this.setState({companyWebsites: true}) : this.setState({companyWebsites: false})
+
     render() {
         const certifyOption = [
             {key: "1", value: "1", text: "Proceeds from commercial activity"},
@@ -23,6 +75,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"Name"}
+                                onChange={this.handleName}
+                                className={this.state.Name ? "populated" : ""}
                             />
                             <span>Name</span>
                         </label>
@@ -30,6 +84,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"Addres"}
+                                onChange={this.handleAddres}
+                                className={this.state.Addres ? "populated" : ""}
                             />
                             <span>Addres</span>
                         </label>
@@ -37,6 +93,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"Country"}
+                                onChange={this.handleCountry}
+                                className={this.state.Country ? "populated" : ""}
                             />
                             <span>Country</span>
                         </label>
@@ -44,6 +102,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"Date of birth"}
+                                onChange={this.handleDateofbirth}
+                                className={this.state.Dateofbirth ? "populated" : ""}
                             />
                             <span>Date of birth</span>
                         </label>
@@ -51,6 +111,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"Phone"}
+                                onChange={this.handlePhone}
+                                className={this.state.Phone ? "populated" : ""}
                             />
                             <span>Phone</span>
                         </label>
@@ -60,6 +122,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"Surname"}
+                                onChange={this.handleSurname}
+                                className={this.state.Surname ? "populated" : ""}
                             />
                             <span>Surname</span>
                         </label>
@@ -67,6 +131,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"City"}
+                                onChange={this.handleCity}
+                                className={this.state.City ? "populated" : ""}
                             />
                             <span>City</span>
                         </label>
@@ -74,6 +140,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"Zip"}
+                                onChange={this.handleZip}
+                                className={this.state.Zip ? "populated" : ""}
                             />
                             <span>Zip</span>
                         </label>
@@ -81,6 +149,8 @@ class LegalEntity extends Component {
                             <input
                                 type="text"
                                 placeholder={"E-mail"}
+                                onChange={this.handleEmail}
+                                className={this.state.Email ? "populated" : ""}
                             />
                             <span>E-mail</span>
                         </label>
@@ -149,6 +219,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Company Name"}
+                                            className={this.state.companyCompanyName ? "populated" : ""}
+                                            onChange={this.handleCompanyCompanyName}
                                         />
                                         <span>Company Name</span>
                                     </label>
@@ -161,6 +233,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Tax ID number"}
+                                            className={this.state.companyTaxIDnumber ? "populated" : ""}
+                                            onChange={this.handleCompanyTaxIDnumber}
                                         />
                                         <span>Tax ID number</span>
                                     </label>
@@ -170,6 +244,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Tax rezidence country"}
+                                            className={this.state.companyTaxrezidencecountry ? "populated" : ""}
+                                            onChange={this.handleCompanyTaxrezidencecountry}
                                         />
                                         <span>Tax rezidence country</span>
                                     </label>
@@ -182,6 +258,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"City"}
+                                            className={this.state.companyCity ? "populated" : ""}
+                                            onChange={this.handleCompanyCity}
                                         />
                                         <span>City</span>
                                     </label>
@@ -191,6 +269,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Zip"}
+                                            className={this.state.companyZip ? "populated" : ""}
+                                            onChange={this.handleCompanyZip}
                                         />
                                         <span>Zip</span>
                                     </label>
@@ -203,6 +283,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Legal address"}
+                                            className={this.state.companyLegaladdress ? "populated" : ""}
+                                            onChange={this.handleCompanyLegaladdress}
                                         />
                                         <span>Legal address</span>
                                     </label>
@@ -215,6 +297,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Actual business place address"}
+                                            className={this.state.companyActualbusinessplaceaddress ? "populated" : ""}
+                                            onChange={this.handleCompanyActualbusinessplaceaddress}
                                         />
                                         <span>Actual business place address</span>
                                     </label>
@@ -227,6 +311,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Link to public company register (Business Register)"}
+                                            className={this.state.companyLinktopubliccompanyregister ? "populated" : ""}
+                                            onChange={this.handleCompanyLinktopubliccompanyregister}
                                         />
                                         <span>Link to public company register (Business Register)</span>
                                     </label>
@@ -239,6 +325,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"E-mail"}
+                                            className={this.state.companyEmail ? "populated" : ""}
+                                            onChange={this.handleCompanyEmail}
                                         />
                                         <span>E-mail</span>
                                     </label>
@@ -248,6 +336,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Phone"}
+                                            className={this.state.companyPhone ? "populated" : ""}
+                                            onChange={this.handleCompanyPhone}
                                         />
                                         <span>Phone</span>
                                     </label>
@@ -260,6 +350,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Description of what your company does"}
+                                            className={this.state.companyDescriptioncompanydoes ? "populated" : ""}
+                                            onChange={this.handleCompanyDescriptioncompanydoes}
                                         />
                                         <span>Description of what your company does</span>
                                     </label>
@@ -272,6 +364,8 @@ class LegalEntity extends Component {
                                         <input
                                             type="text"
                                             placeholder={"Websites"}
+                                            className={this.state.companyWebsites ? "populated" : ""}
+                                            onChange={this.handleCompanyWebsites}
                                         />
                                         <span>Websites</span>
                                     </label>
