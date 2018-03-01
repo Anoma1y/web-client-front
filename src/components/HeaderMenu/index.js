@@ -37,7 +37,7 @@ class HeaderMenu extends Component {
                             <Grid.Column width={1}>
                             </Grid.Column>
                             <Grid.Column floated={"left"} className={"logo_content"} width={4}>
-                                <Menu className={"menu__color"}>
+                                <Menu className={"menu__color menu__logo"}>
                                     <Menu.Item>
                                         <Link to={"/dashboard/"}>
                                             <img src={Logo} alt="Logo" />
@@ -46,20 +46,19 @@ class HeaderMenu extends Component {
                                 </Menu>
                             </Grid.Column>
                             <Grid.Column floated={"right"} width={6}>
-                                {localStorage.jwt ?
-                                    <Menu className={"menu__color user__menu"}>
-                                        <Menu.Item className={"user__menu_item user__menu-email"}>
+                                    <div className={"right__menu"}>
+                                        <div className={"right__menu_item"}>
                                             <Link to={"/dashboard/settings"} >
-                                                {email}
+                                                {"dlafjkfjkadklfjasdfjasdf@mgmail.com"}
                                             </Link>
-                                        </Menu.Item>
-                                        <Menu.Item className={"user__menu_item user__menu-logout"}>
+                                        </div>
+
+                                        <div className={"right__menu_item logout"}>
                                             <Link to={"/logout"} >
                                                 Log out
                                             </Link>
-                                        </Menu.Item>
-                                    </Menu>
-                                : null}
+                                        </div>
+                                    </div>
                             </Grid.Column>
                             <Grid.Column width={1}>
                             </Grid.Column>

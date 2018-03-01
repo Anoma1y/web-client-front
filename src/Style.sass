@@ -39,7 +39,7 @@ $header-identification-component: #363E71 !important
     @content
 .logo_content
   img
-    width: 100px !important
+    width: 170px !important
 #root
   height: 100vh
 .auth__container
@@ -52,6 +52,58 @@ $header-identification-component: #363E71 !important
 .header__menu
   background-color: $header-menu-background-color
   border-radius: 0 !important
+.menu__logo
+  height: 100% !important
+
+.right__menu
+  display: flex
+  height: 100%
+  min-height: 48px
+  align-items: center
+  justify-content: flex-end
+  .logout
+    text-transform: uppercase !important
+    position: relative !important
+    &:after
+      content: ""
+      display: block
+      position: absolute
+      top: 15px
+      right: 142%
+      height: 32px
+      width: 1px
+      background-color: rgba(147, 147, 147, 1)
+  &_item
+    font-family: $font-robot
+    font-size: 14px !important
+    font-weight: 500 !important
+    text-align: center !important
+    justify-content: center !important
+    line-height: 18px !important
+    padding: 0 !important
+    position: relative
+    height: 64px !important
+    margin-right: 50px !important
+    cursor: pointer
+    &:hover
+      & a
+        color: $white-color
+    &:last-child
+      margin-right: 0 !important
+    a
+      display: -webkit-box !important
+      display: -ms-flexbox !important
+      display: flex !important
+      -webkit-box-pack: center
+      -ms-flex-pack: center
+      justify-content: center
+      -webkit-box-align: center
+      -ms-flex-align: center
+      align-items: center
+      width: 100% !important
+      height: 100% !important
+      color: rgba(147, 147, 147, 1) !important
+
 .grid__menu
   width: 100% !important
 .menu__title
