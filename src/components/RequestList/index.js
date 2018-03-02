@@ -11,7 +11,6 @@ import RequestItem from './RequestItem'
 class RequestList extends Component {
 
     componentDidMount() {
-        // const { jwt: token } = this.props.user;
         this.props.handleRequestItem(localStorage.jwt);
     }
 
@@ -19,7 +18,7 @@ class RequestList extends Component {
         const { items: request } = this.props.requests;
         return request.map((item, index) => {
             let btnOptions = null;
-
+            const currency = item.currency.split("/");
             switch (item.status) {
                 case 0:
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
@@ -33,11 +32,21 @@ class RequestList extends Component {
                 default:
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
+            let amountFor;
+            if (currency[1] === "ETH") {
+                amountFor = item.amount * 0.001
+            } else if (currency[1] === "BTC") {
+                amountFor = item.amount * 0.0787655
+            } else if (currency[1] === "USD") {
+                amountFor = item.amount * 1
+            } else if (currency[1] === "TSR") {
+                amountFor = item.amount * 0.001;
+            }
             return (
                 <Card.Description key={index}>
                     <RequestItem
-                        sum={`${item.amount} ${item.currency}`}
-                        amount={`- TSR`}
+                        sum={`${item.amount} ${currency[0]}`}
+                        amount={`${amountFor} ${currency[1]}`}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}
