@@ -100,7 +100,7 @@ class BetaTest extends Component {
                                                      <Icon name={success ? "check circle outline" : "warning circle"} />
                                                  </div>
                                                  <div className={"modal__success_text betatest__modal_text"}>
-                                                     <span>{success ? "Заявка успешно отправлена" : "Please choose at least one OS platform"}</span>
+                                                     <span>{success ? "Your application has been sent" : "Please choose at least one OS platform"}</span>
                                                  </div>
                                                  <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                                      <Button

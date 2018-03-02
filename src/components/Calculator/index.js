@@ -26,6 +26,14 @@ import { InputSlider } from './CalculatorSlider';
 
 class Calculator extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { 
+            activeIndex: -1 
+        }
+
+    }
+    
     //Метод для расчета валюты
     //Принимает 2 параметра: value - текущее значение выбранной валюты
     //type - тип валюты для расчета
@@ -371,9 +379,10 @@ class Calculator extends Component {
         const { currencyValue, transferData, comments } = this.props.calculator;
         const { handleApplication } = this.props;
         const { jwt:token } = this.props.user;
-        handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), comments ,token});
+        console.log(currencyValue, transferData, comments);
+        // handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), comments ,token});
     }
-    state = { activeIndex: -1 }
+    
 
     handleAccordionBtn = (e, titleProps) => {
         const { index } = titleProps
@@ -382,6 +391,7 @@ class Calculator extends Component {
 
         this.setState({ activeIndex: newIndex })
     }
+    
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const {
