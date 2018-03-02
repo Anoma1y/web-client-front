@@ -9,6 +9,7 @@ import {
     changeModalSuccessful,
     changeOrder,
     handleFormOrder,
+    changeModalOpen,
     handleChangeOrder,
     handleApplication
 } from 'actions/calculator';
@@ -376,14 +377,16 @@ class Calculator extends Component {
     }
 
     handleCloseModal = () => {
-        const { changeModalSuccessful } = this.props;
+        const { changeModalOpen } = this.props;
+        changeModalOpen(false);
+    }
+    handleCloseModalSuccess = () => {
+        const { changeModalSuccessful, changeModalOpen } = this.props;
+        changeModalOpen(false);
         changeModalSuccessful(false);
     }
-
     handleSubmitApplication = () => {
-        const { currencyValue, transferData, comments, order } = this.props.calculator;
-        const { handleApplication, changeModalSuccessful, changeOrder, handleFormOrder } = this.props;
-        const { jwt:token } = this.props.user;
+        const { handleFormOrder } = this.props;
         handleFormOrder();
     }
     handleSendApplication = () => {
@@ -429,8 +432,10 @@ class Calculator extends Component {
             bonus,
             currentBonus,
             comments,
+            modalOpen,
             modalSuccessful,
-            order
+            order,
+            querySuccess
         } = this.props.calculator;
         return (
             <Card fluid className={"component__calculator component__main"}>
@@ -571,126 +576,158 @@ class Calculator extends Component {
                                                     Apply
                                                 </Button>
                                                 }
-                                       open={modalSuccessful}
+                                       open={modalOpen}
                                        size={"tiny"}
                                        onClose={this.handleCloseModal}
                                 >
                                     <Modal.Content className={"modal__success"}>
-                                        <Modal.Description>
-                                            {currencyValue === "ETH" ?
-                                                <div className={"calculator__order"}>
-                                                    <p className={"calculator__order_header"}>Your order</p>
-                                                    <Grid>
-                                                        <Grid.Row className={"calculator__order_fixcurrency"}>
-                                                            <Grid.Column>
-                                                                <Radio
-                                                                    label={"TSR"}
-                                                                    name='ETH_GROUP'
-                                                                    value={"TSR"}
-                                                                    checked={order.fixCurrency === "TSR"}
-                                                                    onChange={this.handleChangeOrderCurrency}
-                                                                />
-                                                            </Grid.Column>
-                                                            <Grid.Column>
-                                                                <Radio
-                                                                    label={"ETH"}
-                                                                    name='ETH_GROUP'
-                                                                    value={"ETH"}
-                                                                    checked={order.fixCurrency === "ETH"}
-                                                                    onChange={this.handleChangeOrderCurrency}
-                                                                />
-                                                            </Grid.Column>
-                                                        </Grid.Row>
-                                                    </Grid>
-                                                </div> :
-                                                <div className={"calculator__order"}>
-                                                    <p className={"calculator__order_header"}>Please choose whether you want to set the number of tokens or the purchase amount in</p>
-                                                    <Grid>
-                                                        <Grid.Row className={"calculator__order_fixcurrency"}>
-                                                            <Grid.Column>
-                                                                <Radio
-                                                                    label={"TSR"}
-                                                                    name='BTC_USD_GROUP'
-                                                                    value={"TSR"}
-                                                                    checked={order.fixCurrency === "TSR"}
-                                                                    onChange={this.handleChangeOrderCurrency}
-                                                                />
-                                                            </Grid.Column>
-                                                        {
-                                                            currencyValue === "USD" ?
-                                                                <Grid.Column>
-                                                                    <Radio
-                                                                        label={"USD"}
-                                                                        name='BTC_USD_GROUP'
-                                                                        value={"USD"}
-                                                                        checked={order.fixCurrency === "USD"}
-                                                                        onChange={this.handleChangeOrderCurrency}
-                                                                    />
-                                                                </Grid.Column>
-                                                            : currencyValue === "BTC" ?
-                                                                <Grid.Column>
-                                                                    <Radio
-                                                                        label={"BTC"}
-                                                                        name='BTC_USD_GROUP'
-                                                                        value={"BTC"}
-                                                                        checked={order.fixCurrency === "BTC"}
-                                                                        onChange={this.handleChangeOrderCurrency}
-                                                                    />
-                                                                </Grid.Column>
-                                                             : null
-                                                        }
-                                                        </Grid.Row>
-                                                    </Grid>
-                                                    <Grid>
-                                                        <Grid.Row className={"calculator__order_paymount"}>
-                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                                                You ordered
-                                                            </Grid.Column>
-                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                                                {this.separationValue(tokenValue)} tokens
-                                                            </Grid.Column>
-                                                        </Grid.Row>
-                                                        <Grid.Row className={"calculator__order_paymount"}>
-                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                                                Bonus
-                                                            </Grid.Column>
-                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                                                {currentBonus ? `${currentBonus} %` : "0"}
-                                                            </Grid.Column>
-                                                        </Grid.Row>
-                                                        <Grid.Row className={"calculator__order_paymount"}>
-                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                                                Total tokens
-                                                            </Grid.Column>
-                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                                                {this.separationValue(transferData.TSR)} tokens
-                                                            </Grid.Column>
-                                                        </Grid.Row>
-                                                        <Divider className={"calculator__paymount_divider"}/>
-                                                        <Grid.Row className={"calculator__order_paymount calculator__order_amount"}>
-
-                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                                                Payment amount
-                                                            </Grid.Column>
-                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                                                {this.separationValue(transferData["TSR"])} tokens
-                                                            </Grid.Column>
-                                                        </Grid.Row>
-                                                    </Grid>
-                                                    <p className={"calculator__order_text"}>
-                                                        Please choose whether you want to set the number of tokens or the purchase amount in
-                                                        Please be aware that the number of tokens bought will be calculated after we receive the funds, not at the moment theywere sent. The final amount can change due to exchange rate fluctuations.
-                                                    </p>
+                                        {modalSuccessful ?
+                                            <Modal.Description>
+                                                <div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
+                                                    <Icon name={querySuccess ? "check circle outline" : "warning circle"} />
                                                 </div>
-                                            }
-                                            <div className={"modal__success_btn"}>
-                                                <Button
+                                                <div className={"modal__success_text"}>
+                                                    <span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>
+                                                </div>
+                                                <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
+                                                    <Button
                                                     className={"dashboard__submit"}
-                                                    onClick={this.handleSendApplication}
-                                                >Apply
-                                                </Button>
-                                            </div>
-                                        </Modal.Description>
+                                                    onClick={this.handleCloseModalSuccess}
+                                                    >OK
+                                                    </Button>
+                                                </div>
+                                            </Modal.Description> :
+                                            <Modal.Description>
+                                                {currencyValue === "ETH" ?
+                                                    <div className={"calculator__order"}>
+                                                        <p className={"calculator__order_header"}>Your order</p>
+                                                        <Grid>
+                                                            <Grid.Row className={"calculator__order_fixcurrency"}>
+                                                                <Grid.Column>
+                                                                    <Radio
+                                                                        label={"TSR"}
+                                                                        name='ETH_GROUP'
+                                                                        value={"TSR"}
+                                                                        checked={order.fixCurrency === "TSR"}
+                                                                        onChange={this.handleChangeOrderCurrency}
+                                                                    />
+                                                                </Grid.Column>
+                                                                <Grid.Column>
+                                                                    <Radio
+                                                                        label={"ETH"}
+                                                                        name='ETH_GROUP'
+                                                                        value={"ETH"}
+                                                                        checked={order.fixCurrency === "ETH"}
+                                                                        onChange={this.handleChangeOrderCurrency}
+                                                                    />
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                        </Grid>
+                                                    </div> :
+                                                    <div className={"calculator__order"}>
+                                                        <p className={"calculator__order_header"}>Please choose whether
+                                                            you want to set the number of tokens or the purchase amount
+                                                            in</p>
+                                                        <Grid>
+                                                            <Grid.Row className={"calculator__order_fixcurrency"}>
+                                                                <Grid.Column>
+                                                                    <Radio
+                                                                        label={"TSR"}
+                                                                        name='BTC_USD_GROUP'
+                                                                        value={"TSR"}
+                                                                        checked={order.fixCurrency === "TSR"}
+                                                                        onChange={this.handleChangeOrderCurrency}
+                                                                    />
+                                                                </Grid.Column>
+                                                                {
+                                                                    currencyValue === "USD" ?
+                                                                        <Grid.Column>
+                                                                            <Radio
+                                                                                label={"USD"}
+                                                                                name='BTC_USD_GROUP'
+                                                                                value={"USD"}
+                                                                                checked={order.fixCurrency === "USD"}
+                                                                                onChange={this.handleChangeOrderCurrency}
+                                                                            />
+                                                                        </Grid.Column>
+                                                                        : currencyValue === "BTC" ?
+                                                                        <Grid.Column>
+                                                                            <Radio
+                                                                                label={"BTC"}
+                                                                                name='BTC_USD_GROUP'
+                                                                                value={"BTC"}
+                                                                                checked={order.fixCurrency === "BTC"}
+                                                                                onChange={this.handleChangeOrderCurrency}
+                                                                            />
+                                                                        </Grid.Column>
+                                                                        : null
+                                                                }
+                                                            </Grid.Row>
+                                                        </Grid>
+                                                        <Grid>
+                                                            <Grid.Row className={"calculator__order_paymount"}>
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    You ordered
+                                                                </Grid.Column>
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8}>
+                                                                    {this.separationValue(tokenValue)} tokens
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                            <Grid.Row className={"calculator__order_paymount"}>
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    Bonus
+                                                                </Grid.Column>
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8}>
+                                                                    {currentBonus ? `${currentBonus} %` : "0"}
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                            <Grid.Row className={"calculator__order_paymount"}>
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    Total tokens
+                                                                </Grid.Column>
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8}>
+                                                                    {this.separationValue(transferData.TSR)} tokens
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                            <Divider className={"calculator__paymount_divider"}/>
+                                                            <Grid.Row
+                                                                className={"calculator__order_paymount calculator__order_amount"}>
+
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    Payment amount
+                                                                </Grid.Column>
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8}>
+                                                                    {this.separationValue(transferData["TSR"])} tokens
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                        </Grid>
+                                                        <p className={"calculator__order_text"}>
+                                                            Please choose whether you want to set the number of tokens
+                                                            or the purchase amount in
+                                                            Please be aware that the number of tokens bought will be
+                                                            calculated after we receive the funds, not at the moment
+                                                            theywere sent. The final amount can change due to exchange
+                                                            rate fluctuations.
+                                                        </p>
+                                                    </div>
+                                                }
+                                                <div className={"modal__success_btn"}>
+                                                    <Button
+                                                        className={"dashboard__submit"}
+                                                        onClick={this.handleSendApplication}
+                                                    >Apply
+                                                    </Button>
+                                                </div>
+                                            </Modal.Description>
+                                        }
                                     </Modal.Content>
                                 </Modal>
                             </Grid.Column>
@@ -710,7 +747,23 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     changeOrder,
     initializingTKN,
     changeModalSuccessful,
+    changeModalOpen,
     handleApplication,
     handleChangeOrder,
     handleFormOrder,
 })(Calculator);
+{/*<Modal.Description>*/}
+{/*<div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>*/}
+{/*<Icon name={querySuccess ? "check circle outline" : "warning circle"} />*/}
+{/*</div>*/}
+{/*<div className={"modal__success_text"}>*/}
+{/*<span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>*/}
+{/*</div>*/}
+{/*<div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>*/}
+{/*<Button*/}
+{/*className={"dashboard__submit"}*/}
+{/*onClick={this.handleCloseModalSuccess}*/}
+{/*>OK*/}
+{/*</Button>*/}
+{/*</div>*/}
+{/*</Modal.Description>*/}

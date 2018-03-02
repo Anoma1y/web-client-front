@@ -1,4 +1,4 @@
-import { changeModalSuccessful } from './changeModalSuccessful';
+import { changeModalOpen } from './changeModalOpen';
 import { changeOrder } from './changeOrder';
 
 export const handleFormOrder = () => {
@@ -10,6 +10,6 @@ export const handleFormOrder = () => {
             amount: transferData["TSR"]
         }
         dispatch(changeOrder(newOrder));
-        dispatch(changeModalSuccessful(true));
+        dispatch(changeModalOpen(true));
     }
 };

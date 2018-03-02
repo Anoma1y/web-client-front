@@ -29,6 +29,7 @@ const INITIAL_STATE = {
     currencyValue: 'ETH',
     sumValue: 0,
     tokenValue: 10000,
+    modalOpen: false,
     modalSuccessful: false,
     querySuccess: null,
     suffixText: {
@@ -90,6 +91,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, currentBonus: action.payload };
         case C.CHANGE_ORDER:
             return { ...state, order: action.payload };
+        case C.CHANGE_MODAL_OPEN:
+            return { ...state, modalOpen: action.payload };
         default:
             return state;
     }

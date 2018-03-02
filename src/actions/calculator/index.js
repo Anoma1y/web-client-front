@@ -8,6 +8,7 @@ export { initializingTKN } from './initializingTKN';
 export { handleApplication } from './handleApplication';
 export { changeModalSuccessful } from './changeModalSuccessful';
 export { changeQuerySuccessful } from './changeQuerySuccessful';
+export { changeModalOpen } from './changeModalOpen';
 export { changeCurrentBonus } from './changeCurrentBonus';
 export { changeOrder } from './changeOrder';
 export { handleFormOrder } from './handleFormOrder';

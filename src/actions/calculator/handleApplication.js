@@ -3,7 +3,8 @@ import { addRequestItem } from 'actions/request/addRequestItem'
 import {
     changeModalSuccessful,
     changeQuerySuccessful,
-    changeComments
+    changeComments,
+    changeModalOpen
 } from 'actions/calculator';
 
 export const handleApplication = () => {
@@ -19,6 +20,7 @@ export const handleApplication = () => {
             dispatch(changeModalSuccessful(true));
             dispatch(changeQuerySuccessful(true));
             dispatch(addRequestItem([ data.data, ...requests.items ]));
+            // dispatch(changeModalOpen(false));
             dispatch(changeComments(""));
         }).catch(() => {
             dispatch(changeModalSuccessful(true));
