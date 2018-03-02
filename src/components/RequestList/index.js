@@ -36,7 +36,7 @@ class RequestList extends Component {
             if (currency[0] === "ETH") {
                 amountFor = item.amount * 0.001
             } else if (currency[0] === "BTC") {
-                amountFor = item.amount / 0.0787655
+                amountFor = item.amount / (0.0787655 * 0.001)
             } else if (currency[0] === "USD") {
                 amountFor = (item.amount / 0.0787655) * 0.1
             } else if (currency[0] === "TSR") {
