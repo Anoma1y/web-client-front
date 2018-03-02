@@ -378,14 +378,10 @@ class Calculator extends Component {
     }
 
     handleCloseModal = () => {
-        const { changeModalOpen } = this.props;
-        changeModalOpen(false);
-    }
-    handleCloseModalSuccess = () => {
         const { handleCloseModal } = this.props;
         handleCloseModal()
-
     }
+
     handleSubmitApplication = () => {
         const { handleFormOrder } = this.props;
         handleFormOrder();
@@ -593,7 +589,7 @@ class Calculator extends Component {
                                                 <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                                     <Button
                                                     className={"dashboard__submit"}
-                                                    onClick={this.handleCloseModalSuccess}
+                                                    onClick={this.handleCloseModal}
                                                     >OK
                                                     </Button>
                                                 </div>
@@ -603,8 +599,8 @@ class Calculator extends Component {
                                                     <div className={"calculator__order"}>
                                                         <p className={"calculator__order_header"}>Your order</p>
                                                         <Grid>
-                                                            <Grid.Row className={"calculator__order_fixcurrency"}>
-                                                                <Grid.Column>
+                                                            <Grid.Row className={"calculator__order_fixcurrency"} centered>
+                                                                <Grid.Column width={4} className={"rrright"}>
                                                                     <Radio
                                                                         label={"TSR"}
                                                                         name='ETH_GROUP'
@@ -613,7 +609,7 @@ class Calculator extends Component {
                                                                         onChange={this.handleChangeOrderCurrency}
                                                                     />
                                                                 </Grid.Column>
-                                                                <Grid.Column>
+                                                                <Grid.Column width={4} className={"llleft"}>
                                                                     <Radio
                                                                         label={"ETH"}
                                                                         name='ETH_GROUP'
@@ -630,8 +626,8 @@ class Calculator extends Component {
                                                             you want to set the number of tokens or the purchase amount
                                                             in</p>
                                                         <Grid>
-                                                            <Grid.Row className={"calculator__order_fixcurrency"}>
-                                                                <Grid.Column>
+                                                            <Grid.Row className={"calculator__order_fixcurrency"} centered>
+                                                                <Grid.Column className={"rrright"} width={4}>
                                                                     <Radio
                                                                         label={"TSR"}
                                                                         name='BTC_USD_GROUP'
@@ -642,7 +638,7 @@ class Calculator extends Component {
                                                                 </Grid.Column>
                                                                 {
                                                                     currencyValue === "USD" ?
-                                                                        <Grid.Column>
+                                                                        <Grid.Column className={"llleft"} width={4}>
                                                                             <Radio
                                                                                 label={"USD"}
                                                                                 name='BTC_USD_GROUP'
@@ -652,7 +648,7 @@ class Calculator extends Component {
                                                                             />
                                                                         </Grid.Column>
                                                                         : currencyValue === "BTC" ?
-                                                                        <Grid.Column>
+                                                                        <Grid.Column className={"llleft"} width={4}>
                                                                             <Radio
                                                                                 label={"BTC"}
                                                                                 name='BTC_USD_GROUP'
@@ -665,8 +661,8 @@ class Calculator extends Component {
                                                                 }
                                                             </Grid.Row>
                                                         </Grid>
-                                                        <Grid>
-                                                            <Grid.Row className={"calculator__order_paymount"}>
+                                                        <Grid className={"calculator__order_paymount"}>
+                                                            <Grid.Row className={"order__paymount_item"}>
                                                                 <Grid.Column widescreen={6} computer={6} tablet={6}
                                                                              mobile={8}>
                                                                     You ordered
@@ -676,7 +672,7 @@ class Calculator extends Component {
                                                                     {this.separationValue(tokenValue)} tokens
                                                                 </Grid.Column>
                                                             </Grid.Row>
-                                                            <Grid.Row className={"calculator__order_paymount"}>
+                                                            <Grid.Row className={"order__paymount_item"}>
                                                                 <Grid.Column widescreen={6} computer={6} tablet={6}
                                                                              mobile={8}>
                                                                     Bonus
@@ -686,7 +682,7 @@ class Calculator extends Component {
                                                                     {currentBonus ? `${currentBonus} %` : "0"}
                                                                 </Grid.Column>
                                                             </Grid.Row>
-                                                            <Grid.Row className={"calculator__order_paymount"}>
+                                                            <Grid.Row className={"order__paymount_item"}>
                                                                 <Grid.Column widescreen={6} computer={6} tablet={6}
                                                                              mobile={8}>
                                                                     Total tokens
@@ -698,14 +694,14 @@ class Calculator extends Component {
                                                             </Grid.Row>
                                                             <Divider className={"calculator__paymount_divider"}/>
                                                             <Grid.Row
-                                                                className={"calculator__order_paymount calculator__order_amount"}>
+                                                                className={"calculator__order_amount"}>
 
                                                                 <Grid.Column widescreen={6} computer={6} tablet={6}
                                                                              mobile={8}>
                                                                     Payment amount
                                                                 </Grid.Column>
                                                                 <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8}>
+                                                                             mobile={8} className={"order__strong"}>
                                                                     {this.separationValue(transferData["TSR"])} tokens
                                                                 </Grid.Column>
                                                             </Grid.Row>
@@ -724,6 +720,7 @@ class Calculator extends Component {
                                                     <Button
                                                         className={"dashboard__submit"}
                                                         onClick={this.handleSendApplication}
+                                                        floated={"right"}
                                                     >Apply
                                                     </Button>
                                                 </div>
