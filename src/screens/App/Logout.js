@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 class Logout extends Component {
     componentWillMount() {
         const TOKEN = this.props.user.jwt;
+        localStorage.removeItem("jwt");
         this.props.handleDeleteTokenUser(TOKEN);
     }
     render() {

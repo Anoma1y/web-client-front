@@ -22,7 +22,6 @@ import {
     Icon,
     Modal,
     Radio,
-    List,
     Divider,
     Form
 } from 'semantic-ui-react';
@@ -752,18 +751,3 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     handleChangeOrder,
     handleFormOrder,
 })(Calculator);
-{/*<Modal.Description>*/}
-{/*<div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>*/}
-{/*<Icon name={querySuccess ? "check circle outline" : "warning circle"} />*/}
-{/*</div>*/}
-{/*<div className={"modal__success_text"}>*/}
-{/*<span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>*/}
-{/*</div>*/}
-{/*<div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>*/}
-{/*<Button*/}
-{/*className={"dashboard__submit"}*/}
-{/*onClick={this.handleCloseModalSuccess}*/}
-{/*>OK*/}
-{/*</Button>*/}
-{/*</div>*/}
-{/*</Modal.Description>*/}
