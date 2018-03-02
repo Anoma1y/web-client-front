@@ -18,6 +18,7 @@ import {
     Icon,
     Modal,
     Radio,
+    List,
     Divider,
     Form
 } from 'semantic-ui-react';
@@ -408,6 +409,7 @@ class Calculator extends Component {
             modalSuccessful,
             querySuccess
         } = this.props.calculator;
+        const orderCurrency = "ETH"
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
@@ -553,31 +555,108 @@ class Calculator extends Component {
                                 >
                                     <Modal.Content className={"modal__success"}>
                                         <Modal.Description>
-                                            {/*<div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>*/}
-                                                {/*<Icon name={querySuccess ? "check circle outline" : "warning circle"} />*/}
-                                            {/*</div>*/}
-                                            {/*<div className={"modal__success_text"}>*/}
-                                                {/*<span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>*/}
-                                            {/*</div>*/}
-                                            <div>
-                                                {currencyValue === "ETH" ?
-                                                    <div>
-                                                        <h1>Your order</h1>
-                                                        <input type="radio"/>
-                                                        <input type="radio"/>
-                                                    </div> :
-                                                    <div>
-                                                        <h1>Please choose whether you want to set the number of tokens or the purchase amount in</h1>
-                                                        <input type="radio"/>
-                                                        <input type="radio"/>
+                                            {currencyValue === "ETH" ?
+                                                <div className={"calculator_order"}>
+                                                    <p className={"calculator_order_header"}>Your order</p>
+                                                    <List horizontal>
+                                                        <List.Item >
+                                                            <List.Icon
+                                                                name='radio'
+                                                                verticalAlign='middle'
+                                                                onClick={this.handleChangeOrderCurrency}
+                                                                className={orderCurrency === "TSR" ? "order__currency order__currency-active" : "order__currency"}
+                                                            />
+                                                            <List.Content className={orderCurrency === "TSR" ? "order__currency order__currency-active" : "order__currency"}>TSR</List.Content>
+                                                        </List.Item>
+                                                        <List.Item >
+                                                            <List.Icon
+                                                                name='radio'
+                                                                verticalAlign='middle'
+                                                                onClick={this.handleChangeOrderCurrency}
+                                                                className={orderCurrency === "ETH" ? "order__currency order__currency-active" : "order__currency"}
+                                                            />
+                                                            <List.Content className={orderCurrency === "ETH" ? "order__currency order__currency-active" : "order__currency"}>ETH</List.Content>
+                                                        </List.Item>
+                                                    </List>
+                                                </div> :
+                                                <div className={"calculator_order"}>
+                                                    <p className={"calculator_order_header"}>Please choose whether you want to set the number of tokens or the purchase amount in</p>
+                                                    <List horizontal>
+                                                        <List.Item >
+                                                            <List.Icon
+                                                                name='radio'
+                                                                verticalAlign='middle'
+                                                                onClick={this.handleChangeOrderCurrency}
+                                                                className={orderCurrency === "TSR" ? "order__currency order__currency-active" : "order__currency"}
+                                                            />
+                                                            <List.Content className={orderCurrency === "TSR" ? "order__currency order__currency-active" : "order__currency"}>TSR</List.Content>
+                                                        </List.Item>
+                                                        {
+                                                            currencyValue === "USD" ?
+                                                                <List.Item >
+                                                                    <List.Icon
+                                                                        name='radio'
+                                                                        verticalAlign='middle'
+                                                                        onClick={this.handleChangeOrderCurrency}
+                                                                        className={orderCurrency === "USD" ? "order__currency order__currency-active" : "order__currency"}
+                                                                    />
+                                                                    <List.Content className={orderCurrency === "USD" ? "order__currency order__currency-active" : "order__currency"}>USD</List.Content>
+                                                                </List.Item>
+                                                            : currencyValue === "BTC" ?
+                                                                <List.Item >
+                                                                    <List.Icon
+                                                                        name='radio'
+                                                                        verticalAlign='middle'
+                                                                        onClick={this.handleChangeOrderCurrency}
+                                                                        className={orderCurrency === "BTC" ? "order__currency order__currency-active" : "order__currency"}
+                                                                    />
+                                                                    <List.Content className={orderCurrency === "BTC" ? "order__currency order__currency-active" : "order__currency"}>BTC</List.Content>
+                                                                </List.Item> 
+                                                             : null
+                                                        }
+                                                    </List>
+                                                    <Grid>
+                                                        <Grid.Row className={"calculator__order_paymount"}>
+                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                                                You ordered
+                                                            </Grid.Column>
+                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                                                {this.separationValue(tokenValue)} tokens
+                                                            </Grid.Column>
+                                                        </Grid.Row>
+                                                        <Grid.Row className={"calculator__order_paymount"}>
+                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                                                Bonus
+                                                            </Grid.Column>
+                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                                                {currentBonus ? `${currentBonus} %` : "0"}
+                                                            </Grid.Column>
+                                                        </Grid.Row>
+                                                        <Grid.Row className={"calculator__order_paymount"}>
+                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                                                Total tokens
+                                                            </Grid.Column>
+                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                                                {this.separationValue(transferData.TKN)} tokens
+                                                            </Grid.Column>
+                                                        </Grid.Row>
+                                                        <Divider className={"calculator__paymount_divider"}/>
+                                                        <Grid.Row className={"calculator__order_paymount calculator__order_amount"}>
 
-                                                        <p>
-                                                            Please choose whether you want to set the number of tokens or the purchase amount in
-                                                            Please be aware that the number of tokens bought will be calculated after we receive the funds, not at the moment theywere sent. The final amount can change due to exchange rate fluctuations.
-                                                        </p>
-                                                    </div>
-                                                }
-                                            </div>
+                                                            <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
+                                                                Payment amount
+                                                            </Grid.Column>
+                                                            <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
+                                                                {this.separationValue(transferData[currencyValue])} {currencyValue}
+                                                            </Grid.Column>
+                                                        </Grid.Row>
+                                                    </Grid>
+                                                    <p className={"calculator__order_text"}>
+                                                        Please choose whether you want to set the number of tokens or the purchase amount in
+                                                        Please be aware that the number of tokens bought will be calculated after we receive the funds, not at the moment theywere sent. The final amount can change due to exchange rate fluctuations.
+                                                    </p>
+                                                </div>
+                                            }
                                             <div className={"modal__success_btn"}>
                                                 <Button
                                                     className={"dashboard__submit"}
