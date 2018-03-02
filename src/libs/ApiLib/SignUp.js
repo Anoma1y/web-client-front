@@ -1,18 +1,18 @@
 import axios from 'axios';
+import Config from 'libs/config';
 
 class SignUpLib {
-    static url = "http://159.89.10.197:4874/v1/";
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
     static resetPasswordURL = "profile/password";
 
     static checkAvailability(email) {
-        const checkURL = this.url + this.checkEmailURL;
+        const checkURL = Config.url + this.checkEmailURL;
         return axios.head(`${checkURL}=${email}`)
     }
 
     static registrationUser(email, password) {
-        const regURL = this.url + this.regUserURL;
+        const regURL = Config.url + this.regUserURL;
         return axios.post(regURL, {
             email: email,
             password: password
@@ -34,12 +34,12 @@ class SignUpLib {
     }
 
     static verificationUser(id, token) {
-        const verificationURL = this.url + this.regUserURL;
+        const verificationURL = Config.url + this.regUserURL;
         return axios.put(`${verificationURL}/${id}/verify/${token}`)
     }
 
     static resetPasswordFirstStep(email) {
-        const resetURL = this.url + this.resetPasswordURL;
+        const resetURL = Config.url + this.resetPasswordURL;
         return axios.delete(resetURL, { data: {
             email
         }})
@@ -57,7 +57,7 @@ class SignUpLib {
     }
 
     static setNewPassword(value) {
-        const resetURL = this.url + this.resetPasswordURL;
+        const resetURL = Config.url + this.resetPasswordURL;
         const { tid, token, newPassword } = value;
         return new Promise((res, rej) => {
             axios.post(resetURL, {

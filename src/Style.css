@@ -412,9 +412,6 @@
 .modal {
   box-shadow: none !important; }
 
-.modal {
-  display: flex !important; }
-
 .modal__success {
   text-align: center !important; }
   .modal__success_icon i {
@@ -815,3 +812,6 @@
 .reset_btn {
   margin-top: 20px !important;
   width: 100% !important; }
+
+.visible.transition {
+  display: flex !important; }

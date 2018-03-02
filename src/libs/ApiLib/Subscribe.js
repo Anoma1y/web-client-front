@@ -1,11 +1,11 @@
 import axios from 'axios';
+import Config from 'libs/config';
 
 class Subscribe {
-    static url = "http://159.89.10.197:4874/v1/";
     static subscribeURL = "me/subscribe";
 
     static subscribeToBetaTest(android, ios) {
-        const subsURL = this.url + this.subscribeURL;
+        const subsURL = Config.url + this.subscribeURL;
         const TOKEN = localStorage.getItem("jwt");
         return axios.post(subsURL, {
             android,

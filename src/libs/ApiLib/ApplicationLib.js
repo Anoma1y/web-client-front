@@ -1,11 +1,11 @@
 import axios from 'axios';
+import Config from 'libs/config';
 
 class ApplicationLib {
-    static url = "http://159.89.10.197:4874/v1/";
     static applicationURL = "application";
 
     static CalculatorApplication(currency, amount, comment, token) {
-        const appURL = this.url + this.applicationURL;
+        const appURL = Config.url + this.applicationURL;
 
         const data = { currency, amount, comment };
         const header = {
@@ -31,7 +31,7 @@ class ApplicationLib {
     }
 
     static getApp(token) {
-        const appURL = this.url + this.applicationURL;
+        const appURL = Config.url + this.applicationURL;
         const header = {
             headers: {
                 'Authorization': `Bearer ${token}`

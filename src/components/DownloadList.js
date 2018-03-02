@@ -15,9 +15,9 @@ class DownloadList extends Component {
                     <Card.Description className={"download__container"}>
                         <List className={"download__list"}>
                             <List.Item as={"a"} href={"https://tsrpay.com/docs/whitepaper.pdf"} target={"_blank"} className={"download__list_item"}>Whitepaper</List.Item>
-                            <List.Item as={"a"} href={"https://tsrpay.com/docs/onepager_en.pdf"} target={"_blank"} className={"download__list_item"}>One pager</List.Item>
-                            <List.Item as={"a"} href={"https://tsrpay.com/docs/terms_of_service.pdf"} target={"_blank"} className={"download__list_item"}>Terms of use</List.Item>
-                            <List.Item as={"a"} href={"https://tsrpay.com/docs/privacy_policy.pdf"} target={"_blank"} className={"download__list_item"}>Privacy policy</List.Item>
+                            <List.Item as={"a"} href={"https://tsrpay.com/docs/onepager-en.pdf"} target={"_blank"} className={"download__list_item"}>One pager</List.Item>
+                            <List.Item as={"a"} href={"https://tsrpay.com/docs/terms-of-service.pdf"} target={"_blank"} className={"download__list_item"}>Terms of service</List.Item>
+                            <List.Item as={"a"} href={"https://tsrpay.com/docs/privacy-policy.pdf"} target={"_blank"} className={"download__list_item"}>Privacy policy</List.Item>
                         </List>
                     </Card.Description>
                 </Card.Content>

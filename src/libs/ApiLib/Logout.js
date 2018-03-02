@@ -1,11 +1,11 @@
 import axios from 'axios';
+import Config from 'libs/config';
 
 class LogoutLib {
-    static url = "http://159.89.10.197:4874/v1/";
     static logoutUserURL = "session";
 
     static logoutUser(token) {
-        const logURL = this.url + this.logoutUserURL;
+        const logURL = Config.url + this.logoutUserURL;
         return axios.delete(logURL, {
             headers: {
                 'Authorization': `Bearer ${token}`

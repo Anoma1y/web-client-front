@@ -25,6 +25,7 @@ import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
 
 class Calculator extends Component {
+
     //Метод для расчета валюты
     //Принимает 2 параметра: value - текущее значение выбранной валюты
     //type - тип валюты для расчета
@@ -323,7 +324,7 @@ class Calculator extends Component {
     }
 
     //Метод для разделения групп разрядов строки
-    separationValue = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 4 }).format(value);
+    separationValue = value => new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(value);
 
     //Метод проверки суффикса (принимает параметры: event (текущий инпут) и handleType (тип: фокус или потеря фокуса из инпута)
     //Возвращает объект булевых значений для каждого инпута
