@@ -541,6 +541,9 @@
   .betatest__submit-active {
     background-color: #004fce !important; }
 
+.betatest__modal_text {
+  color: #000000 !important; }
+
 /***SOCIAL NETWORK SIDEBAR***/
 .social__segment {
   padding: 0 !important;

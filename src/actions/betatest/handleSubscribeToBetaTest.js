@@ -2,8 +2,10 @@ import Subscribe from 'libs/ApiLib/Subscribe'
 import {
     changeSuccessBetatest,
     changeAppleChecked,
-    changeAndroidChecked
+    changeAndroidChecked,
+    changeModalBeta
 } from 'actions/betatest';
+
 export const handleSubscribeToBetaTest = () => {
     return (dispatch, getState) => {
         const {
@@ -14,8 +16,10 @@ export const handleSubscribeToBetaTest = () => {
             dispatch(changeAppleChecked(false));
             dispatch(changeAndroidChecked(false));
             dispatch(changeSuccessBetatest(true));
+            dispatch(changeModalBeta(true));
         }).catch((err) => {
-            console.log(err);
+            dispatch(changeSuccessBetatest(false));
+            dispatch(changeModalBeta(true));
         })
         //TODO need check current beta test user
     }
