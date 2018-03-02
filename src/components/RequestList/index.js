@@ -33,20 +33,20 @@ class RequestList extends Component {
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
             let amountFor;
-            if (currency[1] === "ETH") {
+            if (currency[0] === "ETH") {
                 amountFor = item.amount * 0.001
-            } else if (currency[1] === "BTC") {
-                amountFor = item.amount * 0.0787655
-            } else if (currency[1] === "USD") {
-                amountFor = item.amount * 1
-            } else if (currency[1] === "TSR") {
+            } else if (currency[0] === "BTC") {
+                amountFor = item.amount / 0.0787655
+            } else if (currency[0] === "USD") {
+                amountFor = (item.amount / 0.0787655) * 0.1
+            } else if (currency[0] === "TSR") {
                 amountFor = item.amount * 0.001;
             }
             return (
                 <Card.Description key={index}>
                     <RequestItem
                         sum={`${item.amount} ${currency[0]}`}
-                        amount={`${amountFor} ${currency[1]}`}
+                        amount={`${amountFor.toFixed(4)} ${currency[1]}`}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}
