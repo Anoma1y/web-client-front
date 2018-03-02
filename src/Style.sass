@@ -438,6 +438,46 @@ $header-identification-component: #363E71 !important
   +placeholder
     color: rgba(147, 147, 147, 1) !important
 
+.calculator__order
+  .rrright
+    .radio
+      float: right
+  .llleft
+    .radio
+      float: left
+  font-family: $font-robot
+  &_header
+    font-size: 16px !important
+    font-weight: 500 !important
+  &_fixcurrency
+    margin-top: 15px !important
+    input
+      &:checked + label
+        color: rgba(0, 79, 206, 1) !important
+    label
+      &:hover
+        color: rgba(0, 79, 206, 1) !important
+
+  &_paymount
+    margin-top: 25px !important
+    background-color: #E6EDFA !important
+    font-family: $font-robot
+  &_text
+    text-align: left !important
+    margin-top: 30px !important
+    font-family: $font-robot
+    color: #929292 !important
+  .calculator__paymount_divider
+    background-color: rgba(0, 79, 206, 1) !important
+    border-bottom: none !important
+  .order__paymount_item, .calculator__order_amount
+    text-align: left !important
+  .order__paymount_item:not(:first-child)
+    margin-top: -15px !important
+  .order__strong
+    font-weight: 500 !important
+
+
 .ui.dimmer
   background-color: rgba(255,255,255,.85) !important
 .modal
@@ -573,6 +613,8 @@ $header-identification-component: #363E71 !important
   height: 100% !important
   &-active
     background-color: rgba(0, 79, 206, 1) !important
+.betatest__modal_text
+  color: $black-color
 
 /***SOCIAL NETWORK SIDEBAR***/
 .social__segment

@@ -1,7 +1,7 @@
 import * as C from 'actions/calculator/types';
 
 const INITIAL_STATE = {
-    TKN: 0.001,
+    TSR: 0.001,
     bonus: [
         {
             value: 2.5,
@@ -29,6 +29,7 @@ const INITIAL_STATE = {
     currencyValue: 'ETH',
     sumValue: 0,
     tokenValue: 10000,
+    modalOpen: false,
     modalSuccessful: false,
     querySuccess: null,
     suffixText: {
@@ -36,22 +37,27 @@ const INITIAL_STATE = {
         suffixCurrency: true
     },
     transferData: {
-        USD: 0, TKN: 0, BTC: 0, ETH: 0
+        USD: 0, TSR: 0, BTC: 0, ETH: 0
     },
     comments: '',
+    order: {
+        fixCurrency: "TSR",
+        forCurrency: "",
+        amount: 0
+    },
     currency: [
         {
             'id': 'bitcoin',
             'name': 'Bitcoin',
             'symbol': 'BTC',
-            'price_usd': '11220.7'
+            'price_usd': '11007.3'
         },
         {
             'id': 'ethereum',
             'name': 'Ethereum',
             'symbol': 'ETH',
-            'price_usd': '898.857',
-            'price_btc': '0.0814146'
+            "price_usd": "863.664",
+            "price_btc": "0.0787655"
         },
         {
             'id': 'usd',
@@ -65,7 +71,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case C.INITIALIZING_TKN:
-            return { ...state, TKN: action.payload };
+            return { ...state, TSR: action.payload };
         case C.CHANGE_CURRENT_CURRENCY:
             return { ...state, currencyValue: action.payload };
         case C.CHANGE_SUM_VALUE:
@@ -83,6 +89,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, querySuccess: action.payload };
         case C.CHANGE_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
+        case C.CHANGE_ORDER:
+            return { ...state, order: action.payload };
+        case C.CHANGE_MODAL_OPEN:
+            return { ...state, modalOpen: action.payload };
         default:
             return state;
     }

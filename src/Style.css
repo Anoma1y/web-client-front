@@ -406,6 +406,40 @@
   .calculator__comments:-ms-input-placeholder {
     color: #939393 !important; }
 
+.calculator__order {
+  font-family: "Roboto", sans-serif !important; }
+  .calculator__order .rrright .radio {
+    float: right; }
+  .calculator__order .llleft .radio {
+    float: left; }
+  .calculator__order_header {
+    font-size: 16px !important;
+    font-weight: 500 !important; }
+  .calculator__order_fixcurrency {
+    margin-top: 15px !important; }
+    .calculator__order_fixcurrency input:checked + label {
+      color: #004fce !important; }
+    .calculator__order_fixcurrency label:hover {
+      color: #004fce !important; }
+  .calculator__order_paymount {
+    margin-top: 25px !important;
+    background-color: #E6EDFA !important;
+    font-family: "Roboto", sans-serif !important; }
+  .calculator__order_text {
+    text-align: left !important;
+    margin-top: 30px !important;
+    font-family: "Roboto", sans-serif !important;
+    color: #929292 !important; }
+  .calculator__order .calculator__paymount_divider {
+    background-color: #004fce !important;
+    border-bottom: none !important; }
+  .calculator__order .order__paymount_item, .calculator__order .calculator__order_amount {
+    text-align: left !important; }
+  .calculator__order .order__paymount_item:not(:first-child) {
+    margin-top: -15px !important; }
+  .calculator__order .order__strong {
+    font-weight: 500 !important; }
+
 .ui.dimmer {
   background-color: rgba(255, 255, 255, 0.85) !important; }
 
@@ -540,6 +574,9 @@
   height: 100% !important; }
   .betatest__submit-active {
     background-color: #004fce !important; }
+
+.betatest__modal_text {
+  color: #000000 !important; }
 
 /***SOCIAL NETWORK SIDEBAR***/
 .social__segment {
