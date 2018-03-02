@@ -6,13 +6,19 @@ import {
     changeComments
 } from 'actions/calculator';
 
-export const handleApplication = value => {
+export const handleApplication = () => {
     return (dispatch, getState) => {
-        ApplicationLib.addApplication(value).then((data) => {
-            const items = getState().requests.items;
+        const { calculator, requests, user } = getState();
+        const dataOrder = {
+            currency: `${calculator.order.fixCurrency}/${calculator.order.forCurrency}`,
+            amount: Number(calculator.order.amount),
+            comments: calculator.comments,
+            token: user.jwt
+        }
+        ApplicationLib.addApplication(dataOrder).then((data) => {
             dispatch(changeModalSuccessful(true));
             dispatch(changeQuerySuccessful(true));
-            dispatch(addRequestItem([ data.data, ...items ]));
+            dispatch(addRequestItem([ data.data, ...requests.items ]));
             dispatch(changeComments(""));
         }).catch(() => {
             dispatch(changeModalSuccessful(true));

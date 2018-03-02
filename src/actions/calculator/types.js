@@ -7,3 +7,4 @@ export const INITIALIZING_TKN = 'calculator/INITIALIZING_TKN';
 export const CHANGE_MODAL_SUCCESSFUL = 'calculator/CHANGE_MODAL_SUCCESSFUL';
 export const CHANGE_QUERY_SUCCESSFUL = 'calculator/CHANGE_QUERY_SUCCESSFUL';
 export const CHANGE_CURRENT_BONUS = 'calculator/CHANGE_CURRENT_BONUS';
+export const CHANGE_ORDER = 'calculator/CHANGE_ORDER';
