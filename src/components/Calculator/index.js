@@ -11,7 +11,8 @@ import {
     handleFormOrder,
     changeModalOpen,
     handleChangeOrder,
-    handleApplication
+    handleApplication,
+    handleCloseModal
 } from 'actions/calculator';
 import {
     Grid,
@@ -28,6 +29,7 @@ import {
 import { Bonus } from './CalculatorBonus';
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
+import {deleteToken} from "actions/users";
 
 class Calculator extends Component {
 
@@ -134,21 +136,21 @@ class Calculator extends Component {
             ETH = this.transferUSD(value, "ETH");
             TKNinitialValue = this.transferToTKN(value, TSR_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TSRvalue = this.transferToTKNbonus(value, bonus.bonusTKN, TSR_ETH);
+            TSRvalue = this.transferToTKNbonus(value, bonus.bonusTSR, TSR_ETH);
             USD = value;
         } else if (currencyValue === "ETH") {
             USD = this.transferETH(value, "USD");
             BTC = this.transferETH(value, "BTC");
             TKNinitialValue = this.transferToTKN(USD, TSR_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TSRvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TSR_ETH);
+            TSRvalue = this.transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
             ETH = value;
         } else if (currencyValue === "BTC") {
             USD = this.transferBTC(value, "USD");
             ETH = this.transferBTC(value, "ETH");
             TKNinitialValue = this.transferToTKN(USD, TSR_ETH);
             bonus = this.checkBonus(TKNinitialValue);
-            TSRvalue = this.transferToTKNbonus(USD, bonus.bonusTKN, TSR_ETH);
+            TSRvalue = this.transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
             BTC = value;
         }
         const progressBar = this.handleProgressBar(TSRvalue);
@@ -380,9 +382,9 @@ class Calculator extends Component {
         changeModalOpen(false);
     }
     handleCloseModalSuccess = () => {
-        const { changeModalSuccessful, changeModalOpen } = this.props;
-        changeModalOpen(false);
-        changeModalSuccessful(false);
+        const { handleCloseModal } = this.props;
+        handleCloseModal()
+
     }
     handleSubmitApplication = () => {
         const { handleFormOrder } = this.props;
@@ -750,4 +752,5 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     handleApplication,
     handleChangeOrder,
     handleFormOrder,
+    handleCloseModal
 })(Calculator);

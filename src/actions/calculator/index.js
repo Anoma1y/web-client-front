@@ -13,3 +13,4 @@ export { changeCurrentBonus } from './changeCurrentBonus';
 export { changeOrder } from './changeOrder';
 export { handleFormOrder } from './handleFormOrder';
 export { handleChangeOrder } from './handleChangeOrder';
+export { handleCloseModal } from './handleCloseModal';
