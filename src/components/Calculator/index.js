@@ -17,6 +17,7 @@ import {
     Accordion,
     Icon,
     Modal,
+    Radio,
     Divider,
     Form
 } from 'semantic-ui-react';
@@ -377,8 +378,9 @@ class Calculator extends Component {
 
     handleSubmitApplication = () => {
         const { currencyValue, transferData, comments } = this.props.calculator;
-        const { handleApplication } = this.props;
+        const { handleApplication, changeModalSuccessful } = this.props;
         const { jwt:token } = this.props.user;
+        changeModalSuccessful(true);
         console.log(currencyValue, transferData, comments);
         // handleApplication({currency: currencyValue, amount: Number(transferData[currencyValue]), comments ,token});
     }
@@ -547,20 +549,40 @@ class Calculator extends Component {
                                                 }
                                        open={modalSuccessful}
                                        size={"tiny"}
+                                       onClose={this.handleCloseModal}
                                 >
                                     <Modal.Content className={"modal__success"}>
                                         <Modal.Description>
-                                            <div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
-                                                <Icon name={querySuccess ? "check circle outline" : "warning circle"} />
+                                            {/*<div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>*/}
+                                                {/*<Icon name={querySuccess ? "check circle outline" : "warning circle"} />*/}
+                                            {/*</div>*/}
+                                            {/*<div className={"modal__success_text"}>*/}
+                                                {/*<span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>*/}
+                                            {/*</div>*/}
+                                            <div>
+                                                {currencyValue === "ETH" ?
+                                                    <div>
+                                                        <h1>Your order</h1>
+                                                        <input type="radio"/>
+                                                        <input type="radio"/>
+                                                    </div> :
+                                                    <div>
+                                                        <h1>Please choose whether you want to set the number of tokens or the purchase amount in</h1>
+                                                        <input type="radio"/>
+                                                        <input type="radio"/>
+
+                                                        <p>
+                                                            Please choose whether you want to set the number of tokens or the purchase amount in
+                                                            Please be aware that the number of tokens bought will be calculated after we receive the funds, not at the moment theywere sent. The final amount can change due to exchange rate fluctuations.
+                                                        </p>
+                                                    </div>
+                                                }
                                             </div>
-                                            <div className={"modal__success_text"}>
-                                                <span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>
-                                            </div>
-                                            <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
+                                            <div className={"modal__success_btn"}>
                                                 <Button
                                                     className={"dashboard__submit"}
                                                     onClick={this.handleCloseModal}
-                                                >OK
+                                                >Apply
                                                 </Button>
                                             </div>
                                         </Modal.Description>
