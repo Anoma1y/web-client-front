@@ -367,6 +367,11 @@
     margin-top: 0 !important;
     margin-bottom: 0 !important; }
 
+.calculator__submit {
+  width: 160px !important;
+  height: 30px !important;
+  line-height: 10px !important; }
+
 .calculator__bonus {
   cursor: default !important; }
 
@@ -864,9 +869,12 @@
       padding-top: 28px !important;
       padding-bottom: 12px !important;
       border-bottom: 3px solid #004fce !important; }
-      .auth_input label input:focus::placeholder, .auth_input label input.populated::placeholder {
+    .auth_input label input.populated_currency {
+      padding-top: 28px !important;
+      padding-bottom: 12px !important; }
+      .auth_input label input.populated_currency::placeholder {
         color: transparent !important; }
-      .auth_input label input:focus + span, .auth_input label input.populated + span {
+      .auth_input label input.populated_currency + span {
         opacity: 1 !important;
         top: 10px !important; }
   .auth_input label span {

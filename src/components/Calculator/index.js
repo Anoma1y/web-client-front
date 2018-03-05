@@ -485,7 +485,7 @@ class Calculator extends Component {
                                         <Grid.Column width={8} className={"auth_input"}>
                                             <label>
                                                 <input
-                                                    className={"input__currency"}
+                                                    className={"input__currency populated_currency"}
                                                     type={"text"}
                                                     placeholder={"TSR"}
                                                     value={suffixText.suffixToken ? this.separationValue(tokenValue) : tokenValue}
@@ -501,7 +501,7 @@ class Calculator extends Component {
                                             <label>
                                                 <input
                                                     type="text"
-                                                    className={"input__currency"}
+                                                    className={"input__currency populated_currency"}
                                                     placeholder={currencyValue}
                                                     value={suffixText.suffixCurrency ? this.separationValue(sumValue) : sumValue}
                                                     onChange={this.handleCurrency}
@@ -598,7 +598,7 @@ class Calculator extends Component {
                             <Grid.Column textAlign={"right"}>
 
                                 <Modal trigger={<Button
-                                                    className={"dashboard__submit"}
+                                                    className={"dashboard__submit calculator__submit"}
                                                     onClick={this.handleSubmitApplication}
                                                     disabled={transferData.TSR < 1 || transferData.USD === "0"}
                                                 >

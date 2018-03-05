@@ -36,11 +36,13 @@ class RequestList extends Component {
             let amountFor;
             let ddd;
             bonus.forEach((bon) => {
-                if (item.amount > bon.limit) {
+                if (item.fixCurrency === "TSR" && item.amount > bon.limit) {
+                    ddd = bon.value
+                } else if (item.forCurrency === "TSR" && item.amount > bon.limit) {
                     ddd = bon.value
                 }
             })
-
+            console.log(ddd, item.amount);
             if (currency[0] === "BTC" && currency[1] === "TSR") {
                 amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001)
             }
@@ -84,7 +86,7 @@ class RequestList extends Component {
                     <Card fluid>
                         <Card.Content>
                             <Card.Header className={"component__title"}>Your Applications</Card.Header>
-                            <Divider/>
+                            <Divider className={"component__divider"} />
                             <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                                 <Grid.Row columns={1}>
                                     <Grid.Column>
