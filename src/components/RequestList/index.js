@@ -16,6 +16,7 @@ class RequestList extends Component {
 
     renderList () {
         const { items: request } = this.props.requests;
+        const { bonus, currency: cryptoCurrency } = this.props.calculator;
         return request.map((item, index) => {
             let btnOptions = null;
             const currency = item.currency.split("/");
@@ -33,27 +34,32 @@ class RequestList extends Component {
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
             let amountFor;
+            let ddd;
+            bonus.forEach((bon) => {
+                if (item.amount > bon.limit) {
+                    ddd = bon.value
+                }
+            })
+
             if (currency[0] === "ETH") {
                 amountFor = item.amount * 0.001
             }
-            else if (currency[0] === "BTC") {
-                amountFor = item.amount / (0.0753651 * 0.001)
+            else if (currency[0] === "BTC" && currency[1] === "TSR") {
+                amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001)
             }
 
-
-            else if (currency[0] === "USD") {
-                amountFor = (item.amount / 0.0753651) * 0.1
+            else if (currency[0] === "USD" && currency[1] === "TSR") {
+                amountFor = item.amount / (cryptoCurrency[1].price_usd * 0.001);
             }
 
-            //USD
             else if (currency[0] === "TSR" && currency[1] === "BTC") {
-                amountFor = item.amount * 0.001 * 0.0753651;
+                amountFor = item.amount * 0.001 * cryptoCurrency[1].price_btc;
             }
             else if (currency[0] === "TSR" && currency[1] === "ETH") {
                 amountFor = item.amount * 0.001;
             }
             else if (currency[0] === "TSR" && currency[1] === "USD") {
-                amountFor = item.amount * (867.551 * 0.001);
+                amountFor = item.amount * (cryptoCurrency[1].price_usd * 0.001);
             }
             return (
                 <Card.Description key={index}>
@@ -97,7 +103,8 @@ class RequestList extends Component {
 
 export default connect((state) => ({
     requests: state.requests,
-    user: state.user
+    user: state.user,
+    calculator: state.calculator
 }), {
     handleRequestItem
 })(RequestList);

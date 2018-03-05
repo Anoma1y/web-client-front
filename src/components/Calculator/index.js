@@ -11,6 +11,7 @@ import {
     handleFormOrder,
     changeModalOpen,
     handleChangeOrder,
+    setCurrency,
     handleApplication,
     handleCloseModal
 } from 'actions/calculator';
@@ -30,6 +31,7 @@ import { Bonus } from './CalculatorBonus';
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
 import {deleteToken} from "actions/users";
+import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
 
 class Calculator extends Component {
 
@@ -252,10 +254,32 @@ class Calculator extends Component {
         changeTransferData(value);
     }
 
+
+    componentWillMount() {
+        const { setCurrency } = this.props;
+        const { tokenValue } = this.props.calculator;
+
+        CryptoCurrency.getCryptoCurrency().then((data) => {
+            const CURRENCY_DATA = [...data.data,
+                {
+                    id: 'usd',
+                    name: 'USD',
+                    symbol: 'USD',
+                    price_usd: '1'
+                }
+            ]
+            setCurrency(CURRENCY_DATA);
+            this.changeState(this.calcToken(tokenValue));
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+
     //Инициализия дефолтного значения токенов
     componentDidMount() {
         const { tokenValue } = this.props.calculator;
-        this.changeState(this.calcToken(tokenValue))
+        // this.changeState(this.calcToken(tokenValue))
     }
 
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
@@ -784,5 +808,6 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     handleApplication,
     handleChangeOrder,
     handleFormOrder,
+    setCurrency,
     handleCloseModal
 })(Calculator);
