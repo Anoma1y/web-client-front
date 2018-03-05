@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
+import IdentificationImgUpload from './IdentificationImgUpload';
+
 class Beneficial extends Component {
     constructor(props) {
       super(props);
@@ -15,6 +17,23 @@ class Beneficial extends Component {
           Email: false
       }
     }
+
+    renderUploadInfoBeneficial = () => {
+        const { legalEntityBeneficial } = this.props.settings;
+        return legalEntityBeneficial.map(item => {
+            return (
+                <Grid.Row key={item.id}>
+                    <Grid.Column>
+                        <IdentificationImgUpload
+                            description={item.description}
+                            id={item.id}
+                        />
+                    </Grid.Column>
+                </Grid.Row>
+            )
+        })
+    }
+
     handleName = (event) => event.target.value.length > 0 ? this.setState({Name: true}) : this.setState({Name: false})
     handleAddres = (event) => event.target.value.length > 0 ? this.setState({Addres: true}) : this.setState({Addres: false})
     handleCountry = (event) => event.target.value.length > 0 ? this.setState({Country: true}) : this.setState({Country: false})
@@ -114,6 +133,7 @@ class Beneficial extends Component {
                         </label>
                     </Grid.Column>
                 </Grid.Row>
+                {this.renderUploadInfoBeneficial()}
             </Grid>
         );
     }
