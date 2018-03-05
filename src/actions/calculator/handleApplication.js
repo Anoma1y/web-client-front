@@ -4,7 +4,7 @@ import {
     changeModalSuccessful,
     changeQuerySuccessful,
     changeComments,
-    changeModalOpen
+    changeApplicationError
 } from 'actions/calculator';
 
 export const handleApplication = () => {
@@ -16,15 +16,24 @@ export const handleApplication = () => {
             comments: calculator.comments,
             token: user.jwt
         }
-        ApplicationLib.addApplication(dataOrder).then((data) => {
-            dispatch(changeModalSuccessful(true));
-            dispatch(changeQuerySuccessful(true));
-            dispatch(addRequestItem([ data.data, ...requests.items ]));
-            // dispatch(changeModalOpen(false));
-            dispatch(changeComments(""));
-        }).catch(() => {
-            dispatch(changeModalSuccessful(true));
-            dispatch(changeQuerySuccessful(false));
+        ApplicationLib.getApplication(user.jwt).then((data) => {
+            if (data.length < 10) {
+                ApplicationLib.addApplication(dataOrder).then((data) => {
+                    dispatch(changeModalSuccessful(true));
+                    dispatch(changeQuerySuccessful(true));
+                    dispatch(addRequestItem([ data.data, ...requests.items ]));
+                    dispatch(changeComments(""));
+                    dispatch(changeApplicationError(null));
+                }).catch(() => {
+                    dispatch(changeApplicationError("Ошибка"));
+                    dispatch(changeModalSuccessful(true));
+                    dispatch(changeQuerySuccessful(false));
+                })
+            } else {
+                dispatch(changeApplicationError("Ошибка, максимум заявок 10 шт"));
+                dispatch(changeModalSuccessful(true));
+                dispatch(changeQuerySuccessful(false));
+            }
         })
     }
 };

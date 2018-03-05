@@ -22,11 +22,11 @@ class CryptoWidget extends Component {
             <Card fluid className={"component__main"}>
                 <Card.Content className={"component__cryptocurrency"}>
                     <Card.Description className={"cryptocurrency__container"}>
-                        <Form>
+                        <Form className={"cryptocurrency__form"}>
                             <Form.Group inline className={"crypto__widget_radio"}>
                                 <Form.Field>
                                     <Radio
-                                        label='BTC'
+                                        label='BTC/ETH'
                                         name='radioGroup'
                                         value='ETHtoBTC'
                                         checked={this.state.current === 'ETHtoBTC'}
@@ -35,7 +35,7 @@ class CryptoWidget extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <Radio
-                                        label='USD'
+                                        label='USD/ETH'
                                         name='radioGroup'
                                         value='ETHtoUSD'
                                         checked={this.state.current === 'ETHtoUSD'}

@@ -32,6 +32,7 @@ const INITIAL_STATE = {
     modalOpen: false,
     modalSuccessful: false,
     querySuccess: null,
+    applicationError: null,
     suffixText: {
         suffixToken: true,
         suffixCurrency: true
@@ -93,6 +94,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, order: action.payload };
         case C.CHANGE_MODAL_OPEN:
             return { ...state, modalOpen: action.payload };
+        case C.CHANGE_APPLICATION_ERROR:
+            return { ...state, applicationError: action.payload };
         default:
             return state;
     }

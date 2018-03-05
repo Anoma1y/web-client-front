@@ -41,6 +41,7 @@ class ApplicationLib {
             header
         )
     }
+
     static getApplication(token) {
         return new Promise((res, rej) => {
             this.getApp(token).then((data) => {

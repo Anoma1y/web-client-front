@@ -13,7 +13,7 @@ class ConfirmationComponent extends Component {
                             Confirmation your EMail
                         </Card.Header>
                         <Card.Description as={"p"}>
-                            Please check your inbox for a confirmation email. Click the link in the email to confirm your email address and go to the page to enter a new password.
+                            Please check your inbox for an email with instructions for how to reset your password
                         </Card.Description>
                     </Card.Content>
                 </Card>

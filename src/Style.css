@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
 .logo_content img {
-  width: 170px !important; }
+  width: 140px !important; }
 
 .menu__logo {
   height: 100% !important; }
@@ -9,17 +9,24 @@
       margin: 0 auto !important; } }
 
 #root {
-  height: 100vh; }
+  background-color: #fafafa !important; }
 
 .auth__container {
   height: calc(100vh - 85.38px) !important; }
+
+.menu_login {
+  margin-bottom: -20px !important; }
 
 .menu__color {
   background-color: #282828 !important; }
 
 .header__menu {
   background-color: #282828 !important;
+  height: 49px !important;
   border-radius: 0 !important; }
+  @media screen and (max-width: 767px) {
+    .header__menu {
+      height: 100px !important; } }
 
 .right__menu {
   display: flex;
@@ -371,6 +378,18 @@
   .bonus__maximum-active {
     color: #d05858 !important; }
 
+.comments__form {
+  position: relative; }
+
+.message__length {
+  position: absolute;
+  top: 100%;
+  width: 50%;
+  right: 0;
+  text-align: right; }
+  .message__length-active {
+    color: #FF3E33 !important; }
+
 .calculator__text {
   font-family: "Roboto", sans-serif !important;
   font-size: 14px !important;
@@ -413,22 +432,43 @@
   .calculator__order .llleft .radio {
     float: left; }
   .calculator__order_header {
+    text-align: left !important; }
+    .calculator__order_header p {
+      font-size: 16px !important;
+      font-weight: 500 !important; }
+    .calculator__order_header span {
+      font-size: 15px !important; }
+  .calculator__order_wrapper {
+    margin: 5px 1rem -35px !important; }
+    @media screen and (max-width: 464px) {
+      .calculator__order_wrapper {
+        margin: 5px 2rem -35px !important; } }
+  .calculator__order_fixcurrency input:checked + label {
+    color: #004fce !important; }
+  .calculator__order_fixcurrency label:hover {
+    color: #004fce !important; }
+  .calculator__order_label {
+    position: absolute !important;
+    top: -25px;
+    left: -10px;
     font-size: 16px !important;
-    font-weight: 500 !important; }
-  .calculator__order_fixcurrency {
-    margin-top: 15px !important; }
-    .calculator__order_fixcurrency input:checked + label {
-      color: #004fce !important; }
-    .calculator__order_fixcurrency label:hover {
-      color: #004fce !important; }
+    font-weight: 500 !important;
+    color: #939393 !important; }
   .calculator__order_paymount {
-    margin-top: 25px !important;
+    margin-top: 40px !important;
+    padding-top: 10px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    position: relative !important;
     background-color: #E6EDFA !important;
+    font-weight: 500 !important;
     font-family: "Roboto", sans-serif !important; }
   .calculator__order_text {
     text-align: left !important;
     margin-top: 30px !important;
     font-family: "Roboto", sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
     color: #929292 !important; }
   .calculator__order .calculator__paymount_divider {
     background-color: #004fce !important;
@@ -438,7 +478,7 @@
   .calculator__order .order__paymount_item:not(:first-child) {
     margin-top: -15px !important; }
   .calculator__order .order__strong {
-    font-weight: 500 !important; }
+    font-weight: 600 !important; }
 
 .ui.dimmer {
   background-color: rgba(255, 255, 255, 0.85) !important; }
@@ -815,33 +855,27 @@
   border-radius: 0 !important;
   box-shadow: none !important; }
 
-@media screen and (min-width: 1200px) {
-  .component__cryptocurrency {
-    min-height: 314px !important; } }
-
-@media screen and (min-width: 992px) and (max-width: 1199px) {
-  .component__cryptocurrency {
-    min-height: 284px !important; } }
+.component__cryptocurrency {
+  padding: 1em 0 0 !important; }
+  @media screen and (min-width: 1200px) {
+    .component__cryptocurrency {
+      min-height: 314px !important; } }
+  @media screen and (min-width: 992px) and (max-width: 1199px) {
+    .component__cryptocurrency {
+      min-height: 284px !important; } }
+  .component__cryptocurrency .cryptocurrency__form {
+    padding: 0 10px !important; }
 
 .crypto__widget {
   position: relative; }
-  .crypto__widget:after {
-    content: "";
-    display: block;
-    position: absolute;
-    right: 1px;
-    top: 1px;
-    width: 63%;
-    height: 48px;
-    background-color: #F6F9FB; }
   .crypto__widget:before {
     content: "";
     display: block;
     position: absolute;
-    top: 51px;
+    top: 0;
     right: 1px;
     width: 99%;
-    height: 50px;
+    height: 100px;
     background-color: #FFFFFF !important; }
   .crypto__widget_radio {
     color: #004fce !important; }

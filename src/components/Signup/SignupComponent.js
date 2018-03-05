@@ -143,8 +143,8 @@ class SignupComponent extends Component {
                         <Card.Description className={"signup__content auth_input"}>
                             <form action="#">
                                 <label>
-                                    <input type="email" placeholder={"E-Mail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
-                                    <span>E-Mail</span>
+                                    <input type="email" placeholder={"EMail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
+                                    <span>EMail</span>
                                 </label>
                                 <label>
                                     <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
@@ -170,7 +170,7 @@ class SignupComponent extends Component {
                                 </Button>
                             </form>
                             <p className={"signup__content_login"}>
-                                Already have account? <Link to={"/login"}>Sign In</Link>
+                                Already have an account? <Link to={"/login"}>Sign In</Link>
                             </p>
                         </Card.Description>
                     </Card.Content>
