@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from 'screens/Login';
 import Signup from 'screens/Signup';
@@ -11,7 +11,7 @@ import CheckToken from './CheckToken';
 import Logout from './Logout';
 import Redirect from './Redirect';
 
-class App extends React.Component {
+class App extends Component {
     componentDidMount() {
         const script = document.createElement('script');
         script.type = 'text/javascript';

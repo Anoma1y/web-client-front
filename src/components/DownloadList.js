@@ -11,7 +11,7 @@ class DownloadList extends Component {
             <Card fluid className={"component__main"}>
                 <Card.Content className={"component__download"}>
                     <Card.Header className={"component__title"}>Download</Card.Header>
-                    <Divider />
+                    <Divider className={"component__divider"} />
                     <Card.Description className={"download__container"}>
                         <List className={"download__list"}>
                             <List.Item as={"a"} href={"https://tsrpay.com/docs/whitepaper.pdf"} target={"_blank"} className={"download__list_item"}>Whitepaper</List.Item>

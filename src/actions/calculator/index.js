@@ -14,4 +14,5 @@ export { changeOrder } from './changeOrder';
 export { handleFormOrder } from './handleFormOrder';
 export { handleChangeOrder } from './handleChangeOrder';
 export { handleCloseModal } from './handleCloseModal';
+export { setCurrency } from './setCurrency';
 export { changeApplicationError } from './changeApplicationError';

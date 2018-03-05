@@ -96,6 +96,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, modalOpen: action.payload };
         case C.CHANGE_APPLICATION_ERROR:
             return { ...state, applicationError: action.payload };
+        case C.SET_CURRENCY:
+            return { ...state, currency: action.payload };
         default:
             return state;
     }

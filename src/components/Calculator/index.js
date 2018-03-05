@@ -11,6 +11,7 @@ import {
     handleFormOrder,
     changeModalOpen,
     handleChangeOrder,
+    setCurrency,
     handleApplication,
     handleCloseModal
 } from 'actions/calculator';
@@ -30,6 +31,7 @@ import { Bonus } from './CalculatorBonus';
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
 import {deleteToken} from "actions/users";
+import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
 
 class Calculator extends Component {
 
@@ -252,10 +254,32 @@ class Calculator extends Component {
         changeTransferData(value);
     }
 
+
+    componentWillMount() {
+        const { setCurrency } = this.props;
+        const { tokenValue } = this.props.calculator;
+
+        CryptoCurrency.getCryptoCurrency().then((data) => {
+            const CURRENCY_DATA = [...data.data,
+                {
+                    id: 'usd',
+                    name: 'USD',
+                    symbol: 'USD',
+                    price_usd: '1'
+                }
+            ]
+            setCurrency(CURRENCY_DATA);
+            this.changeState(this.calcToken(tokenValue));
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+
     //Инициализия дефолтного значения токенов
     componentDidMount() {
         const { tokenValue } = this.props.calculator;
-        this.changeState(this.calcToken(tokenValue))
+        // this.changeState(this.calcToken(tokenValue))
     }
 
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
@@ -461,7 +485,7 @@ class Calculator extends Component {
                                         <Grid.Column width={8} className={"auth_input"}>
                                             <label>
                                                 <input
-                                                    className={"input__currency populated"}
+                                                    className={"input__currency populated_currency"}
                                                     type={"text"}
                                                     placeholder={"TSR"}
                                                     value={suffixText.suffixToken ? this.separationValue(tokenValue) : tokenValue}
@@ -477,7 +501,7 @@ class Calculator extends Component {
                                             <label>
                                                 <input
                                                     type="text"
-                                                    className={"input__currency populated"}
+                                                    className={"input__currency populated_currency"}
                                                     placeholder={currencyValue}
                                                     value={suffixText.suffixCurrency ? this.separationValue(sumValue) : sumValue}
                                                     onChange={this.handleCurrency}
@@ -492,17 +516,13 @@ class Calculator extends Component {
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row columns={1} only={"computer"} style={{paddingTop: "10px"}}>
-                            <Grid.Column>
+                        <Grid.Row only={"computer"} style={{paddingTop: "10px"}}>
+                            <Grid.Column width={16} className={"slider__wrapper"}>
                                 <InputSlider
                                     maximumBonusToken={bonus[bonus.length - 1]["limit"]}
                                     tokenValue={tokenValue}
                                     handleTokenRange={this.handleTokenRange}
                                 />
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row className={"calculator__bonus"}>
-                            <Grid.Column widescreen={6} computer={8} tablet={12} mobile={16} floated={"right"}>
                                 {
                                     isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
                                                     <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
@@ -512,7 +532,7 @@ class Calculator extends Component {
                                 }
                             </Grid.Column>
                         </Grid.Row>
-                        {isMaximum ? <Divider/> : null}
+                        <Divider className={"calculator__slider_divider"}/>
                         <Grid.Row>
                             <Grid.Column>
                                 <Grid className={"calculator__paymount"}>
@@ -578,7 +598,7 @@ class Calculator extends Component {
                             <Grid.Column textAlign={"right"}>
 
                                 <Modal trigger={<Button
-                                                    className={"dashboard__submit"}
+                                                    className={"dashboard__submit calculator__submit"}
                                                     onClick={this.handleSubmitApplication}
                                                     disabled={transferData.TSR < 1 || transferData.USD === "0"}
                                                 >
@@ -784,5 +804,6 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     handleApplication,
     handleChangeOrder,
     handleFormOrder,
+    setCurrency,
     handleCloseModal
 })(Calculator);

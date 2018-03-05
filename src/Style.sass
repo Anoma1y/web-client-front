@@ -197,7 +197,7 @@ $header-identification-component: #363E71 !important
 
 .component__main
   margin-top: 5px !important
-  margin-bottom: 25px !important
+  margin-bottom: 16px !important
 
 .component__title
   margin: -4px 0 !important
@@ -212,6 +212,9 @@ $header-identification-component: #363E71 !important
   background-color: $white-color
   border-bottom-right-radius: 4px
   border-bottom-left-radius: 4px
+.dashboard__wrapper_component
+  padding-left: 0.65rem !important
+  padding-right: 0.65rem !important
 
 .dashboard__submit
   background-color: rgba(0, 79, 206, 1) !important
@@ -266,32 +269,38 @@ $header-identification-component: #363E71 !important
     color: rgba(147, 147, 147, 1) !important
     font-weight: 300 !important
   &_value
-    margin: 0 !important
-    color: $black-color
+    //margin: 0 !important
+    margin-top: -12px !important
+    color: rgba(0, 79, 206, 1) !important
     font-weight: normal !important
     font-size: 30px !important
     position: relative
   &:not(:last-child):after
     content: ":"
-    color: $black-color
+    color: rgba(0, 79, 206, 1) !important
     font-size: 30px
     position: absolute
     left: 92%
     bottom: 10px
-
+.component__divider
+  margin-left: -1rem !important
+  margin-right: -1rem !important
 
 /***CALCULATOR COMPONENT***/
 .component__calculator
   margin-bottom: 20px !important
 .calculator__currency
   background-color: rgba(0, 79, 206, 0.05) !important
+  height: 42px !important
+
 .currency__button
   font-family: $font-robot
+  margin-top: 10px !important
   input
     &:checked + label
       color: $black-color
       font-weight: 500 !important
-      border-bottom-color: rgba(0, 79, 206, 1) !important
+      border-bottom: 3px solid rgba(0, 79, 206, 1) !important
   label
     padding: 5px 25px !important
     color: rgba(147, 147, 147, 1) !important
@@ -301,7 +310,7 @@ $header-identification-component: #363E71 !important
     &:hover
       color: $black-color
       font-weight: 500 !important
-      border-bottom-color: rgba(0, 79, 206, 1) !important
+      border-bottom: 3px solid rgba(0, 79, 206, 1) !important
     &:before
       content: none !important
       display: none !important
@@ -314,11 +323,12 @@ $header-identification-component: #363E71 !important
   font-family: $font-robot
   font-weight: 300 !important
   letter-spacing: .4px
+  margin-top: -6px !important
   font-size: 25px !important
-  &:focus, &:hover
-    color: $black-color
-    font-weight: 400 !important
-    border-bottom-color: rgba(0, 79, 206, 1) !important
+  //&:focus, &:hover
+  //  color: $black-color
+  //  font-weight: 400 !important
+  //  border-bottom-color: rgba(0, 79, 206, 1) !important
 
 .total__label
   font-family: $font-robot
@@ -331,11 +341,17 @@ $header-identification-component: #363E71 !important
   font-size: 14px !important
   font-weight: 500 !important
   overflow: hidden !important
+.slider__wrapper
+  position: relative !important
+  .bonus__maximum
+    position: absolute !important
+    top: 130% !important
+    right: 10px !important
 
 .input__slider
-  margin: auto
   outline: none
   padding: 0
+  margin: 32px auto 0 !important
   width: 100%
   height: 6px
   background: rgba(234, 234, 234, 1) -webkit-linear-gradient(-90deg, rgba(0, 79, 206, 1) 0%, rgba(127, 166, 230, 1) 50%, rgba(230, 238, 251, 1) 100%) no-repeat
@@ -372,8 +388,10 @@ $header-identification-component: #363E71 !important
     border-radius: 100%
     box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1)
 
-
+.calculator__slider_divider
+  margin-top: 38px !important
 .calculator__paymount
+  margin-top: -7px !important
   font-family: $font-robot
   font-weight: 500 !important
   overflow: hidden !important
@@ -382,6 +400,10 @@ $header-identification-component: #363E71 !important
   &_divider
     margin-top: 0 !important
     margin-bottom: 0 !important
+.calculator__submit
+  width: 160px !important
+  height: 30px !important
+  line-height: 10px !important
 
 .calculator__bonus
   cursor: default !important
@@ -447,9 +469,18 @@ $header-identification-component: #363E71 !important
   &_title
     display: flex !important
     font-family: $font-robot
+    padding-left: 0 !important
+    padding-right: 0 !important
     font-size: 14px !important
     justify-content: space-between !important
-
+    i
+      transform: rotate(90deg) !important
+  &_content
+    padding-left: 0 !important
+    padding-right: 0 !important
+    textarea
+      padding-left: 0 !important
+      padding-right: 0 !important
 .calculator__comments
   font-family: $font-robot
   font-weight: normal !important
@@ -457,10 +488,12 @@ $header-identification-component: #363E71 !important
   line-height: 35px !important
   border-radius: 3px !important
   height: 90px !important
-  color:  rgba(0, 0, 0, 1) !important
-  border: 1px solid rgba(147, 147, 147, 1) !important
+  color:  rgba(0, 79, 206, 1) !important
+  border: none !important
+  border-bottom: 1px solid rgba(147, 147, 147, 1) !important
   +placeholder
     color: rgba(147, 147, 147, 1) !important
+    line-height: 0.5 !important
 
 .calculator__order
   .rrright
@@ -819,11 +852,11 @@ $header-identification-component: #363E71 !important
     &:hover
       background-color: lighten(rgba(0, 79, 206, 1), 5%) !important
 .auth_input
-
   label
     position: relative !important
     display: block !important
     background-color: inherit !important
+    height: 60px !important
     input
       -webkit-box-sizing: border-box !important
       -moz-box-sizing: border-box !important
@@ -838,24 +871,18 @@ $header-identification-component: #363E71 !important
       background-color: inherit !important
       border-bottom: 2px solid rgba(147, 147, 147, 1) !important
       color: $black-color
-      //&:after
-      //  content: ""
-      //  display: block
-      //  position: absolute
-      //  top: 0
-      //  left: 0
-      //  height: 1px
-      //  width: 100%
-      //  background-color: rgba(147, 147, 147, 1)
       +placeholder
         transition: all 0.2s ease-in-out !important
         color: rgba(147, 147, 147, 1) !important
       &:hover
-        border-bottom-color: rgba(0, 79, 206, 1) !important
+        border-bottom: 3px solid rgba(0, 79, 206, 1) !important
       &:focus, &.populated
         padding-top: 28px !important
         padding-bottom: 12px !important
-        border-bottom-color: rgba(0, 79, 206, 1) !important
+        border-bottom: 3px solid rgba(0, 79, 206, 1) !important
+      &.populated_currency
+        padding-top: 28px !important
+        padding-bottom: 12px !important
         &::placeholder
           color: transparent !important
         & + span
@@ -869,6 +896,7 @@ $header-identification-component: #363E71 !important
       left: 0 !important
       opacity: 0 !important
       transition: all 0.2s ease-in-out !important
+
 
 .signup__content
   &_confirm
@@ -939,6 +967,7 @@ $header-identification-component: #363E71 !important
   ///////////////////////////////////////////////////////////////////////////
 .visible.transition
   display: flex !important
+
 
 .modal
   //margin-top: -1rem !important
