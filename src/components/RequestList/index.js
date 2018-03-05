@@ -41,12 +41,7 @@ class RequestList extends Component {
                 }
             })
 
-            //NEED DELETE
-            if (currency[0] === "ETH") {
-                amountFor = item.amount * 0.001
-            }
-
-            else if (currency[0] === "BTC" && currency[1] === "TSR") {
+            if (currency[0] === "BTC" && currency[1] === "TSR") {
                 amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001)
             }
 
