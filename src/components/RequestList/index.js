@@ -34,17 +34,17 @@ class RequestList extends Component {
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
             let amountFor;
-            let ddd;
-            bonus.forEach((bon) => {
-                if (item.fixCurrency === "TSR" && item.amount > bon.limit) {
-                    ddd = bon.value
-                } else if (item.forCurrency === "TSR" && item.amount > bon.limit) {
-                    ddd = bon.value
-                }
-            })
-            console.log(ddd, item.amount);
+            // let bonusValue;
+            // bonus.forEach((bon) => {
+            //     if (currency[0] === "TSR" && item.amount > bon.limit) {
+            //         bonusValue = bon.value
+            //     } else if (currency[1] === "TSR" && item.amount > bon.limit) {
+            //         bonusValue = bon.value
+            //     }
+            // })
+
             if (currency[0] === "BTC" && currency[1] === "TSR") {
-                amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001)
+                amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001);
             }
 
             else if (currency[0] === "USD" && currency[1] === "TSR") {
