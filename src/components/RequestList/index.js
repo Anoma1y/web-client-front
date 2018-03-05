@@ -41,9 +41,11 @@ class RequestList extends Component {
                 }
             })
 
+            //NEED DELETE
             if (currency[0] === "ETH") {
                 amountFor = item.amount * 0.001
             }
+
             else if (currency[0] === "BTC" && currency[1] === "TSR") {
                 amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001)
             }
@@ -55,12 +57,15 @@ class RequestList extends Component {
             else if (currency[0] === "TSR" && currency[1] === "BTC") {
                 amountFor = item.amount * 0.001 * cryptoCurrency[1].price_btc;
             }
+
             else if (currency[0] === "TSR" && currency[1] === "ETH") {
                 amountFor = item.amount * 0.001;
             }
+
             else if (currency[0] === "TSR" && currency[1] === "USD") {
                 amountFor = item.amount * (cryptoCurrency[1].price_usd * 0.001);
             }
+
             return (
                 <Card.Description key={index}>
                     <RequestItem
