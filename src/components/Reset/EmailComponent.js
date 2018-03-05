@@ -91,6 +91,7 @@ class EmailComponent extends React.Component {
                                 <Button
                                     fluid
                                     className={"auth_btn"}
+                                    disabled={isResetInProgress === true ? true : false}
                                     onClick={this.handleResetBtn}
                                 >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
                                 </Button>

@@ -166,6 +166,7 @@ class SignupComponent extends Component {
                                     fluid
                                     className={"auth_btn"}
                                     onClick={this.handleSignup}
+                                    disabled={isSignupInProgress === true ? true : false}
                                 >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Register"}
                                 </Button>
                             </form>

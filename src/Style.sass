@@ -37,15 +37,8 @@ $header-identification-component: #363E71 !important
     @content
   &:-ms-input-placeholder
     @content
-.logo_content
-  img
-    width: 140px !important
-.menu__logo
-  height: 100% !important
-  @media screen and (max-width: 767px)
-    .item
-      margin: 0 auto !important
-.user_content
+
+
 
 #root
   background-color: #fafafa !important
@@ -65,7 +58,16 @@ $header-identification-component: #363E71 !important
   border-radius: 0 !important
   @media screen and (max-width: 767px)
     height: 100px !important
-
+.logo_content
+  img
+    width: 140px !important
+.menu__logo
+  height: 100% !important
+  border: none !important
+  background-color: inherit !important
+  @media screen and (max-width: 767px)
+    .item
+      margin: 0 auto !important
 .right__menu
   display: flex
   height: 100%
@@ -817,9 +819,11 @@ $header-identification-component: #363E71 !important
     &:hover
       background-color: lighten(rgba(0, 79, 206, 1), 5%) !important
 .auth_input
+
   label
     position: relative !important
     display: block !important
+    background-color: inherit !important
     input
       -webkit-box-sizing: border-box !important
       -moz-box-sizing: border-box !important
@@ -831,7 +835,9 @@ $header-identification-component: #363E71 !important
       width: 100% !important
       outline: none !important
       transition: all 0.2s ease-in-out !important
+      background-color: inherit !important
       border-bottom: 2px solid rgba(147, 147, 147, 1) !important
+      color: $black-color
       //&:after
       //  content: ""
       //  display: block

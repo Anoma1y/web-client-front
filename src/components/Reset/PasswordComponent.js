@@ -119,6 +119,7 @@ class PasswordComponent extends Component {
                                 <Button
                                     className={"auth_btn reset_btn"}
                                     onClick={this.handleResetPassword}
+                                    disabled={isResetInProgress === true ? true : false}
                                 >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}
                                 </Button>
                             </form>
