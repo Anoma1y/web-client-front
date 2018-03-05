@@ -37,23 +37,23 @@ class RequestList extends Component {
                 amountFor = item.amount * 0.001
             }
             else if (currency[0] === "BTC") {
-                amountFor = item.amount / (0.0787655 * 0.001)
+                amountFor = item.amount / (0.0753651 * 0.001)
             }
 
 
             else if (currency[0] === "USD") {
-                amountFor = (item.amount / 0.0787655) * 0.1
+                amountFor = (item.amount / 0.0753651) * 0.1
             }
 
             //USD
             else if (currency[0] === "TSR" && currency[1] === "BTC") {
-                amountFor = item.amount * 0.001 * 0.0787655;
+                amountFor = item.amount * 0.001 * 0.0753651;
             }
             else if (currency[0] === "TSR" && currency[1] === "ETH") {
                 amountFor = item.amount * 0.001;
             }
             else if (currency[0] === "TSR" && currency[1] === "USD") {
-                amountFor = item.amount * (863.664 * 0.001);
+                amountFor = item.amount * (867.551 * 0.001);
             }
             return (
                 <Card.Description key={index}>
