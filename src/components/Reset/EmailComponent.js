@@ -73,7 +73,7 @@ class EmailComponent extends React.Component {
                         </Card.Description>
                         <Card.Description className={"auth_input"}>
                             <form action="#">
-                                <label>
+                                <label style={{marginBottom: "10px"}}>
                                     <input
                                         type="text"
                                         placeholder='EMail'

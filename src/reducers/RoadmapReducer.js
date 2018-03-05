@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    progressBar: 47.54
+    progressBar: 18
 
 };
 

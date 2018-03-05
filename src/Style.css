@@ -815,33 +815,27 @@
   border-radius: 0 !important;
   box-shadow: none !important; }
 
-@media screen and (min-width: 1200px) {
-  .component__cryptocurrency {
-    min-height: 314px !important; } }
-
-@media screen and (min-width: 992px) and (max-width: 1199px) {
-  .component__cryptocurrency {
-    min-height: 284px !important; } }
+.component__cryptocurrency {
+  padding: 1em 0 0 !important; }
+  @media screen and (min-width: 1200px) {
+    .component__cryptocurrency {
+      min-height: 314px !important; } }
+  @media screen and (min-width: 992px) and (max-width: 1199px) {
+    .component__cryptocurrency {
+      min-height: 284px !important; } }
+  .component__cryptocurrency .cryptocurrency__form {
+    padding: 0 10px !important; }
 
 .crypto__widget {
   position: relative; }
-  .crypto__widget:after {
-    content: "";
-    display: block;
-    position: absolute;
-    right: 1px;
-    top: 1px;
-    width: 63%;
-    height: 48px;
-    background-color: #F6F9FB; }
   .crypto__widget:before {
     content: "";
     display: block;
     position: absolute;
-    top: 51px;
+    top: 0;
     right: 1px;
     width: 99%;
-    height: 50px;
+    height: 100px;
     background-color: #FFFFFF !important; }
   .crypto__widget_radio {
     color: #004fce !important; }

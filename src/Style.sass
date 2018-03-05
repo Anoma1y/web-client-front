@@ -777,6 +777,15 @@ $header-identification-component: #363E71 !important
       outline: none !important
       transition: all 0.2s ease-in-out !important
       border-bottom: 2px solid rgba(147, 147, 147, 1) !important
+      //&:after
+      //  content: ""
+      //  display: block
+      //  position: absolute
+      //  top: 0
+      //  left: 0
+      //  height: 1px
+      //  width: 100%
+      //  background-color: rgba(147, 147, 147, 1)
       +placeholder
         transition: all 0.2s ease-in-out !important
         color: rgba(147, 147, 147, 1) !important
@@ -839,30 +848,23 @@ $header-identification-component: #363E71 !important
   box-shadow: none !important
 
 .component__cryptocurrency
+  padding: 1em 0 0 !important
   @media screen and (min-width: 1200px)
     min-height: 314px !important
   @media screen and (min-width: 992px) and (max-width: 1199px)
     min-height: 284px !important
-
+  .cryptocurrency__form
+    padding: 0 10px !important
 .crypto__widget
   position: relative
-  &:after
-    content: ""
-    display: block
-    position: absolute
-    right: 1px
-    top: 1px
-    width: 63%
-    height: 48px
-    background-color: #F6F9FB
   &:before
     content: ""
     display: block
     position: absolute
-    top: 51px
+    top: 0
     right: 1px
     width: 99%
-    height: 50px
+    height: 100px
     background-color: $white-color
 
   &_radio
@@ -876,6 +878,10 @@ $header-identification-component: #363E71 !important
   ///////////////////////////////////////////////////////////////////////////
 .visible.transition
   display: flex !important
+
+.modal
+  //margin-top: 0 !important
+
 //.modals
 //  display: flex !important
 ////////////////////////////////////////////////////////////////////////////

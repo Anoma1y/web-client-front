@@ -432,7 +432,8 @@ class Calculator extends Component {
             modalOpen,
             modalSuccessful,
             order,
-            querySuccess
+            querySuccess,
+            applicationError
         } = this.props.calculator;
         return (
             <Card fluid className={"component__calculator component__main"}>
@@ -584,7 +585,7 @@ class Calculator extends Component {
                                                     <Icon name={querySuccess ? "check circle outline" : "warning circle"} />
                                                 </div>
                                                 <div className={"modal__success_text"}>
-                                                    <span>{querySuccess ? "Заявка успешно отправлена" : "Ошибка"}</span>
+                                                    <span>{querySuccess ? "Заявка успешно отправлена" : applicationError}</span>
                                                 </div>
                                                 <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                                     <Button

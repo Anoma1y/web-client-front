@@ -9,3 +9,4 @@ export const CHANGE_QUERY_SUCCESSFUL = 'calculator/CHANGE_QUERY_SUCCESSFUL';
 export const CHANGE_MODAL_OPEN = 'calculator/CHANGE_MODAL_OPEN';
 export const CHANGE_CURRENT_BONUS = 'calculator/CHANGE_CURRENT_BONUS';
 export const CHANGE_ORDER = 'calculator/CHANGE_ORDER';
+export const CHANGE_APPLICATION_ERROR = 'calculator/CHANGE_APPLICATION_ERROR';
