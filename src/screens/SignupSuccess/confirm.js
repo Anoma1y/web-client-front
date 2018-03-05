@@ -28,7 +28,7 @@ class VerificationUser extends Component {
                 redirectToLogin();
             })
             .catch(() => {
-                redirectToHome();
+                redirectToLogin();
             });
     }
 
