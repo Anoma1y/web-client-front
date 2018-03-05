@@ -80,7 +80,7 @@ class Timer extends Component {
             <Card fluid className={"component__main"}>
                 <Card.Content>
                     <Card.Header className={"component__title"}>White list will be closed in</Card.Header>
-                    <Divider />
+                    <Divider className={"component__divider"} />
                     <Grid className={"dashboard__component"}>
                         <Grid.Row textAlign={"center"} className={"component__timer"}>
                             <Time timeName={"Days"} value={timeLeft.day} />

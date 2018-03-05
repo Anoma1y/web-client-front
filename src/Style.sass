@@ -75,7 +75,6 @@ $header-identification-component: #363E71 !important
   @media screen and (min-width: 768px)
     justify-content: flex-end !important
   .menu_logout
-    text-transform: uppercase !important
     position: relative !important
     &:after
       content: ""
@@ -199,6 +198,7 @@ $header-identification-component: #363E71 !important
   margin-bottom: 25px !important
 
 .component__title
+  margin: -4px 0 !important
   font-family: $font-robot !important
   font-size: 20px !important
   color: rgba(40, 40, 40, 1) !important
@@ -230,8 +230,15 @@ $header-identification-component: #363E71 !important
 .attentionIdentification
   background-color: rgba(208, 88, 88, 1) !important
   font-family: $font-robot
-  font-weight: normal !important
+  height: 36px !important
   margin-bottom: 15px !important
+  @media screen and (max-width: 767px)
+    height: 72px !important
+  font-weight: normal !important
+  &__wrapper
+    margin-top: -5px !important
+    @media screen and (max-width: 767px)
+      margin-top: 5px !important
   &__icon
     font-size: 18px !important
     color: $white-color
@@ -758,17 +765,30 @@ $header-identification-component: #363E71 !important
 
 
 .login, .signup
-  margin-top: 90px !important
-  margin-bottom: 20px !important
   font-family: $font-robot
+  max-width: 416px !important
+  margin: 90px auto 20px !important
+
+.auth__content
+  padding: 20px !important
+
+.auth__divider
+  margin-left: -20px !important
+  margin-right: -20px !important
 
 .login__header
   font-size: 20px !important
   font-family: $font-robot
   font-weight: normal !important
   line-height: 35px !important
+  margin: -13px 0 -7px !important
   color: rgba(40, 40, 40, 1) !important
-
+.reset__password
+  &_header
+    margin-top: -10px !important
+  &_content
+    label
+      margin-bottom: 20px !important
 .login__content
   &_forgot
     text-align: right !important
@@ -807,7 +827,7 @@ $header-identification-component: #363E71 !important
       display: block !important
       position: relative !important
       border: none !important
-      padding: 20px 0 !important
+      padding: 30px 0 10px !important
       width: 100% !important
       outline: none !important
       transition: all 0.2s ease-in-out !important
@@ -847,7 +867,7 @@ $header-identification-component: #363E71 !important
 .signup__content
   &_confirm
     width: 75% !important
-    margin: 20px 0 !important
+    margin: 20px 0 34px !important
     font-size: 14px !important
     font-weight: 500 !important
     a

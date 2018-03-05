@@ -38,7 +38,6 @@
     .right__menu {
       justify-content: flex-end !important; } }
   .right__menu .menu_logout {
-    text-transform: uppercase !important;
     position: relative !important; }
     .right__menu .menu_logout:after {
       content: "";
@@ -163,6 +162,7 @@
   margin-bottom: 25px !important; }
 
 .component__title {
+  margin: -4px 0 !important;
   font-family: "Roboto", sans-serif !important !important;
   font-size: 20px !important;
   color: #282828 !important; }
@@ -194,8 +194,17 @@
 .attentionIdentification {
   background-color: #d05858 !important;
   font-family: "Roboto", sans-serif !important;
-  font-weight: normal !important;
-  margin-bottom: 15px !important; }
+  height: 36px !important;
+  margin-bottom: 15px !important;
+  font-weight: normal !important; }
+  @media screen and (max-width: 767px) {
+    .attentionIdentification {
+      height: 72px !important; } }
+  .attentionIdentification__wrapper {
+    margin-top: -5px !important; }
+    @media screen and (max-width: 767px) {
+      .attentionIdentification__wrapper {
+        margin-top: 5px !important; } }
   .attentionIdentification__icon {
     font-size: 18px !important;
     color: #FFFFFF !important; }
@@ -729,16 +738,30 @@
     color: #1c73ff !important; }
 
 .login, .signup {
-  margin-top: 90px !important;
-  margin-bottom: 20px !important;
-  font-family: "Roboto", sans-serif !important; }
+  font-family: "Roboto", sans-serif !important;
+  max-width: 416px !important;
+  margin: 90px auto 20px !important; }
+
+.auth__content {
+  padding: 20px !important; }
+
+.auth__divider {
+  margin-left: -20px !important;
+  margin-right: -20px !important; }
 
 .login__header {
   font-size: 20px !important;
   font-family: "Roboto", sans-serif !important;
   font-weight: normal !important;
   line-height: 35px !important;
+  margin: -13px 0 -7px !important;
   color: #282828 !important; }
+
+.reset__password_header {
+  margin-top: -10px !important; }
+
+.reset__password_content label {
+  margin-bottom: 20px !important; }
 
 .login__content_forgot {
   text-align: right !important;
@@ -779,7 +802,7 @@
     display: block !important;
     position: relative !important;
     border: none !important;
-    padding: 20px 0 !important;
+    padding: 30px 0 10px !important;
     width: 100% !important;
     outline: none !important;
     transition: all 0.2s ease-in-out !important;
@@ -818,7 +841,7 @@
 
 .signup__content_confirm {
   width: 75% !important;
-  margin: 20px 0 !important;
+  margin: 20px 0 34px !important;
   font-size: 14px !important;
   font-weight: 500 !important; }
   .signup__content_confirm a {

@@ -7,7 +7,7 @@ import {
 const INITIAL_STATE = {
     jwt: null,
     email: "",
-    isIdentification: false
+    isIdentification: true
 };
 
 export default (state = INITIAL_STATE, action) => {

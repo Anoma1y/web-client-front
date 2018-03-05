@@ -10,7 +10,7 @@ export const AttentionIdentification = () => {
     return (
         <Container>
             <Grid>
-                <Grid.Row centered>
+                <Grid.Row centered className={"attentionIdentification__wrapper"}>
                     <Grid.Column width={15}>
                         <div className={"attentionIdentification__container"}>
                             <Grid>

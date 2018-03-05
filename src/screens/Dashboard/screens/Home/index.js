@@ -23,10 +23,6 @@ class Home extends Component{
 
     }
 
-    // componentWillMount() {
-    //     Login.getUser(localStorage.getItem("jwt")).then(()=>{}).catch((err)=>{this.props.redirectToHome()});
-    // }
-
     handleContextRef = contextRef => {
         this.setState({contextRef})
     }
@@ -36,9 +32,12 @@ class Home extends Component{
         const { isIdentification } = this.props.user;
         return (
             <div>
-                <div className={"attentionIdentification"}>
-                    {!isIdentification ? <AttentionIdentification /> : ""}
-                </div>
+                {isIdentification ? null :
+                    <div className={"attentionIdentification"}>
+                        <AttentionIdentification />
+                    </div>
+                }
+
                 <Container>
                     <div ref={this.handleContextRef}>
                         <Grid >

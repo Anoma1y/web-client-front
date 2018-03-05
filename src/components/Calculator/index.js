@@ -450,8 +450,6 @@ class Calculator extends Component {
         return (
             <Card fluid className={"component__calculator component__main"}>
                 <Card.Content>
-                    <Card.Header className={"component__title"}>Calculator</Card.Header>
-                    <Divider className={"white__divider"}/>
                     <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                         <Grid.Row className={"calculator__currency"}>
                             { this.renderCurrencyButton() }

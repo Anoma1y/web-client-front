@@ -11,7 +11,7 @@ const Dashboard = ({ match }) => (
         <Switch>
             <Route exact path={`${match.url}`} component={Home} />
             <Route exact path={`${match.url}/home`} component={Home} />
-            <Route exact path={`${match.url}/settings`} component={Settings} />
+            {/*<Route exact path={`${match.url}/settings`} component={Settings} />*/}
         </Switch>
     </div>
 );

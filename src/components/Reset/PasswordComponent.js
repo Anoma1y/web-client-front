@@ -80,12 +80,12 @@ class PasswordComponent extends Component {
 
         return (
             <div>
-                <Card fluid color={'violet'} className={"login"}>
+                <Card fluid color={'violet'} className={"login reset__password"}>
                     <Card.Content>
-                        <Card.Header as={"h1"} className={"login__header"}>
+                        <Card.Header as={"h1"} className={"login__header reset__password_header"}>
                             New Password
                         </Card.Header>
-                        <Divider />
+                        <Divider className={"auth__divider"}/>
                         <Card.Description style={{marginBottom: 15}} as={"p"}>
                             Create a new password
                         </Card.Description>
@@ -109,7 +109,7 @@ class PasswordComponent extends Component {
                                         value={repeatNewPassword}
                                         className={this.state.repeatNewPassword ? "populated" : ""}
                                     />
-                                    <span>'Repeat password'</span>
+                                    <span>Repeat password</span>
                                 </label>
                                 { error !== null ?
                                     <Message warning color={"red"}>

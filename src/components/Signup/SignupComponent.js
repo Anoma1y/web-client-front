@@ -135,11 +135,11 @@ class SignupComponent extends Component {
         return (
             <div>
                 <Card fluid className={"signup"}>
-                   <Card.Content>
+                   <Card.Content className={"auth__content"}>
                        <Card.Header as={"h1"} className={"login__header"}>
                            Sign Up
                        </Card.Header>
-                       <Divider />
+                       <Divider className={"auth__divider"}/>
                         <Card.Description className={"signup__content auth_input"}>
                             <form action="#">
                                 <label>

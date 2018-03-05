@@ -62,18 +62,18 @@ class EmailComponent extends React.Component {
         const { emailPlaceholder } = this.state;
         return (
             <div>
-                <Card fluid className={"login"}>
+                <Card fluid className={"login reset__password"}>
                     <Card.Content>
-                        <Card.Header as={"h1"} className={"login__header"}>
+                        <Card.Header as={"h1"} className={"login__header reset__password_header"}>
                             Forgot your password?
                         </Card.Header>
-                        <Divider />
-                        <Card.Description style={{marginBottom: 15}}>
+                        <Divider  className={"auth__divider"}/>
+                        <Card.Description>
                             No problem! Just fill in the email below and we'll send you password reset instructions!
                         </Card.Description>
-                        <Card.Description className={"auth_input"}>
+                        <Card.Description className={"auth_input reset__password_content"}>
                             <form action="#">
-                                <label style={{marginBottom: "10px"}}>
+                                <label>
                                     <input
                                         type="text"
                                         placeholder='EMail'

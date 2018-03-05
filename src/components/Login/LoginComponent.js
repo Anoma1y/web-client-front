@@ -90,11 +90,11 @@ class LoginComponent extends Component {
         return (
             <div>
                 <Card fluid className={"login"}>
-                    <Card.Content>
+                    <Card.Content className={"auth__content"}>
                         <Card.Header as={"h1"} className={"login__header"}>
                             Sign In
                         </Card.Header>
-                        <Divider />
+                        <Divider className={"auth__divider"}/>
                         <Card.Description className={"login__content auth_input"}>
                             <form action="#">
                                 <label>
