@@ -169,11 +169,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
-                                        placeholder={"E-mail"}
+                                        placeholder={"EMail"}
                                         className={this.state.companyEmail ? "populated" : ""}
                                         onChange={this.handleCompanyEmail}
                                     />
-                                    <span>E-mail</span>
+                                    <span>EMail</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>

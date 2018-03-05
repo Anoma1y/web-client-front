@@ -39,7 +39,7 @@ $header-identification-component: #363E71 !important
     @content
 .logo_content
   img
-    width: 170px !important
+    width: 140px !important
 .menu__logo
   height: 100% !important
   @media screen and (max-width: 767px)
@@ -48,18 +48,23 @@ $header-identification-component: #363E71 !important
 .user_content
 
 #root
-  height: 100vh
+  background-color: #fafafa !important
+
 .auth__container
   height: calc(100vh - 85.38px) !important
 
+.menu_login
+  margin-bottom: -20px !important
 
 .menu__color
   background-color: $header-menu-background-color
 
 .header__menu
   background-color: $header-menu-background-color
+  height: 49px !important
   border-radius: 0 !important
-
+  @media screen and (max-width: 767px)
+    height: 100px !important
 
 .right__menu
   display: flex
@@ -408,6 +413,16 @@ $header-identification-component: #363E71 !important
     margin-right: 6px !important
   &-active
     color: rgba(208, 88, 88, 1) !important
+.comments__form
+  position: relative
+.message__length
+  position: absolute
+  top: 100%
+  width: 50%
+  right: 0
+  text-align: right
+  &-active
+    color: $red-color
 
 .calculator__text
   font-family: $font-robot
@@ -447,25 +462,45 @@ $header-identification-component: #363E71 !important
       float: left
   font-family: $font-robot
   &_header
-    font-size: 16px !important
-    font-weight: 500 !important
+    text-align: left !important
+    p
+      font-size: 16px !important
+      font-weight: 500 !important
+    span
+      font-size: 15px !important
+  &_wrapper
+    margin: 5px 1rem -35px !important
+    @media screen and (max-width: 464px)
+      margin: 5px 2rem -35px !important
   &_fixcurrency
-    margin-top: 15px !important
     input
       &:checked + label
         color: rgba(0, 79, 206, 1) !important
     label
       &:hover
         color: rgba(0, 79, 206, 1) !important
-
+  &_label
+    position: absolute !important
+    top: -25px
+    left: -10px
+    font-size: 16px !important
+    font-weight: 500 !important
+    color: rgb(147,147,147) !important
   &_paymount
-    margin-top: 25px !important
+    margin-top: 40px !important
+    padding-top: 10px !important
+    margin-left: 0 !important
+    margin-right: 0 !important
+    position: relative !important
     background-color: #E6EDFA !important
+    font-weight: 500 !important
     font-family: $font-robot
   &_text
     text-align: left !important
     margin-top: 30px !important
     font-family: $font-robot
+    font-size: 15px !important
+    font-weight: 500 !important
     color: #929292 !important
   .calculator__paymount_divider
     background-color: rgba(0, 79, 206, 1) !important
@@ -475,7 +510,7 @@ $header-identification-component: #363E71 !important
   .order__paymount_item:not(:first-child)
     margin-top: -15px !important
   .order__strong
-    font-weight: 500 !important
+    font-weight: 600 !important
 
 
 .ui.dimmer
@@ -880,7 +915,7 @@ $header-identification-component: #363E71 !important
   display: flex !important
 
 .modal
-  //margin-top: 0 !important
+  //margin-top: -1rem !important
 
 //.modals
 //  display: flex !important

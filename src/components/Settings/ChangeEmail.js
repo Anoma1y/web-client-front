@@ -9,7 +9,7 @@ import {
 const ChangeEmail = (props) => (
     <Card fluid>
         <Card.Content>
-            <Card.Header>Change e-mail</Card.Header>
+            <Card.Header>Change Email</Card.Header>
             <Divider className={"white__divider"}/>
             <Grid className={"dashboard__component"}>
                 <Grid.Row>

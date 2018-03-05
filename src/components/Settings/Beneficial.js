@@ -106,11 +106,11 @@ class Beneficial extends Component {
                         <label>
                             <input
                                 type="text"
-                                placeholder={"E-mail"}
+                                placeholder={"EMail"}
                                 onChange={this.handleEmail}
                                 className={this.state.Email ? "populated" : ""}
                             />
-                            <span>E-mail</span>
+                            <span>EMail</span>
                         </label>
                     </Grid.Column>
                 </Grid.Row>

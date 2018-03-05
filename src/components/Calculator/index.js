@@ -36,7 +36,8 @@ class Calculator extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            activeIndex: -1 
+            activeIndex: -1,
+            messageLength: 0
         }
 
     }
@@ -268,7 +269,7 @@ class Calculator extends Component {
         if(!value.match(checkNumber)) {
             return;
         }
-        if (value.length >= 25) {
+        if (value > 2000000) {
             return;
         }
         this.changeState(this.calcToken(value));
@@ -285,7 +286,7 @@ class Calculator extends Component {
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
     handleCurrency = event => {
-        const { currencyValue } = this.props.calculator;
+        const { currencyValue, tokenValue } = this.props.calculator;
         const { value } = event.target;
         let checkNumber;
         if (currencyValue === "USD") {
@@ -296,10 +297,11 @@ class Calculator extends Component {
         if(!value.match(checkNumber)) {
             return;
         }
-        if (value.length >= 25) {
+        const data = this.calcCurrency(value);
+        if (data.tokenValue > 2000000) {
             return;
         }
-        this.changeState(this.calcCurrency(value));
+        this.changeState(data);
     }
 
     //Метод для обработки Radio button'ов
@@ -374,6 +376,10 @@ class Calculator extends Component {
     handleChangeComments = event => {
         const { value } = event.target;
         const { changeComments } = this.props;
+        const { length } = value;
+        this.setState({
+            messageLength: length
+        })
         changeComments(value);
     }
 
@@ -384,7 +390,10 @@ class Calculator extends Component {
 
     handleSubmitApplication = () => {
         const { handleFormOrder } = this.props;
-        handleFormOrder();
+        const { comments } = this.props.calculator;
+        if (comments.length <= 500) {
+            handleFormOrder();
+        }
     }
     handleSendApplication = () => {
         const { handleApplication } = this.props;
@@ -420,6 +429,9 @@ class Calculator extends Component {
     
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
+        const {
+            messageLength
+        } = this.state;
         const {
             tokenValue,
             currencyValue,
@@ -550,7 +562,7 @@ class Calculator extends Component {
                                         <p>Leave a comment </p><Icon name='chevron right' />
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === 0} className={"calculator__accordion_content"}>
-                                        <Form as={"div"}>
+                                        <Form as={"div"} className={"comments__form"}>
                                             <TextArea
                                                 className={"calculator__comments"}
                                                 autoHeight
@@ -558,6 +570,7 @@ class Calculator extends Component {
                                                 onChange={this.handleChangeComments}
                                                 value={comments}
                                             />
+                                            <span className={messageLength <= 500 ? "message__length" : "message__length message__length-active"}>{messageLength} / 500</span>
                                         </Form>
                                     </Accordion.Content>
                                 </Accordion>
@@ -578,7 +591,7 @@ class Calculator extends Component {
                                        size={"tiny"}
                                        onClose={this.handleCloseModal}
                                 >
-                                    <Modal.Content className={"modal__success"}>
+                                    <Modal.Content className={"modal__success"} scrolling>
                                         {modalSuccessful ?
                                             <Modal.Description>
                                                 <div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
@@ -598,37 +611,65 @@ class Calculator extends Component {
                                             <Modal.Description>
                                                 {currencyValue === "ETH" ?
                                                     <div className={"calculator__order"}>
-                                                        <p className={"calculator__order_header"}>Your order</p>
-                                                        <Grid>
-                                                            <Grid.Row className={"calculator__order_fixcurrency"} centered>
-                                                                <Grid.Column width={4} className={"rrright"}>
-                                                                    <Radio
-                                                                        label={"TSR"}
-                                                                        name='ETH_GROUP'
-                                                                        value={"TSR"}
-                                                                        checked={order.fixCurrency === "TSR"}
-                                                                        onChange={this.handleChangeOrderCurrency}
-                                                                    />
+                                                        <div className={"calculator__order_header"}>
+                                                            <p>Thank you for the application!</p>
+                                                            <span>We'll approve or decline all applications before April 9th. We'll send you an email, or you can view all approved applications in your TransCrypt tokensale account.</span>
+                                                        </div>
+                                                        <Grid className={"calculator__order_paymount"}>
+                                                            <p className={"calculator__order_label"}>Your order</p>
+                                                            <Grid.Row className={"order__paymount_item"}>
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    You ordered
                                                                 </Grid.Column>
-                                                                <Grid.Column width={4} className={"llleft"}>
-                                                                    <Radio
-                                                                        label={"ETH"}
-                                                                        name='ETH_GROUP'
-                                                                        value={"ETH"}
-                                                                        checked={order.fixCurrency === "ETH"}
-                                                                        onChange={this.handleChangeOrderCurrency}
-                                                                    />
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8}>
+                                                                    {this.separationValue(tokenValue)} tokens
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                            <Grid.Row className={"order__paymount_item"}>
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    Bonus
+                                                                </Grid.Column>
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8}>
+                                                                    {currentBonus ? `${currentBonus} %` : "0"}
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                            <Grid.Row className={"order__paymount_item"}>
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    Total tokens
+                                                                </Grid.Column>
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8}>
+                                                                    {this.separationValue(transferData.TSR)} tokens
+                                                                </Grid.Column>
+                                                            </Grid.Row>
+                                                            <Divider className={"calculator__paymount_divider"}/>
+                                                            <Grid.Row
+                                                                className={"calculator__order_amount"}>
+
+                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
+                                                                             mobile={8}>
+                                                                    Payment amount
+                                                                </Grid.Column>
+                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
+                                                                             mobile={8} className={"order__strong"}>
+                                                                    {this.separationValue(transferData[currencyValue])} {currencyValue}
                                                                 </Grid.Column>
                                                             </Grid.Row>
                                                         </Grid>
                                                     </div> :
                                                     <div className={"calculator__order"}>
-                                                        <p className={"calculator__order_header"}>Please choose whether
-                                                            you want to set the number of tokens or the purchase amount
-                                                            in</p>
-                                                        <Grid>
-                                                            <Grid.Row className={"calculator__order_fixcurrency"} centered>
-                                                                <Grid.Column className={"rrright"} width={4}>
+                                                        <div className={"calculator__order_header"}>
+                                                            <p>Thank you for the application!</p>
+                                                             <span>We'll approve or decline all applications before April 9th. We'll send you an email, or you can view all approved applications in your TransCrypt tokensale account.</span>
+                                                        </div>
+                                                        <Grid className={"calculator__order_wrapper"}>
+                                                            <Grid.Row className={"calculator__order_fixcurrency"}>
+                                                                <Grid.Column className={"rrright"} width={2}>
                                                                     <Radio
                                                                         label={"TSR"}
                                                                         name='BTC_USD_GROUP'
@@ -639,7 +680,7 @@ class Calculator extends Component {
                                                                 </Grid.Column>
                                                                 {
                                                                     currencyValue === "USD" ?
-                                                                        <Grid.Column className={"llleft"} width={4}>
+                                                                        <Grid.Column className={"llleft"} width={2}>
                                                                             <Radio
                                                                                 label={"USD"}
                                                                                 name='BTC_USD_GROUP'
@@ -649,7 +690,7 @@ class Calculator extends Component {
                                                                             />
                                                                         </Grid.Column>
                                                                         : currencyValue === "BTC" ?
-                                                                        <Grid.Column className={"llleft"} width={4}>
+                                                                        <Grid.Column className={"llleft"} width={2}>
                                                                             <Radio
                                                                                 label={"BTC"}
                                                                                 name='BTC_USD_GROUP'
@@ -703,17 +744,12 @@ class Calculator extends Component {
                                                                 </Grid.Column>
                                                                 <Grid.Column widescreen={10} computer={10} tablet={10}
                                                                              mobile={8} className={"order__strong"}>
-                                                                    {this.separationValue(transferData["TSR"])} tokens
+                                                                    {this.separationValue(transferData[currencyValue])} {currencyValue}
                                                                 </Grid.Column>
                                                             </Grid.Row>
                                                         </Grid>
                                                         <p className={"calculator__order_text"}>
-                                                            Please choose whether you want to set the number of tokens
-                                                            or the purchase amount in
-                                                            Please be aware that the number of tokens bought will be
-                                                            calculated after we receive the funds, not at the moment
-                                                            theywere sent. The final amount can change due to exchange
-                                                            rate fluctuations.
+                                                            Please note that the number of tokens bought will be calculated after we receive the funds, not at the moment they were sent. The final amount can change due to exchange rate fluctuations.
                                                         </p>
                                                     </div>
                                                 }
