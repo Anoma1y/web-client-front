@@ -37,7 +37,6 @@ class Home extends Component{
                         <AttentionIdentification />
                     </div>
                 }
-
                 <Container>
                     <div ref={this.handleContextRef}>
                         <Grid >

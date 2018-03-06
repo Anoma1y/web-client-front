@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
     jwt: null,
     email: "",
-    isIdentification: true,
+    isIdentification: false,
     roles: "user"
 };
 

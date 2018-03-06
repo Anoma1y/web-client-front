@@ -10,7 +10,7 @@ class ConfirmationComponent extends Component {
                 <Card fluid color={'violet'} className={"login"}>
                     <Card.Content textAlign={"center"}>
                         <Card.Header as={"h1"}>
-                            Confirmation your EMail
+                            Confirmation your Email
                         </Card.Header>
                         <Card.Description as={"p"}>
                             Please check your inbox for an email with instructions for how to reset your password

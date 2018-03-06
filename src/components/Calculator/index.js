@@ -423,13 +423,13 @@ class Calculator extends Component {
     }
     handleChangeOrderCurrency = (event, {value}) => {
         const { handleChangeOrder } = this.props;
-        const { currencyValue, transferData } = this.props.calculator;
+        const { currencyValue, transferData, tokenValue } = this.props.calculator;
         let orders = {}
         if (value === "TSR") {
             orders = {
                 fixCurrency: "TSR",
                 forCurrency: currencyValue,
-                amount: transferData["TSR"]
+                amount: tokenValue
             }
         } else {
             orders = {

@@ -30,7 +30,7 @@ export const handleApplication = () => {
                     dispatch(changeQuerySuccessful(false));
                 })
             } else {
-                dispatch(changeApplicationError("Ошибка, максимум заявок 10 шт"));
+                dispatch(changeApplicationError("To proceed please contact us"));
                 dispatch(changeModalSuccessful(true));
                 dispatch(changeQuerySuccessful(false));
             }
