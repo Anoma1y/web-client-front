@@ -46,7 +46,7 @@ class UsersComponent extends Component {
                                         <Table.HeaderCell>id</Table.HeaderCell>
                                         <Table.HeaderCell>Created At</Table.HeaderCell>
                                         <Table.HeaderCell>Updated At</Table.HeaderCell>
-                                        <Table.HeaderCell>Deleted At</Table.HeaderCell>
+                                        {/*<Table.HeaderCell>Deleted At</Table.HeaderCell>*/}
                                         <Table.HeaderCell>EMail</Table.HeaderCell>
                                         <Table.HeaderCell>Roles</Table.HeaderCell>
                                         <Table.HeaderCell>Is Verified</Table.HeaderCell>

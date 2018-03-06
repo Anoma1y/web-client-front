@@ -2,7 +2,18 @@ import Config from 'libs/config';
 import axios from 'axios';
 
 class AdminLib {
-    static getAllApplication() {}
+    static getAllApplication() {
+        const URL = Config.url + "admin/application";
+        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${ADMIN_TOKEN}`
+            }
+        }
+        return axios.get(URL,
+            header
+        )
+    }
 
     static getApplicationByID() {}
 

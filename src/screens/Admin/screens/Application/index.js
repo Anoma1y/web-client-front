@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import ApplicationComponent from 'components/Admin/ApplicationComponent';
 
 class Application extends Component {
     render() {
         return (
             <div>
-                <h1>Application</h1>
+                <ApplicationComponent />
             </div>
         );
     }
