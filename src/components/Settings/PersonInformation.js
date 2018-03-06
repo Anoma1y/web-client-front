@@ -31,11 +31,6 @@ class PersonInformation extends Component {
     render() {
         return (
             <Grid.Row>
-
-                <Grid.Column width={16} className={"header__input_text header_text_uppercase"}>
-                    Information about the person authorised to represent the company
-                </Grid.Column>
-
                 <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
                     <label>
                         <input
