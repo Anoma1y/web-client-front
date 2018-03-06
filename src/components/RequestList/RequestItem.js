@@ -24,20 +24,22 @@ class RequestItem extends Component {
     }
 
     render() {
-        const {sum, amount, buttonDisabled, buttonBasic, buttonColor, buttonText} = this.props;
+        const {sum, amount, buttonDisabled, buttonBasic, buttonColor, buttonText, fixedColor} = this.props;
+        const fixedStyleTSR = fixedColor === "TSR";
+        const fixedStyleAmount = fixedColor !== "TSR";
         return (
             <Grid verticalAlign={'middle'} className={"request__item"}>
                 <Grid.Row columns={3} className={"request__item_wrapper"}>
                     <Grid.Column>
                         <Item>
-                            <Item.Header className={"request__item_title"}>Amount</Item.Header>
-                            <Item.Description className={"request__item_value"}><h3>{sum}</h3></Item.Description>
+                            <Item.Header className={fixedStyleAmount ? "request__item_title request__item_title-active" : "request__item_title"}>Amount</Item.Header>
+                            <Item.Description className={fixedStyleAmount ? "request__item_value request__item_value-active" : "request__item_value"}><h3>{sum}</h3></Item.Description>
                         </Item>
                     </Grid.Column>
                     <Grid.Column>
                         <Item>
-                            <Item.Header className={"request__item_title"}>Tokens</Item.Header>
-                            <Item.Description className={"request__item_value"}><h3>{amount} </h3></Item.Description>
+                            <Item.Header className={fixedStyleTSR ? "request__item_title request__item_title-active" : "request__item_title"}>Tokens</Item.Header>
+                            <Item.Description className={fixedStyleTSR ? "request__item_value request__item_value-active" : "request__item_value"}><h3>{amount} </h3></Item.Description>
                         </Item>
                     </Grid.Column>
                     <Grid.Column>

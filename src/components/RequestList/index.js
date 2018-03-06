@@ -14,6 +14,8 @@ class RequestList extends Component {
         this.props.handleRequestItem(localStorage.jwt);
     }
 
+    separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
+
     renderList () {
         const { items: request } = this.props.requests;
         const { currency: cryptoCurrency } = this.props.calculator;
@@ -42,7 +44,6 @@ class RequestList extends Component {
             //         bonusValue = bon.value
             //     }
             // })
-
             if (currency[0] === "BTC" && currency[1] === "TSR") {
                 amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001);
             }
@@ -63,15 +64,20 @@ class RequestList extends Component {
                 amountFor = item.amount * (cryptoCurrency[1].price_usd * 0.001);
             }
 
+            const sepItemAmount = this.separationValue(item.amount, currency[0] === "USD" ? 2 : currency[1] === "USD" ? 2 : 4);
+            const sepAmount = this.separationValue(amountFor, currency[0] === "USD" ? 2 : currency[1] === "USD" ? 2 : 4);
+            const SUM = currency[0] === "TSR" ? `${sepItemAmount} ${currency[0] === "TSR" ? currency[1] : currency[0]}`: `${sepAmount} ${currency[0] === "TSR" ? currency[1] : currency[0]}`
+
             return (
                 <Card.Description key={index}>
                     <RequestItem
-                        sum={`${item.amount} ${currency[0]}`}
-                        amount={`${amountFor.toFixed(4)} ${currency[1]}`}
+                        sum={SUM}
+                        amount={currency[1] === "TSR" ? sepItemAmount : sepAmount}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}
                         buttonInverted={item.status === 1}
+                        fixedColor={currency[0]}
                     />
                     {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}
                 </Card.Description>
