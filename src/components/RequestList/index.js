@@ -35,44 +35,61 @@ class RequestList extends Component {
                 default:
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
-            let amountFor;
-            let bonusValue;
-            bonus.forEach((bon) => {
-                if (currency[0] === "TSR" && item.amount > bon.limit) {
-                    bonusValue = bon.value
-                } else if (currency[1] === "TSR" && item.amount > bon.limit) {
-                    bonusValue = bon.value
-                }
-            })
-            if (currency[0] === "BTC" && currency[1] === "TSR") {
-                amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001);
+
+            const checkPercent = value => {
+                let bonusPercent = 0;
+                bonus.forEach((bon) => {
+                    if (currency[0] === "TSR" && value >= bon.limit) {
+                        bonusPercent = bon.value
+                    } else if (currency[1] === "TSR" && value >= bon.limit) {
+                        bonusPercent = bon.value
+                    }
+                })
+                return bonusPercent;
             }
 
-            else if (currency[0] === "USD" && currency[1] === "TSR") {
-                amountFor = item.amount / (cryptoCurrency[1].price_usd * 0.001);
+            let TOKENVALUE = 0;
+            let CURRENCYVALUE = 0;
+
+            const bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
+
+            if (currency[0] === "TSR" && currency[1] === "ETH") {
+                const percent = checkPercent(item.amount)
+                CURRENCYVALUE = `${this.separationValue((TOKEN_ATTITUDE_ETH * item.amount), 4)} ETH`;
+                TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 
             else if (currency[0] === "TSR" && currency[1] === "BTC") {
-                amountFor = item.amount * 0.001 * cryptoCurrency[1].price_btc;
-            }
-
-            else if (currency[0] === "TSR" && currency[1] === "ETH") {
-                amountFor = item.amount * TOKEN_ATTITUDE_ETH;
+                const percent = checkPercent(item.amount)
+                CURRENCYVALUE = `${this.separationValue((TOKEN_ATTITUDE_ETH * item.amount * cryptoCurrency[1].price_btc), 4)} BTC`;
+                TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 
             else if (currency[0] === "TSR" && currency[1] === "USD") {
-                amountFor = item.amount * (cryptoCurrency[1].price_usd * 0.001);
+                const percent = checkPercent(item.amount)
+                CURRENCYVALUE = `$ ${this.separationValue(item.amount * (cryptoCurrency[1].price_usd * TOKEN_ATTITUDE_ETH), 4)}`;
+                TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 
-            const sepItemAmount = this.separationValue(item.amount, currency[0] === "USD" ? 2 : currency[1] === "USD" ? 2 : 4);
-            const sepAmount = this.separationValue(amountFor, currency[0] === "USD" ? 2 : currency[1] === "USD" ? 2 : 4);
-            const SUM = currency[0] === "TSR" ? `${sepItemAmount} ${currency[0] === "TSR" ? currency[1] : currency[0]}`: `${sepAmount} ${currency[0] === "TSR" ? currency[1] : currency[0]}`
+            else if (currency[0] === "USD" && currency[1] === "TSR") {
+                const USDTOKEN = item.amount / (cryptoCurrency[1].price_usd * TOKEN_ATTITUDE_ETH);
+                const percent = checkPercent(USDTOKEN)
+                CURRENCYVALUE = this.separationValue(bonusCalc(USDTOKEN, percent), 4);
+                TOKENVALUE = `$ ${this.separationValue(item.amount, 2)}`;
+            }
+
+            else if (currency[0] === "BTC" && currency[1] === "TSR") {
+                const BTCTOKEN = (item.amount * (cryptoCurrency[0].price_usd / cryptoCurrency[1].price_usd)) / TOKEN_ATTITUDE_ETH;
+                const percent = checkPercent(BTCTOKEN);
+                CURRENCYVALUE = this.separationValue(bonusCalc(BTCTOKEN, percent), 4);
+                TOKENVALUE = `${this.separationValue(item.amount, 4)} BTC`;
+            }
 
             return (
                 <Card.Description key={index}>
                     <RequestItem
-                        sum={SUM}
-                        amount={currency[0] === "TSR" ? item.amount : ""}
+                        sum={currency[0] === "TSR" ? CURRENCYVALUE : TOKENVALUE}
+                        amount={currency[0] === "TSR" ?  TOKENVALUE:  CURRENCYVALUE}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}

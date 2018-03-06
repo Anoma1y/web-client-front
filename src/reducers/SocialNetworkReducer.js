@@ -1,22 +1,23 @@
 const INITIAL_STATE = {
-    socialNetwork: [{
-        name: "facebook f",
-        href: "https://www.facebook.com/tsrpay/"
-    },{
+    socialNetwork: [
+    {
         name: "telegram",
         href: "https://t.me/tsrpay"
     },{
         name: "twitter",
         href: "https://twitter.com/tsrpay"
     },{
-        name: "instagram",
-        href: "https://www.instagram.com/tsrpay"
+        name: "bitcoin",
+        href: "https://bitcointalk.org/index.php?topic=3070065.0"
     },{
-        name: "medium",
-        href: "https://medium.com/@tsrpay"
+        name: "facebook f",
+        href: "https://www.facebook.com/tsrpay/"
     },{
         name: "reddit alien",
         href: "https://www.reddit.com/user/TSRPAY/"
+    },{
+        name: "medium",
+        href: "https://medium.com/@tsrpay"
     }]
 };
 
