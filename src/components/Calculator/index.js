@@ -20,9 +20,11 @@ import {
 } from 'semantic-ui-react';
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
+import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
 import CalculatorComment from './CalculatorComment';
 import CalculatorModal from "./CalculatorModal";
 import CalculatorPaymount from './CalculatorPaymount';
+
 class Calculator extends Component {
 
     constructor(props) {
