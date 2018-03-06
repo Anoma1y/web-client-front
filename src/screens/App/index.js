@@ -26,7 +26,7 @@ class App extends Component {
                         <Route exact path={'/signup'} component={Signup} />
                         <Route exact path={'/signupsuccess'} component={SignupSuccess} />
                         <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : Redirect } />
-                        <Route path={'/admin'} component={Admin} />
+                        {localStorage.roles  === "admin" ? <Route path={'/admin'} component={Admin} /> : null}
                         <Route path={'/reset'} component={ResetPassword} />
                         <Route path={'/logout'} component={Logout} />
                         <Route path={'/confirm'} component={VerificationUser} />

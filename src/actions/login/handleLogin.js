@@ -14,17 +14,19 @@ export const handleLogin = value => {
         dispatch(setAuthInProgress(true));
         Login.logUser(email, password).then((data) => {
             dispatch(setError(null));
+            const { jwt } = data.data;
             Login.getUser(data.data.jwt).then((user) => {
                 const {
                     is_kyc_passed,
-                    email
+                    email,
+                    roles
                 } = user.data;
+                localStorage.setItem("roles", roles);
+                localStorage.setItem("jwt", jwt);
                 dispatch(initIdenfified(is_kyc_passed));
                 dispatch(initEmail(email));
             });
-            const { jwt } = data.data;
             dispatch(handleTokenUser(jwt));
-            localStorage.setItem("jwt", jwt);
             dispatch(setAuthInProgress(false));
             dispatch(push('/dashboard/'));
         }).catch((err) =>{
