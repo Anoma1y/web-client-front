@@ -3,11 +3,11 @@ import { changeOrder } from './changeOrder';
 
 export const handleFormOrder = () => {
     return (dispatch, getState) => {
-        const { currencyValue, transferData } = getState().calculator;
+        const { currencyValue, tokenValue } = getState().calculator;
         const newOrder = {
             fixCurrency: "TSR",
             forCurrency: currencyValue,
-            amount: transferData["TSR"]
+            amount: tokenValue
         }
         dispatch(changeOrder(newOrder));
         dispatch(changeModalOpen(true));

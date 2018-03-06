@@ -18,7 +18,7 @@ class RequestList extends Component {
 
     renderList () {
         const { items: request } = this.props.requests;
-        const { currency: cryptoCurrency } = this.props.calculator;
+        const { currency: cryptoCurrency, TSR: TOKEN_ATTITUDE_ETH, bonus } = this.props.calculator;
         return request.map((item, index) => {
             let btnOptions = null;
             const currency = item.currency.split("/");
@@ -36,14 +36,14 @@ class RequestList extends Component {
                     btnOptions = { color: 'grey', text: 'Processing', callback: () => {} };
             }
             let amountFor;
-            // let bonusValue;
-            // bonus.forEach((bon) => {
-            //     if (currency[0] === "TSR" && item.amount > bon.limit) {
-            //         bonusValue = bon.value
-            //     } else if (currency[1] === "TSR" && item.amount > bon.limit) {
-            //         bonusValue = bon.value
-            //     }
-            // })
+            let bonusValue;
+            bonus.forEach((bon) => {
+                if (currency[0] === "TSR" && item.amount > bon.limit) {
+                    bonusValue = bon.value
+                } else if (currency[1] === "TSR" && item.amount > bon.limit) {
+                    bonusValue = bon.value
+                }
+            })
             if (currency[0] === "BTC" && currency[1] === "TSR") {
                 amountFor = item.amount / (cryptoCurrency[1].price_btc * 0.001);
             }
@@ -57,7 +57,7 @@ class RequestList extends Component {
             }
 
             else if (currency[0] === "TSR" && currency[1] === "ETH") {
-                amountFor = item.amount * 0.001;
+                amountFor = item.amount * TOKEN_ATTITUDE_ETH;
             }
 
             else if (currency[0] === "TSR" && currency[1] === "USD") {
@@ -72,7 +72,7 @@ class RequestList extends Component {
                 <Card.Description key={index}>
                     <RequestItem
                         sum={SUM}
-                        amount={currency[1] === "TSR" ? sepItemAmount : sepAmount}
+                        amount={currency[0] === "TSR" ? item.amount : ""}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}
