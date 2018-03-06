@@ -16,7 +16,7 @@ class RequestList extends Component {
 
     renderList () {
         const { items: request } = this.props.requests;
-        const { bonus, currency: cryptoCurrency } = this.props.calculator;
+        const { currency: cryptoCurrency } = this.props.calculator;
         return request.map((item, index) => {
             let btnOptions = null;
             const currency = item.currency.split("/");

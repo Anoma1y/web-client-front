@@ -5,11 +5,8 @@ import {
     changeCurrencyValue,
     changeComments,
     checkSuffixText,
-    initializingTKN,
-    changeModalSuccessful,
     changeOrder,
     handleFormOrder,
-    changeModalOpen,
     handleChangeOrder,
     setCurrency,
     handleApplication,
@@ -17,22 +14,15 @@ import {
 } from 'actions/calculator';
 import {
     Grid,
-    TextArea,
-    Button,
     Card,
-    Accordion,
     Icon,
-    Modal,
-    Radio,
     Divider,
-    Form
 } from 'semantic-ui-react';
-import { Bonus } from './CalculatorBonus';
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
-import {deleteToken} from "actions/users";
-import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
-
+import CalculatorComment from './CalculatorComment';
+import CalculatorModal from "./CalculatorModal";
+import CalculatorPaymount from './CalculatorPaymount';
 class Calculator extends Component {
 
     constructor(props) {
@@ -336,19 +326,6 @@ class Calculator extends Component {
         changeCurrencyValue(value);
     }
 
-    renderBonusLabel = () => {
-        const { bonus } = this.props.calculator;
-        return bonus.map((item,i) => {
-            return(
-                <Bonus
-                    key={i}
-                    bonusVal={item["value"]}
-                    bonusActive={item["active"]}
-                />
-            )
-        })
-    }
-
     renderCurrencyButton = () => {
         const { currencyValue, currency } = this.props.calculator;
         return currency.map(item => {
@@ -443,14 +420,6 @@ class Calculator extends Component {
         handleChangeOrder(orders);
     }
 
-    handleAccordionBtn = (e, titleProps) => {
-        const { index } = titleProps
-        const { activeIndex } = this.state
-        const newIndex = activeIndex === index ? -1 : index
-
-        this.setState({ activeIndex: newIndex })
-    }
-    
     render() {
         const { isMaximum } = this.props.calculator.progressBar;
         const {
@@ -534,256 +503,36 @@ class Calculator extends Component {
                         </Grid.Row>
                         <Divider className={"calculator__slider_divider"}/>
                         <Grid.Row>
-                            <Grid.Column>
-                                <Grid className={"calculator__paymount"}>
-                                    <Grid.Row className={"calculator__paymount_info"}>
-                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                            You ordered
-                                        </Grid.Column>
-                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                            {this.separationValue(tokenValue)} tokens
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                    <Grid.Row className={"calculator__paymount_info"}>
-                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                            Bonus
-                                        </Grid.Column>
-                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                            {currentBonus ? `${currentBonus} %` : "0"}
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                    <Grid.Row className={"calculator__paymount_info"}>
-                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                            Total tokens
-                                        </Grid.Column>
-                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                            {this.separationValue(transferData.TSR)} tokens
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                    <Divider className={"calculator__paymount_divider"}/>
-                                    <Grid.Row className={"calculator__paymount_info calculator__paymount_amount"}>
-
-                                        <Grid.Column widescreen={6} computer={6} tablet={6} mobile={8}>
-                                            Payment amount
-                                        </Grid.Column>
-                                        <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                                            {this.separationValue(transferData[currencyValue])} {currencyValue}
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Grid.Column>
+                            <CalculatorPaymount
+                                currentBonus={currentBonus}
+                                transferData={transferData}
+                                currencyValue={currencyValue}
+                                tokenValue={tokenValue}
+                            />
                         </Grid.Row>
                         <Grid.Row columns={1}>
-                            <Grid.Column>
-                                <Accordion styled className={"calculator__accordion"}>
-                                    <Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleAccordionBtn} className={"calculator__accordion_title"}>
-                                        <p>Leave a comment </p><Icon name='chevron right' />
-                                    </Accordion.Title>
-                                    <Accordion.Content active={this.state.activeIndex === 0} className={"calculator__accordion_content"}>
-                                        <Form as={"div"} className={"comments__form"}>
-                                            <TextArea
-                                                className={"calculator__comments"}
-                                                autoHeight
-                                                placeholder='Leave comment'
-                                                onChange={this.handleChangeComments}
-                                                value={comments}
-                                            />
-                                            <span className={messageLength <= 500 ? "message__length" : "message__length message__length-active"}>{messageLength} / 500</span>
-                                        </Form>
-                                    </Accordion.Content>
-                                </Accordion>
-                            </Grid.Column>
+                            <CalculatorComment
+                                comments={comments}
+                                handleChangeComments={this.handleChangeComments}
+                                messageLength={messageLength}
+                            />
                         </Grid.Row>
                         <Grid.Row columns={1}>
-                            <Grid.Column textAlign={"right"}>
-
-                                <Modal trigger={<Button
-                                                    className={"dashboard__submit calculator__submit"}
-                                                    onClick={this.handleSubmitApplication}
-                                                    disabled={transferData.TSR < 1 || transferData.USD === "0"}
-                                                >
-                                                    Apply
-                                                </Button>
-                                                }
-                                       open={modalOpen}
-                                       size={"tiny"}
-                                       onClose={this.handleCloseModal}
-                                >
-                                    <Modal.Content className={"modal__success"} scrolling>
-                                        {modalSuccessful ?
-                                            <Modal.Description>
-                                                <div className={querySuccess ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
-                                                    <Icon name={querySuccess ? "check circle outline" : "warning circle"} />
-                                                </div>
-                                                <div className={"modal__success_text"}>
-                                                    <span>{querySuccess ? "Заявка успешно отправлена" : applicationError}</span>
-                                                </div>
-                                                <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
-                                                    <Button
-                                                    className={"dashboard__submit"}
-                                                    onClick={this.handleCloseModal}
-                                                    >OK
-                                                    </Button>
-                                                </div>
-                                            </Modal.Description> :
-                                            <Modal.Description>
-                                                {currencyValue === "ETH" ?
-                                                    <div className={"calculator__order"}>
-                                                        <div className={"calculator__order_header"}>
-                                                            <p>Thank you for the application!</p>
-                                                            <span>We'll approve or decline all applications before April 9th. We'll send you an email, or you can view all approved applications in your TransCrypt tokensale account.</span>
-                                                        </div>
-                                                        <Grid className={"calculator__order_paymount"}>
-                                                            <p className={"calculator__order_label"}>Your order</p>
-                                                            <Grid.Row className={"order__paymount_item"}>
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    You ordered
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8}>
-                                                                    {this.separationValue(tokenValue)} tokens
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                            <Grid.Row className={"order__paymount_item"}>
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    Bonus
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8}>
-                                                                    {currentBonus ? `${currentBonus} %` : "0"}
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                            <Grid.Row className={"order__paymount_item"}>
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    Total tokens
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8}>
-                                                                    {this.separationValue(transferData.TSR)} tokens
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                            <Divider className={"calculator__paymount_divider"}/>
-                                                            <Grid.Row
-                                                                className={"calculator__order_amount"}>
-
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    Payment amount
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8} className={"order__strong"}>
-                                                                    {this.separationValue(transferData[currencyValue])} {currencyValue}
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                        </Grid>
-                                                    </div> :
-                                                    <div className={"calculator__order"}>
-                                                        <div className={"calculator__order_header"}>
-                                                            <p>Thank you for the application!</p>
-                                                             <span>We'll approve or decline all applications before April 9th. We'll send you an email, or you can view all approved applications in your TransCrypt tokensale account.</span>
-                                                        </div>
-                                                        <Grid className={"calculator__order_wrapper"}>
-                                                            <Grid.Row className={"calculator__order_fixcurrency"}>
-                                                                <Grid.Column className={"rrright"} width={2}>
-                                                                    <Radio
-                                                                        label={"TSR"}
-                                                                        name='BTC_USD_GROUP'
-                                                                        value={"TSR"}
-                                                                        checked={order.fixCurrency === "TSR"}
-                                                                        onChange={this.handleChangeOrderCurrency}
-                                                                    />
-                                                                </Grid.Column>
-                                                                {
-                                                                    currencyValue === "USD" ?
-                                                                        <Grid.Column className={"llleft"} width={2}>
-                                                                            <Radio
-                                                                                label={"USD"}
-                                                                                name='BTC_USD_GROUP'
-                                                                                value={"USD"}
-                                                                                checked={order.fixCurrency === "USD"}
-                                                                                onChange={this.handleChangeOrderCurrency}
-                                                                            />
-                                                                        </Grid.Column>
-                                                                        : currencyValue === "BTC" ?
-                                                                        <Grid.Column className={"llleft"} width={2}>
-                                                                            <Radio
-                                                                                label={"BTC"}
-                                                                                name='BTC_USD_GROUP'
-                                                                                value={"BTC"}
-                                                                                checked={order.fixCurrency === "BTC"}
-                                                                                onChange={this.handleChangeOrderCurrency}
-                                                                            />
-                                                                        </Grid.Column>
-                                                                        : null
-                                                                }
-                                                            </Grid.Row>
-                                                        </Grid>
-                                                        <Grid className={"calculator__order_paymount"}>
-                                                            <Grid.Row className={"order__paymount_item"}>
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    You ordered
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8}>
-                                                                    {this.separationValue(tokenValue)} tokens
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                            <Grid.Row className={"order__paymount_item"}>
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    Bonus
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8}>
-                                                                    {currentBonus ? `${currentBonus} %` : "0"}
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                            <Grid.Row className={"order__paymount_item"}>
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    Total tokens
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8}>
-                                                                    {this.separationValue(transferData.TSR)} tokens
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                            <Divider className={"calculator__paymount_divider"}/>
-                                                            <Grid.Row
-                                                                className={"calculator__order_amount"}>
-
-                                                                <Grid.Column widescreen={6} computer={6} tablet={6}
-                                                                             mobile={8}>
-                                                                    Payment amount
-                                                                </Grid.Column>
-                                                                <Grid.Column widescreen={10} computer={10} tablet={10}
-                                                                             mobile={8} className={"order__strong"}>
-                                                                    {this.separationValue(transferData[currencyValue])} {currencyValue}
-                                                                </Grid.Column>
-                                                            </Grid.Row>
-                                                        </Grid>
-                                                        <p className={"calculator__order_text"}>
-                                                            Please note that the number of tokens bought will be calculated after we receive the funds, not at the moment they were sent. The final amount can change due to exchange rate fluctuations.
-                                                        </p>
-                                                    </div>
-                                                }
-                                                <div className={"modal__success_btn"}>
-                                                    <Button
-                                                        className={"dashboard__submit"}
-                                                        onClick={this.handleSendApplication}
-                                                        floated={"right"}
-                                                    >Apply
-                                                    </Button>
-                                                </div>
-                                            </Modal.Description>
-                                        }
-                                    </Modal.Content>
-                                </Modal>
-                            </Grid.Column>
+                            <CalculatorModal
+                                transferData={transferData}
+                                modalOpen={modalOpen}
+                                modalSuccessful={modalSuccessful}
+                                querySuccess={querySuccess}
+                                applicationError={applicationError}
+                                currencyValue={currencyValue}
+                                tokenValue={tokenValue}
+                                currentBonus={currentBonus}
+                                order={order}
+                                handleCloseModal={this.handleCloseModal}
+                                handleSubmitApplication={this.handleSubmitApplication}
+                                handleChangeOrderCurrency={this.handleChangeOrderCurrency}
+                                handleSendApplication={this.handleSendApplication}
+                            />
                         </Grid.Row>
                     </Grid>
                 </Card.Content>
@@ -798,9 +547,6 @@ export default connect(state => ({ calculator: state.calculator, user: state.use
     checkSuffixText,
     changeComments,
     changeOrder,
-    initializingTKN,
-    changeModalSuccessful,
-    changeModalOpen,
     handleApplication,
     handleChangeOrder,
     handleFormOrder,

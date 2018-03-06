@@ -6,8 +6,7 @@ import {
     Grid,
     List,
     Modal,
-    Icon,
-    Popup
+    Icon
 } from 'semantic-ui-react';
 import {
     changeAndroidChecked,

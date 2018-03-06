@@ -71,21 +71,7 @@ class LegalEntity extends Component {
         })
     }
 
-    renderUploadInfoBeneficial = () => {
-        const { legalEntityBeneficial } = this.props.settings;
-        return legalEntityBeneficial.map(item => {
-            return (
-                <Grid.Row key={item.id}>
-                    <Grid.Column>
-                        <IdentificationImgUpload
-                            description={item.description}
-                            id={item.id}
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-            )
-        })
-    }
+
 
     render() {
 
@@ -120,8 +106,6 @@ class LegalEntity extends Component {
                         </Button>
                     </Grid.Column>
                 </Grid.Row>
-
-                {this.renderUploadInfoBeneficial()}
 
                 <SettingsButton />
             </Grid>

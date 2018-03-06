@@ -6,8 +6,6 @@ import {
 } from 'semantic-ui-react';
 import {
     redirectToLogin,
-    redirectToHome,
-    redirectToSignup
 } from 'actions/redirect/';
 
 import ApiLib from 'libs/ApiLib/SignUp';
@@ -22,7 +20,7 @@ class VerificationUser extends Component {
 
     componentDidMount() {
         const { id, token } = this.parseURL();
-        const { redirectToSignup, redirectToLogin, redirectToHome} = this.props;
+        const { redirectToLogin} = this.props;
         ApiLib.verificationUser(id, token)
             .then(() => {
                 redirectToLogin();
@@ -48,7 +46,5 @@ class VerificationUser extends Component {
 }
 
 export default connect(state => ({ routing: state.routing }), {
-    redirectToLogin,
-    redirectToHome,
-    redirectToSignup
+    redirectToLogin
 })(VerificationUser);
