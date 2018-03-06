@@ -11,6 +11,7 @@ export const initialUser = token => {
     return dispatch => {
         Login.getUser(token).then((user) =>{
             const { email, is_kyc_passed} = user.data;
+            //TODO добавить проверку роли и если "Админ" - запрерить перенаправление на дашборд
             // dispatch(initIdenfified(is_kyc_passed));
             dispatch(initEmail(email));
             dispatch(putToken(token));

@@ -865,16 +865,21 @@
       color: #939393 !important; }
     .auth_input label input:hover {
       border-bottom: 3px solid #004fce !important; }
-    .auth_input label input:focus, .auth_input label input.populated {
-      padding-top: 28px !important;
-      padding-bottom: 12px !important;
-      border-bottom: 3px solid #004fce !important; }
     .auth_input label input.populated_currency {
       padding-top: 28px !important;
       padding-bottom: 12px !important; }
       .auth_input label input.populated_currency::placeholder {
         color: transparent !important; }
       .auth_input label input.populated_currency + span {
+        opacity: 1 !important;
+        top: 10px !important; }
+    .auth_input label input:focus, .auth_input label input.populated {
+      padding-top: 28px !important;
+      padding-bottom: 12px !important;
+      border-bottom: 3px solid #004fce !important; }
+      .auth_input label input:focus::placeholder, .auth_input label input.populated::placeholder {
+        color: transparent !important; }
+      .auth_input label input:focus + span, .auth_input label input.populated + span {
         opacity: 1 !important;
         top: 10px !important; }
   .auth_input label span {

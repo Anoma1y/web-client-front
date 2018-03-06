@@ -6,7 +6,7 @@ export const handleRequestItem = value => {
         ApplicationLib.getApplication(value).then((data) => {
             dispatch(addRequestItem(data.reverse()))
         }).catch((err) =>{
-
+            console.log(err);
         })
     }
 };
