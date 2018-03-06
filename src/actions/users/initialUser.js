@@ -1,5 +1,4 @@
 import Login from 'libs/ApiLib/Login'
-import { push } from "react-router-redux";
 import {
     initIdenfified,
     initEmail,
@@ -18,7 +17,6 @@ export const initialUser = token => {
             dispatch(initEmail(email));
             dispatch(putToken(token));
             dispatch(putRoles(roles))
-            // dispatch(push('/dashboard/'));
         }).catch(() => {
             dispatch(deleteToken());
             localStorage.removeItem("jwt");

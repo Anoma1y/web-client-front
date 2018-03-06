@@ -14,7 +14,6 @@ class ApplicationComponent extends Component {
     componentDidMount() {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
-            console.log(data.data);
             addAllApplication(data.data);
         })
     }
