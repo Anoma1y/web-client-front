@@ -14,7 +14,7 @@ export const initialUser = token => {
             // dispatch(initIdenfified(is_kyc_passed));
             dispatch(initEmail(email));
             dispatch(putToken(token));
-            dispatch(push('/dashboard/'));
+            // dispatch(push('/dashboard/'));
         }).catch(() => {
             dispatch(deleteToken());
             localStorage.removeItem("jwt");
