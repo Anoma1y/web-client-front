@@ -12,6 +12,7 @@ import SignupReducer from './SignupReducer';
 import ResetReducer from './ResetReducer';
 import UserReducer from './UserReducer';
 import BetaTestReducer from './BetaTestReducer';
+import AdminReducer from './AdminReducer';
 
 export default combineReducers({
     routing: routerReducer,
@@ -25,5 +26,6 @@ export default combineReducers({
     login: LoginReducer,
     signup: SignupReducer,
     reset: ResetReducer,
-    user: UserReducer
+    user: UserReducer,
+    admin: AdminReducer
 })

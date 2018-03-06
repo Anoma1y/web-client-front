@@ -6,6 +6,7 @@ class Logout extends Component {
     componentWillMount() {
         const TOKEN = this.props.user.jwt;
         localStorage.removeItem("jwt");
+        localStorage.removeItem("roles");
         this.props.handleDeleteTokenUser(TOKEN);
     }
     render() {
@@ -16,7 +17,6 @@ class Logout extends Component {
         );
     }
 }
-
 
 export default connect(state => ({ user: state.user }), {
     handleDeleteTokenUser

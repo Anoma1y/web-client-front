@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
@@ -139,4 +140,7 @@ class Beneficial extends Component {
     }
 }
 
-export default Beneficial;
+export default connect(state => ({ settings: state.settings }), {
+
+})(Beneficial);
+

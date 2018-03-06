@@ -11,7 +11,6 @@ class CryptoETHtoBTC extends Component {
     }
 
     render() {
-
         return (
             <div ref={node => (this.scriptNode = node)} className={"crypto__widget"}/>
         );

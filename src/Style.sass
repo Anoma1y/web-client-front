@@ -876,13 +876,19 @@ $header-identification-component: #363E71 !important
         color: rgba(147, 147, 147, 1) !important
       &:hover
         border-bottom: 3px solid rgba(0, 79, 206, 1) !important
+      &.populated_currency
+        padding-top: 28px !important
+        padding-bottom: 12px !important
+        &::placeholder
+          color: transparent !important
+        & + span
+          opacity: 1 !important
+          top: 10px !important
       &:focus, &.populated
         padding-top: 28px !important
         padding-bottom: 12px !important
         border-bottom: 3px solid rgba(0, 79, 206, 1) !important
-      &.populated_currency
-        padding-top: 28px !important
-        padding-bottom: 12px !important
+
         &::placeholder
           color: transparent !important
         & + span

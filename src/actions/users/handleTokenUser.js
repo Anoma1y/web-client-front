@@ -1,9 +1,18 @@
-import { putToken } from './putToken';
+import {
+    putToken,
+    putRoles
+} from './';
 
 export const handleTokenUser = value => {
     return dispatch => {
-        dispatch(putToken(value));
-        localStorage.setItem("jwt", value);
+        const {
+            jwt,
+            roles
+        } = value;
+        dispatch(putToken(jwt));
+        dispatch(putRoles(roles))
+        localStorage.setItem("jwt", jwt);
+        localStorage.setItem("roles", roles);
     }
 };
 
