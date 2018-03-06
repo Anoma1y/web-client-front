@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import UsersComponent from 'components/Admin/UsersComponent'
 
 class Users extends Component {
     render() {
         return (
             <div>
-                <h1>Users</h1>
+                <UsersComponent />
             </div>
         );
     }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Grid,
-    Menu
+    Menu,
+    Container
 } from 'semantic-ui-react';
 class AdminMenu extends Component {
     state = {
@@ -16,40 +17,42 @@ class AdminMenu extends Component {
             activeItem
         } = this.state;
         return (
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column>
-                        <Menu>
-                            <Menu.Item
-                                as={'div'}
-                                name='main'
-                                active={activeItem === 'main'}
-                                onClick={this.handleItemClick}
-                            >
-                                <Link to='/admin/'>Main</Link>
-                            </Menu.Item>
+            <Container>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Menu>
+                                <Menu.Item
+                                    as={'div'}
+                                    name='main'
+                                    active={activeItem === 'main'}
+                                    onClick={this.handleItemClick}
+                                >
+                                    <Link to='/admin/'>Main</Link>
+                                </Menu.Item>
 
-                            <Menu.Item
-                                as={'div'}
-                                name='users'
-                                active={activeItem === 'users'}
-                                onClick={this.handleItemClick}
-                            >
-                                <Link to='/admin/users'>Users</Link>
-                            </Menu.Item>
+                                <Menu.Item
+                                    as={'div'}
+                                    name='users'
+                                    active={activeItem === 'users'}
+                                    onClick={this.handleItemClick}
+                                >
+                                    <Link to='/admin/users'>Users</Link>
+                                </Menu.Item>
 
-                            <Menu.Item
-                                as={'div'}
-                                name='reviews'
-                                active={activeItem === 'reviews'}
-                                onClick={this.handleItemClick}
-                            >
-                                <Link to='/admin/application'>Application</Link>
-                            </Menu.Item>
-                        </Menu>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
+                                <Menu.Item
+                                    as={'div'}
+                                    name='reviews'
+                                    active={activeItem === 'reviews'}
+                                    onClick={this.handleItemClick}
+                                >
+                                    <Link to='/admin/application'>Application</Link>
+                                </Menu.Item>
+                            </Menu>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Container>
         );
     }
 }

@@ -250,9 +250,30 @@ class Calculator extends Component {
     componentWillMount() {
         const { setCurrency } = this.props;
         const { tokenValue } = this.props.calculator;
-
+        const INITIAL_DATA = [
+            {
+                'id': 'bitcoin',
+                'name': 'Bitcoin',
+                'symbol': 'BTC',
+                'price_usd': '0'
+            },
+            {
+                'id': 'ethereum',
+                'name': 'Ethereum',
+                'symbol': 'ETH',
+                "price_usd": "0",
+                "price_btc": "0"
+            },
+            {
+                'id': 'usd',
+                'name': 'USD',
+                'symbol': 'USD',
+                'price_usd': '1'
+            }
+        ]
         CryptoCurrency.getCryptoCurrency().then((data) => {
-            const CURRENCY_DATA = [...data.data,
+            const CURRENCY = data.data;
+            const CURRENCY_DATA = [...CURRENCY,
                 {
                     id: 'usd',
                     name: 'USD',
@@ -260,30 +281,13 @@ class Calculator extends Component {
                     price_usd: '1'
                 }
             ]
-            setCurrency(CURRENCY_DATA);
+            if (CURRENCY.length !== 0) {
+                setCurrency(CURRENCY_DATA);
+            } else {
+                setCurrency(INITIAL_DATA)
+            }
             this.changeState(this.calcToken(tokenValue));
         }).catch(() => {
-            const INITIAL_DATA = [
-                {
-                    'id': 'bitcoin',
-                    'name': 'Bitcoin',
-                    'symbol': 'BTC',
-                    'price_usd': '0'
-                },
-                {
-                    'id': 'ethereum',
-                    'name': 'Ethereum',
-                    'symbol': 'ETH',
-                    "price_usd": "0",
-                    "price_btc": "0"
-                },
-                {
-                    'id': 'usd',
-                    'name': 'USD',
-                    'symbol': 'USD',
-                    'price_usd': '1'
-                }
-            ]
             setCurrency(INITIAL_DATA);
             this.changeState(this.calcToken(tokenValue));
         })

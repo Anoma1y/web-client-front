@@ -51,14 +51,14 @@ const INITIAL_STATE = {
             'id': 'bitcoin',
             'name': 'Bitcoin',
             'symbol': 'BTC',
-            'price_usd': '11535.8'
+            'price_usd': '0'
         },
         {
             'id': 'ethereum',
             'name': 'Ethereum',
             'symbol': 'ETH',
-            "price_usd": "867.551",
-            "price_btc": "0.0753651"
+            "price_usd": "0",
+            "price_btc": "0"
         },
         {
             'id': 'usd',
