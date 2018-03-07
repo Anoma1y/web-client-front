@@ -61,7 +61,7 @@ class RequestList extends Component {
 
             else if (currency[0] === "TSR" && currency[1] === "BTC") {
                 const percent = checkPercent(item.amount);
-                CURRENCYVALUE = `${this.separationValue((TOKEN_ATTITUDE_ETH * item.amount * cryptoCurrency[1].price_btc), 4)} BTC`;
+                CURRENCYVALUE = `${this.separationValue((item.amount * (TOKEN_ATTITUDE_ETH * cryptoCurrency[1].price_btc)), 4)} BTC`;
                 TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 
@@ -104,23 +104,20 @@ class RequestList extends Component {
     render () {
         const { items: request } = this.props.requests;
         return (
-            <div>
-                { request.length !== 0 ?
-                    <Card fluid>
-                        <Card.Content>
-                            <Card.Header className={"component__title"}>Your Applications</Card.Header>
-                            <Divider className={"component__divider"} />
-                            <Grid verticalAlign={'middle'} className={"dashboard__component"}>
-                                <Grid.Row columns={1}>
-                                    <Grid.Column>
-                                        {this.renderList()}
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Card.Content>
-                    </Card> : null
-                }
-            </div>
+             request.length !== 0 ?
+                <Card fluid className={"component__main component__shadow"}>
+                    <Card.Content>
+                        <Card.Header className={"component__title"}>Your Applications</Card.Header>
+                        <Divider className={"component__divider"} />
+                        <Grid verticalAlign={'middle'} className={"dashboard__component"}>
+                            <Grid.Row columns={1}>
+                                <Grid.Column>
+                                    {this.renderList()}
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Card.Content>
+                </Card> : null
         )
     }
 

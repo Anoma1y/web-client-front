@@ -19,7 +19,7 @@ class CryptoWidget extends Component {
 
     render() {
         return (
-            <Card fluid className={"component__main"}>
+            <Card fluid className={"component__main component__shadow"}>
                 <Card.Content className={"component__cryptocurrency"}>
                     <Card.Description className={"cryptocurrency__container"}>
                         <Form className={"cryptocurrency__form"}>

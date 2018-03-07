@@ -77,7 +77,7 @@ class Timer extends Component {
     render() {
         const { timeLeft } = this.props.timer;
         return (
-            <Card fluid className={"component__main"}>
+            <Card fluid className={"component__main component__shadow"}>
                 <Card.Content>
                     <Card.Header className={"component__title"}>White list will be closed in</Card.Header>
                     <Divider className={"component__divider"} />

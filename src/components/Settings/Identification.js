@@ -16,7 +16,7 @@ const panes = [
 class Identification extends Component {
     render() {
         return (
-            <Card fluid className={"settings__identification"}>
+            <Card fluid className={"settings__identification component__main component__shadow"}>
                 <Card.Content>
                     <Card.Header className={"settings__identification_header"}>Identification</Card.Header>
                     <Card.Description>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     Grid,
-    Select
+    Select,
+    Dropdown
 } from 'semantic-ui-react';
 
 
@@ -23,6 +24,7 @@ class CompanyInformation extends Component {
             companyDescriptioncompanydoes: false,
             companyWebsites: false,
             certifyOption: [
+                {key: "0", value: "0", text: "None"},
                 {key: "1", value: "1", text: "Proceeds from commercial activity"},
                 {key: "2", value: "2", text: "Credit funds"},
                 {key: "3", value: "3", text: "Company profits"},
@@ -53,13 +55,13 @@ class CompanyInformation extends Component {
                 <Grid.Column>
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input header__input_text header_text_uppercase"}>
+                            <Grid.Column width={16} className={"auth_input settings__information header__input_text header_text_uppercase margin-top"}>
                                 Information about the company
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input"}>
+                            <Grid.Column width={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -73,7 +75,7 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -84,7 +86,7 @@ class CompanyInformation extends Component {
                                     <span>Tax ID number</span>
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -98,7 +100,7 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -109,8 +111,8 @@ class CompanyInformation extends Component {
                                     <span>City</span>
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
-                                <label>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input settings__information"}>
+                                <label style={{width: "50%"}}>
                                     <input
                                         type="text"
                                         placeholder={"Zip"}
@@ -123,7 +125,7 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input"}>
+                            <Grid.Column width={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -137,7 +139,7 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input"}>
+                            <Grid.Column width={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -151,7 +153,7 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input"}>
+                            <Grid.Column width={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -165,7 +167,7 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -176,7 +178,7 @@ class CompanyInformation extends Component {
                                     <span>EMail</span>
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input"}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -190,7 +192,7 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input"}>
+                            <Grid.Column width={16} className={"auth_input settings__information"}>
                                 <label>
                                     <input
                                         type="text"
@@ -204,8 +206,8 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input"}>
-                                <label>
+                            <Grid.Column width={16} className={"auth_input settings__information"}>
+                                <label style={{width: "50%"}}>
                                     <input
                                         type="text"
                                         placeholder={"Websites"}
@@ -218,11 +220,11 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column width={16} className={"auth_input header__input_text header_text_uppercase"}>
+                            <Grid.Column width={16} className={"auth_input settings__select"}>
                                 I hereby certify that origin of funds that is available to company is legal, and its source is
                             </Grid.Column>
-                            <Grid.Column width={16} className={"auth_input"}>
-                                <Select style={{width: "100%"}} options={certifyOption}/>
+                            <Grid.Column width={16} className={"auth_input settings__dropdown"}>
+                                <Dropdown placeholder='None' selection options={certifyOption} />
                             </Grid.Column>
                         </Grid.Row>
 

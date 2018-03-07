@@ -17,7 +17,7 @@ class SocialNetwork extends Component {
     }
     render() {
         return (
-            <Segment className={"social__segment component__main"}>
+            <Segment className={"social__segment component__main component__shadow"}>
                 <Grid>
                     <Grid.Row centered columns={"equal"} className={"social__sidebar"}>
                         {this.renderSocialList()}

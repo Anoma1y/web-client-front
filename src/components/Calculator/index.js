@@ -59,7 +59,7 @@ class Calculator extends Component {
             case "USD":
                 return (value * currency[1].price_usd).toFixed(2);
             case "BTC":
-                return currency[1].price_btc * value;
+                return (currency[1].price_btc * value).toFixed(4);
             default:
                 return;
         }
@@ -73,7 +73,7 @@ class Calculator extends Component {
             case "USD":
                 return (value * currency[0].price_usd).toFixed(2);
             case "ETH":
-                return (currency[0].price_usd / currency[1].price_usd) * value;
+                return ((currency[0].price_usd / currency[1].price_usd) * value).toFixed(4);
             default:
                 return;
         }
@@ -419,6 +419,9 @@ class Calculator extends Component {
     }
     handleSendApplication = () => {
         const { handleApplication } = this.props;
+        this.setState({
+            messageLength: 0
+        })
         handleApplication()
     }
     handleChangeOrderCurrency = (event, {value}) => {
@@ -462,7 +465,7 @@ class Calculator extends Component {
             applicationError
         } = this.props.calculator;
         return (
-            <Card fluid className={"component__calculator component__main"}>
+            <Card fluid className={"component__calculator component__main component__shadow"}>
                 <Card.Content>
                     <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                         <Grid.Row className={"calculator__currency"}>
@@ -506,7 +509,7 @@ class Calculator extends Component {
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row only={"computer"} style={{paddingTop: "10px"}}>
+                        <Grid.Row style={{paddingTop: "10px"}}>
                             <Grid.Column width={16} className={"slider__wrapper"}>
                                 <InputSlider
                                     maximumBonusToken={bonus[bonus.length - 1]["limit"]}
@@ -562,7 +565,10 @@ class Calculator extends Component {
     }
 }
 
-export default connect(state => ({ calculator: state.calculator, user: state.user }), {
+export default connect(state => ({
+    calculator: state.calculator,
+    user: state.user
+}), {
     changeCurrencyValue,
     changeTransferData,
     checkSuffixText,
