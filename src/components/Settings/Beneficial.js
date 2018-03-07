@@ -23,7 +23,7 @@ class Beneficial extends Component {
     }
 
     renderUploadInfoBeneficial = () => {
-        const { legalEntityBeneficial } = this.props.settings;
+        const { legalEntityBeneficial } = this.props;
         return legalEntityBeneficial.map((item, index) => {
             return (
                 <Grid.Row key={item.id}>
