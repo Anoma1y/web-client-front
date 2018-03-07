@@ -98,8 +98,8 @@ class LoginComponent extends Component {
                         <Card.Description className={"login__content auth_input"}>
                             <form action="#">
                                 <label>
-                                    <input type="email" placeholder={"EMail"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
-                                    <span>EMail</span>
+                                    <input type="email" placeholder={"Email"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
+                                    <span>Email</span>
                                 </label>
                                 <label>
                                     <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
@@ -107,7 +107,7 @@ class LoginComponent extends Component {
                                 </label>
 
                                 <Item className={"login__content_forgot"}>
-                                    <Item.Description as='a' onClick={() => this.props.goToReset()}>Forget your password?</Item.Description>
+                                    <Item.Description as='a' onClick={() => this.props.goToReset()}>Forgot your password?</Item.Description>
                                 </Item>
                                 { error !== null ?
                                     <Message warning color={"red"}>
