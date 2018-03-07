@@ -419,6 +419,9 @@ class Calculator extends Component {
     }
     handleSendApplication = () => {
         const { handleApplication } = this.props;
+        this.setState({
+            messageLength: 0
+        })
         handleApplication()
     }
     handleChangeOrderCurrency = (event, {value}) => {

@@ -51,7 +51,12 @@ class IndividualUser extends Component {
     render() {
         return (
             <Grid>
-                <PersonInformation />
+                <PersonInformation/>
+                <Grid.Row>
+                    <Grid.Column width={16}>
+                        <Divider />
+                    </Grid.Column>
+                </Grid.Row>
                 {this.renderUploadInfo()}
                 <SettingsButton />
             </Grid>

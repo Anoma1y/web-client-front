@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500')
-
 //fonst
 $font-robot: "Roboto", sans-serif !important
 
@@ -202,12 +201,13 @@ body
 .component__main
   margin-top: 5px !important
   margin-bottom: 16px !important
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2) !important
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2) !important
   border-radius: 1px !important
 
 .component__title
   margin: -4px 0 !important
-  font-family: $font-robot !important
+  font-family: $font-robot
   font-size: 20px !important
   color: $dark-gray-color
 
@@ -230,10 +230,9 @@ body
   font-size: 14px !important
   font-weight: 600 !important
   border-radius: 2px !important
+  -webkit-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important
   box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important
   -webkit-transition: background-color .5s ease !important
-  -moz-transition: background-color .5s ease !important
-  -ms-transition: background-color .5s ease !important
   -o-transition: background-color .5s ease !important
   transition: background-color .5s ease !important
   &:hover
@@ -268,7 +267,8 @@ body
     color: $white-color
     //text-decoration: underline !important
     &:hover
-      color: darken(#fff, 10%) !important
+      cursor: text !important
+    //  color: darken(#fff, 10%) !important
   &__textColumn
     @media screen and (max-width: 767px) and (min-width: 320px)
       text-align: center
@@ -375,11 +375,13 @@ body
   @media screen and (max-width: 767px)
     display: none !important
   &::-webkit-slider-runnable-track
+    -webkit-box-shadow: none
     box-shadow: none
     border: none
     background: transparent
     -webkit-appearance: none
   &::-moz-range-track
+    -webkit-box-shadow: none
     box-shadow: none
     border: none
     background: transparent
@@ -391,6 +393,7 @@ body
     border: 0
     background: #fff
     border-radius: 100%
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 31, 56, 0.5)
     box-shadow: 0px 0px 5px 0px rgba(0, 31, 56, 0.5)
     -webkit-appearance: none
   &::-moz-range-thumb
@@ -399,6 +402,7 @@ body
     border: 0
     background: #fff
     border-radius: 100%
+    -webkit-box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1)
     box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1)
 
 .calculator__slider_divider
@@ -443,12 +447,17 @@ body
 .bonus__maximum
   color: $black-color
   display: -webkit-box
+  display: -webkit-flex
   display: -ms-flexbox
   display: flex
   -webkit-box-align: center
+  -webkit-align-items: center
   -ms-flex-align: center
   align-items: center
   font-family: $font-robot
+  -webkit-box-pack: end !important
+  -webkit-justify-content: flex-end !important
+  -ms-flex-pack: end !important
   justify-content: flex-end !important
   margin-right: 15px !important
   font-weight: 500 !important
@@ -485,13 +494,21 @@ body
     i
       transform: rotate(90deg) !important
   &_title
-    display: flex !important
+    display: -webkit-box
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
     font-family: $font-robot
     padding-left: 0 !important
     padding-right: 0 !important
     font-size: 14px !important
+    -webkit-box-pack: justify !important
+    -webkit-justify-content: space-between !important
+    -ms-flex-pack: justify !important
     justify-content: space-between !important
     i
+      -webkit-transform: rotate(90deg) !important
+      -ms-transform: rotate(90deg) !important
       transform: rotate(90deg) !important
   &_content
     padding-left: 0 !important
@@ -578,6 +595,7 @@ body
   background-color: rgba(255,255,255,.85) !important
 
 .modal
+  -webkit-box-shadow: none !important
   box-shadow: none !important
 
 .modal__success
@@ -765,6 +783,10 @@ body
   input
     font-family: $font-robot
 
+.setting_divider
+  margin-left: -1rem !important
+  margin-right: -1rem !important
+
 .header__input_text
   font-family: $font-robot
   font-weight: 500 !important
@@ -778,7 +800,8 @@ body
   margin-right: 0rem !important
   margin-left: 0rem !important
   background-color: $blue-color
-
+.settings__information
+  margin-top: -25px !important
 .settings__select
   font-weight: 400 !important
   color: $black-color
@@ -786,9 +809,12 @@ body
 .settings__dropdown
   .dropdown:not(.icon)
     margin-top: 10px !important
+    margin-bottom: 32px !important
     padding-left: 0 !important
     width: 100% !important
     .menu
+      -webkit-flex-wrap: wrap !important
+      -ms-flex-wrap: wrap !important
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
@@ -807,15 +833,20 @@ body
     color: #55697A !important
 
 .setting__description
+  margin-top: -30px !important
   color: $black-color
   font-family: $font-robot
   font-weight: 400 !important
 
 .setting__button
   margin: 15px 0 !important
+  width: 98px !important
+  font-weight: 400 !important
+  height: 30px !important
+  line-height: 6px !important
 
 .setting__submit
-  width: 30% !important
+  width: 176px !important
 
 .setting__imagePreview
   margin: 7px 0 !important
@@ -838,23 +869,28 @@ body
 .settings__company
   &_header
     margin-top: 20px !important
-    margin-bottom: 0 !important
+    margin-bottom: 15px !important
     font-family: $font-robot
     font-size: 14px !important
     text-transform: uppercase !important
   &_uploadInfo
-    margin-top: 20px !important
+    //margin-top: 30px !important
+.margin-top
+  margin-top: 10px !important
+
+.beneficial__wrapper
+  margin-top: 26px !important
 
 .beneficial_btn
   float: right !important
   background-color: $white-color
   color: $blue-color
+  padding-right: 0 !important
   text-transform: uppercase !important
   font-family: $font-robot
   font-size: 16px !important
   font-weight: 400 !important
   &:hover
-    background-color: darken(#fff, 5%) !important
     color: lighten(rgba(0, 79, 206, 1), 15%) !important
 
 .beneficial_icon
@@ -889,7 +925,7 @@ body
   &_content
     label
       margin-bottom: 20px !important
-      
+
 .reset__divider
   margin-right: -1rem !important
   margin-left: -1rem !important
@@ -916,8 +952,6 @@ body
     border-radius: 2px !important
     box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important
     -webkit-transition: background-color .5s ease !important
-    -moz-transition: background-color .5s ease !important
-    -ms-transition: background-color .5s ease !important
     -o-transition: background-color .5s ease !important
     transition: background-color .5s ease !important
     &:hover
@@ -927,9 +961,12 @@ body
   &-new
     background-color: $white-color
     color: $blue-color
+    -webkit-box-shadow: none !important
     box-shadow: none !important
+    padding-right: 0 !important
     &:hover
-      background-color: darken(#fff, 10%) !important
+      background-color: $white-color
+      color: lighten(rgba(0, 79, 206, 1), 5%) !important
 
 .auth_input
   label
@@ -951,12 +988,9 @@ body
       border-bottom: 1px solid $gray-color
       color: $black-color
       -webkit-transition: all 0.1s ease-in-out !important
-      -moz-transition: all 0.1s ease-in-out !important
-      -ms-transition: all 0.1s ease-in-out !important
       -o-transition: all 0.1s ease-in-out !important
       transition: all 0.1s ease-in-out !important
       +placeholder
-
         color: $gray-color
       &:hover
         border-bottom: 3px solid $blue-color
@@ -985,6 +1019,8 @@ body
       font-size: 12px !important
       left: 0 !important
       opacity: 0 !important
+      -webkit-transition: all 0.2s ease-in-out !important
+      -o-transition: all 0.2s ease-in-out !important
       transition: all 0.2s ease-in-out !important
 
 .signup__content
@@ -1023,6 +1059,7 @@ body
 
 .telegram__wrapper
   border-radius: 0 !important
+  -webkit-box-shadow: none !important
   box-shadow: none !important
 
 .component__cryptocurrency
@@ -1053,5 +1090,7 @@ body
   width: 100% !important
 
 .visible.transition
+  display: -webkit-box !important
+  display: -webkit-flex !important
+  display: -ms-flexbox !important
   display: flex !important
-

@@ -9,12 +9,12 @@ export const SettingsButton = () => {
     return (
         <Grid.Row>
             <Grid.Column>
-                <Divider />
+                <Divider className={"setting_divider"}/>
                 <Button
                     className={"setting__button auth_btn setting__submit"}
                     fluid
                     floated={"right"}
-                >Submit
+                > Submit
                 </Button>
             </Grid.Column>
         </Grid.Row>

@@ -9,8 +9,8 @@ class Settings extends Component {
     render() {
         return (
             <Container>
-                <Grid reversed={"tablet vertically mobile vertically"} centered>
-                    <Grid.Column width={16}>
+                <Grid reversed={"tablet vertically mobile vertically"}>
+                    <Grid.Column widescreen={10} computer={10} tablet={16} mobile={16}>
                         <Grid.Row>
                             <Identification/>
                         </Grid.Row>

@@ -148,7 +148,11 @@ class LegalEntity extends Component {
             <Grid className={"settings__company"}>
                 <h1 className={"settings__company_header"}>Information about the person authorised to represent the company</h1>
                 <PersonInformation />
-
+                <Grid.Row>
+                    <Grid.Column width={16}>
+                        <Divider />
+                    </Grid.Column>
+                </Grid.Row>
                 {this.renderUploadInfoCompany()}
                 <Divider className={"blue__divider"}/>
 

@@ -34,7 +34,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                 <Icon name={querySuccess ? "check circle outline" : "warning circle"} />
                             </div>
                             <div className={"modal__success_text"}>
-                                <span>{querySuccess ? "Заявка успешно отправлена" : applicationError}</span>
+                                <span>{querySuccess ? "Application made successfully" : applicationError}</span>
                             </div>
                             <div className={querySuccess ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                 <Button
