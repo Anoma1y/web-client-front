@@ -64,7 +64,7 @@ class BetaTest extends Component {
             betaModalIsOpen
         } = this.props.betatest;
         return (
-            <Card fluid className={"component__main"}>
+            <Card fluid className={"component__main component__shadow"}>
                 <Card.Content>
                     <Card.Header className={"component__title"}>Beta Test</Card.Header>
                     <Card.Description className={"betatest"}>

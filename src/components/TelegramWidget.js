@@ -8,7 +8,7 @@ class TelegramWidget extends Component {
     render() {
 
         return (
-            <Card fluid className={"component__main telegram__wrapper"}>
+            <Card fluid className={"component__main telegram__wrapper component__shadow"}>
                 <Card.Content className={"component__telegram"}>
                     <Card.Description className={"telegram__container"}>
                         <iframe

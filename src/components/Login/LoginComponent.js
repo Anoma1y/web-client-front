@@ -89,7 +89,7 @@ class LoginComponent extends Component {
         } = this.state;
         return (
             <div>
-                <Card fluid className={"login"}>
+                <Card fluid className={"login component__shadow"}>
                     <Card.Content className={"auth__content"}>
                         <Card.Header as={"h1"} className={"login__header"}>
                             Sign In

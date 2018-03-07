@@ -465,7 +465,7 @@ class Calculator extends Component {
             applicationError
         } = this.props.calculator;
         return (
-            <Card fluid className={"component__calculator component__main"}>
+            <Card fluid className={"component__calculator component__main component__shadow"}>
                 <Card.Content>
                     <Grid verticalAlign={'middle'} className={"dashboard__component"}>
                         <Grid.Row className={"calculator__currency"}>

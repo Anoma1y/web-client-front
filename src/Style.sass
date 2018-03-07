@@ -198,11 +198,13 @@ body
   @media only screen and (max-width: 991px)
     display: block !important
 
+.component__shadow
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2) !important
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2) !important
+
 .component__main
   margin-top: 5px !important
   margin-bottom: 16px !important
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2) !important
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2) !important
   border-radius: 1px !important
 
 .component__title
@@ -743,6 +745,12 @@ body
   color: $black-color
 
 /***SOCIAL NETWORK SIDEBAR***/
+
+.dashboard__social_component
+  padding-left: 8px !important
+  padding-right: 25px !important
+
+
 .social__segment
   padding: 0 !important
   text-align: center !important
@@ -756,7 +764,7 @@ body
       color: $blue-color
   &_icon
     font-size: 20px !important
-    margin: 18px 0 !important
+    margin: 9px 0 !important
 
 
 /***SETTINGS PAGE***/

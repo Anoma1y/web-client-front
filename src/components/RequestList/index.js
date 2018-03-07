@@ -105,7 +105,7 @@ class RequestList extends Component {
         const { items: request } = this.props.requests;
         return (
              request.length !== 0 ?
-                <Card fluid className={"component__main"}>
+                <Card fluid className={"component__main component__shadow"}>
                     <Card.Content>
                         <Card.Header className={"component__title"}>Your Applications</Card.Header>
                         <Divider className={"component__divider"} />

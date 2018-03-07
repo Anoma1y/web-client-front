@@ -80,7 +80,7 @@ class PasswordComponent extends Component {
 
         return (
             <div>
-                <Card fluid color={'violet'} className={"login reset__password"}>
+                <Card fluid color={'violet'} className={"login reset__password component__shadow"}>
                     <Card.Content>
                         <Card.Header as={"h1"} className={"login__header reset__password_header"}>
                             New Password

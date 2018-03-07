@@ -71,7 +71,7 @@ class Home extends Component{
                                         <TelegramWidget />
                                     </Grid.Row>
                                 </Grid.Column>
-                                <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16}>
+                                <Grid.Column widescreen={1} computer={1} tablet={16} mobile={16} className={"dashboard__social_component"}>
                                     <Grid.Row>
                                         <Sticky context={contextRef}>
                                             <SocialNetwork />

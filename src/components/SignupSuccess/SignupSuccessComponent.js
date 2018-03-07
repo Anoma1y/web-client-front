@@ -11,7 +11,7 @@ class SignupSuccessComponent extends Component {
         const { email } = this.props.signup;
         return (
             <div>
-                <Card fluid className={"success"} style={{marginTop: "50px"}}>
+                <Card fluid className={"success component__shadow"} style={{marginTop: "50px"}}>
                     <Card.Content>
                         <Card.Header className={"auth__header"}>
                             Sign Up

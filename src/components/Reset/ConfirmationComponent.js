@@ -7,7 +7,7 @@ class ConfirmationComponent extends Component {
     render () {
         return (
             <div>
-                <Card fluid color={'violet'} className={"login"}>
+                <Card fluid color={'violet'} className={"login component__shadow"}>
                     <Card.Content textAlign={"center"}>
                         <Card.Header as={"h1"}>
                             Confirmation your Email
