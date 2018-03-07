@@ -59,7 +59,7 @@ class Calculator extends Component {
             case "USD":
                 return (value * currency[1].price_usd).toFixed(2);
             case "BTC":
-                return currency[1].price_btc * value;
+                return (currency[1].price_btc * value).toFixed(4);
             default:
                 return;
         }
@@ -73,7 +73,7 @@ class Calculator extends Component {
             case "USD":
                 return (value * currency[0].price_usd).toFixed(2);
             case "ETH":
-                return (currency[0].price_usd / currency[1].price_usd) * value;
+                return ((currency[0].price_usd / currency[1].price_usd) * value).toFixed(4);
             default:
                 return;
         }
