@@ -48,7 +48,7 @@ body {
       top: 15px;
       height: 32px;
       width: 1px;
-      background-color: #939393; }
+      background-color: #939393 !important; }
       @media screen and (max-width: 767px) {
         .right__menu .menu_logout:after {
           content: none; } }
@@ -143,7 +143,7 @@ body {
       right: 122%;
       height: 32px;
       width: 1px;
-      background-color: #939393; }
+      background-color: #939393 !important; }
 
 .mobileMenu__trigger {
   display: none !important;
