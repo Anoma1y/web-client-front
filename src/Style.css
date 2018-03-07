@@ -230,8 +230,7 @@ body {
     color: #FFFFFF !important;
     font-size: 15px !important; }
   .attentionIdentification__link {
-    color: #FFFFFF !important;
-    text-decoration: underline !important; }
+    color: #FFFFFF !important; }
     .attentionIdentification__link:hover {
       color: #e6e6e6 !important; }
   @media screen and (max-width: 767px) and (min-width: 320px) {
@@ -320,6 +319,9 @@ body {
     position: absolute !important;
     top: 130% !important;
     right: 10px !important; }
+    @media screen and (max-width: 767px) {
+      .slider__wrapper .bonus__maximum {
+        margin-top: 10px !important; } }
 
 .input__slider {
   outline: none;
@@ -334,6 +336,9 @@ body {
   border-radius: 10px;
   cursor: pointer;
   -webkit-appearance: none; }
+  @media screen and (max-width: 767px) {
+    .input__slider {
+      display: none !important; } }
   .input__slider::-webkit-slider-runnable-track {
     box-shadow: none;
     border: none;

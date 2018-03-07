@@ -61,7 +61,7 @@ class RequestList extends Component {
 
             else if (currency[0] === "TSR" && currency[1] === "BTC") {
                 const percent = checkPercent(item.amount);
-                CURRENCYVALUE = `${this.separationValue((TOKEN_ATTITUDE_ETH * item.amount * cryptoCurrency[1].price_btc), 4)} BTC`;
+                CURRENCYVALUE = `${this.separationValue((item.amount * (TOKEN_ATTITUDE_ETH * cryptoCurrency[1].price_btc)), 4)} BTC`;
                 TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 

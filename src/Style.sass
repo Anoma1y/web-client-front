@@ -261,7 +261,7 @@ body
     font-size: 15px !important
   &__link
     color: $white-color
-    text-decoration: underline !important
+    //text-decoration: underline !important
     &:hover
       color: darken(#fff, 10%) !important
   &__textColumn
@@ -352,6 +352,8 @@ body
   .bonus__maximum
     position: absolute !important
     top: 130% !important
+    @media screen and (max-width: 767px)
+      margin-top: 10px !important
     right: 10px !important
 
 .input__slider
@@ -367,6 +369,8 @@ body
   border-radius: 10px
   cursor: pointer
   -webkit-appearance: none
+  @media screen and (max-width: 767px)
+    display: none !important
   &::-webkit-slider-runnable-track
     box-shadow: none
     border: none

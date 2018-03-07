@@ -506,7 +506,7 @@ class Calculator extends Component {
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row only={"computer"} style={{paddingTop: "10px"}}>
+                        <Grid.Row style={{paddingTop: "10px"}}>
                             <Grid.Column width={16} className={"slider__wrapper"}>
                                 <InputSlider
                                     maximumBonusToken={bonus[bonus.length - 1]["limit"]}
@@ -562,7 +562,10 @@ class Calculator extends Component {
     }
 }
 
-export default connect(state => ({ calculator: state.calculator, user: state.user }), {
+export default connect(state => ({
+    calculator: state.calculator,
+    user: state.user
+}), {
     changeCurrencyValue,
     changeTransferData,
     checkSuffixText,
