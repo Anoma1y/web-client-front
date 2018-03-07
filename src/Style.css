@@ -1082,3 +1082,6 @@ body {
 .ui.card > .content > .header:not(.ui) {
   font-family: "Roboto", sans-serif !important;
   font-weight: 400 !important; }
+
+.admin__application_comment {
+  word-break: break-all !important; }

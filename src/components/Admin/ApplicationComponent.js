@@ -7,7 +7,11 @@ import {
 } from 'semantic-ui-react';
 import ApplicationTableRow from './ApplicationTableRow';
 import AdminLib from "libs/ApiLib/AdminLib";
-import { addAllApplication } from 'actions/admin';
+import {
+    addAllApplication,
+    sortedApplications
+} from 'actions/admin';
+import _ from "underscore";
 
 class ApplicationComponent extends Component {
 
@@ -20,7 +24,7 @@ class ApplicationComponent extends Component {
 
     renderAllApplication = () => {
         const { applicationList } = this.props.admin;
-        return applicationList.map(item => {
+        return applicationList.data.map(item => {
             return <ApplicationTableRow
                 key={item.ID}
                 id={item.ID}
@@ -35,29 +39,48 @@ class ApplicationComponent extends Component {
         })
     }
 
+    handleSort = clickedColumn => () => {
+        const { applicationList } = this.props.admin;
+        const { sortedApplications } = this.props;
+        const newData = clickedColumn === 'createdAt' ? _.sortBy(applicationList.data, function(node){
+            return - (new Date(node.CreatedAt).getTime());
+        }) : _.sortBy(applicationList.data, clickedColumn);
+        const sortData = {
+            column: clickedColumn,
+            data:
+                applicationList.direction === 'descending' ?
+                    newData :
+                    newData.reverse(),
+            direction:
+                applicationList.direction === 'ascending' ?
+                    'descending' :
+                    'ascending'
+        }
+        sortedApplications(sortData);
+    }
+
     render() {
+        const {
+            applicationList
+        } = this.props.admin;
         return (
             <Container>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
-                            <Table celled textAlign={"center"}>
+                            <Table celled textAlign={"center"} sortable>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell>id</Table.HeaderCell>
-                                        <Table.HeaderCell>Created At</Table.HeaderCell>
-                                        <Table.HeaderCell>Updated At</Table.HeaderCell>
-                                        <Table.HeaderCell>Currency</Table.HeaderCell>
-                                        <Table.HeaderCell>Amount</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'ID' ? applicationList.direction : null} onClick={this.handleSort('ID')}>id</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'CreatedAt' ? applicationList.direction : null} onClick={this.handleSort('CreatedAt')}>Created At</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'currency' ? applicationList.direction : null} onClick={this.handleSort('currency')}>Currency</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'amount' ? applicationList.direction : null} onClick={this.handleSort('amount')}>Amount</Table.HeaderCell>
                                         <Table.HeaderCell>User EMail</Table.HeaderCell>
-                                        <Table.HeaderCell>User Verified</Table.HeaderCell>
-                                        <Table.HeaderCell>User KYC passed</Table.HeaderCell>
-                                        <Table.HeaderCell>Status</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'is_kyc_passed' ? applicationList.direction : null} onClick={this.handleSort('is_kyc_passed')}>User KYC passed</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'status' ? applicationList.direction : null} onClick={this.handleSort('status')}>Status</Table.HeaderCell>
                                         <Table.HeaderCell>Comments</Table.HeaderCell>
-
                                     </Table.Row>
                                 </Table.Header>
-
                                 <Table.Body>
                                     {this.renderAllApplication()}
                                 </Table.Body>
@@ -71,6 +94,7 @@ class ApplicationComponent extends Component {
 }
 
 export default connect(state => ({ admin: state.admin }), {
-    addAllApplication
+    addAllApplication,
+    sortedApplications
 })(ApplicationComponent);
 

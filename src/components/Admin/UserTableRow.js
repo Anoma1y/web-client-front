@@ -9,9 +9,6 @@ const UserTableRow = ({id, createdAt, updatedAt, deletedAt, email, roles, is_ver
         <Table.Row>
             <Table.Cell>{id}</Table.Cell>
             <Table.Cell>{moment(createdAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
-            <Table.Cell>{moment(updatedAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
-
-            {/*<Table.Cell>{deletedAt}</Table.Cell>*/}
             <Table.Cell>{email}</Table.Cell>
             <Table.Cell>{roles}</Table.Cell>
             <Table.Cell>{is_verified === false ? "No" : "Yes"}</Table.Cell>

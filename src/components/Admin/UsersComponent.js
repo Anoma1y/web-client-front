@@ -7,7 +7,12 @@ import {
 import { connect } from 'react-redux';
 import UserTableRow from './UserTableRow';
 import AdminLib from 'libs/ApiLib/AdminLib';
-import { addAllUsers } from 'actions/admin';
+import {
+    addAllUsers,
+    sortedUsers
+} from 'actions/admin';
+import _ from 'underscore';
+
 class UsersComponent extends Component {
 
     componentDidMount() {
@@ -19,7 +24,7 @@ class UsersComponent extends Component {
 
     renderAllUsers = () => {
         const { usersList } = this.props.admin;
-        return usersList.map(item => {
+        return usersList.data.map(item => {
             return <UserTableRow
                 key={item.ID}
                 id={item.ID}
@@ -34,23 +39,44 @@ class UsersComponent extends Component {
         })
     }
     
+    handleSort = clickedColumn => () => {
+        const { usersList } = this.props.admin;
+        const { sortedUsers } = this.props;
+        const newData = clickedColumn === 'createdAt' ? _.sortBy(usersList.data, function(node){
+            return - (new Date(node.CreatedAt).getTime());
+        }) : _.sortBy(usersList.data, clickedColumn);
+        const sortData = {
+            column: clickedColumn,
+            data:
+                usersList.direction === 'descending' ?
+                   newData :
+                   newData.reverse(),
+            direction:
+                usersList.direction === 'ascending' ?
+                    'descending' :
+                    'ascending'
+        }
+        sortedUsers(sortData);
+    }
+
     render() {
+        const {
+            usersList
+        } = this.props.admin;
         return (
             <Container>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
-                            <Table celled textAlign={"center"}>
+                            <Table celled sortable textAlign={"center"}>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell>id</Table.HeaderCell>
-                                        <Table.HeaderCell>Created At</Table.HeaderCell>
-                                        <Table.HeaderCell>Updated At</Table.HeaderCell>
-                                        {/*<Table.HeaderCell>Deleted At</Table.HeaderCell>*/}
+                                        <Table.HeaderCell sorted={usersList.column === 'ID' ? usersList.direction : null} onClick={this.handleSort('ID')}>ID</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={usersList.column === 'CreatedAt' ? usersList.direction : null} onClick={this.handleSort('CreatedAt')}>Created At</Table.HeaderCell>
                                         <Table.HeaderCell>EMail</Table.HeaderCell>
                                         <Table.HeaderCell>Roles</Table.HeaderCell>
-                                        <Table.HeaderCell>Is Verified</Table.HeaderCell>
-                                        <Table.HeaderCell>Is KYC passed</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={usersList.column === 'is_verified' ? usersList.direction : null} onClick={this.handleSort('is_verified')}>Is Verified</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={usersList.column === 'is_kyc_passed' ? usersList.direction : null} onClick={this.handleSort('is_kyc_passed')}>Is KYC passed</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 
@@ -67,5 +93,6 @@ class UsersComponent extends Component {
 }
 
 export default connect(state => ({ admin: state.admin }), {
-    addAllUsers
+    addAllUsers,
+    sortedUsers
 })(UsersComponent);
