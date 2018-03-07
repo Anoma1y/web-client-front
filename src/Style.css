@@ -208,11 +208,17 @@ body {
   @media screen and (max-width: 767px) {
     .attentionIdentification {
       height: 72px !important; } }
+  @media screen and (max-width: 438px) {
+    .attentionIdentification {
+      height: 85px !important; } }
   .attentionIdentification__wrapper {
     margin-top: -5px !important; }
     @media screen and (max-width: 767px) {
       .attentionIdentification__wrapper {
         margin-top: 5px !important; } }
+    @media screen and (max-width: 438px) {
+      .attentionIdentification__wrapper {
+        margin-top: 0 !important; } }
   .attentionIdentification__icon {
     font-size: 18px !important;
     color: #FFFFFF !important; }
@@ -569,6 +575,9 @@ body {
   .request__item_wrapper {
     padding-top: 1.25rem !important;
     padding-bottom: 1.25rem !important; }
+    @media screen and (max-width: 767px) {
+      .request__item_wrapper {
+        text-align: center !important; } }
   .request__item_title {
     color: #939393 !important;
     font-size: 14px !important; }
@@ -580,6 +589,13 @@ body {
     color: #282828 !important; }
   .request__item_value-active {
     color: #004fce !important; }
+  .request__item_submit {
+    width: 100% !important; }
+    @media screen and (max-width: 767px) {
+      .request__item_submit {
+        width: 50% !important;
+        margin: 15px auto 0 !important;
+        display: block !important; } }
 
 .pay__modal {
   position: relative; }

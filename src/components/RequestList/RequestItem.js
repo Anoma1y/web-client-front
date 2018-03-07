@@ -29,26 +29,23 @@ class RequestItem extends Component {
         const fixedStyleAmount = fixedColor !== "TSR";
         return (
             <Grid verticalAlign={'middle'} className={"request__item"}>
-                <Grid.Row columns={3} className={"request__item_wrapper"}>
-                    <Grid.Column>
+                <Grid.Row className={"request__item_wrapper"}>
+                    <Grid.Column widescreen={5} computer={5} tablet={5} mobile={8}>
                         <Item>
                             <Item.Header className={fixedStyleAmount ? "request__item_title request__item_title-active" : "request__item_title"}>Amount</Item.Header>
                             <Item.Description className={fixedStyleAmount ? "request__item_value request__item_value-active" : "request__item_value"}><h3>{sum}</h3></Item.Description>
                         </Item>
                     </Grid.Column>
-                    <Grid.Column>
+                    <Grid.Column widescreen={5} computer={5} tablet={5} mobile={8}>
                         <Item>
                             <Item.Header className={fixedStyleTSR ? "request__item_title request__item_title-active" : "request__item_title"}>Tokens</Item.Header>
                             <Item.Description className={fixedStyleTSR ? "request__item_value request__item_value-active" : "request__item_value"}><h3>{amount} </h3></Item.Description>
                         </Item>
                     </Grid.Column>
-                    <Grid.Column>
+                    <Grid.Column widescreen={6} computer={6} tablet={6} mobile={16}>
                         <Modal trigger={
                             <Button
-                                className={"dashboard__submit"}
-                                circular
-                                fluid
-                                floated={'right'}
+                                className={"dashboard__submit request__item_submit"}
                                 onClick={this.handleRequestBtn}
                                 disabled={buttonDisabled}
                                 basic={buttonBasic}
