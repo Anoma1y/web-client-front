@@ -739,7 +739,25 @@ body {
   text-transform: uppercase !important; }
 
 .blue__divider {
+  margin-right: 0rem !important;
+  margin-left: 0rem !important;
   background-color: #004fce !important; }
+
+.settings__select {
+  font-weight: 400 !important;
+  color: #000000 !important; }
+
+.settings__dropdown .dropdown:not(.icon) {
+  margin-top: 10px !important;
+  padding-left: 0 !important;
+  width: 100% !important;
+  border: none !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid #000000 !important; }
+  .settings__dropdown .dropdown:not(.icon) .menu {
+    flex-wrap: wrap !important; }
+  .settings__dropdown .dropdown:not(.icon) .item {
+    width: 100% !important; }
 
 .setting__header_button {
   background-color: #71779B !important;
@@ -754,7 +772,7 @@ body {
 .setting__description {
   color: #000000 !important;
   font-family: "Roboto", sans-serif !important;
-  font-weight: 500 !important; }
+  font-weight: 400 !important; }
 
 .setting__button {
   margin: 15px 0 !important; }
@@ -784,6 +802,16 @@ body {
       color: #FFFFFF !important; }
     .setting__change_buttons input:focus:-ms-input-placeholder, .setting__change_buttons input:hover:-ms-input-placeholder {
       color: #FFFFFF !important; }
+
+.settings__company_header {
+  margin-top: 20px !important;
+  margin-bottom: 0 !important;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important; }
+
+.settings__company_uploadInfo {
+  margin-top: 20px !important; }
 
 .beneficial_btn {
   float: right !important;
@@ -857,6 +885,13 @@ body {
   transition: background-color .5s ease !important; }
   .auth_btn:hover {
     background-color: #0059e8 !important; }
+
+.setting__button-new {
+  background-color: #FFFFFF !important;
+  color: #004fce !important;
+  box-shadow: none !important; }
+  .setting__button-new:hover {
+    background-color: #e6e6e6 !important; }
 
 .auth_input label {
   position: relative !important;

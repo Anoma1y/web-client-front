@@ -12,7 +12,7 @@ class IdentificationImgUpload extends React.Component {
         super(props);
         this.state = {
             file: '',
-            imagePreviewUrl: null
+            imagePreviewUrl: ""
         }
     }
 
@@ -40,7 +40,7 @@ class IdentificationImgUpload extends React.Component {
                 imagePreviewUrl: reader.result
             });
         };
-
+        
         reader.readAsDataURL(file)
     }
 
@@ -50,6 +50,7 @@ class IdentificationImgUpload extends React.Component {
     }
 
     render() {
+        const { imagePreviewUrl } = this.state;
         return (
             <Grid className={"setting__description"}>
                 <Grid.Row>
@@ -62,14 +63,14 @@ class IdentificationImgUpload extends React.Component {
                         </Card.Description>
                         <Card.Description>
                             <Button
-                                className={"auth_btn setting__button"}
+                                className={imagePreviewUrl.length > 0 ? "auth_btn setting__button-new" :"auth_btn setting__button"}
                                 floated={"right"}
                                 onClick={(e)=> {
                                     document.getElementById(this.props.id).click();
                                     this.handleSubmit(e)
                                 }}
                             >
-                                Upload
+                                {imagePreviewUrl.length > 0 ? "Upload New" : "Upload" }
                             </Button>
                         </Card.Description>
                         <Input

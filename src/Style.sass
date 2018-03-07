@@ -763,9 +763,25 @@ body
 
 
 .blue__divider
+  margin-right: 0rem !important
+  margin-left: 0rem !important
   background-color: rgba(0, 79, 206, 1) !important
 
-
+.settings__select
+  font-weight: 400 !important
+  color: $black-color
+.settings__dropdown
+  .dropdown:not(.icon)
+    margin-top: 10px !important
+    padding-left: 0 !important
+    width: 100% !important
+    .menu
+      flex-wrap: wrap !important
+    border: none !important
+    border-radius: 0 !important
+    border-bottom: 1px solid $black-color
+    .item
+      width: 100% !important
 .setting__header_button
   background-color: #71779B !important
   color: $white-color
@@ -779,10 +795,11 @@ body
 .setting__description
   color: $black-color
   font-family: $font-robot
-  font-weight: 500 !important
+  font-weight: 400 !important
 
 .setting__button
   margin: 15px 0 !important
+
 .setting__submit
   width: 30% !important
 .setting__imagePreview
@@ -802,7 +819,15 @@ body
       border-bottom-color: $white-color
       +placeholder
         color: $white-color
-
+.settings__company
+  &_header
+    margin-top: 20px !important
+    margin-bottom: 0 !important
+    font-family: $font-robot
+    font-size: 14px !important
+    text-transform: uppercase !important
+  &_uploadInfo
+    margin-top: 20px !important
 .beneficial_btn
   float: right !important
   background-color: $white-color
@@ -873,6 +898,14 @@ body
     transition: background-color .5s ease !important
     &:hover
       background-color: lighten(rgba(0, 79, 206, 1), 5%) !important
+.setting__button
+  &-new
+    background-color: $white-color
+    color: rgba(0, 79, 206, 1) !important
+    box-shadow: none !important
+    &:hover
+      background-color: darken(#fff, 10%) !important
+
 .auth_input
   label
     position: relative !important
@@ -928,8 +961,6 @@ body
       left: 0 !important
       opacity: 0 !important
       transition: all 0.2s ease-in-out !important
-
-
 .signup__content
   &_confirm
     margin: 20px 0 34px !important
@@ -998,7 +1029,6 @@ body
   ///////////////////////////////////////////////////////////////////////////
 .visible.transition
   display: flex !important
-
 
 .modal
   //margin-top: -1rem !important

@@ -21,11 +21,8 @@ const INITIAL_STATE = {
         {
             description: "If the company register of the country does not provide public data: Certificate of actual status. Upload a Certificate of actual status The certificate of actual status should be issued by the official Company register or a similar authorized institution in the country of registration of your company: the Certificate of actual status should contain: the company name, address, seat, registration number/ tax number or similar, Legal representatives (Managers) names, business activity. The document should be issued no more than 6 months before the date of upload. A document confirming the right to represent the company",
             id: "company_register_country"
-        },
-        {
-            description: " A document confirming the right to represent the company",
-            id: "document_represent_company"
-        },
+        }],
+    legalEntityAboutCompany: [
         {
             description: "Upload a Business registration document. Please upload a copy of ONE of the following types documents: a business registration; a bank statement (2 weeks old), a credit card statement, a utility bill, an insurance contract, a receipt for paid insurance, an invoice, or any other type of contract or document, which contains the company address, BULSTAT, VAT, Tax number",
             id: "business_registration_document"

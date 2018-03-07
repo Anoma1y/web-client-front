@@ -57,33 +57,62 @@ class LegalEntity extends Component {
 
     renderUploadInfoCompany = () => {
         const { legalEntityUserCompany } = this.props.settings;
-        return legalEntityUserCompany.map(item => {
+        return legalEntityUserCompany.map((item, index)=> {
             return (
-                <Grid.Row key={item.id}>
-                    <Grid.Column>
+                <Grid.Row className={"settings__company_uploadInfo"} key={item.id}>
+                    <Grid.Column width={16}>
                         <IdentificationImgUpload
                             description={item.description}
                             id={item.id}
                         />
                     </Grid.Column>
+                    { index !== (legalEntityUserCompany.length - 1) ?
+                        <Grid.Column width={16}>
+                            <Divider/>
+                        </Grid.Column>
+                        : null
+                    }
                 </Grid.Row>
             )
         })
     }
 
-
+    renderUploadInfoRegistration = () => {
+        const { legalEntityAboutCompany } = this.props.settings;
+        return legalEntityAboutCompany.map((item, index)=> {
+            return (
+                <Grid.Row className={"settings__company_uploadInfo"} key={item.id}>
+                    <Grid.Column width={16}>
+                        <IdentificationImgUpload
+                            description={item.description}
+                            id={item.id}
+                        />
+                    </Grid.Column>
+                    { index !== (legalEntityAboutCompany.length - 1) ?
+                        <Grid.Column width={16}>
+                            <Divider/>
+                        </Grid.Column>
+                        : null
+                    }
+                </Grid.Row>
+            )
+        })
+    }
 
     render() {
 
         return (
-            <Grid>
+            <Grid className={"settings__company"}>
+                <h1 className={"settings__company_header"}>Information about the person authorised to represent the company</h1>
                 <PersonInformation />
-                <Divider className={"blue__divider"}/>
 
                 {this.renderUploadInfoCompany()}
                 <Divider className={"blue__divider"}/>
 
                 <CompanyInformation />
+
+                {this.renderUploadInfoRegistration()}
+                <Divider className={"blue__divider"}/>
 
                 <Grid.Row>
                     <Grid.Column width={16} className={"header__input_text header_text_uppercase"}>

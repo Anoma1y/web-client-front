@@ -24,7 +24,6 @@ class IndividualUser extends Component {
     }
 
     render() {
-        console.log(this.props.settings);
         return (
             <Grid>
                 <PersonInformation />

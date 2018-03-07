@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid } from 'semantic-ui-react';
+import {
+    Grid,
+    Divider
+} from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
 class Beneficial extends Component {
@@ -21,15 +24,21 @@ class Beneficial extends Component {
 
     renderUploadInfoBeneficial = () => {
         const { legalEntityBeneficial } = this.props.settings;
-        return legalEntityBeneficial.map(item => {
+        return legalEntityBeneficial.map((item, index) => {
             return (
                 <Grid.Row key={item.id}>
-                    <Grid.Column>
+                    <Grid.Column width={16}>
                         <IdentificationImgUpload
                             description={item.description}
                             id={item.id}
                         />
                     </Grid.Column>
+                    { index !== (legalEntityBeneficial.length - 1) ?
+                        <Grid.Column width={16}>
+                            <Divider/>
+                        </Grid.Column>
+                        : null
+                    }
                 </Grid.Row>
             )
         })
