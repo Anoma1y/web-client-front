@@ -17,6 +17,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                 className={"dashboard__submit"}
                 onClick={handleSubmitApplication}
                 disabled={transferData.TSR < 1 || transferData.USD === "0"}
+                id={"submit__OpenApplication"}
             >
                 Apply
             </Button>
@@ -24,6 +25,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                    open={modalOpen}
                    size={"tiny"}
                    onClose={handleCloseModal}
+                   id={"click__closeModal"}
             >
                 <Modal.Content className={"modal__success"} scrolling>
                     {modalSuccessful ?
@@ -38,6 +40,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                 <Button
                                     className={"dashboard__submit"}
                                     onClick={handleCloseModal}
+                                    id={"submit__closeModal"}
                                 >OK
                                 </Button>
                             </div>
@@ -192,6 +195,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                     className={"dashboard__submit"}
                                     onClick={handleSendApplication}
                                     floated={"right"}
+                                    id={"submit__sendApplication"}
                                 >Apply
                                 </Button>
                             </div>

@@ -862,6 +862,10 @@ body {
 .reset__password_content label {
   margin-bottom: 20px !important; }
 
+.reset__divider {
+  margin-right: -1rem !important;
+  margin-left: -1rem !important; }
+
 .login__content_forgot {
   text-align: right !important;
   margin: 15px 0 !important; }

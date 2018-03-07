@@ -66,7 +66,7 @@ class EmailComponent extends React.Component {
                         <Card.Header as={"h1"} className={"login__header reset__password_header"}>
                             Forgot your password?
                         </Card.Header>
-                        <Divider  className={"auth__divider"}/>
+                        <Divider  className={"reset__divider"}/>
                         <Card.Description>
                             No problem! Just fill in the email below and we'll send you password reset instructions!
                         </Card.Description>

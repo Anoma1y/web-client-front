@@ -9,7 +9,7 @@ import PersonInformation from './PersonInformation';
 import { SettingsButton } from './SettingsButton';
 
 class IndividualUser extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {

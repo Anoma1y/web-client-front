@@ -105,6 +105,7 @@ class BetaTest extends Component {
                                                      <Button
                                                          className={"dashboard__submit"}
                                                          onClick={this.handleCloseModal}
+                                                         id={"betatest_error"}
                                                      >OK
                                                      </Button>
                                                  </div>

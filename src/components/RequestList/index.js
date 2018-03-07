@@ -104,23 +104,20 @@ class RequestList extends Component {
     render () {
         const { items: request } = this.props.requests;
         return (
-            <div>
-                { request.length !== 0 ?
-                    <Card fluid>
-                        <Card.Content>
-                            <Card.Header className={"component__title"}>Your Applications</Card.Header>
-                            <Divider className={"component__divider"} />
-                            <Grid verticalAlign={'middle'} className={"dashboard__component"}>
-                                <Grid.Row columns={1}>
-                                    <Grid.Column>
-                                        {this.renderList()}
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Card.Content>
-                    </Card> : null
-                }
-            </div>
+             request.length !== 0 ?
+                <Card fluid className={"component__main"}>
+                    <Card.Content>
+                        <Card.Header className={"component__title"}>Your Applications</Card.Header>
+                        <Divider className={"component__divider"} />
+                        <Grid verticalAlign={'middle'} className={"dashboard__component"}>
+                            <Grid.Row columns={1}>
+                                <Grid.Column>
+                                    {this.renderList()}
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Card.Content>
+                </Card> : null
         )
     }
 
