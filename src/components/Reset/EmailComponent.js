@@ -75,12 +75,12 @@ class EmailComponent extends React.Component {
                                 <label>
                                     <input
                                         type="text"
-                                        placeholder='EMail'
+                                        placeholder='Email'
                                         onChange={this.handleChangeEmail}
                                         value={email}
                                         className={emailPlaceholder ? "populated" : ""}
                                     />
-                                    <span>EMail</span>
+                                    <span>Email</span>
                                 </label>
                                 { error !== null ?
                                     <Message warning color={"red"}>
