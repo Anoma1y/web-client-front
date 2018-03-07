@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     Card,
     Divider,
     Grid
-} from 'semantic-ui-react'
-import { handleRequestItem } from 'actions/request/'
-import RequestItem from './RequestItem'
+} from 'semantic-ui-react';
+import { handleRequestItem } from 'actions/request/';
+import RequestItem from './RequestItem';
 
 class RequestList extends Component {
 
@@ -54,18 +54,21 @@ class RequestList extends Component {
             const bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
 
             if (currency[0] === "TSR" && currency[1] === "ETH") {
+                const percent = checkPercent(item.amount);
                 CURRENCYVALUE = `${this.separationValue((TOKEN_ATTITUDE_ETH * item.amount), 4)} ETH`;
-                TOKENVALUE = this.separationValue(item.amount, 4);
+                TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 
             else if (currency[0] === "TSR" && currency[1] === "BTC") {
+                const percent = checkPercent(item.amount);
                 CURRENCYVALUE = `${this.separationValue((TOKEN_ATTITUDE_ETH * item.amount * cryptoCurrency[1].price_btc), 4)} BTC`;
-                TOKENVALUE = this.separationValue(item.amount, 4);
+                TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 
             else if (currency[0] === "TSR" && currency[1] === "USD") {
+                const percent = checkPercent(item.amount);
                 CURRENCYVALUE = `$ ${this.separationValue(item.amount * (cryptoCurrency[1].price_usd * TOKEN_ATTITUDE_ETH), 4)}`;
-                TOKENVALUE = this.separationValue(item.amount, 4);
+                TOKENVALUE = this.separationValue(bonusCalc(item.amount, percent), 4);
             }
 
             else if (currency[0] === "USD" && currency[1] === "TSR") {
