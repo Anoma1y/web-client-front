@@ -247,8 +247,10 @@ body
   margin-bottom: 15px !important
   @media screen and (max-width: 767px)
     height: 72px !important
-  @media screen and (max-width: 438px)
+  @media screen and (max-width: 446px)
     height: 85px !important
+  @media screen and (max-width: 380px)
+    height: 90px !important
   font-weight: normal !important
   &__wrapper
     margin-top: -5px !important
@@ -340,6 +342,8 @@ body
   letter-spacing: .4px
   margin-top: -6px !important
   font-size: 25px !important
+  &:focus
+    font-weight: 400 !important
 
 .total__label
   font-family: $font-robot
@@ -749,6 +753,8 @@ body
 .dashboard__social_component
   padding-left: 8px !important
   padding-right: 25px !important
+  @media screen and (max-width: 991px)
+    padding-right: 8px !important
 
 
 .social__segment
@@ -1073,9 +1079,9 @@ body
 .component__cryptocurrency
   padding: 1em 0 0 !important
   @media screen and (min-width: 1200px)
-    min-height: 314px !important
+    min-height: 320px !important
   @media screen and (min-width: 992px) and (max-width: 1199px)
-    min-height: 284px !important
+    min-height: 290px !important
   .cryptocurrency__form
     padding: 0 10px !important
 
@@ -1087,7 +1093,7 @@ body
     position: absolute
     top: 0
     right: 1px
-    width: 99%
+    width: calc(100% - 1px)
     height: 100px
     background-color: $white-color
   &_radio

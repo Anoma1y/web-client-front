@@ -1,4 +1,4 @@
-import Subscribe from 'libs/ApiLib/Subscribe'
+import Subscribe from 'libs/ApiLib/Subscribe';
 import {
     changeSuccessBetatest,
     changeAppleChecked,
@@ -17,10 +17,9 @@ export const handleSubscribeToBetaTest = () => {
             dispatch(changeAndroidChecked(false));
             dispatch(changeSuccessBetatest(true));
             dispatch(changeModalBeta(true));
-        }).catch((err) => {
+        }).catch(() => {
             dispatch(changeSuccessBetatest(false));
             dispatch(changeModalBeta(true));
         })
-        //TODO need check current beta test user
     }
 };

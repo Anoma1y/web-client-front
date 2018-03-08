@@ -3,9 +3,12 @@ import ApiLib from 'libs/ApiLib/SignUp'
 import { push } from "react-router-redux";
 import { setResetInProgress } from "./setResetInProgress";
 
-export const handleReset = email => {
-    return dispatch => {
+export const handleReset = () => {
+    return (dispatch, getState) => {
         dispatch(setResetInProgress(true));
+        const {
+            email
+        } = getState().reset;
         ApiLib.resetPassword(email).then(() => {
             dispatch(setError(null));
             dispatch(setResetInProgress(false));

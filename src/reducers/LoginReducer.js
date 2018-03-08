@@ -3,7 +3,7 @@ import {
     CHANGE_PASSWORD,
     SET_AUTH_IN_PROGRESS,
     SET_ERROR
-} from 'actions/login/types'
+} from 'actions/login/types';
 
 const INITIAL_STATE = {
     email: '',

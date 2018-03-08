@@ -38,7 +38,10 @@ const INITIAL_STATE = {
         suffixCurrency: true
     },
     transferData: {
-        USD: 0, TSR: 0, BTC: 0, ETH: 0
+        USD: 0,
+        TSR: 0,
+        BTC: 0,
+        ETH: 0
     },
     comments: '',
     order: {
@@ -78,7 +81,14 @@ export default (state = INITIAL_STATE, action) => {
         case C.CHANGE_SUM_VALUE:
             return { ...state, sumValue: action.payload };
         case C.CHANGE_TRANSFER_DATA:
-            const { sumValue, progressBar, tokenValue, bonus, currentBonus ,transferData } = action.payload;
+            const {
+                sumValue,
+                progressBar,
+                tokenValue,
+                bonus,
+                currentBonus,
+                transferData
+            } = action.payload;
             return { ...state,  sumValue, progressBar, tokenValue, bonus, currentBonus, transferData };
         case C.CHECK_SUFFIX_TEXT:
             return { ...state, suffixText: action.payload };

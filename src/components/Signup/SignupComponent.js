@@ -48,7 +48,7 @@ class SignupComponent extends Component {
             return;
         }
         setError(null);
-        handleRegistration({email, password});
+        handleRegistration();
     }
 
     debounceEmail = _.debounce(() => {
