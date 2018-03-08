@@ -53,6 +53,7 @@ class Beneficial extends Component {
     handleCity = (event) => event.target.value.length > 0 ? this.setState({City: true}) : this.setState({City: false})
     handleZip = (event) => event.target.value.length > 0 ? this.setState({Zip: true}) : this.setState({Zip: false})
     handleEmail = (event) => event.target.value.length > 0 ? this.setState({Email: true}) : this.setState({Email: false})
+
     render() {
         return (
             <Grid.Row className={"beneficial__wrapper"}>

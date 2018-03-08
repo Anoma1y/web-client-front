@@ -49,7 +49,7 @@ class EmailComponent extends React.Component {
             setError("Please enter a valid Email");
             return;
         }
-        handleReset(email);
+        handleReset();
     }
 
     render () {

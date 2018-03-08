@@ -1,5 +1,5 @@
-import ApplicationLib from 'libs/ApiLib/ApplicationLib'
-import { addRequestItem } from 'actions/request/addRequestItem'
+import ApplicationLib from 'libs/ApiLib/ApplicationLib';
+import { addRequestItem } from 'actions/request/addRequestItem';
 import {
     changeModalSuccessful,
     changeQuerySuccessful,
@@ -9,23 +9,33 @@ import {
 
 export const handleApplication = () => {
     return (dispatch, getState) => {
-        const { calculator, requests, user } = getState();
+        const {
+            calculator,
+            requests,
+            user
+        } = getState();
+        const { jwt: TOKEN } = user;
         const dataOrder = {
             currency: `${calculator.order.fixCurrency}/${calculator.order.forCurrency}`,
             amount: Number(calculator.order.amount),
             comments: calculator.comments,
-            token: user.jwt
-        }
-        ApplicationLib.getApplication(user.jwt).then((data) => {
+            token: TOKEN
+        };
+        ApplicationLib.getApplication(TOKEN).then((data) => {
             if (data.length < 10) {
                 ApplicationLib.addApplication(dataOrder).then((data) => {
                     dispatch(changeModalSuccessful(true));
                     dispatch(changeQuerySuccessful(true));
-                    dispatch(addRequestItem([ data.data, ...requests.items ]));
-                    dispatch(changeComments(""));
+                    dispatch(addRequestItem([
+                        data.data,
+                        ...requests.items
+                    ]));
+                    if (calculator.comments.length !== 0) {
+                        dispatch(changeComments(""));
+                    }
                     dispatch(changeApplicationError(null));
                 }).catch(() => {
-                    dispatch(changeApplicationError("Ошибка"));
+                    dispatch(changeApplicationError("Error"));
                     dispatch(changeModalSuccessful(true));
                     dispatch(changeQuerySuccessful(false));
                 })
