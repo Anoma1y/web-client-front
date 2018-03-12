@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CurrencyButton } from 'components/Calculator/CalculatorButton';
-
 import { Grid } from 'semantic-ui-react'
 import {
     changeAdminCurrencyValue,
@@ -82,6 +81,7 @@ class AdminCalculator extends Component {
             }
         }
     }
+
     calcToken = value => {
         const { currencyValue, bonus: bonusList } = this.props.admin;
         const { bonus, bonusTSR } = checkBonus(value, bonusList);
