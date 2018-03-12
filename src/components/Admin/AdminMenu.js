@@ -33,15 +33,6 @@ class AdminMenu extends Component {
 
                                 <Menu.Item
                                     as={'div'}
-                                    name='users'
-                                    active={activeItem === 'users'}
-                                    onClick={this.handleItemClick}
-                                >
-                                    <Link to='/admin/users'>Users</Link>
-                                </Menu.Item>
-
-                                <Menu.Item
-                                    as={'div'}
                                     name='reviews'
                                     active={activeItem === 'reviews'}
                                     onClick={this.handleItemClick}

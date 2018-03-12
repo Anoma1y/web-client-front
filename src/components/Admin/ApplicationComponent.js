@@ -18,7 +18,9 @@ class ApplicationComponent extends Component {
     componentDidMount() {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
-            addAllApplication(data.data);
+            addAllApplication(_.sortBy(data.data, function(node) {
+                return -(new Date(node.CreatedAt).getTime());
+            }));
         })
     }
 
@@ -72,13 +74,14 @@ class ApplicationComponent extends Component {
                                 <Table.Header>
                                     <Table.Row>
                                         <Table.HeaderCell sorted={applicationList.column === 'ID' ? applicationList.direction : null} onClick={this.handleSort('ID')}>id</Table.HeaderCell>
-                                        <Table.HeaderCell sorted={applicationList.column === 'CreatedAt' ? applicationList.direction : null} onClick={this.handleSort('CreatedAt')}>Created At</Table.HeaderCell>
-                                        <Table.HeaderCell sorted={applicationList.column === 'currency' ? applicationList.direction : null} onClick={this.handleSort('currency')}>Currency</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'CreatedAt' ? applicationList.direction : null} onClick={this.handleSort('CreatedAt')}>Created</Table.HeaderCell>
                                         <Table.HeaderCell sorted={applicationList.column === 'amount' ? applicationList.direction : null} onClick={this.handleSort('amount')}>Amount</Table.HeaderCell>
-                                        <Table.HeaderCell>User EMail</Table.HeaderCell>
-                                        <Table.HeaderCell sorted={applicationList.column === 'is_kyc_passed' ? applicationList.direction : null} onClick={this.handleSort('is_kyc_passed')}>User KYC passed</Table.HeaderCell>
+                                        <Table.HeaderCell>Tokens</Table.HeaderCell>
+                                        <Table.HeaderCell>Country</Table.HeaderCell>
+                                        <Table.HeaderCell>EMail</Table.HeaderCell>
+                                        <Table.HeaderCell sorted={applicationList.column === 'is_kyc_passed' ? applicationList.direction : null} onClick={this.handleSort('is_kyc_passed')}> KYC</Table.HeaderCell>
                                         <Table.HeaderCell sorted={applicationList.column === 'status' ? applicationList.direction : null} onClick={this.handleSort('status')}>Status</Table.HeaderCell>
-                                        <Table.HeaderCell>Comments</Table.HeaderCell>
+                                        <Table.HeaderCell>Comment</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
