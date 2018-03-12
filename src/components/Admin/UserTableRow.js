@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     Table,
     Checkbox,
@@ -8,14 +9,34 @@ import {
     Button
 } from 'semantic-ui-react';
 import moment from 'moment';
+import {changeDeleteUsers} from "actions/admin";
 
 class UserTableRow extends Component {
 
     state = {
-        userRole: this.props.roles
+        userRole: this.props.roles,
+        checkedUser: null
     }
 
     handleChange = (e, { value }) => this.setState({ userRole: value })
+
+    handleChangeDelete = event => {
+        const {
+            value,
+            checked
+        } = event.target;
+        const { changeDeleteUsers } = this.props;
+        const { deleteUsers } = this.props.admin;
+        changeDeleteUsers(
+            [...deleteUsers, value].filter(item => {
+                let val;
+                if (checked === false) {
+                    val = value;
+                }
+                return item !== val;
+            })
+        );
+    }
 
     render() {
         const {
@@ -26,6 +47,7 @@ class UserTableRow extends Component {
             is_verified,
             is_kyc_passed
         } = this.props;
+
         return (
             <Table.Row>
                 <Table.Cell>{id}</Table.Cell>
@@ -74,11 +96,13 @@ class UserTableRow extends Component {
                 <Table.Cell>{is_verified === false ? "No" : "Yes"}</Table.Cell>
                 <Table.Cell>{is_kyc_passed === false ? "No" : "Yes"}</Table.Cell>
                 <Table.Cell>
-                    <Checkbox/>
+                    <input type="checkbox" value={id} onChange={this.handleChangeDelete}/>
                 </Table.Cell>
             </Table.Row>
         )
     }
 }
 
-export default UserTableRow;
+export default connect(state => ({ admin: state.admin }), {
+    changeDeleteUsers
+})(UserTableRow);

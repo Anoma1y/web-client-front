@@ -11,6 +11,7 @@ import {
 import {
     applicationCalc
 } from 'libs/math';
+import { changeDeleteApplications } from 'actions/admin';
 import moment from 'moment';
 
 class ApplicationTableRow extends Component {
@@ -21,6 +22,24 @@ class ApplicationTableRow extends Component {
 
     handleChange = (e, { value }) => this.setState({ applicationStatus: Number(value) })
 
+    handleChangeDelete = event => {
+        const {
+            value,
+            checked
+        } = event.target;
+        const { changeDeleteApplications } = this.props;
+        const { deleteApplications } = this.props.admin;
+        changeDeleteApplications(
+            [...deleteApplications, value].filter(item => {
+                let val;
+                if (checked === false) {
+                    val = value;
+                }
+                return item !== val;
+            })
+        );
+    }
+    
     renderCell = () => {
         const {
             id,
@@ -44,8 +63,6 @@ class ApplicationTableRow extends Component {
             TOKENVALUE,
             CURRENCYVALUE
         } = applicationCalc(amount, fixedCurrency, TOKEN_ATTITUDE_ETH, cryptoCurrency, bonus);
-
-        const { applicationStatus } = this.state;
 
         const fixToken = fixedCurrency[0] === "TSR" ?
             <Table.Cell width={1} positive>{TOKENVALUE}</Table.Cell> :
@@ -118,7 +135,7 @@ class ApplicationTableRow extends Component {
                 </Modal>
                 <Table.Cell width={4} className={"admin__application_comment"}>{comment}</Table.Cell>
                 <Table.Cell width={1}>
-                    <Checkbox/>
+                    <input type="checkbox" value={id} onChange={this.handleChangeDelete}/>
                 </Table.Cell>
             </Table.Row>
         )
@@ -129,6 +146,9 @@ class ApplicationTableRow extends Component {
     }
 };
 
-export default connect(state => ({ calculator: state.calculator }), {
-
+export default connect(state => ({
+    calculator: state.calculator,
+    admin: state.admin
+}), {
+    changeDeleteApplications
 })(ApplicationTableRow);

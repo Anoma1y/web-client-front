@@ -1,9 +1,4 @@
-import {
-    ADD_APPLICATION,
-    ADD_USERS,
-    SORTED_USERS,
-    SORTED_APPLICATIONS
-} from 'actions/admin/types';
+import * as C from 'actions/admin/types';
 
 const INITIAL_STATE = {
     usersList: {
@@ -11,6 +6,10 @@ const INITIAL_STATE = {
         column: null,
         direction: 'descending'
     },
+    deleteUsers: [],
+    deleteApplications: [],
+    userRole: null,
+    applicationStatus: null,
     applicationList: {
         data: [],
         column: null,
@@ -20,22 +19,30 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case ADD_USERS:
+        case C.ADD_USERS:
             return { ...state, usersList: {
                 data: action.payload,
                 column: null,
                 direction: 'descending'
             } };
-        case ADD_APPLICATION:
+        case C.ADD_APPLICATION:
             return { ...state, applicationList: {
                 data: action.payload,
                 column: null,
                 direction: 'descending'
             } };
-        case SORTED_USERS:
+        case C.SORTED_USERS:
             return { ...state, usersList: action.payload };
-        case SORTED_APPLICATIONS:
+        case C.SORTED_APPLICATIONS:
             return { ...state, applicationList: action.payload };
+        case C.CHANGE_DELETE_USERS:
+            return { ...state, deleteUsers: action.payload };
+        case C.CHANGE_DELETE_APPLICATIONS:
+            return { ...state, deleteApplications: action.payload };
+        case C.CHANGE_USER_ROLE:
+            return { ...state, userRole: action.payload };
+        case C.CHANGE_APPLICATION_STATUS:
+            return { ...state, applicationStatus: action.payload };
         default:
             return state;
     }
