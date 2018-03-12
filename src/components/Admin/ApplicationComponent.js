@@ -13,10 +13,53 @@ import {
     addAllApplication,
     sortedApplications
 } from 'actions/admin';
+import { setCurrency } from 'actions/calculator';
 import _ from "underscore";
+import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
 
 class ApplicationComponent extends Component {
-
+    componentWillMount() {
+        const { setCurrency } = this.props;
+        const INITIAL_DATA = [
+            {
+                'id': 'bitcoin',
+                'name': 'Bitcoin',
+                'symbol': 'BTC',
+                'price_usd': '0'
+            },
+            {
+                'id': 'ethereum',
+                'name': 'Ethereum',
+                'symbol': 'ETH',
+                "price_usd": "0",
+                "price_btc": "0"
+            },
+            {
+                'id': 'usd',
+                'name': 'USD',
+                'symbol': 'USD',
+                'price_usd': '1'
+            }
+        ]
+        CryptoCurrency.getCryptoCurrency().then((data) => {
+            const CURRENCY = data.data;
+            const CURRENCY_DATA = [...CURRENCY,
+                {
+                    id: 'usd',
+                    name: 'USD',
+                    symbol: 'USD',
+                    price_usd: '1'
+                }
+            ]
+            if (CURRENCY.length !== 0) {
+                setCurrency(CURRENCY_DATA);
+            } else {
+                setCurrency(INITIAL_DATA)
+            }
+        }).catch(() => {
+            setCurrency(INITIAL_DATA);
+        })
+    }
     componentDidMount() {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
@@ -110,6 +153,7 @@ class ApplicationComponent extends Component {
 
 export default connect(state => ({ admin: state.admin }), {
     addAllApplication,
-    sortedApplications
+    sortedApplications,
+    setCurrency
 })(ApplicationComponent);
 
