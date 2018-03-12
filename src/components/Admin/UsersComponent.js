@@ -4,7 +4,6 @@ import {
     Table,
     Container,
     Button,
-    Icon,
     Pagination
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -108,13 +107,13 @@ class UsersComponent extends Component {
                             <Table celled sortable textAlign={"center"}>
                                 <Table.Header>
                                     <Table.Row>
-                                        <Table.HeaderCell sorted={usersList.column === 'ID' ? usersList.direction : null} onClick={this.handleSort('ID')}>ID</Table.HeaderCell>
-                                        <Table.HeaderCell sorted={usersList.column === 'CreatedAt' ? usersList.direction : null} onClick={this.handleSort('CreatedAt')}>Created</Table.HeaderCell>
-                                        <Table.HeaderCell>Email</Table.HeaderCell>
-                                        <Table.HeaderCell sorted={usersList.column === 'roles' ? usersList.direction : null} onClick={this.handleSort('roles')}>Role</Table.HeaderCell>
-                                        <Table.HeaderCell sorted={usersList.column === 'is_verified' ? usersList.direction : null} onClick={this.handleSort('is_verified')}>Verified</Table.HeaderCell>
-                                        <Table.HeaderCell sorted={usersList.column === 'is_kyc_passed' ? usersList.direction : null} onClick={this.handleSort('is_kyc_passed')}>KYC passed</Table.HeaderCell>
-                                        <Table.HeaderCell> </Table.HeaderCell>
+                                        <Table.HeaderCell width={1} sorted={usersList.column === 'ID' ? usersList.direction : null} onClick={this.handleSort('ID')}>ID</Table.HeaderCell>
+                                        <Table.HeaderCell width={5} sorted={usersList.column === 'CreatedAt' ? usersList.direction : null} onClick={this.handleSort('CreatedAt')}>Created</Table.HeaderCell>
+                                        <Table.HeaderCell width={5}>Email</Table.HeaderCell>
+                                        <Table.HeaderCell width={1} sorted={usersList.column === 'roles' ? usersList.direction : null} onClick={this.handleSort('roles')}>Role</Table.HeaderCell>
+                                        <Table.HeaderCell width={1} sorted={usersList.column === 'is_verified' ? usersList.direction : null} onClick={this.handleSort('is_verified')}>Verified</Table.HeaderCell>
+                                        <Table.HeaderCell width={1} sorted={usersList.column === 'is_kyc_passed' ? usersList.direction : null} onClick={this.handleSort('is_kyc_passed')}>KYC</Table.HeaderCell>
+                                        <Table.HeaderCell width={2}> </Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 
@@ -126,9 +125,9 @@ class UsersComponent extends Component {
                                         <Table.HeaderCell colSpan='6'>
                                             <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
                                         </Table.HeaderCell>
-                                        <Table.HeaderCell colSpan='2'>
-                                            <Button floated='right' icon labelPosition='left' color={"youtube"} size='small'>
-                                                <Icon name='remove user' /> Remove User
+                                        <Table.HeaderCell colSpan='1'>
+                                            <Button floated='right' color={"youtube"} size='small'>
+                                                Remove User
                                             </Button>
                                         </Table.HeaderCell>
                                     </Table.Row>

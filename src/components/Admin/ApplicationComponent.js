@@ -5,7 +5,6 @@ import {
     Table,
     Container,
     Button,
-    Icon,
     Pagination
 } from 'semantic-ui-react';
 import ApplicationTableRow from './ApplicationTableRow';
@@ -168,12 +167,12 @@ class ApplicationComponent extends Component {
                                 </Table.Body>
                                 <Table.Footer fullWidth>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='8'>
+                                        <Table.HeaderCell colSpan='9'>
                                             <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
                                         </Table.HeaderCell>
-                                        <Table.HeaderCell colSpan='2'>
-                                            <Button floated='right' icon labelPosition='left' color={"youtube"} size='small'>
-                                                <Icon name='remove circle' /> Remove Application
+                                        <Table.HeaderCell colSpan='1'>
+                                            <Button floated='right' color={"youtube"} size='small'>
+                                                Remove Application
                                             </Button>
                                         </Table.HeaderCell>
                                     </Table.Row>
