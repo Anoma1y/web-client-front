@@ -49,7 +49,6 @@ class UserTableRow extends Component {
             is_verified,
             is_kyc_passed
         } = this.props;
-
         return (
             <Table.Row>
                 <Table.Cell>{id}</Table.Cell>
@@ -98,7 +97,11 @@ class UserTableRow extends Component {
                 <Table.Cell>{is_verified === false ? "No" : "Yes"}</Table.Cell>
                 <Table.Cell>{is_kyc_passed === false ? "No" : "Yes"}</Table.Cell>
                 <Table.Cell>
-                    <input type="checkbox" value={id} onChange={this.handleChangeDelete}/>
+                    <input 
+                        type="checkbox" 
+                        value={id} 
+                        onChange={this.handleChangeDelete}
+                    />
                 </Table.Cell>
             </Table.Row>
         )

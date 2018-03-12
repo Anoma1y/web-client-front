@@ -4,7 +4,8 @@ import {
     Table,
     Container,
     Button,
-    Icon
+    Icon,
+    Pagination
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import UserTableRow from './UserTableRow';
@@ -15,10 +16,16 @@ import {
     changeDeleteUsers
 } from 'actions/admin';
 import _ from 'underscore';
+import { currentCountItems } from 'libs/math';
 
 class UsersComponent extends Component {
 
-
+    state = {
+        itemsOnPage: 15,
+        totalPages: 1,
+        currentPage: 1
+    }
+    
     componentWillMount() {
         const { changeDeleteUsers } = this.props;
         changeDeleteUsers([]);
@@ -27,15 +34,34 @@ class UsersComponent extends Component {
     componentDidMount() {
         const { addAllUsers } = this.props;
         AdminLib.getAllUsers().then((data) => {
+            this.setState({
+                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
+            })
             addAllUsers(_.sortBy(data.data, function(node) {
                 return -(new Date(node.CreatedAt).getTime());
             }));
         })
     }
 
+    handlePaginationChange = (e, { activePage }) => {
+        this.setState({
+            currentPage: activePage
+        })
+        const { changeDeleteUsers } = this.props;
+        changeDeleteUsers([]);
+    }
+
     renderAllUsers = () => {
         const { usersList } = this.props.admin;
-        return usersList.data.map(item => {
+        const {
+            itemsOnPage,
+            currentPage
+        } = this.state;
+        const {
+            fromPage,
+            toPage
+        } = currentCountItems(itemsOnPage, currentPage);
+        return usersList.data.slice(fromPage, toPage).map(item => {
             return <UserTableRow
                 key={item.ID}
                 id={item.ID}
@@ -97,7 +123,10 @@ class UsersComponent extends Component {
                                 </Table.Body>
                                 <Table.Footer fullWidth>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='16'>
+                                        <Table.HeaderCell colSpan='6'>
+                                            <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
+                                        </Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='2'>
                                             <Button floated='right' icon labelPosition='left' color={"youtube"} size='small'>
                                                 <Icon name='remove user' /> Remove User
                                             </Button>

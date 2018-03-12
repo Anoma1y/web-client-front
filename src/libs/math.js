@@ -166,3 +166,18 @@ export const TKNprice = (type, TSR, CRYPTO_CURRENCY) => {
             return TSR;
     }
 }
+
+
+//Функция для расчета начального и конечного элемента массива для пагинации
+//Принимает 2 параметра:
+//itemsPerPage - необходимое количество записей на странице,
+//currentPage - текущая страница
+//Возвращает объект значений: начальная и конечная позиция для массива
+export const currentCountItems = (itemsPerPage, currentPage) => {
+    let fromPage = itemsPerPage * (currentPage - 1);
+    let toPage = (fromPage - 1) + (itemsPerPage + 1);
+    return {
+        fromPage,
+        toPage
+    }
+}

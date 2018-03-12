@@ -5,7 +5,8 @@ import {
     Table,
     Container,
     Button,
-    Icon
+    Icon,
+    Pagination
 } from 'semantic-ui-react';
 import ApplicationTableRow from './ApplicationTableRow';
 import AdminLib from "libs/ApiLib/AdminLib";
@@ -17,10 +18,17 @@ import {
 import { setCurrency } from 'actions/calculator';
 import _ from "underscore";
 import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
+import { currentCountItems } from 'libs/math';
 
 class ApplicationComponent extends Component {
-    componentWillMount() {
 
+    state = {
+        itemsOnPage: 15,
+        totalPages: 1,
+        currentPage: 1
+    }
+
+    componentWillMount() {
         const {
             setCurrency,
             changeDeleteApplications
@@ -69,15 +77,34 @@ class ApplicationComponent extends Component {
     componentDidMount() {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
+            this.setState({
+                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
+            })
             addAllApplication(_.sortBy(data.data, function(node) {
                 return -(new Date(node.CreatedAt).getTime());
             }));
         })
     }
 
+    handlePaginationChange = (e, { activePage }) => {
+        this.setState({
+            currentPage: activePage
+        })
+        const { changeDeleteApplications } = this.props;
+        changeDeleteApplications([]);
+    }
+
     renderAllApplication = () => {
         const { applicationList } = this.props.admin;
-        return applicationList.data.map(item => {
+        const {
+            itemsOnPage,
+            currentPage
+        } = this.state;
+        const {
+            fromPage,
+            toPage
+        } = currentCountItems(itemsOnPage, currentPage);
+        return applicationList.data.slice(fromPage, toPage).map(item => {
             return <ApplicationTableRow
                 key={item.ID}
                 id={item.ID}
@@ -141,7 +168,10 @@ class ApplicationComponent extends Component {
                                 </Table.Body>
                                 <Table.Footer fullWidth>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='16'>
+                                        <Table.HeaderCell colSpan='8'>
+                                            <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
+                                        </Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='2'>
                                             <Button floated='right' icon labelPosition='left' color={"youtube"} size='small'>
                                                 <Icon name='remove circle' /> Remove Application
                                             </Button>
