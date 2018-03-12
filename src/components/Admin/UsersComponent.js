@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {
     Grid,
     Table,
-    Container
+    Container,
+    Button,
+    Icon
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import UserTableRow from './UserTableRow';
@@ -79,12 +81,22 @@ class UsersComponent extends Component {
                                         <Table.HeaderCell>Role</Table.HeaderCell>
                                         <Table.HeaderCell sorted={usersList.column === 'is_verified' ? usersList.direction : null} onClick={this.handleSort('is_verified')}>Verified</Table.HeaderCell>
                                         <Table.HeaderCell sorted={usersList.column === 'is_kyc_passed' ? usersList.direction : null} onClick={this.handleSort('is_kyc_passed')}>KYC passed</Table.HeaderCell>
+                                        <Table.HeaderCell> </Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 
                                 <Table.Body>
                                     {this.renderAllUsers()}
                                 </Table.Body>
+                                <Table.Footer fullWidth>
+                                    <Table.Row>
+                                        <Table.HeaderCell colSpan='16'>
+                                            <Button floated='right' icon labelPosition='left' color={"youtube"} size='small'>
+                                                <Icon name='remove user' /> Remove User
+                                            </Button>
+                                        </Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Footer>
                             </Table>
                         </Grid.Column>
                     </Grid.Row>
