@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     Table,
-    Checkbox
+    Checkbox,
+    Modal,
+    Form,
+    Radio,
+    Button
 } from 'semantic-ui-react';
 import {
     applicationCalc
@@ -10,6 +14,12 @@ import {
 import moment from 'moment';
 
 class ApplicationTableRow extends Component {
+
+    state = {
+        applicationStatus: this.props.status
+    }
+
+    handleChange = (e, { value }) => this.setState({ applicationStatus: Number(value) })
 
     renderCell = () => {
         const {
@@ -31,6 +41,7 @@ class ApplicationTableRow extends Component {
             TOKENVALUE,
             CURRENCYVALUE
         } = applicationCalc(amount, fixedCurrency, TOKEN_ATTITUDE_ETH, cryptoCurrency, bonus);
+        const { applicationStatus } = this.state;
         const fixToken = fixedCurrency[0] === "TSR" ?
             <Table.Cell width={1} positive>{TOKENVALUE}</Table.Cell> :
             <Table.Cell width={1}>{TOKENVALUE}</Table.Cell>;
@@ -46,7 +57,52 @@ class ApplicationTableRow extends Component {
                 <Table.Cell width={1}>Russia</Table.Cell>
                 <Table.Cell width={3}>{profile.email}</Table.Cell>
                 <Table.Cell width={1}>{profile.is_kyc_passed === false ? "No" : "Yes"}</Table.Cell>
-                <Table.Cell width={1}>{status}</Table.Cell>
+                <Table.Cell width={1}>
+                    <Modal trigger={<span>{status}</span>}>
+                        <Modal.Header>Change Status</Modal.Header>
+                        <Modal.Content>
+                            <Modal.Description>
+                                <Form>
+                                    <Form.Field>
+                                        Current status: <b>{applicationStatus === 0 ? "Awaiting" : applicationStatus === 1 ? "Approved" : "Rejected"}</b>
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Radio
+                                            label='Awaiting'
+                                            name='applicationStatusGroup'
+                                            value='0'
+                                            checked={this.state.applicationStatus === 0}
+                                            onChange={this.handleChange}
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Radio
+                                            label='Approved'
+                                            name='applicationStatusGroup'
+                                            value='1'
+                                            checked={this.state.applicationStatus === 1}
+                                            onChange={this.handleChange}
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Radio
+                                            label='Rejected'
+                                            name='applicationStatusGroup'
+                                            value='2'
+                                            checked={this.state.applicationStatus === 2}
+                                            onChange={this.handleChange}
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Button>
+                                            Change
+                                        </Button>
+                                    </Form.Field>
+                                </Form>
+                            </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+                </Table.Cell>
                 <Table.Cell width={4} className={"admin__application_comment"}>{comment}</Table.Cell>
                 <Table.Cell width={1}>
                     <Checkbox/>

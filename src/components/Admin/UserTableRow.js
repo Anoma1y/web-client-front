@@ -4,7 +4,8 @@ import {
     Checkbox,
     Modal,
     Radio,
-    Form
+    Form,
+    Button
 } from 'semantic-ui-react';
 import moment from 'moment';
 
@@ -14,7 +15,7 @@ class UserTableRow extends Component {
         userRole: this.props.roles
     }
 
-    handleChange = (e, { value }) => this.setState({ value })
+    handleChange = (e, { value }) => this.setState({ userRole: value })
 
     render() {
         const {
@@ -56,6 +57,11 @@ class UserTableRow extends Component {
                                             checked={this.state.userRole === 'user'}
                                             onChange={this.handleChange}
                                         />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Button>
+                                            Change
+                                        </Button>
                                     </Form.Field>
                                 </Form>
                             </Modal.Description>
