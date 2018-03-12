@@ -12,11 +12,11 @@ import AdminLib from "libs/ApiLib/AdminLib";
 import {
     addAllApplication,
     sortedApplications,
-    changeDeleteApplications
+    changeDeleteApplications,
+    setAdminCurrency
 } from 'actions/admin';
-import { setCurrency } from 'actions/calculator';
 import _ from "underscore";
-import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
+import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
 import { currentCountItems } from 'libs/math';
 
 class ApplicationComponent extends Component {
@@ -29,10 +29,11 @@ class ApplicationComponent extends Component {
 
     componentWillMount() {
         const {
-            setCurrency,
+            setAdminCurrency,
             changeDeleteApplications
         } = this.props;
         changeDeleteApplications([]);
+
         const INITIAL_DATA = [
             {
                 'id': 'bitcoin',
@@ -65,12 +66,12 @@ class ApplicationComponent extends Component {
                 }
             ]
             if (CURRENCY.length !== 0) {
-                setCurrency(CURRENCY_DATA);
+                setAdminCurrency(CURRENCY_DATA);
             } else {
-                setCurrency(INITIAL_DATA)
+                setAdminCurrency(INITIAL_DATA);
             }
         }).catch(() => {
-            setCurrency(INITIAL_DATA);
+            setAdminCurrency(INITIAL_DATA);
         })
     }
     componentDidMount() {
@@ -189,7 +190,7 @@ class ApplicationComponent extends Component {
 export default connect(state => ({ admin: state.admin }), {
     addAllApplication,
     sortedApplications,
-    setCurrency,
+    setAdminCurrency,
     changeDeleteApplications
 })(ApplicationComponent);
 

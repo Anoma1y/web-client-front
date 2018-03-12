@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     Table,
-    Checkbox,
     Modal,
     Form,
     Radio,
@@ -13,6 +12,7 @@ import {
 } from 'libs/math';
 import { changeDeleteApplications } from 'actions/admin';
 import moment from 'moment';
+import AdminCalculator from "./AdminCalculator";
 
 class ApplicationTableRow extends Component {
 
@@ -27,8 +27,11 @@ class ApplicationTableRow extends Component {
             value,
             checked
         } = event.target;
+
         const { changeDeleteApplications } = this.props;
+
         const { deleteApplications } = this.props.admin;
+
         changeDeleteApplications(
             [...deleteApplications, value].filter(item => {
                 let val;
@@ -55,7 +58,7 @@ class ApplicationTableRow extends Component {
             currency: cryptoCurrency,
             TSR: TOKEN_ATTITUDE_ETH,
             bonus
-        } = this.props.calculator;
+        } = this.props.admin;
 
         const fixedCurrency = currency.split("/");
 
@@ -84,7 +87,7 @@ class ApplicationTableRow extends Component {
                 <Modal
                     trigger={
                         <Table.Cell width={1} className={"cursor-pointer"}>
-                            <span>{status === 0 ? "Awaiting" : status === 1 ? "Approved" : status === 3 ? "Rejected" : "Paid"}</span>
+                            <span>{status === 0 ? "Awaiting" : status === 1 ? "Approved" : status === 2 ? "Rejected" : "Paid"}</span>
                         </Table.Cell>
                     }
                     size={"tiny"}
@@ -95,7 +98,7 @@ class ApplicationTableRow extends Component {
                         <Modal.Description>
                             <Form>
                                 <Form.Field>
-                                    Current status: <b>{status === 0 ? "Awaiting" : status === 1 ? "Approved" : status === 3 ? "Rejected" : "Paid"}</b>
+                                    Current status: <b>{status === 0 ? "Awaiting" : status === 1 ? "Approved" : status === 2 ? "Rejected" : "Paid"}</b>
                                 </Form.Field>
                                 <Form.Field>
                                     <Radio
@@ -119,17 +122,27 @@ class ApplicationTableRow extends Component {
                                     <Radio
                                         label='Rejected'
                                         name='applicationStatusGroup'
+                                        value='2'
+                                        checked={this.state.applicationStatus === 2}
+                                        onChange={this.handleChange}
+                                    />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Radio
+                                        label='Paid'
+                                        name='applicationStatusGroup'
                                         value='3'
                                         checked={this.state.applicationStatus === 3}
                                         onChange={this.handleChange}
                                     />
                                 </Form.Field>
-                                <Form.Field>
-                                    <Button>
-                                        Change
-                                    </Button>
-                                </Form.Field>
                             </Form>
+                        </Modal.Description>
+                        <Modal.Description>
+                            <AdminCalculator />
+                        </Modal.Description>
+                        <Modal.Description>
+                            <Button>Save Changes</Button>
                         </Modal.Description>
                     </Modal.Content>
                 </Modal>
@@ -147,7 +160,6 @@ class ApplicationTableRow extends Component {
 };
 
 export default connect(state => ({
-    calculator: state.calculator,
     admin: state.admin
 }), {
     changeDeleteApplications
