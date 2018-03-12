@@ -12,7 +12,6 @@ const Admin = ({ match }) => (
         <AdminMenu />
         <Switch>
             <Route exact path={`${match.url}/`} component={Users} />
-            <Route exact path={`${match.url}/users`} component={Users} />
             <Route exact path={`${match.url}/application`} component={Application} />
         </Switch>
     </div>
