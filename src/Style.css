@@ -2,6 +2,9 @@
 body {
   background-color: #fafafa !important; }
 
+.cursor-pointer {
+  cursor: pointer !important; }
+
 .auth__container {
   height: calc(100vh - 85.38px) !important; }
 
@@ -632,7 +635,7 @@ body {
     background-color: #2acf31 !important; }
 
 .request__column_btn .ui.button:disabled, .request__column_btn .ui.buttons .disabled.button, .request__column_btn .ui.disabled.active.button, .request__column_btn .ui.disabled.button, .request__column_btn .ui.disabled.button:hover {
-  opacity: .7 !important; }
+  opacity: .6 !important; }
 
 .pay__modal {
   position: relative; }
