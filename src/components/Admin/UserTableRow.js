@@ -32,38 +32,43 @@ class UserTableRow extends Component {
                 <Table.Cell>{moment(createdAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
                 <Table.Cell>{email}</Table.Cell>
                 <Table.Cell>
-                    <Modal trigger={<span>{roles}</span>}>
-                        <Modal.Header>Change Role</Modal.Header>
-                        <Modal.Content>
+                    <Modal
+                        trigger={<span>{roles}</span>}
+                        size={"tiny"}
+                    >
+                        <Modal.Content className={"modal__success"}>
                             <Modal.Description>
-                                {/*<Form>*/}
-                                    {/*<h3>*/}
-                                        {/*Current role: <b>{this.state.userRole}</b>*/}
-                                    {/*</h3>*/}
-                                    {/*<Form.Field>*/}
-                                        {/*<Radio*/}
-                                            {/*label='Admin'*/}
-                                            {/*name='roleGroup'*/}
-                                            {/*value='admin'*/}
-                                            {/*checked={this.state.userRole === 'admin'}*/}
-                                            {/*onChange={this.handleChange}*/}
-                                        {/*/>*/}
-                                    {/*</Form.Field>*/}
-                                    {/*<Form.Field>*/}
-                                        {/*<Radio*/}
-                                            {/*label='User'*/}
-                                            {/*name='roleGroup'*/}
-                                            {/*value='user'*/}
-                                            {/*checked={this.state.userRole === 'user'}*/}
-                                            {/*onChange={this.handleChange}*/}
-                                        {/*/>*/}
-                                    {/*</Form.Field>*/}
-                                    {/*<Form.Field>*/}
-                                        {/*<Button>*/}
-                                            {/*Change*/}
-                                        {/*</Button>*/}
-                                    {/*</Form.Field>*/}
-                                {/*</Form>*/}
+                                <h1>Change Role</h1>
+                            </Modal.Description>
+                            <Modal.Description>
+                                <Form>
+                                    <p>
+                                        Current role: <b>{this.props.roles}</b>
+                                    </p>
+                                    <Form.Field>
+                                        <Radio
+                                            label='Admin'
+                                            name='roleGroup'
+                                            value='admin'
+                                            checked={this.state.userRole === 'admin'}
+                                            onChange={this.handleChange}
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Radio
+                                            label='User'
+                                            name='roleGroup'
+                                            value='user'
+                                            checked={this.state.userRole === 'user'}
+                                            onChange={this.handleChange}
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Button>
+                                            Change
+                                        </Button>
+                                    </Form.Field>
+                                </Form>
                             </Modal.Description>
                         </Modal.Content>
                     </Modal>

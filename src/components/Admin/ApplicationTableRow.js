@@ -93,7 +93,7 @@ class ApplicationTableRow extends Component {
                                             label='Rejected'
                                             name='applicationStatusGroup'
                                             value='2'
-                                            checked={this.state.applicationStatus === 2}
+                                            checked={this.state.applicationStatus === 3}
                                             onChange={this.handleChange}
                                         />
                                     </Form.Field>
