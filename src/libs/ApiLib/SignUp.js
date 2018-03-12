@@ -5,7 +5,17 @@ class SignUpLib {
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
     static resetPasswordURL = "profile/password";
-
+    static subscribeEmail = "https://tsrpay.com/api/subscribeEmail";
+    // static subscribeToNews(email) {
+    //     const subsURL = this.subscribeEmail;
+    //     return axios.post(subsURL, {
+    //         email
+    //     }, {
+    //         headers: {
+    //             'Authorization': `Bearer ${TOKEN}`
+    //         }
+    //     })
+    // }
     static checkAvailability(email) {
         const checkURL = Config.url + this.checkEmailURL;
         return axios.head(`${checkURL}=${email}`)

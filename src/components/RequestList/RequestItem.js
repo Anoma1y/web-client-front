@@ -34,7 +34,7 @@ class RequestItem extends Component {
                             <Item.Description className={fixedStyleTSR ? "request__item_value request__item_value-active" : "request__item_value"}><h3>{amount} </h3></Item.Description>
                         </Item>
                     </Grid.Column>
-                    <Grid.Column widescreen={6} computer={6} tablet={6} mobile={16}>
+                    <Grid.Column widescreen={6} computer={6} tablet={6} mobile={16} className={"request__column_btn"}>
                         <RequestModal
                             buttonDisabled={buttonDisabled}
                             buttonBasic={buttonBasic}

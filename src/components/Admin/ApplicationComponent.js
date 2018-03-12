@@ -5,30 +5,106 @@ import {
     Table,
     Container,
     Button,
-    Icon
+    Pagination
 } from 'semantic-ui-react';
 import ApplicationTableRow from './ApplicationTableRow';
 import AdminLib from "libs/ApiLib/AdminLib";
 import {
     addAllApplication,
-    sortedApplications
+    sortedApplications,
+    changeDeleteApplications,
+    setAdminCurrency
 } from 'actions/admin';
 import _ from "underscore";
+import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
+import { currentCountItems } from 'libs/math';
 
 class ApplicationComponent extends Component {
 
+    state = {
+        itemsOnPage: 15,
+        totalPages: 1,
+        currentPage: 1
+    }
+
+    componentWillMount() {
+        const {
+            setAdminCurrency,
+            changeDeleteApplications
+        } = this.props;
+        changeDeleteApplications([]);
+
+        const INITIAL_DATA = [
+            {
+                'id': 'bitcoin',
+                'name': 'Bitcoin',
+                'symbol': 'BTC',
+                'price_usd': '0'
+            },
+            {
+                'id': 'ethereum',
+                'name': 'Ethereum',
+                'symbol': 'ETH',
+                "price_usd": "0",
+                "price_btc": "0"
+            },
+            {
+                'id': 'usd',
+                'name': 'USD',
+                'symbol': 'USD',
+                'price_usd': '1'
+            }
+        ]
+        CryptoCurrency.getCryptoCurrency().then((data) => {
+            const CURRENCY = data.data;
+            const CURRENCY_DATA = [...CURRENCY,
+                {
+                    id: 'usd',
+                    name: 'USD',
+                    symbol: 'USD',
+                    price_usd: '1'
+                }
+            ]
+            if (CURRENCY.length !== 0) {
+                setAdminCurrency(CURRENCY_DATA);
+            } else {
+                setAdminCurrency(INITIAL_DATA);
+            }
+        }).catch(() => {
+            setAdminCurrency(INITIAL_DATA);
+        })
+    }
     componentDidMount() {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
+            this.setState({
+                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
+            })
             addAllApplication(_.sortBy(data.data, function(node) {
                 return -(new Date(node.CreatedAt).getTime());
             }));
         })
     }
 
+    handlePaginationChange = (e, { activePage }) => {
+        this.setState({
+            currentPage: activePage
+        })
+        const { changeDeleteApplications } = this.props;
+        changeDeleteApplications([]);
+    }
+
     renderAllApplication = () => {
         const { applicationList } = this.props.admin;
-        return applicationList.data.map(item => {
+        const {
+            itemsOnPage,
+            currentPage
+        } = this.state;
+        const {
+            fromPage,
+            toPage
+        } = currentCountItems(itemsOnPage, currentPage);
+        return applicationList.data.slice(fromPage, toPage).map(item => {
             return <ApplicationTableRow
                 key={item.ID}
                 id={item.ID}
@@ -92,9 +168,12 @@ class ApplicationComponent extends Component {
                                 </Table.Body>
                                 <Table.Footer fullWidth>
                                     <Table.Row>
-                                        <Table.HeaderCell colSpan='16'>
-                                            <Button floated='right' icon labelPosition='left' color={"youtube"} size='small'>
-                                                <Icon name='remove circle' /> Remove Application
+                                        <Table.HeaderCell colSpan='9'>
+                                            <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
+                                        </Table.HeaderCell>
+                                        <Table.HeaderCell colSpan='1'>
+                                            <Button floated='right' color={"youtube"} size='small'>
+                                                Remove Application
                                             </Button>
                                         </Table.HeaderCell>
                                     </Table.Row>
@@ -110,6 +189,8 @@ class ApplicationComponent extends Component {
 
 export default connect(state => ({ admin: state.admin }), {
     addAllApplication,
-    sortedApplications
+    sortedApplications,
+    setAdminCurrency,
+    changeDeleteApplications
 })(ApplicationComponent);
 

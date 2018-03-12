@@ -35,11 +35,10 @@ class RequestModal extends Component {
         return (
             <Modal trigger={
                 <Button
-                    className={"dashboard__submit request__item_submit"}
+                    className={`dashboard__submit request__item_submit ${buttonColor === "red" ? "request__item-rejected" : buttonColor === "green" ? "request__item-paid" : buttonColor === "blue" ? "request__item-pay" : ""}`}
                     onClick={this.handleRequestBtn}
                     disabled={buttonDisabled}
                     basic={buttonBasic}
-                    color={buttonColor}
                 >
                     {buttonText}
                 </Button>
