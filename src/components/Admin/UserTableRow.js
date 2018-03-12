@@ -36,34 +36,34 @@ class UserTableRow extends Component {
                         <Modal.Header>Change Role</Modal.Header>
                         <Modal.Content>
                             <Modal.Description>
-                                <Form>
-                                    <Form.Field>
-                                        Current role: <b>{this.state.userRole}</b>
-                                    </Form.Field>
-                                    <Form.Field>
-                                        <Radio
-                                            label='Admin'
-                                            name='roleGroup'
-                                            value='admin'
-                                            checked={this.state.userRole === 'admin'}
-                                            onChange={this.handleChange}
-                                        />
-                                    </Form.Field>
-                                    <Form.Field>
-                                        <Radio
-                                            label='User'
-                                            name='roleGroup'
-                                            value='user'
-                                            checked={this.state.userRole === 'user'}
-                                            onChange={this.handleChange}
-                                        />
-                                    </Form.Field>
-                                    <Form.Field>
-                                        <Button>
-                                            Change
-                                        </Button>
-                                    </Form.Field>
-                                </Form>
+                                {/*<Form>*/}
+                                    {/*<h3>*/}
+                                        {/*Current role: <b>{this.state.userRole}</b>*/}
+                                    {/*</h3>*/}
+                                    {/*<Form.Field>*/}
+                                        {/*<Radio*/}
+                                            {/*label='Admin'*/}
+                                            {/*name='roleGroup'*/}
+                                            {/*value='admin'*/}
+                                            {/*checked={this.state.userRole === 'admin'}*/}
+                                            {/*onChange={this.handleChange}*/}
+                                        {/*/>*/}
+                                    {/*</Form.Field>*/}
+                                    {/*<Form.Field>*/}
+                                        {/*<Radio*/}
+                                            {/*label='User'*/}
+                                            {/*name='roleGroup'*/}
+                                            {/*value='user'*/}
+                                            {/*checked={this.state.userRole === 'user'}*/}
+                                            {/*onChange={this.handleChange}*/}
+                                        {/*/>*/}
+                                    {/*</Form.Field>*/}
+                                    {/*<Form.Field>*/}
+                                        {/*<Button>*/}
+                                            {/*Change*/}
+                                        {/*</Button>*/}
+                                    {/*</Form.Field>*/}
+                                {/*</Form>*/}
                             </Modal.Description>
                         </Modal.Content>
                     </Modal>

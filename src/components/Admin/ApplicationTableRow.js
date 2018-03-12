@@ -58,9 +58,13 @@ class ApplicationTableRow extends Component {
                 <Table.Cell width={3}>{profile.email}</Table.Cell>
                 <Table.Cell width={1}>{profile.is_kyc_passed === false ? "No" : "Yes"}</Table.Cell>
                 <Table.Cell width={1}>
-                    <Modal trigger={<span>{status}</span>}>
-                        <Modal.Header>Change Status</Modal.Header>
-                        <Modal.Content>
+                    <Modal
+                        trigger={<span>{status}</span>}
+                        size={"tiny"}
+                    >
+                        <Modal.Content className={"modal__success"}>
+                            <Modal.Description>Change Status</Modal.Description>
+
                             <Modal.Description>
                                 <Form>
                                     <Form.Field>

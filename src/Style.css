@@ -626,6 +626,13 @@ body {
         width: 50% !important;
         margin: 15px auto 0 !important;
         display: block !important; } }
+  .request__item-rejected {
+    background-color: #df232c !important; }
+  .request__item-paid {
+    background-color: #2acf31 !important; }
+
+.request__column_btn .ui.button:disabled, .request__column_btn .ui.buttons .disabled.button, .request__column_btn .ui.disabled.active.button, .request__column_btn .ui.disabled.button, .request__column_btn .ui.disabled.button:hover {
+  opacity: .7 !important; }
 
 .pay__modal {
   position: relative; }

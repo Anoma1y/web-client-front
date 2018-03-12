@@ -33,15 +33,17 @@ class RequestList extends Component {
                     btnOptions = { color: 'grey', text: 'Processing'};
                     break;
                 case 1:
-                    btnOptions = { color: 'orange', text: 'Pay'};
+                    btnOptions = { color: 'blue', text: 'Approved'};
                     break;
                 case 2:
-                    btnOptions = { color: 'grey', text: 'Paid'};
+                    btnOptions = { color: 'green', text: 'Paid'};
+                    break;
+                case 3:
+                    btnOptions = { color: 'red', text: 'Rejected' };
                     break;
                 default:
                     btnOptions = { color: 'grey', text: 'Processing'};
             }
-
             const {
                 TOKENVALUE,
                 CURRENCYVALUE
