@@ -119,7 +119,7 @@ class ApplicationTableRow extends Component {
                                     <Radio
                                         label='Rejected'
                                         name='applicationStatusGroup'
-                                        value='2'
+                                        value='3'
                                         checked={this.state.applicationStatus === 3}
                                         onChange={this.handleChange}
                                     />

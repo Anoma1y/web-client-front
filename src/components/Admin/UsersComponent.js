@@ -11,11 +11,18 @@ import UserTableRow from './UserTableRow';
 import AdminLib from 'libs/ApiLib/AdminLib';
 import {
     addAllUsers,
-    sortedUsers
+    sortedUsers,
+    changeDeleteUsers
 } from 'actions/admin';
 import _ from 'underscore';
 
 class UsersComponent extends Component {
+
+
+    componentWillMount() {
+        const { changeDeleteUsers } = this.props;
+        changeDeleteUsers([]);
+    }
 
     componentDidMount() {
         const { addAllUsers } = this.props;
@@ -108,5 +115,6 @@ class UsersComponent extends Component {
 
 export default connect(state => ({ admin: state.admin }), {
     addAllUsers,
-    sortedUsers
+    sortedUsers,
+    changeDeleteUsers
 })(UsersComponent);

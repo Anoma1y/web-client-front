@@ -18,7 +18,9 @@ class UserTableRow extends Component {
         checkedUser: null
     }
 
-    handleChange = (e, { value }) => this.setState({ userRole: value })
+    handleChangeRole = (e, { value }) => {
+        this.setState({ userRole: value })
+    }
 
     handleChangeDelete = event => {
         const {
@@ -72,7 +74,7 @@ class UserTableRow extends Component {
                                         name='roleGroup'
                                         value='admin'
                                         checked={this.state.userRole === 'admin'}
-                                        onChange={this.handleChange}
+                                        onChange={this.handleChangeRole}
                                     />
                                 </Form.Field>
                                 <Form.Field>
@@ -81,7 +83,7 @@ class UserTableRow extends Component {
                                         name='roleGroup'
                                         value='user'
                                         checked={this.state.userRole === 'user'}
-                                        onChange={this.handleChange}
+                                        onChange={this.handleChangeRole}
                                     />
                                 </Form.Field>
                                 <Form.Field>

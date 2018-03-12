@@ -6,3 +6,6 @@ export { sortedApplications } from './sortedApplications';
 
 export { changeDeleteUsers } from './changeDeleteUsers';
 export { changeDeleteApplications } from './changeDeleteApplications';
+
+export { changeRoleUser } from './changeRoleUser';
+export { changeStatusApplication } from './changeStatusApplication';

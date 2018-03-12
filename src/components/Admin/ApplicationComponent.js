@@ -11,7 +11,8 @@ import ApplicationTableRow from './ApplicationTableRow';
 import AdminLib from "libs/ApiLib/AdminLib";
 import {
     addAllApplication,
-    sortedApplications
+    sortedApplications,
+    changeDeleteApplications
 } from 'actions/admin';
 import { setCurrency } from 'actions/calculator';
 import _ from "underscore";
@@ -19,7 +20,12 @@ import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
 
 class ApplicationComponent extends Component {
     componentWillMount() {
-        const { setCurrency } = this.props;
+
+        const {
+            setCurrency,
+            changeDeleteApplications
+        } = this.props;
+        changeDeleteApplications([]);
         const INITIAL_DATA = [
             {
                 'id': 'bitcoin',
@@ -154,6 +160,7 @@ class ApplicationComponent extends Component {
 export default connect(state => ({ admin: state.admin }), {
     addAllApplication,
     sortedApplications,
-    setCurrency
+    setCurrency,
+    changeDeleteApplications
 })(ApplicationComponent);
 
