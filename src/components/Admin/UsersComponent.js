@@ -113,7 +113,7 @@ class UsersComponent extends Component {
                                         <Table.HeaderCell width={1} sorted={usersList.column === 'roles' ? usersList.direction : null} onClick={this.handleSort('roles')}>Role</Table.HeaderCell>
                                         <Table.HeaderCell width={1} sorted={usersList.column === 'is_verified' ? usersList.direction : null} onClick={this.handleSort('is_verified')}>Verified</Table.HeaderCell>
                                         <Table.HeaderCell width={1} sorted={usersList.column === 'is_kyc_passed' ? usersList.direction : null} onClick={this.handleSort('is_kyc_passed')}>KYC</Table.HeaderCell>
-                                        <Table.HeaderCell width={2}></Table.HeaderCell>
+                                        <Table.HeaderCell width={2}> </Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 

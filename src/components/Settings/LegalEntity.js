@@ -8,7 +8,7 @@ import {
 } from 'semantic-ui-react';
 import Beneficial from './Beneficial';
 import IdentificationImgUpload from './IdentificationImgUpload';
-
+import { addBeneficial } from 'actions/settings';
 import PersonInformation from './PersonInformation';
 import CompanyInformation from './CompanyInformation';
 import { SettingsButton } from './SettingsButton';
@@ -82,21 +82,8 @@ class LegalEntity extends Component {
 
 
     handleAddBeneficial = () => {
-        const { beneficial } = this.state;
-        this.setState({
-            beneficial: [...beneficial, {
-                Name: "",
-                Addres: "",
-                Country: "",
-                Dateofbirth: "",
-                Phone: "",
-                Surname: "",
-                City: "",
-                Zip: "",
-                Email: ""
-            }]
-        });
-
+        const { addBeneficial } = this.props;
+        addBeneficial();
     }
 
     renderUploadInfoCompany = () => {
@@ -148,7 +135,7 @@ class LegalEntity extends Component {
         return (
             <Grid className={"settings__company"}>
                 <h1 className={"settings__company_header"}>Information about the person authorised to represent the company</h1>
-                <PersonInformation />
+                <PersonInformation stateObject={"companyUserInformation"}/>
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Divider />
@@ -167,8 +154,8 @@ class LegalEntity extends Component {
                         Beneficial owner’s declaration - who own or control at least 25% of the company’s shares directly or through other companies
                     </Grid.Column>
                     <Grid.Column width={16}>
-                        {this.state.beneficial.map((item, index) => {
-                            return <Beneficial key={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
+                        {this.props.settings.beneficial.map((item, index) => {
+                            return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
                         })}
                     </Grid.Column>
                 </Grid.Row>
@@ -191,5 +178,5 @@ class LegalEntity extends Component {
 }
 
 export default connect(state => ({ settings: state.settings }), {
-
+    addBeneficial
 })(LegalEntity);

@@ -3,7 +3,7 @@ import {
     Card,
     List,
     Divider
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
 class DownloadList extends Component {
     render() {

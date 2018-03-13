@@ -1,35 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+    changeSettingsInput
+} from 'actions/settings';
 import {
     Grid
 } from 'semantic-ui-react';
 
-
 class PersonInformation extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Name: false,
-            Addres: false,
-            Country: false,
-            Dateofbirth: false,
-            Phone: false,
-            Surname: false,
-            City: false,
-            Zip: false,
-            Email: false
-        }
+
+    handleChange = event => {
+        const { value, id } = event.target;
+        const { changeSettingsInput, stateObject } = this.props;
+        changeSettingsInput({stateInput: stateObject ,keyInput: id, valueInput: value });
     }
-    handleName = event => event.target.value.length > 0 ? this.setState({Name: true}) : this.setState({Name: false})
-    handleAddres = event => event.target.value.length > 0 ? this.setState({Addres: true}) : this.setState({Addres: false})
-    handleCountry = event => event.target.value.length > 0 ? this.setState({Country: true}) : this.setState({Country: false})
-    handleDateofbirth = event => event.target.value.length > 0 ? this.setState({Dateofbirth: true}) : this.setState({Dateofbirth: false})
-    handlePhone = event => event.target.value.length > 0 ? this.setState({Phone: true}) : this.setState({Phone: false})
-    handleSurname = event => event.target.value.length > 0 ? this.setState({Surname: true}) : this.setState({Surname: false})
-    handleCity = event => event.target.value.length > 0 ? this.setState({City: true}) : this.setState({City: false})
-    handleZip = event => event.target.value.length > 0 ? this.setState({Zip: true}) : this.setState({Zip: false})
-    handleEmail = event => event.target.value.length > 0 ? this.setState({Email: true}) : this.setState({Email: false})
 
     render() {
+        const {
+            settings,
+            stateObject
+        } = this.props;
         return (
                 <Grid.Row className={"beneficial__wrapper"}>
                     <Grid.Column>
@@ -39,9 +29,11 @@ class PersonInformation extends Component {
                                     <label>
                                         <input
                                             type="text"
+                                            id={"Name"}
                                             placeholder={"Name"}
-                                            onChange={this.handleName}
-                                            className={this.state.Name ? "populated" : ""}
+                                            value={settings[stateObject].Name}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Name ? "populated" : ""}
                                         />
                                         <span>Name</span>
                                     </label>
@@ -50,9 +42,11 @@ class PersonInformation extends Component {
                                     <label>
                                         <input
                                             type="text"
+                                            id={"Surname"}
                                             placeholder={"Surname"}
-                                            onChange={this.handleSurname}
-                                            className={this.state.Surname ? "populated" : ""}
+                                            value={settings[stateObject].Surname}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Surname ? "populated" : ""}
                                         />
                                         <span>Surname</span>
                                     </label>
@@ -63,9 +57,11 @@ class PersonInformation extends Component {
                                     <label>
                                         <input
                                             type="text"
+                                            id={"Addres"}
                                             placeholder={"Addres"}
-                                            onChange={this.handleAddres}
-                                            className={this.state.Addres ? "populated" : ""}
+                                            value={settings[stateObject].Addres}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Addres ? "populated" : ""}
                                         />
                                         <span>Address</span>
                                     </label>
@@ -74,9 +70,11 @@ class PersonInformation extends Component {
                                     <label>
                                         <input
                                             type="text"
+                                            id={"City"}
                                             placeholder={"City"}
-                                            onChange={this.handleCity}
-                                            className={this.state.City ? "populated" : ""}
+                                            value={settings[stateObject].City}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].City ? "populated" : ""}
                                         />
                                         <span>City</span>
                                     </label>
@@ -87,9 +85,11 @@ class PersonInformation extends Component {
                                     <label>
                                         <input
                                             type="text"
+                                            id={"Country"}
                                             placeholder={"Country"}
-                                            onChange={this.handleCountry}
-                                            className={this.state.Country ? "populated" : ""}
+                                            value={settings[stateObject].Country}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Country ? "populated" : ""}
                                         />
                                         <span>Country</span>
                                     </label>
@@ -98,9 +98,11 @@ class PersonInformation extends Component {
                                     <label style={{width: "50%"}}>
                                         <input
                                             type="text"
+                                            id={"Zip"}
                                             placeholder={"Zip"}
-                                            onChange={this.handleZip}
-                                            className={this.state.Zip ? "populated" : ""}
+                                            value={settings[stateObject].Zip}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Zip ? "populated" : ""}
                                         />
                                         <span>Zip</span>
                                     </label>
@@ -111,9 +113,11 @@ class PersonInformation extends Component {
                                     <label>
                                         <input
                                             type="text"
+                                            id={"Dateofbirth"}
                                             placeholder={"Birth day"}
-                                            onChange={this.handleDateofbirth}
-                                            className={this.state.Dateofbirth ? "populated" : ""}
+                                            value={settings[stateObject].Dateofbirth}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Dateofbirth ? "populated" : ""}
                                         />
                                         <span>Birth day</span>
                                     </label>
@@ -121,10 +125,12 @@ class PersonInformation extends Component {
                                 <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                     <label>
                                         <input
-                                            type="text"
+                                            type="email"
+                                            id={"Email"}
                                             placeholder={"EMail"}
-                                            onChange={this.handleEmail}
-                                            className={this.state.Email ? "populated" : ""}
+                                            value={settings[stateObject].Email}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Email ? "populated" : ""}
                                         />
                                         <span>EMail</span>
                                     </label>
@@ -135,9 +141,11 @@ class PersonInformation extends Component {
                                     <label >
                                         <input
                                             type="text"
+                                            id={"Phone"}
                                             placeholder={"Phone"}
-                                            onChange={this.handlePhone}
-                                            className={this.state.Phone ? "populated" : ""}
+                                            value={settings[stateObject].Phone}
+                                            onChange={this.handleChange}
+                                            className={settings[stateObject].Phone ? "populated" : ""}
                                         />
                                         <span>Phone</span>
                                     </label>
@@ -152,4 +160,6 @@ class PersonInformation extends Component {
     }
 }
 
-export default PersonInformation;
+export default connect(state => ({ settings: state.settings }), {
+    changeSettingsInput
+})(PersonInformation);

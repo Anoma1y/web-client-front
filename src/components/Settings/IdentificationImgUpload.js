@@ -40,7 +40,7 @@ class IdentificationImgUpload extends React.Component {
                 imagePreviewUrl: reader.result
             });
         };
-        
+
         reader.readAsDataURL(file)
     }
 
@@ -75,6 +75,7 @@ class IdentificationImgUpload extends React.Component {
                         </Card.Description>
                         <Input
                             type={'file'}
+                            accept="image/jpeg,image/jpg,image/png"
                             id={this.props.id}
                             style={{display: 'none'}}
                             onChange={(e)=>this.handleImageChange(e)}/>

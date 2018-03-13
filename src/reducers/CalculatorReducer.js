@@ -1,4 +1,17 @@
-import * as C from 'actions/calculator/types';
+import {
+    CHANGE_CURRENT_CURRENCY,
+    CHANGE_SUM_VALUE,
+    CHANGE_TRANSFER_DATA,
+    CHECK_SUFFIX_TEXT,
+    CHANGE_COMMENTS,
+    CHANGE_MODAL_SUCCESSFUL,
+    CHANGE_QUERY_SUCCESSFUL,
+    CHANGE_CURRENT_BONUS,
+    CHANGE_ORDER,
+    CHANGE_MODAL_OPEN,
+    CHANGE_APPLICATION_ERROR,
+    SET_CURRENCY
+} from 'actions/calculator/types';
 
 const INITIAL_STATE = {
     TSR: 0.001,
@@ -74,13 +87,11 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case C.INITIALIZING_TKN:
-            return { ...state, TSR: action.payload };
-        case C.CHANGE_CURRENT_CURRENCY:
+        case CHANGE_CURRENT_CURRENCY:
             return { ...state, currencyValue: action.payload };
-        case C.CHANGE_SUM_VALUE:
+        case CHANGE_SUM_VALUE:
             return { ...state, sumValue: action.payload };
-        case C.CHANGE_TRANSFER_DATA:
+        case CHANGE_TRANSFER_DATA:
             const {
                 sumValue,
                 progressBar,
@@ -90,23 +101,23 @@ export default (state = INITIAL_STATE, action) => {
                 transferData
             } = action.payload;
             return { ...state,  sumValue, progressBar, tokenValue, bonus, currentBonus, transferData };
-        case C.CHECK_SUFFIX_TEXT:
+        case CHECK_SUFFIX_TEXT:
             return { ...state, suffixText: action.payload };
-        case C.CHANGE_COMMENTS:
+        case CHANGE_COMMENTS:
             return { ...state, comments: action.payload };
-        case C.CHANGE_MODAL_SUCCESSFUL:
+        case CHANGE_MODAL_SUCCESSFUL:
             return { ...state, modalSuccessful: action.payload };
-        case C.CHANGE_QUERY_SUCCESSFUL:
+        case CHANGE_QUERY_SUCCESSFUL:
             return { ...state, querySuccess: action.payload };
-        case C.CHANGE_CURRENT_BONUS:
+        case CHANGE_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
-        case C.CHANGE_ORDER:
+        case CHANGE_ORDER:
             return { ...state, order: action.payload };
-        case C.CHANGE_MODAL_OPEN:
+        case CHANGE_MODAL_OPEN:
             return { ...state, modalOpen: action.payload };
-        case C.CHANGE_APPLICATION_ERROR:
+        case CHANGE_APPLICATION_ERROR:
             return { ...state, applicationError: action.payload };
-        case C.SET_CURRENCY:
+        case SET_CURRENCY:
             return { ...state, currency: action.payload };
         default:
             return state;

@@ -51,7 +51,7 @@ class IndividualUser extends Component {
     render() {
         return (
             <Grid>
-                <PersonInformation/>
+                <PersonInformation stateObject={"individualUserInformation"}/>
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Divider />

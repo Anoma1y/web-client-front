@@ -3,25 +3,10 @@ import { connect } from 'react-redux';
 import {
     Grid,
     Divider,
-    Icon
 } from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
 class Beneficial extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-          Name: false,
-          Addres: false,
-          Country: false,
-          Dateofbirth: false,
-          Phone: false,
-          Surname: false,
-          City: false,
-          Zip: false,
-          Email: false
-      }
-    }
 
     renderUploadInfoBeneficial = () => {
         const { legalEntityBeneficial } = this.props;
@@ -45,22 +30,19 @@ class Beneficial extends Component {
         })
     }
 
-    handleName = (event) => event.target.value.length > 0 ? this.setState({Name: true}) : this.setState({Name: false})
-    handleAddres = (event) => event.target.value.length > 0 ? this.setState({Addres: true}) : this.setState({Addres: false})
-    handleCountry = (event) => event.target.value.length > 0 ? this.setState({Country: true}) : this.setState({Country: false})
-    handleDateofbirth = (event) => event.target.value.length > 0 ? this.setState({Dateofbirth: true}) : this.setState({Dateofbirth: false})
-    handlePhone = (event) => event.target.value.length > 0 ? this.setState({Phone: true}) : this.setState({Phone: false})
-    handleSurname = (event) => event.target.value.length > 0 ? this.setState({Surname: true}) : this.setState({Surname: false})
-    handleCity = (event) => event.target.value.length > 0 ? this.setState({City: true}) : this.setState({City: false})
-    handleZip = (event) => event.target.value.length > 0 ? this.setState({Zip: true}) : this.setState({Zip: false})
-    handleEmail = (event) => event.target.value.length > 0 ? this.setState({Email: true}) : this.setState({Email: false})
+    handleChange = (event) => {
+         const {
+             value,
+             id
+         } = event.target;
+         console.log(id, value);
+         const Number = this.props.indexBeneficial;
+         console.log(this.props.settings.beneficial[Number].Name);
+    }
 
     render() {
         return (
             <Grid.Row className={"beneficial__wrapper"}>
-                {/*<span className={"close__beneficial"}>*/}
-                    {/*<Icon name={"x"}> </Icon>*/}
-                {/*</span>*/}
                 <Grid.Column>
                     <Grid>
                         <Grid.Row className={"auth_input settings__information"}>
@@ -69,8 +51,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"Name"}
-                                        onChange={this.handleName}
-                                        className={this.state.Name ? "populated" : ""}
+                                        id={"Name"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Name}
+                                        className={this.props.settings.beneficial.Name ? "populated" : ""}
                                     />
                                     <span>Name</span>
                                 </label>
@@ -80,8 +64,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"Surname"}
-                                        onChange={this.handleSurname}
-                                        className={this.state.Surname ? "populated" : ""}
+                                        id={"Surname"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Surname}
+                                        className={this.props.settings.beneficial.Surname ? "populated" : ""}
                                     />
                                     <span>Surname</span>
                                 </label>
@@ -93,8 +79,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"Addres"}
-                                        onChange={this.handleAddres}
-                                        className={this.state.Addres ? "populated" : ""}
+                                        id={"Addres"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Addres}
+                                        className={this.props.settings.beneficial.Addres ? "populated" : ""}
                                     />
                                     <span>Address</span>
                                 </label>
@@ -104,8 +92,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"City"}
-                                        onChange={this.handleCity}
-                                        className={this.state.City ? "populated" : ""}
+                                        id={"City"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.City}
+                                        className={this.props.settings.beneficial.City ? "populated" : ""}
                                     />
                                     <span>City</span>
                                 </label>
@@ -117,8 +107,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"Country"}
-                                        onChange={this.handleCountry}
-                                        className={this.state.Country ? "populated" : ""}
+                                        id={"Country"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Country}
+                                        className={this.props.settings.beneficial.Country ? "populated" : ""}
                                     />
                                     <span>Country</span>
                                 </label>
@@ -128,8 +120,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"Zip"}
-                                        onChange={this.handleZip}
-                                        className={this.state.Zip ? "populated" : ""}
+                                        id={"Zip"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Zip}
+                                        className={this.props.settings.beneficial.Zip ? "populated" : ""}
                                     />
                                     <span>Zip</span>
                                 </label>
@@ -141,8 +135,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"Birth day"}
-                                        onChange={this.handleDateofbirth}
-                                        className={this.state.Dateofbirth ? "populated" : ""}
+                                        id={"Dateofbirth"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Dateofbirth}
+                                        className={this.props.settings.beneficial.Dateofbirth ? "populated" : ""}
                                     />
                                     <span>Birth day</span>
                                 </label>
@@ -152,8 +148,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"EMail"}
-                                        onChange={this.handleEmail}
-                                        className={this.state.Email ? "populated" : ""}
+                                        id={"Email"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Email}
+                                        className={this.props.settings.beneficial.Email ? "populated" : ""}
                                     />
                                     <span>EMail</span>
                                 </label>
@@ -165,8 +163,10 @@ class Beneficial extends Component {
                                     <input
                                         type="text"
                                         placeholder={"Phone"}
-                                        onChange={this.handlePhone}
-                                        className={this.state.Phone ? "populated" : ""}
+                                        id={"Phone"}
+                                        onChange={this.handleChange}
+                                        value={this.props.settings.beneficial.Phone}
+                                        className={this.props.settings.beneficial.Phone ? "populated" : ""}
                                     />
                                     <span>Phone</span>
                                 </label>

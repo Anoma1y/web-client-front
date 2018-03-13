@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+    changeSettingsCompanyInput,
+    changeSourceFunds
+} from 'actions/settings';
 import {
     Grid,
     Dropdown
@@ -10,45 +15,37 @@ class CompanyInformation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            companyCompanyName: false,
-            companyTaxIDnumber: false,
-            companyTaxrezidencecountry: false,
-            companyCity: false,
-            companyZip: false,
-            companyLegaladdress: false,
-            companyActualbusinessplaceaddress: false,
-            companyLinktopubliccompanyregister: false,
-            companyEmail: false,
-            companyPhone: false,
-            companyDescriptioncompanydoes: false,
-            companyWebsites: false,
             certifyOption: [
-                {key: "0", value: "0", text: "None"},
-                {key: "1", value: "1", text: "Proceeds from commercial activity"},
-                {key: "2", value: "2", text: "Credit funds"},
-                {key: "3", value: "3", text: "Company profits"},
-                {key: "4", value: "4", text: "Sale of property"},
-                {key: "5", value: "5", text: "Proceeds from the sale of securities, investment activities"},
-                {key: "6", value: "6", text: "Other - specify"}
+                {key: "0", value: "None", text: "None"},
+                {key: "1", value: "Proceeds from commercial activity", text: "Proceeds from commercial activity"},
+                {key: "2", value: "Credit funds", text: "Credit funds"},
+                {key: "3", value: "Company profits", text: "Company profits"},
+                {key: "4", value: "Sale of property", text: "Sale of property"},
+                {key: "5", value: "Proceeds from the sale of securities, investment activities", text: "Proceeds from the sale of securities, investment activities"},
+                {key: "6", value: "Other - specify", text: "Other - specify"}
             ]
         }
     }
 
-    handleCompanyCompanyName = (event) => event.target.value.length > 0 ? this.setState({companyCompanyName: true}) : this.setState({companyCompanyName: false})
-    handleCompanyTaxIDnumber = (event) => event.target.value.length > 0 ? this.setState({companyTaxIDnumber: true}) : this.setState({companyTaxIDnumber: false})
-    handleCompanyTaxrezidencecountry = (event) => event.target.value.length > 0 ? this.setState({companyTaxrezidencecountry: true}) : this.setState({companyTaxrezidencecountry: false})
-    handleCompanyCity = (event) => event.target.value.length > 0 ? this.setState({companyCity: true}) : this.setState({companyCity: false})
-    handleCompanyZip = (event) => event.target.value.length > 0 ? this.setState({companyZip: true}) : this.setState({companyZip: false})
-    handleCompanyLegaladdress = (event) => event.target.value.length > 0 ? this.setState({companyLegaladdress: true}) : this.setState({companyLegaladdress: false})
-    handleCompanyActualbusinessplaceaddress = (event) => event.target.value.length > 0 ? this.setState({companyActualbusinessplaceaddress: true}) : this.setState({companyActualbusinessplaceaddress: false})
-    handleCompanyLinktopubliccompanyregister = (event) => event.target.value.length > 0 ? this.setState({companyLinktopubliccompanyregister: true}) : this.setState({companyLinktopubliccompanyregister: false})
-    handleCompanyEmail = (event) => event.target.value.length > 0 ? this.setState({companyEmail: true}) : this.setState({companyEmail: false})
-    handleCompanyPhone = (event) => event.target.value.length > 0 ? this.setState({companyPhone: true}) : this.setState({companyPhone: false})
-    handleCompanyDescriptioncompanydoes = (event) => event.target.value.length > 0 ? this.setState({companyDescriptioncompanydoes: true}) : this.setState({companyDescriptioncompanydoes: false})
-    handleCompanyWebsites = (event) => event.target.value.length > 0 ? this.setState({companyWebsites: true}) : this.setState({companyWebsites: false})
+    handleChange = (event) => {
+        const {
+            value,
+            id
+        } = event.target;
+        const { changeSettingsCompanyInput } = this.props;
+        changeSettingsCompanyInput({keyCompany: id, valueCompany: value});
+    }
+
+    handleDropdown = (event, { value }) => {
+        const { changeSourceFunds } = this.props;
+        changeSourceFunds(value);
+    }
+    
 
     render() {
-        const { certifyOption } = this.state;
+        const {
+            certifyOption,
+        } = this.state;
         return (
             <Grid.Row>
                 <Grid.Column>
@@ -64,9 +61,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyCompanyName"}
                                         placeholder={"Company Name"}
-                                        className={this.state.companyCompanyName ? "populated" : ""}
-                                        onChange={this.handleCompanyCompanyName}
+                                        value={this.props.settings.companyInformation.companyCompanyName}
+                                        className={this.props.settings.companyInformation.companyCompanyName ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Company Name</span>
                                 </label>
@@ -78,9 +77,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyTaxIDnumber"}
                                         placeholder={"Tax ID number"}
-                                        className={this.state.companyTaxIDnumber ? "populated" : ""}
-                                        onChange={this.handleCompanyTaxIDnumber}
+                                        value={this.props.settings.companyInformation.companyTaxIDnumber}
+                                        className={this.props.settings.companyInformation.companyTaxIDnumber ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Tax ID number</span>
                                 </label>
@@ -89,9 +90,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyTaxrezidencecountry"}
                                         placeholder={"Tax rezidence country"}
-                                        className={this.state.companyTaxrezidencecountry ? "populated" : ""}
-                                        onChange={this.handleCompanyTaxrezidencecountry}
+                                        value={this.props.settings.companyInformation.companyTaxrezidencecountry}
+                                        className={this.props.settings.companyInformation.companyTaxrezidencecountry ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Tax rezidence country</span>
                                 </label>
@@ -103,9 +106,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyCity"}
                                         placeholder={"City"}
-                                        className={this.state.companyCity ? "populated" : ""}
-                                        onChange={this.handleCompanyCity}
+                                        value={this.props.settings.companyInformation.companyCity}
+                                        className={this.props.settings.companyInformation.companyCity ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>City</span>
                                 </label>
@@ -114,9 +119,11 @@ class CompanyInformation extends Component {
                                 <label style={{width: "50%"}}>
                                     <input
                                         type="text"
+                                        id={"companyZip"}
                                         placeholder={"Zip"}
-                                        className={this.state.companyZip ? "populated" : ""}
-                                        onChange={this.handleCompanyZip}
+                                        value={this.props.settings.companyInformation.companyZip}
+                                        className={this.props.settings.companyInformation.companyZip ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Zip</span>
                                 </label>
@@ -128,9 +135,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyLegaladdress"}
                                         placeholder={"Legal address"}
-                                        className={this.state.companyLegaladdress ? "populated" : ""}
-                                        onChange={this.handleCompanyLegaladdress}
+                                        value={this.props.settings.companyInformation.companyLegaladdress}
+                                        className={this.props.settings.companyInformation.companyLegaladdress ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Legal address</span>
                                 </label>
@@ -142,9 +151,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyActualbusinessplaceaddress"}
                                         placeholder={"Actual business place address"}
-                                        className={this.state.companyActualbusinessplaceaddress ? "populated" : ""}
-                                        onChange={this.handleCompanyActualbusinessplaceaddress}
+                                        value={this.props.settings.companyInformation.companyActualbusinessplaceaddress}
+                                        className={this.props.settings.companyInformation.companyActualbusinessplaceaddress ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Actual business place address</span>
                                 </label>
@@ -156,9 +167,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyLinktopubliccompanyregister"}
                                         placeholder={"Link to public company register (Business Register)"}
-                                        className={this.state.companyLinktopubliccompanyregister ? "populated" : ""}
-                                        onChange={this.handleCompanyLinktopubliccompanyregister}
+                                        value={this.props.settings.companyInformation.companyLinktopubliccompanyregister}
+                                        className={this.props.settings.companyInformation.companyLinktopubliccompanyregister ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Link to public company register (Business Register)</span>
                                 </label>
@@ -170,9 +183,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyEmail"}
                                         placeholder={"EMail"}
-                                        className={this.state.companyEmail ? "populated" : ""}
-                                        onChange={this.handleCompanyEmail}
+                                        value={this.props.settings.companyInformation.companyEmail}
+                                        className={this.props.settings.companyInformation.companyEmail ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>EMail</span>
                                 </label>
@@ -181,9 +196,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyPhone"}
                                         placeholder={"Phone"}
-                                        className={this.state.companyPhone ? "populated" : ""}
-                                        onChange={this.handleCompanyPhone}
+                                        value={this.props.settings.companyInformation.companyPhone}
+                                        className={this.props.settings.companyInformation.companyPhone ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Phone</span>
                                 </label>
@@ -195,9 +212,11 @@ class CompanyInformation extends Component {
                                 <label>
                                     <input
                                         type="text"
+                                        id={"companyDescriptioncompanydoes"}
                                         placeholder={"Description of what your company does"}
-                                        className={this.state.companyDescriptioncompanydoes ? "populated" : ""}
-                                        onChange={this.handleCompanyDescriptioncompanydoes}
+                                        value={this.props.settings.companyInformation.companyDescriptioncompanydoes}
+                                        className={this.props.settings.companyInformation.companyDescriptioncompanydoes ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Description of what your company does</span>
                                 </label>
@@ -209,9 +228,11 @@ class CompanyInformation extends Component {
                                 <label style={{width: "50%"}}>
                                     <input
                                         type="text"
+                                        id={"companyWebsites"}
                                         placeholder={"Websites"}
-                                        className={this.state.companyWebsites ? "populated" : ""}
-                                        onChange={this.handleCompanyWebsites}
+                                        value={this.props.settings.companyInformation.companyWebsites}
+                                        className={this.props.settings.companyInformation.companyWebsites ? "populated" : ""}
+                                        onChange={this.handleChange}
                                     />
                                     <span>Websites</span>
                                 </label>
@@ -223,7 +244,13 @@ class CompanyInformation extends Component {
                                 I hereby certify that origin of funds that is available to company is legal, and its source is
                             </Grid.Column>
                             <Grid.Column width={16} className={"auth_input settings__dropdown"}>
-                                <Dropdown placeholder='None' selection options={certifyOption} />
+                                <Dropdown 
+                                    placeholder='None' 
+                                    selection 
+                                    options={certifyOption}
+                                    value={this.props.settings.sourceFunds}
+                                    onChange={this.handleDropdown}
+                                />
                             </Grid.Column>
                         </Grid.Row>
 
@@ -234,4 +261,7 @@ class CompanyInformation extends Component {
     }
 }
 
-export default CompanyInformation;
+export default connect(state => ({ settings: state.settings }), {
+    changeSettingsCompanyInput,
+    changeSourceFunds
+})(CompanyInformation);

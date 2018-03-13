@@ -1103,3 +1103,9 @@ body {
 
 .admin__application_comment {
   word-break: break-all !important; }
+
+.admin__users-user {
+  cursor: pointer !important;
+  transition: background-color .1s ease; }
+  .admin__users-user:hover {
+    background-color: #f2f2f2 !important; }
