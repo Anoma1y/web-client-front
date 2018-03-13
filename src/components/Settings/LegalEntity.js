@@ -8,12 +8,10 @@ import {
 } from 'semantic-ui-react';
 import Beneficial from './Beneficial';
 import IdentificationImgUpload from './IdentificationImgUpload';
-import { addBeneficial } from 'actions/settings';
+import { handleAddBeneficial } from 'actions/settings';
 import PersonInformation from './PersonInformation';
 import CompanyInformation from './CompanyInformation';
 import { SettingsButton } from './SettingsButton';
-
-
 
 class LegalEntity extends Component {
     constructor(props) {
@@ -63,27 +61,13 @@ class LegalEntity extends Component {
                     id: "copty_id_document"
                 },
             ],
-
-
-            beneficial: [{
-                Name: "",
-                Addres: "",
-                Country: "",
-                Dateofbirth: "",
-                Phone: "",
-                Surname: "",
-                City: "",
-                Zip: "",
-                Email: ""
-            }]
-
         }
     }
 
 
     handleAddBeneficial = () => {
-        const { addBeneficial } = this.props;
-        addBeneficial();
+        const { handleAddBeneficial } = this.props;
+        handleAddBeneficial();
     }
 
     renderUploadInfoCompany = () => {
@@ -131,22 +115,25 @@ class LegalEntity extends Component {
     }
 
     render() {
-
+        const {
+            idBeneficial,
+            maxBeneficial
+        } = this.props.settings;
         return (
             <Grid className={"settings__company"}>
                 <h1 className={"settings__company_header"}>Information about the person authorised to represent the company</h1>
-                {/*<PersonInformation stateObject={"companyUserInformation"}/>*/}
+                <PersonInformation stateObject={"companyUserInformation"}/>
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Divider />
                     </Grid.Column>
                 </Grid.Row>
-                {/*{this.renderUploadInfoCompany()}*/}
+                {this.renderUploadInfoCompany()}
                 <Divider className={"blue__divider"}/>
 
-                {/*<CompanyInformation />*/}
+                <CompanyInformation />
 
-                {/*{this.renderUploadInfoRegistration()}*/}
+                {this.renderUploadInfoRegistration()}
                 <Divider className={"blue__divider"}/>
 
                 <Grid.Row>
@@ -154,28 +141,25 @@ class LegalEntity extends Component {
                         Beneficial owner’s declaration - who own or control at least 25% of the company’s shares directly or through other companies
                     </Grid.Column>
                     <Grid.Column width={16}>
-                        {
-                            Object.keys(this.props.settings.beneficial).map((item, index) => {
-                                return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
-                            })
-                            // this.props.settings.beneficial.map((item, index) => {
-                            //     return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
-                            // })
-                        }
+                        {Object.keys(this.props.settings.beneficial).map((item, index) => {
+                            return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
+                        })}
                     </Grid.Column>
                 </Grid.Row>
-
-                <Grid.Row>
-                    <Grid.Column width={16} floated={"right"}>
-                        <Button
-                            className={"beneficial_btn"}
-                            onClick={this.handleAddBeneficial}
-                        >
-                            <Icon name={"plus"} className={"beneficial_icon"}/> Add Beneficial
-                        </Button>
-                    </Grid.Column>
-                </Grid.Row>
-
+                {
+                    idBeneficial < (maxBeneficial - 1) ?
+                        <Grid.Row>
+                            <Grid.Column width={16} floated={"right"}>
+                                <Button
+                                    className={"beneficial_btn"}
+                                    onClick={this.handleAddBeneficial}
+                                >
+                                    <Icon name={"plus"} className={"beneficial_icon"}/> Add Beneficial
+                                </Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                        : null
+                }
                 <SettingsButton />
             </Grid>
         );
@@ -183,5 +167,5 @@ class LegalEntity extends Component {
 }
 
 export default connect(state => ({ settings: state.settings }), {
-    addBeneficial
+    handleAddBeneficial
 })(LegalEntity);

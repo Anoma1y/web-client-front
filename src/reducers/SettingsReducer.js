@@ -3,10 +3,33 @@ import {
     CHANGE_SETTINGS_INPUT_COMPANY,
     CHANGE_SOURCE_FUNDS,
     CHANGE_SETTINGS_INPUT_BENEFICIAL,
-    ADD_BENEFICIAL
+    ADD_BENEFICIAL,
+    INCREMENT_BENEFICIAL_ID
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
+    individualUserFile: {
+        personalDocument: 45,
+        utilityBill: 127
+    },
+    personCompanyFile: {
+        personalDocument: 123,
+        representation: 54,
+        certificateActualStatus: 88,
+    },
+    companyFile: {
+        businessRegistrationDocument: 788,
+        document3months: 1267,
+        businessActivityLicense: 876,
+        declare: 7
+    },
+    beneficialFile: {
+        0: {
+            personalBeneficialDocument: 3647,
+            declarationBeneficialOwned: 4723,
+            legalRepresentative: 762222
+        }
+    },
     individualUserInformation: {
         Name: '',
         Addres: '',
@@ -45,31 +68,7 @@ const INITIAL_STATE = {
     },
     sourceFunds: '',
     idBeneficial: 0,
-    // beneficial: [{
-    //     Name: '',
-    //     Addres: '',
-    //     Country: '',
-    //     Dateofbirth: '',
-    //     Phone: '',
-    //     Surname: '',
-    //     City: '',
-    //     Zip: '',
-    //     Email: ''
-    // }],
-    // beneficial: [{
-    //     id: 0,
-    //     data: {
-    //         Name: '',
-    //         Addres: '',
-    //         Country: '',
-    //         Dateofbirth: '',
-    //         Phone: '',
-    //         Surname: '',
-    //         City: '',
-    //         Zip: '',
-    //         Email: '',
-    //     }
-    // }],
+    maxBeneficial: 4,
     beneficial: {
         0: {
             Name: '',
@@ -127,29 +126,7 @@ export default (state = INITIAL_STATE, action) => {
                     ...state.beneficial[indexBeneficial]
                 }
             };
-            // console.log( [
-            //     ...state.beneficial.slice(0, indexBeneficial),
-            //     {
-            //         Name: valueBeneficial,
-            //         Addres: '',
-            //         Country: '',
-            //         Dateofbirth: '',
-            //         Phone: '',
-            //         Surname: '',
-            //         City: '',
-            //         Zip: '',
-            //         Email: ''
-            //     },
-            //     ...state.beneficial.slice(indexBeneficial)
-            // ]);
             newBeneficialObject[indexBeneficial][keyBeneficial] = valueBeneficial;
-            // console.log(
-            //     newBeneficialObject
-            // );
-            // newBeneficial[0]["Name"] = "123"
-            // const newBeneficialObject = state.beneficial.slice(0)
-            // console.log(newBeneficialObject);
-            // newBeneficialObject[indexBeneficial][keyBeneficial] = valueBeneficial;
             return {
                 ...state,
                 beneficial: {
@@ -159,41 +136,14 @@ export default (state = INITIAL_STATE, action) => {
                     }
                 }
             }
+        case INCREMENT_BENEFICIAL_ID:
+            return { ...state, idBeneficial: action.payload };
         case ADD_BENEFICIAL:
-
             return {
                 ...state,
-                // beneficial: [...state.beneficial, {
-                //     Name: '',
-                //     Addres: '',
-                //     Country: '',
-                //     Dateofbirth: '',
-                //     Phone: '',
-                //     Surname: '',
-                //     City: '',
-                //     Zip: '',
-                //     Email: ''
-                // }]
-                // beneficial: [
-                //     ...state.beneficial,
-                //     {
-                //         id: 1,
-                //         data: {
-                //             Name: '',
-                //             Addres: '',
-                //             Country: '',
-                //             Dateofbirth: '',
-                //             Phone: '',
-                //             Surname: '',
-                //             City: '',
-                //             Zip: '',
-                //             Email: ''
-                //         }
-                //     }
-                // ]
                 beneficial: {
                     ...state.beneficial,
-                    1: {
+                    [action.payload]: {
                         Name: '',
                         Addres: '',
                         Country: '',
