@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     Grid,
-    Select,
     Dropdown
 } from 'semantic-ui-react';
 

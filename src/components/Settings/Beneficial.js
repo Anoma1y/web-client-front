@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     Grid,
-    Divider
+    Divider,
+    Icon
 } from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
@@ -57,6 +58,9 @@ class Beneficial extends Component {
     render() {
         return (
             <Grid.Row className={"beneficial__wrapper"}>
+                {/*<span className={"close__beneficial"}>*/}
+                    {/*<Icon name={"x"}> </Icon>*/}
+                {/*</span>*/}
                 <Grid.Column>
                     <Grid>
                         <Grid.Row className={"auth_input settings__information"}>

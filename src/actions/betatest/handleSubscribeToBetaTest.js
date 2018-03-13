@@ -3,7 +3,8 @@ import {
     changeSuccessBetatest,
     changeAppleChecked,
     changeAndroidChecked,
-    changeModalBeta
+    changeModalBeta,
+    changeBetaTestError
 } from 'actions/betatest';
 
 export const handleSubscribeToBetaTest = () => {
@@ -12,13 +13,23 @@ export const handleSubscribeToBetaTest = () => {
             androidChecked: android,
             appleChecked: ios
         } = getState().betatest;
-        Subscribe.subscribeToBetaTest(android, ios).then(() => {
+        const {
+            email
+        } = getState().user;
+        Subscribe.subscribeToBetaTest(email, android, ios).then((data) => {
+            if (data.data.status === "400") {
+                dispatch(changeSuccessBetatest(false));
+                dispatch(changeBetaTestError("You are already subscribed"));
+            } else if (data.data.status === "subscribed"){
+                dispatch(changeSuccessBetatest(true));
+                dispatch(changeBetaTestError(""));
+            }
             dispatch(changeAppleChecked(false));
             dispatch(changeAndroidChecked(false));
-            dispatch(changeSuccessBetatest(true));
             dispatch(changeModalBeta(true));
         }).catch(() => {
             dispatch(changeSuccessBetatest(false));
+            dispatch(changeBetaTestError("Error"));
             dispatch(changeModalBeta(true));
         })
     }

@@ -2,18 +2,15 @@ import axios from 'axios';
 import Config from 'libs/config';
 
 class Subscribe {
-    static subscribeURL = "me/subscribe";
+    static  subscribeBetaTestURL = "https://tsrpay.com/api/signupApp";
 
-    static subscribeToBetaTest(android, ios) {
-        const subsURL = Config.url + this.subscribeURL;
-        const TOKEN = localStorage.getItem("jwt");
-        return axios.post(subsURL, {
-            android,
-            ios
-        }, {
-            headers: {
-                'Authorization': `Bearer ${TOKEN}`
-            }
+    static subscribeToBetaTest(email, android, ios) {
+        let andoidString = android === true ? "android" : "";
+        let iosString = ios === true ? "ios" : "";
+        return axios.post(this.subscribeBetaTestURL, {
+            email,
+            andoidString,
+            iosString
         })
     }
 }
