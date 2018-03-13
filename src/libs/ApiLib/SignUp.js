@@ -5,9 +5,10 @@ class SignUpLib {
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
     static resetPasswordURL = "profile/password";
-    static subscribeEmail = "https://tsrpay.com/api/subscribeEmail";
-    // static subscribeToNews(email) {
-    //     const subsURL = this.subscribeEmail;
+    static subscribeEmailURL = "https://tsrpay.com/api/subscribeEmail";
+
+    // static subscribeEmail(email) {
+    //     const subsURL = this.subscribeEmailURL;
     //     return axios.post(subsURL, {
     //         email
     //     }, {
@@ -16,6 +17,7 @@ class SignUpLib {
     //         }
     //     })
     // }
+
     static checkAvailability(email) {
         const checkURL = Config.url + this.checkEmailURL;
         return axios.head(`${checkURL}=${email}`)
@@ -33,7 +35,7 @@ class SignUpLib {
         return new Promise((res, rej) => {
             this.checkAvailability(email).then(() => {
                 this.registrationUser(email, password).then(() => {
-                    res()
+                    res();
                 }).catch(() => {
                     rej("Registration Error");
                 })

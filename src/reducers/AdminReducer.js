@@ -1,7 +1,12 @@
-import * as C from 'actions/admin/types';
+import * as A from 'actions/admin/types';
 
 const INITIAL_STATE = {
     usersList: {
+        data: [],
+        column: null,
+        direction: 'descending'
+    },
+    applicationList: {
         data: [],
         column: null,
         direction: 'descending'
@@ -10,11 +15,6 @@ const INITIAL_STATE = {
     deleteApplications: [],
     userRole: null,
     applicationStatus: null,
-    applicationList: {
-        data: [],
-        column: null,
-        direction: 'descending'
-    },
     TSR: 0.001,
     bonus: [
         {
@@ -74,41 +74,41 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case C.ADD_USERS:
+        case A.ADD_USERS:
             return { ...state, usersList: {
                 data: action.payload,
                 column: null,
                 direction: 'descending'
             } };
-        case C.ADD_APPLICATION:
+        case A.ADD_APPLICATION:
             return { ...state, applicationList: {
                 data: action.payload,
                 column: null,
                 direction: 'descending'
             } };
-        case C.SORTED_USERS:
+        case A.SORTED_USERS:
             return { ...state, usersList: action.payload };
-        case C.SORTED_APPLICATIONS:
+        case A.SORTED_APPLICATIONS:
             return { ...state, applicationList: action.payload };
-        case C.CHANGE_DELETE_USERS:
+        case A.CHANGE_DELETE_USERS:
             return { ...state, deleteUsers: action.payload };
-        case C.CHANGE_DELETE_APPLICATIONS:
+        case A.CHANGE_DELETE_APPLICATIONS:
             return { ...state, deleteApplications: action.payload };
-        case C.CHANGE_USER_ROLE:
+        case A.CHANGE_USER_ROLE:
             return { ...state, userRole: action.payload };
-        case C.CHANGE_APPLICATION_STATUS:
+        case A.CHANGE_APPLICATION_STATUS:
             return { ...state, applicationStatus: action.payload };
-        case C.SET_ADMIN_CURRENCY:
+        case A.SET_ADMIN_CURRENCY:
             return { ...state, currency: action.payload };
-        case C.SET_ADMIN_CURRENTCURRENCY:
+        case A.SET_ADMIN_CURRENTCURRENCY:
             return { ...state, currencyValue: action.payload };
-        case C.SET_ADMIN_CURRENCY_VALUE:
+        case A.SET_ADMIN_CURRENCY_VALUE:
             return { ...state, sumValue: action.payload };
-        case C.SET_ADMIN_TOKEN_VALUE:
+        case A.SET_ADMIN_TOKEN_VALUE:
             return { ...state, tokenValue: action.payload };
-        case C.SET_ADMIN_CURRENT_BONUS:
+        case A.SET_ADMIN_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
-        case C.SET_ADMIN_TRANSFER_DATA:
+        case A.SET_ADMIN_TRANSFER_DATA:
             const {
                 sumValue,
                 progressBar,

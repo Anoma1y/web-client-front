@@ -40,7 +40,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                 <Button
                                     className={"dashboard__submit"}
                                     onClick={handleCloseModal}
-                                    id={"submit__closeModal"}
+                                    id={querySuccess ? "close_successApplication" : "close_rejectApplication"}
                                 >OK
                                 </Button>
                             </div>

@@ -95,7 +95,8 @@ class LegalEntity extends Component {
                 Zip: "",
                 Email: ""
             }]
-        })
+        });
+
     }
 
     renderUploadInfoCompany = () => {
