@@ -4,6 +4,7 @@ import {
     Grid,
     Divider,
 } from 'semantic-ui-react';
+import { changeInputBeneficial } from 'actions/settings';
 import IdentificationImgUpload from './IdentificationImgUpload';
 
 class Beneficial extends Component {
@@ -35,9 +36,15 @@ class Beneficial extends Component {
              value,
              id
          } = event.target;
-         console.log(id, value);
-         const Number = this.props.indexBeneficial;
-         console.log(this.props.settings.beneficial[Number].Name);
+         const {
+             indexBeneficial,
+             changeInputBeneficial
+         } = this.props;
+        changeInputBeneficial({
+            indexBeneficial,
+            keyBeneficial: id,
+            valueBeneficial: value
+        });
     }
 
     render() {
@@ -181,6 +188,6 @@ class Beneficial extends Component {
 }
 
 export default connect(state => ({ settings: state.settings }), {
-
+    changeInputBeneficial
 })(Beneficial);
 

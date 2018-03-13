@@ -135,18 +135,18 @@ class LegalEntity extends Component {
         return (
             <Grid className={"settings__company"}>
                 <h1 className={"settings__company_header"}>Information about the person authorised to represent the company</h1>
-                <PersonInformation stateObject={"companyUserInformation"}/>
+                {/*<PersonInformation stateObject={"companyUserInformation"}/>*/}
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Divider />
                     </Grid.Column>
                 </Grid.Row>
-                {this.renderUploadInfoCompany()}
+                {/*{this.renderUploadInfoCompany()}*/}
                 <Divider className={"blue__divider"}/>
 
-                <CompanyInformation />
+                {/*<CompanyInformation />*/}
 
-                {this.renderUploadInfoRegistration()}
+                {/*{this.renderUploadInfoRegistration()}*/}
                 <Divider className={"blue__divider"}/>
 
                 <Grid.Row>
@@ -154,9 +154,14 @@ class LegalEntity extends Component {
                         Beneficial owner’s declaration - who own or control at least 25% of the company’s shares directly or through other companies
                     </Grid.Column>
                     <Grid.Column width={16}>
-                        {this.props.settings.beneficial.map((item, index) => {
-                            return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
-                        })}
+                        {
+                            Object.keys(this.props.settings.beneficial).map((item, index) => {
+                                return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
+                            })
+                            // this.props.settings.beneficial.map((item, index) => {
+                            //     return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
+                            // })
+                        }
                     </Grid.Column>
                 </Grid.Row>
 

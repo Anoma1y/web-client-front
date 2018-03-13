@@ -44,17 +44,45 @@ const INITIAL_STATE = {
         companyWebsites: '',
     },
     sourceFunds: '',
-    beneficial: [{
-        Name: '',
-        Addres: '',
-        Country: '',
-        Dateofbirth: '',
-        Phone: '',
-        Surname: '',
-        City: '',
-        Zip: '',
-        Email: ''
-    }]
+    idBeneficial: 0,
+    // beneficial: [{
+    //     Name: '',
+    //     Addres: '',
+    //     Country: '',
+    //     Dateofbirth: '',
+    //     Phone: '',
+    //     Surname: '',
+    //     City: '',
+    //     Zip: '',
+    //     Email: ''
+    // }],
+    // beneficial: [{
+    //     id: 0,
+    //     data: {
+    //         Name: '',
+    //         Addres: '',
+    //         Country: '',
+    //         Dateofbirth: '',
+    //         Phone: '',
+    //         Surname: '',
+    //         City: '',
+    //         Zip: '',
+    //         Email: '',
+    //     }
+    // }],
+    beneficial: {
+        0: {
+            Name: '',
+            Addres: '',
+            Country: '',
+            Dateofbirth: '',
+            Phone: '',
+            Surname: '',
+            City: '',
+            Zip: '',
+            Email: '',
+        }
+    }
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -89,31 +117,94 @@ export default (state = INITIAL_STATE, action) => {
         case CHANGE_SOURCE_FUNDS:
             return { ...state, sourceFunds: action.payload };
         case CHANGE_SETTINGS_INPUT_BENEFICIAL:
-            // const {
-            //     keyBeneficial,
-            //     valueBeneficial
-            // } = action.payload;
-            // const newBeneficialObject = {
-            //     ...state.beneficial
-            // };
-            // newBeneficialObject[keyBeneficial] = valueBeneficial;
+            const {
+                indexBeneficial,
+                keyBeneficial,
+                valueBeneficial
+            } = action.payload;
+            const newBeneficialObject = {
+                [indexBeneficial]: {
+                    ...state.beneficial[indexBeneficial]
+                }
+            };
+            // console.log( [
+            //     ...state.beneficial.slice(0, indexBeneficial),
+            //     {
+            //         Name: valueBeneficial,
+            //         Addres: '',
+            //         Country: '',
+            //         Dateofbirth: '',
+            //         Phone: '',
+            //         Surname: '',
+            //         City: '',
+            //         Zip: '',
+            //         Email: ''
+            //     },
+            //     ...state.beneficial.slice(indexBeneficial)
+            // ]);
+            newBeneficialObject[indexBeneficial][keyBeneficial] = valueBeneficial;
+            // console.log(
+            //     newBeneficialObject
+            // );
+            // newBeneficial[0]["Name"] = "123"
+            // const newBeneficialObject = state.beneficial.slice(0)
+            // console.log(newBeneficialObject);
+            // newBeneficialObject[indexBeneficial][keyBeneficial] = valueBeneficial;
             return {
                 ...state,
-                // beneficial: newBeneficialObject
+                beneficial: {
+                    ...state.beneficial,
+                    [indexBeneficial]: {
+                        ...newBeneficialObject[indexBeneficial]
+                    }
+                }
             }
         case ADD_BENEFICIAL:
+
             return {
-                ...state, beneficial: [...state.beneficial, {
-                    Name: '',
-                    Addres: '',
-                    Country: '',
-                    Dateofbirth: '',
-                    Phone: '',
-                    Surname: '',
-                    City: '',
-                    Zip: '',
-                    Email: ''
-                }]
+                ...state,
+                // beneficial: [...state.beneficial, {
+                //     Name: '',
+                //     Addres: '',
+                //     Country: '',
+                //     Dateofbirth: '',
+                //     Phone: '',
+                //     Surname: '',
+                //     City: '',
+                //     Zip: '',
+                //     Email: ''
+                // }]
+                // beneficial: [
+                //     ...state.beneficial,
+                //     {
+                //         id: 1,
+                //         data: {
+                //             Name: '',
+                //             Addres: '',
+                //             Country: '',
+                //             Dateofbirth: '',
+                //             Phone: '',
+                //             Surname: '',
+                //             City: '',
+                //             Zip: '',
+                //             Email: ''
+                //         }
+                //     }
+                // ]
+                beneficial: {
+                    ...state.beneficial,
+                    1: {
+                        Name: '',
+                        Addres: '',
+                        Country: '',
+                        Dateofbirth: '',
+                        Phone: '',
+                        Surname: '',
+                        City: '',
+                        Zip: '',
+                        Email: ''
+                    }
+                }
             }
         default:
             return state
