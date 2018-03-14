@@ -5,18 +5,14 @@ class SignUpLib {
     static checkEmailURL = "profile/availability?email";
     static regUserURL = "profile";
     static resetPasswordURL = "profile/password";
-    static subscribeEmailURL = "https://tsrpay.com/api/subscribeEmail";
 
-    // static subscribeEmail(email) {
-    //     const subsURL = this.subscribeEmailURL;
-    //     return axios.post(subsURL, {
-    //         email
-    //     }, {
-    //         headers: {
-    //             'Authorization': `Bearer ${TOKEN}`
-    //         }
-    //     })
-    // }
+    static subscribeEmail(email) {
+        const subsURL = Config.subscribeEmailURL;
+        const data = {
+            email
+        }
+        return axios.post(subsURL, JSON.stringify(data))
+    }
 
     static checkAvailability(email) {
         const checkURL = Config.url + this.checkEmailURL;
@@ -35,6 +31,11 @@ class SignUpLib {
         return new Promise((res, rej) => {
             this.checkAvailability(email).then(() => {
                 this.registrationUser(email, password).then(() => {
+                    this.subscribeEmail(email).then(() => {
+                        console.log("You are subscribe");
+                    }).catch((err) => {
+                        console.log(err);
+                    });
                     res();
                 }).catch(() => {
                     rej("Registration Error");

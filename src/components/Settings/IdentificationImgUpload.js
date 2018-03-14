@@ -15,6 +15,7 @@ import {
     changeDocumentEntityBeneficial
 } from 'actions/settings';
 import axios from 'axios';
+import Config from 'libs/config';
 import _ from 'underscore';
 
 class IdentificationImgUpload extends Component {
@@ -75,7 +76,7 @@ class IdentificationImgUpload extends Component {
                 'Authorization': `Bearer ${TOKEN}`
             }
         }
-        return axios.post('https://account.tokensale.tsrpay.com/api/v1/file', data, header)
+        return axios.post(`${Config.url}file`, data, header)
             .then(response => {
                 return response;
             }).catch(error => {
