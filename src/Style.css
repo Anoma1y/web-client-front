@@ -238,9 +238,10 @@ body {
     color: #FFFFFF !important;
     font-size: 15px !important; }
   .attentionIdentification__link {
-    color: #FFFFFF !important; }
+    color: #FFFFFF !important;
+    text-decoration: underline !important; }
     .attentionIdentification__link:hover {
-      cursor: text !important; }
+      color: #e6e6e6 !important; }
   @media screen and (max-width: 767px) and (min-width: 320px) {
     .attentionIdentification__textColumn {
       text-align: center; } }

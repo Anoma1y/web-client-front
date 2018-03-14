@@ -5,3 +5,4 @@ export { changeInputBeneficial } from './changeInputBeneficial';
 export { addBeneficial } from './addBeneficial';
 export { handleAddBeneficial } from './handleAddBeneficial';
 export { incrementBeneficialID } from './incrementBeneficialID';
+export { setUploadInProgress } from './setUploadInProgress'; 

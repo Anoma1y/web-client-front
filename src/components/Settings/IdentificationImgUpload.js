@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     Card,
     Button,
     Grid,
-    Input,
-    Image
+    Image,
+    Segment,
+    Dimmer,
+    Loader
 } from 'semantic-ui-react';
+import axios from 'axios';
+import _ from 'underscore';
+import SignUpLib from "libs/ApiLib/SignUp";
 
-class IdentificationImgUpload extends React.Component {
+class IdentificationImgUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,9 +24,12 @@ class IdentificationImgUpload extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // TODO: do something with -> this.state.file
         console.log('handle uploading-', this.state.file);
     }
+
+    lazyUploadImage = _.debounce(() => {
+        this.uploadImage(this.state.file);
+    }, 2500)
 
     handleImageChange(e) {
         e.preventDefault();
@@ -40,13 +49,52 @@ class IdentificationImgUpload extends React.Component {
                 imagePreviewUrl: reader.result
             });
         };
+        this.lazyUploadImage();
+        reader.readAsDataURL(file);
+    }
 
-        reader.readAsDataURL(file)
+    uploadImage = (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        this.uploadAxios(formData)
+            .then(this.onResponse)
+            .catch(this.onResponse);
+    }
+
+    uploadAxios = (data) => {
+        const { jwt: TOKEN } = this.props.user;
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${TOKEN}`
+            }
+        }
+        return axios.post("https://account.tokensale.tsrpay.com/api/v1/file", data, header)
+            .then(function (response) {
+                return response;
+            }).catch(function (error) {
+                return error.response;
+            });
+    }
+
+    onResponse = (response) => {
+        console.log(response);
     }
 
     renderImagePreview = (imagePreviewUrl) => {
         if (!imagePreviewUrl) return null;
-        return <Image src={imagePreviewUrl}  rounded/>
+        const {
+            uploadInProgress
+        } = this.props.settings;
+        return (
+            <div>
+                {/*uploadInProgress ?*/}
+                    {/*<Dimmer active inverted>*/}
+                        {/*<Loader inverted>Loading</Loader>*/}
+                    {/*</Dimmer>*/}
+                {/*: null*/}
+                <Image src={imagePreviewUrl} />
+            </div>
+        )
     }
 
     render() {
@@ -59,6 +107,7 @@ class IdentificationImgUpload extends React.Component {
                             {this.props.description}
                         </Card.Description>
                         <Card.Description className={"setting__imagePreview"}>
+
                             {this.renderImagePreview(this.state.imagePreviewUrl)}
                         </Card.Description>
                         <Card.Description>
@@ -78,7 +127,8 @@ class IdentificationImgUpload extends React.Component {
                             accept="image/jpeg,image/jpg,image/png"
                             id={this.props.id}
                             style={{display: 'none'}}
-                            onChange={(e)=>this.handleImageChange(e)}/>
+                            onChange={(e)=>this.handleImageChange(e)}
+                        />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -88,4 +138,9 @@ class IdentificationImgUpload extends React.Component {
 
 
 
-export default IdentificationImgUpload;
+export default connect(state => ({
+    user: state.user,
+    settings: state.settings
+}), {
+
+})(IdentificationImgUpload);

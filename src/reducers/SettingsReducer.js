@@ -4,7 +4,8 @@ import {
     CHANGE_SOURCE_FUNDS,
     CHANGE_SETTINGS_INPUT_BENEFICIAL,
     ADD_BENEFICIAL,
-    INCREMENT_BENEFICIAL_ID
+    INCREMENT_BENEFICIAL_ID,
+    SET_SETTINGS_UPLOAD_PROGRESS
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
@@ -66,9 +67,6 @@ const INITIAL_STATE = {
         companyDescriptioncompanydoes: '',
         companyWebsites: '',
     },
-    sourceFunds: '',
-    idBeneficial: 0,
-    maxBeneficial: 4,
     beneficial: {
         0: {
             Name: '',
@@ -81,7 +79,11 @@ const INITIAL_STATE = {
             Zip: '',
             Email: '',
         }
-    }
+    },
+    sourceFunds: '',
+    idBeneficial: 0,
+    maxBeneficial: 4,
+    uploadInProgress: false,
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -156,6 +158,8 @@ export default (state = INITIAL_STATE, action) => {
                     }
                 }
             }
+        case SET_SETTINGS_UPLOAD_PROGRESS:
+            return { ...state, uploadInProgress: action.payload };
         default:
             return state
     }

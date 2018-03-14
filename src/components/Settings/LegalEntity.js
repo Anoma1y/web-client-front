@@ -142,7 +142,7 @@ class LegalEntity extends Component {
                     </Grid.Column>
                     <Grid.Column width={16}>
                         {Object.keys(this.props.settings.beneficial).map((item, index) => {
-                            return <Beneficial key={index} indexBeneficial={index} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
+                            return <Beneficial key={index} indexBeneficial={String(index)} legalEntityBeneficial={this.state.legalEntityBeneficial}/>
                         })}
                     </Grid.Column>
                 </Grid.Row>

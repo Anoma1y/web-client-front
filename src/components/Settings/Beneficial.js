@@ -52,6 +52,10 @@ class Beneficial extends Component {
     }
 
     render() {
+        const {
+            settings,
+            indexBeneficial
+        } = this.props;
         return (
             <Grid.Row className={"beneficial__wrapper"}>
                 <Grid.Column>
@@ -64,8 +68,8 @@ class Beneficial extends Component {
                                         placeholder={"Name"}
                                         id={"Name"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Name}
-                                        className={this.props.settings.beneficial.Name ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Name}
+                                        className={settings.beneficial[indexBeneficial].Name ? "populated" : ""}
                                     />
                                     <span>Name</span>
                                 </label>
@@ -77,8 +81,8 @@ class Beneficial extends Component {
                                         placeholder={"Surname"}
                                         id={"Surname"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Surname}
-                                        className={this.props.settings.beneficial.Surname ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Surname}
+                                        className={settings.beneficial[indexBeneficial].Surname ? "populated" : ""}
                                     />
                                     <span>Surname</span>
                                 </label>
@@ -92,8 +96,8 @@ class Beneficial extends Component {
                                         placeholder={"Addres"}
                                         id={"Addres"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Addres}
-                                        className={this.props.settings.beneficial.Addres ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Addres}
+                                        className={settings.beneficial[indexBeneficial].Addres ? "populated" : ""}
                                     />
                                     <span>Address</span>
                                 </label>
@@ -105,8 +109,8 @@ class Beneficial extends Component {
                                         placeholder={"City"}
                                         id={"City"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.City}
-                                        className={this.props.settings.beneficial.City ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].City}
+                                        className={settings.beneficial[indexBeneficial].City ? "populated" : ""}
                                     />
                                     <span>City</span>
                                 </label>
@@ -120,8 +124,8 @@ class Beneficial extends Component {
                                         placeholder={"Country"}
                                         id={"Country"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Country}
-                                        className={this.props.settings.beneficial.Country ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Country}
+                                        className={settings.beneficial[indexBeneficial].Country ? "populated" : ""}
                                     />
                                     <span>Country</span>
                                 </label>
@@ -133,8 +137,8 @@ class Beneficial extends Component {
                                         placeholder={"Zip"}
                                         id={"Zip"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Zip}
-                                        className={this.props.settings.beneficial.Zip ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Zip}
+                                        className={settings.beneficial[indexBeneficial].Zip ? "populated" : ""}
                                     />
                                     <span>Zip</span>
                                 </label>
@@ -148,8 +152,8 @@ class Beneficial extends Component {
                                         placeholder={"Birth day"}
                                         id={"Dateofbirth"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Dateofbirth}
-                                        className={this.props.settings.beneficial.Dateofbirth ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Dateofbirth}
+                                        className={settings.beneficial[indexBeneficial].Dateofbirth ? "populated" : ""}
                                     />
                                     <span>Birth day</span>
                                 </label>
@@ -161,8 +165,8 @@ class Beneficial extends Component {
                                         placeholder={"EMail"}
                                         id={"Email"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Email}
-                                        className={this.props.settings.beneficial.Email ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Email}
+                                        className={settings.beneficial[indexBeneficial].Email ? "populated" : ""}
                                     />
                                     <span>EMail</span>
                                 </label>
@@ -176,8 +180,8 @@ class Beneficial extends Component {
                                         placeholder={"Phone"}
                                         id={"Phone"}
                                         onChange={this.handleChange}
-                                        value={this.props.settings.beneficial.Phone}
-                                        className={this.props.settings.beneficial.Phone ? "populated" : ""}
+                                        value={settings.beneficial[indexBeneficial].Phone}
+                                        className={settings.beneficial[indexBeneficial].Phone ? "populated" : ""}
                                     />
                                     <span>Phone</span>
                                 </label>
