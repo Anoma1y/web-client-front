@@ -167,7 +167,7 @@ class SignupComponent extends Component {
                                     className={"auth_btn"}
                                     onClick={this.handleSignup}
                                     disabled={isSignupInProgress === true ? true : false}
-                                >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "Register"}
+                                >{isSignupInProgress ? <Loader active inline size={"mini"}/> : "SIGN UP"}
                                 </Button>
                             </form>
                             <p className={"signup__content_login"}>

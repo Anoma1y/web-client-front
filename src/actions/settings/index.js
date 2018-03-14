@@ -5,4 +5,7 @@ export { changeInputBeneficial } from './changeInputBeneficial';
 export { addBeneficial } from './addBeneficial';
 export { handleAddBeneficial } from './handleAddBeneficial';
 export { incrementBeneficialID } from './incrementBeneficialID';
-export { setUploadInProgress } from './setUploadInProgress'; 
+export { changeDocumentIndividualUser } from './changeDocumentIndividualUser';
+export { changeDocumentEntityUser } from './changeDocumentEntityUser'; 
+export { changeDocumentEntityCompany } from './changeDocumentEntityCompany'; 
+export { changeDocumentEntityBeneficial } from './changeDocumentEntityBeneficial';

@@ -5,20 +5,25 @@ import {
     Button,
     Grid,
     Image,
-    Segment,
     Dimmer,
     Loader
 } from 'semantic-ui-react';
+import {
+    changeDocumentIndividualUser,
+    changeDocumentEntityUser,
+    changeDocumentEntityCompany,
+    changeDocumentEntityBeneficial
+} from 'actions/settings';
 import axios from 'axios';
 import _ from 'underscore';
-import SignUpLib from "libs/ApiLib/SignUp";
 
 class IdentificationImgUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
             file: '',
-            imagePreviewUrl: ""
+            imagePreviewUrl: "",
+            isLoading: false
         }
     }
 
@@ -39,7 +44,9 @@ class IdentificationImgUpload extends Component {
             });
             return;
         }
-
+        this.setState({
+            isLoading: true
+        })
         let reader = new FileReader();
         let file = e.target.files[0];
 
@@ -69,29 +76,64 @@ class IdentificationImgUpload extends Component {
             }
         }
         return axios.post("https://account.tokensale.tsrpay.com/api/v1/file", data, header)
-            .then(function (response) {
+            .then(response => {
                 return response;
-            }).catch(function (error) {
+            }).catch(error => {
                 return error.response;
             });
     }
 
     onResponse = (response) => {
-        console.log(response);
+        this.setState({
+            isLoading: false
+        })
+        if (response.status === 200) {
+            const { ID: documentID } = response.data;
+            const {
+                id,
+                objectFile,
+                indexBeneficial,
+                changeDocumentIndividualUser,
+                changeDocumentEntityUser,
+                changeDocumentEntityCompany,
+                changeDocumentEntityBeneficial
+            } = this.props;
+            switch (objectFile) {
+                case 'individualUserFile':
+                    changeDocumentIndividualUser({id, documentID});
+                    break;
+                case 'personCompanyFile':
+                    changeDocumentEntityUser({id, documentID});
+                    break;
+                case 'companyFile':
+                    changeDocumentEntityCompany({id, documentID});
+                    break;
+                case 'beneficialFile':
+                    changeDocumentEntityBeneficial({
+                        indexBeneficialFile: indexBeneficial,
+                        keyBeneficialFile: id.split("_")[0],
+                        valueBeneficialFile: documentID
+                    });
+                    break;
+                default:
+                    return;
+            }
+        }
     }
 
     renderImagePreview = (imagePreviewUrl) => {
         if (!imagePreviewUrl) return null;
         const {
-            uploadInProgress
-        } = this.props.settings;
+            isLoading
+        } = this.state;
         return (
             <div>
-                {/*uploadInProgress ?*/}
-                    {/*<Dimmer active inverted>*/}
-                        {/*<Loader inverted>Loading</Loader>*/}
-                    {/*</Dimmer>*/}
-                {/*: null*/}
+                {isLoading ?
+                    <Dimmer active inverted>
+                        <Loader inverted>Loading</Loader>
+                    </Dimmer>
+                    : null
+                }
                 <Image src={imagePreviewUrl} />
             </div>
         )
@@ -142,5 +184,8 @@ export default connect(state => ({
     user: state.user,
     settings: state.settings
 }), {
-
+    changeDocumentIndividualUser,
+    changeDocumentEntityUser,
+    changeDocumentEntityCompany,
+    changeDocumentEntityBeneficial
 })(IdentificationImgUpload);

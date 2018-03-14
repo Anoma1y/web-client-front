@@ -5,30 +5,33 @@ import {
     CHANGE_SETTINGS_INPUT_BENEFICIAL,
     ADD_BENEFICIAL,
     INCREMENT_BENEFICIAL_ID,
-    SET_SETTINGS_UPLOAD_PROGRESS
+    CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER,
+    CHANGE_SETTINGS_DOCUMENT_ENTITY_USER,
+    CHANGE_SETTINGS_DOCUMENT_ENTITY_COMPANY,
+    CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
     individualUserFile: {
-        personalDocument: 45,
-        utilityBill: 127
+        personalUserDocument: null,
+        utilityBill: null
     },
     personCompanyFile: {
-        personalDocument: 123,
-        representation: 54,
-        certificateActualStatus: 88,
+        personalUserCompanyDocument: null,
+        representation: null,
+        certificateActualStatus: null,
     },
     companyFile: {
-        businessRegistrationDocument: 788,
-        document3months: 1267,
-        businessActivityLicense: 876,
-        declare: 7
+        businessRegistrationDocument: null,
+        document3months: null,
+        businessActivityLicense: null,
+        declare: null
     },
     beneficialFile: {
         0: {
-            personalBeneficialDocument: 3647,
-            declarationBeneficialOwned: 4723,
-            legalRepresentative: 762222
+            personalBeneficialDocument: null,
+            declarationBeneficialOwned: null,
+            legalRepresentative: null
         }
     },
     individualUserInformation: {
@@ -83,7 +86,6 @@ const INITIAL_STATE = {
     sourceFunds: '',
     idBeneficial: 0,
     maxBeneficial: 4,
-    uploadInProgress: false,
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -156,10 +158,58 @@ export default (state = INITIAL_STATE, action) => {
                         Zip: '',
                         Email: ''
                     }
+                },
+                beneficialFile: {
+                    ...state.beneficialFile,
+                    [action.payload]: {
+                        personalBeneficialDocument: null,
+                        declarationBeneficialOwned: null,
+                        legalRepresentative: null
+                    }
+                },
+            }
+        case CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER:
+            return {
+                ...state, individualUserFile:  {
+                        ...state.individualUserFile,
+                        [action.payload.id]: action.payload.documentID
+                    }
+            };
+        case CHANGE_SETTINGS_DOCUMENT_ENTITY_USER:
+            return {
+                ...state, personCompanyFile: {
+                    ...state.personCompanyFile,
+                    [action.payload.id]: action.payload.documentID
+                }
+            };
+        case CHANGE_SETTINGS_DOCUMENT_ENTITY_COMPANY:
+            return {
+                ...state, companyFile: {
+                    ...state.companyFile,
+                    [action.payload.id]: action.payload.documentID
+                }
+            };
+        case CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL:
+            const {
+                indexBeneficialFile,
+                keyBeneficialFile,
+                valueBeneficialFile
+            } = action.payload;
+            const newBeneficialFileObject = {
+                [indexBeneficialFile]: {
+                    ...state.beneficialFile[indexBeneficialFile]
+                }
+            };
+            newBeneficialFileObject[indexBeneficialFile][keyBeneficialFile] = valueBeneficialFile;
+            return {
+                ...state,
+                beneficialFile: {
+                    ...state.beneficialFile,
+                    [indexBeneficialFile]: {
+                        ...newBeneficialFileObject[indexBeneficialFile]
+                    }
                 }
             }
-        case SET_SETTINGS_UPLOAD_PROGRESS:
-            return { ...state, uploadInProgress: action.payload };
         default:
             return state
     }
