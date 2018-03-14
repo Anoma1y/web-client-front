@@ -11,7 +11,7 @@ import IdentificationImgUpload from './IdentificationImgUpload';
 import { handleAddBeneficial } from 'actions/settings';
 import PersonInformation from './PersonInformation';
 import CompanyInformation from './CompanyInformation';
-import { SettingsButton } from './SettingsButton';
+import SettingsButton from './SettingsButton';
 
 class LegalEntity extends Component {
     constructor(props) {
@@ -171,7 +171,9 @@ class LegalEntity extends Component {
                         </Grid.Row>
                         : null
                 }
-                <SettingsButton />
+                <SettingsButton
+                    settingsOption={"entity"}
+                />
             </Grid>
         );
     }

@@ -6,7 +6,7 @@ import {
 } from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 import PersonInformation from './PersonInformation';
-import { SettingsButton } from './SettingsButton';
+import SettingsButton from './SettingsButton';
 
 class IndividualUser extends Component {
 
@@ -61,7 +61,9 @@ class IndividualUser extends Component {
                     </Grid.Column>
                 </Grid.Row>
                 {this.renderUploadInfo()}
-                <SettingsButton />
+                <SettingsButton
+                    settingsOption={"individual"}
+                />
             </Grid>
         );
     }
