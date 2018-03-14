@@ -14,7 +14,10 @@ export const handleApplication = () => {
             requests,
             user
         } = getState();
-        const { jwt: TOKEN } = user;
+        const {
+            jwt: TOKEN,
+            isIdentification
+        } = user;
         const dataOrder = {
             currency: `${calculator.order.fixCurrency}/${calculator.order.forCurrency}`,
             amount: Number(calculator.order.amount),
@@ -22,28 +25,35 @@ export const handleApplication = () => {
             token: TOKEN
         };
         ApplicationLib.getApplication(TOKEN).then((data) => {
-            if (data.length < 10) {
-                ApplicationLib.addApplication(dataOrder).then((data) => {
-                    dispatch(changeModalSuccessful(true));
-                    dispatch(changeQuerySuccessful(true));
-                    dispatch(addRequestItem([
-                        data.data,
-                        ...requests.items
-                    ]));
-                    if (calculator.comments.length !== 0) {
-                        dispatch(changeComments(""));
-                    }
-                    dispatch(changeApplicationError(null));
-                }).catch(() => {
-                    dispatch(changeApplicationError("Error"));
+            if (isIdentification === true) {
+                if (data.length < 10) {
+                    ApplicationLib.addApplication(dataOrder).then((data) => {
+                        dispatch(changeModalSuccessful(true));
+                        dispatch(changeQuerySuccessful(true));
+                        dispatch(addRequestItem([
+                            data.data,
+                            ...requests.items
+                        ]));
+                        if (calculator.comments.length !== 0) {
+                            dispatch(changeComments(""));
+                        }
+                        dispatch(changeApplicationError(null));
+                    }).catch(() => {
+                        dispatch(changeApplicationError("Error"));
+                        dispatch(changeModalSuccessful(true));
+                        dispatch(changeQuerySuccessful(false));
+                    })
+                } else {
+                    dispatch(changeApplicationError("To proceed please contact us"));
                     dispatch(changeModalSuccessful(true));
                     dispatch(changeQuerySuccessful(false));
-                })
+                }
             } else {
-                dispatch(changeApplicationError("To proceed please contact us"));
+                dispatch(changeApplicationError("You are not verified"));
                 dispatch(changeModalSuccessful(true));
                 dispatch(changeQuerySuccessful(false));
             }
+
         })
     }
 };
