@@ -6,6 +6,7 @@ import {
     Button
 } from 'semantic-ui-react';
 import axios from 'axios';
+import Config from 'libs/config';
 
 class SettingsButton extends Component {
 
@@ -13,7 +14,7 @@ class SettingsButton extends Component {
         const {
             settingsOption
         } = this.props;
-        if (settingsOption === "individual") {
+        if (settingsOption === 'individual') {
             const {
                 individualUserFile,
                 individualUserInformation
@@ -23,7 +24,7 @@ class SettingsButton extends Component {
                 individualUserInformation
             };
             this.sendSettingsInfo(0, data);
-        } else if (settingsOption === "entity") {
+        } else if (settingsOption === 'entity') {
             const {
                 personCompanyFile,
                 companyFile,
@@ -47,8 +48,8 @@ class SettingsButton extends Component {
     }
 
     sendSettingsInfo = (type ,obj) => {
-        const url = type === 0 ? `https://account.tokensale.tsrpay.com/api/v1/me` : `https://account.tokensale.tsrpay.com/api/v1/me`;
-        const TOKEN = localStorage.getItem("jwt");
+        const url = type === 0 ? Config.settingsURL : Config.settingsURL;
+        const TOKEN = localStorage.getItem('jwt');
         axios.post(url, obj, {
             headers: {
                 'Authorization': `Bearer ${TOKEN}`
@@ -60,11 +61,11 @@ class SettingsButton extends Component {
         return (
             <Grid.Row>
                 <Grid.Column>
-                    <Divider className={"setting_divider"}/>
+                    <Divider className={'setting_divider'}/>
                     <Button
-                        className={"setting__button auth_btn setting__submit"}
+                        className={'setting__button auth_btn setting__submit'}
                         fluid
-                        floated={"right"}
+                        floated={'right'}
                         onClick={this.handleSubmit}
                     > Submit
                     </Button>

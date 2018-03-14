@@ -22,7 +22,7 @@ class IdentificationImgUpload extends Component {
         super(props);
         this.state = {
             file: '',
-            imagePreviewUrl: "",
+            imagePreviewUrl: '',
             isLoading: false
         }
     }
@@ -62,7 +62,7 @@ class IdentificationImgUpload extends Component {
 
     uploadImage = (file) => {
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append('file', file);
         this.uploadAxios(formData)
             .then(this.onResponse)
             .catch(this.onResponse);
@@ -75,7 +75,7 @@ class IdentificationImgUpload extends Component {
                 'Authorization': `Bearer ${TOKEN}`
             }
         }
-        return axios.post("https://account.tokensale.tsrpay.com/api/v1/file", data, header)
+        return axios.post('https://account.tokensale.tsrpay.com/api/v1/file', data, header)
             .then(response => {
                 return response;
             }).catch(error => {
@@ -111,7 +111,7 @@ class IdentificationImgUpload extends Component {
                 case 'beneficialFile':
                     changeDocumentEntityBeneficial({
                         indexBeneficialFile: indexBeneficial,
-                        keyBeneficialFile: id.split("_")[0],
+                        keyBeneficialFile: id.split('_')[0],
                         valueBeneficialFile: documentID
                     });
                     break;
@@ -142,31 +142,31 @@ class IdentificationImgUpload extends Component {
     render() {
         const { imagePreviewUrl } = this.state;
         return (
-            <Grid className={"setting__description"}>
+            <Grid className={'setting__description'}>
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Card.Description>
                             {this.props.description}
                         </Card.Description>
-                        <Card.Description className={"setting__imagePreview"}>
+                        <Card.Description className={'setting__imagePreview'}>
 
                             {this.renderImagePreview(this.state.imagePreviewUrl)}
                         </Card.Description>
                         <Card.Description>
                             <Button
-                                className={imagePreviewUrl.length > 0 ? "auth_btn setting__button-new" :"auth_btn setting__button"}
-                                floated={"right"}
+                                className={imagePreviewUrl.length > 0 ? 'auth_btn setting__button-new' :'auth_btn setting__button'}
+                                floated={'right'}
                                 onClick={(e)=> {
                                     document.getElementById(this.props.id).click();
                                     this.handleSubmit(e)
                                 }}
                             >
-                                {imagePreviewUrl.length > 0 ? "Upload New" : "Upload" }
+                                {imagePreviewUrl.length > 0 ? 'Upload New' : 'Upload' }
                             </Button>
                         </Card.Description>
                         <input
                             type={'file'}
-                            accept="image/jpeg,image/jpg,image/png"
+                            accept='image/jpeg,image/jpg,image/png'
                             id={this.props.id}
                             style={{display: 'none'}}
                             onChange={(e)=>this.handleImageChange(e)}

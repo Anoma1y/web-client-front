@@ -17,12 +17,12 @@ class IndividualUser extends Component {
                 {
                     description: `Submit a personal identity document with photo: Passport, ID, Residence document (both sides)`,
                     id: 'personalUserDocument',
-                    objectFile: "individualUserFile"
+                    objectFile: 'individualUserFile'
                 },
                 {
                     description: 'Utility bill or any other document with a date no later than 2 months before the presentation (this confirms the address)',
                     id: 'utilityBill',
-                    objectFile: "individualUserFile"
+                    objectFile: 'individualUserFile'
                 },
             ]
         }
@@ -54,7 +54,7 @@ class IndividualUser extends Component {
     render() {
         return (
             <Grid>
-                <PersonInformation stateObject={"individualUserInformation"}/>
+                <PersonInformation stateObject={'individualUserInformation'}/>
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Divider />
@@ -62,7 +62,7 @@ class IndividualUser extends Component {
                 </Grid.Row>
                 {this.renderUploadInfo()}
                 <SettingsButton
-                    settingsOption={"individual"}
+                    settingsOption={'individual'}
                 />
             </Grid>
         );

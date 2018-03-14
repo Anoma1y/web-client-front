@@ -59,19 +59,19 @@ class Beneficial extends Component {
             indexBeneficial
         } = this.props;
         return (
-            <Grid.Row className={"beneficial__wrapper"}>
+            <Grid.Row className={'beneficial__wrapper'}>
                 <Grid.Column>
                     <Grid>
-                        <Grid.Row className={"auth_input settings__information"}>
+                        <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label>
                                     <input
-                                        type="text"
-                                        placeholder={"Name"}
-                                        id={"Name"}
+                                        type='text'
+                                        placeholder={'Name'}
+                                        id={'Name'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Name}
-                                        className={settings.beneficial[indexBeneficial].Name ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Name ? 'populated' : ''}
                                     />
                                     <span>Name</span>
                                 </label>
@@ -79,27 +79,27 @@ class Beneficial extends Component {
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label>
                                     <input
-                                        type="text"
-                                        placeholder={"Surname"}
-                                        id={"Surname"}
+                                        type='text'
+                                        placeholder={'Surname'}
+                                        id={'Surname'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Surname}
-                                        className={settings.beneficial[indexBeneficial].Surname ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Surname ? 'populated' : ''}
                                     />
                                     <span>Surname</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row className={"auth_input settings__information"}>
+                        <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label>
                                     <input
-                                        type="text"
-                                        placeholder={"Addres"}
-                                        id={"Addres"}
+                                        type='text'
+                                        placeholder={'Addres'}
+                                        id={'Addres'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Addres}
-                                        className={settings.beneficial[indexBeneficial].Addres ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Addres ? 'populated' : ''}
                                     />
                                     <span>Address</span>
                                 </label>
@@ -107,55 +107,55 @@ class Beneficial extends Component {
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label>
                                     <input
-                                        type="text"
-                                        placeholder={"City"}
-                                        id={"City"}
+                                        type='text'
+                                        placeholder={'City'}
+                                        id={'City'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].City}
-                                        className={settings.beneficial[indexBeneficial].City ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].City ? 'populated' : ''}
                                     />
                                     <span>City</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row className={"auth_input settings__information"}>
+                        <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label>
                                     <input
-                                        type="text"
-                                        placeholder={"Country"}
-                                        id={"Country"}
+                                        type='text'
+                                        placeholder={'Country'}
+                                        id={'Country'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Country}
-                                        className={settings.beneficial[indexBeneficial].Country ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Country ? 'populated' : ''}
                                     />
                                     <span>Country</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
-                                <label style={{width: "50%"}}>
+                                <label style={{width: '50%'}}>
                                     <input
-                                        type="text"
-                                        placeholder={"Zip"}
-                                        id={"Zip"}
+                                        type='text'
+                                        placeholder={'Zip'}
+                                        id={'Zip'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Zip}
-                                        className={settings.beneficial[indexBeneficial].Zip ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Zip ? 'populated' : ''}
                                     />
                                     <span>Zip</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row className={"auth_input settings__information"}>
+                        <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label>
                                     <input
-                                        type="text"
-                                        placeholder={"Birth day"}
-                                        id={"Dateofbirth"}
+                                        type='text'
+                                        placeholder={'Birth day'}
+                                        id={'Dateofbirth'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Dateofbirth}
-                                        className={settings.beneficial[indexBeneficial].Dateofbirth ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Dateofbirth ? 'populated' : ''}
                                     />
                                     <span>Birth day</span>
                                 </label>
@@ -163,27 +163,27 @@ class Beneficial extends Component {
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label>
                                     <input
-                                        type="text"
-                                        placeholder={"EMail"}
-                                        id={"Email"}
+                                        type='text'
+                                        placeholder={'EMail'}
+                                        id={'Email'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Email}
-                                        className={settings.beneficial[indexBeneficial].Email ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Email ? 'populated' : ''}
                                     />
                                     <span>EMail</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row className={"auth_input settings__information"}>
+                        <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label >
                                     <input
-                                        type="text"
-                                        placeholder={"Phone"}
-                                        id={"Phone"}
+                                        type='text'
+                                        placeholder={'Phone'}
+                                        id={'Phone'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Phone}
-                                        className={settings.beneficial[indexBeneficial].Phone ? "populated" : ""}
+                                        className={settings.beneficial[indexBeneficial].Phone ? 'populated' : ''}
                                     />
                                     <span>Phone</span>
                                 </label>
