@@ -146,10 +146,10 @@ class IdentificationImgUpload extends Component {
             <Grid className={'setting__description'}>
                 <Grid.Row>
                     <Grid.Column width={16}>
-                        <Card.Description>
+                        <Card.Description style={{zIndex: 99999}}>
                             {this.props.description}
                         </Card.Description>
-                        <Card.Description className={'setting__imagePreview'}>
+                        <Card.Description className={'setting__imagePreview'} style={{zIndex: 50}}>
 
                             {this.renderImagePreview(this.state.imagePreviewUrl)}
                         </Card.Description>

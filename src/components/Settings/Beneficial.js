@@ -95,7 +95,7 @@ class Beneficial extends Component {
                                 <label>
                                     <input
                                         type='text'
-                                        placeholder={'Addres'}
+                                        placeholder={'Address'}
                                         id={'Addres'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Addres}
@@ -164,13 +164,13 @@ class Beneficial extends Component {
                                 <label>
                                     <input
                                         type='text'
-                                        placeholder={'EMail'}
+                                        placeholder={'Email'}
                                         id={'Email'}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Email}
                                         className={settings.beneficial[indexBeneficial].Email ? 'populated' : ''}
                                     />
-                                    <span>EMail</span>
+                                    <span>Email</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>

@@ -17,6 +17,10 @@ class RequestList extends Component {
         this.props.handleRequestItem(localStorage.jwt);
     }
 
+    shouldComponentUpdate(nextProps) {
+        return this.props.requests.items !== nextProps.requests.items;
+    }
+
     renderList () {
         const { items: request } = this.props.requests;
         const {

@@ -23,7 +23,18 @@ class PersonInformation extends Component {
             valueInput: value
         });
     }
-
+    
+    shouldComponentUpdate(nextProps) {
+        const {
+            stateObject
+        } = this.props;
+        if (stateObject === 'companyUserInformation') {
+            return nextProps.settings.companyUserInformation !== this.props.settings.companyUserInformation;
+        } else if (stateObject === 'individualUserInformation') {
+            return nextProps.settings.individualUserInformation !== this.props.settings.individualUserInformation;
+        }
+    }
+    
     render() {
         const {
             settings,
@@ -136,12 +147,12 @@ class PersonInformation extends Component {
                                     <input
                                         type="email"
                                         id={"Email"}
-                                        placeholder={"EMail"}
+                                        placeholder={"Email"}
                                         value={settings[stateObject].Email}
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Email ? "populated" : ""}
                                     />
-                                    <span>EMail</span>
+                                    <span>Email</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>

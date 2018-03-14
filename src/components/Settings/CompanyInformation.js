@@ -27,6 +27,10 @@ class CompanyInformation extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps) {
+        return nextProps.settings.companyInformation !== this.props.settings.companyInformation || nextProps.settings.sourceFunds !== this.props.settings.sourceFunds;
+    }
+
     handleChange = (event) => {
         const {
             value,
@@ -41,7 +45,6 @@ class CompanyInformation extends Component {
         changeSourceFunds(value);
     }
     
-
     render() {
         const {
             certifyOption,
