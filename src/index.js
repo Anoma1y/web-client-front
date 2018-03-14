@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'react-router-redux'
-
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import 'semantic-ui-css/semantic.min.css';
 import './Style.css';
-import store, { history } from './store'
-import App from './screens/App'
+import store, { history } from './store';
+import App from './screens/App';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(

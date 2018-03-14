@@ -18,7 +18,6 @@ import { AttentionIdentification } from 'components/AttentionIdentification';
 import { redirectToHome } from "actions/redirect";
 
 class Home extends Component{
-
     state = {
 
     }

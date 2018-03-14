@@ -29,6 +29,7 @@ class LoginComponent extends Component {
             passwordPlaceholder: false
         };
     }
+
     handleChangeEmail = event => {
         const { changeEmail } = this.props;
         const { value } = event.target;
@@ -43,6 +44,7 @@ class LoginComponent extends Component {
         }
         changeEmail(value);
     }
+
     handleChangePassword = event => {
         const { changePassword } = this.props;
         const { value } = event.target;
@@ -57,6 +59,7 @@ class LoginComponent extends Component {
         }
         changePassword(value);
     }
+
     handleLoginBtn = event => {
         event.preventDefault();
         const { email, password, setError, handleLogin } = this.props;

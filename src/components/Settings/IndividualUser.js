@@ -6,38 +6,41 @@ import {
 } from 'semantic-ui-react';
 import IdentificationImgUpload from './IdentificationImgUpload';
 import PersonInformation from './PersonInformation';
-import { SettingsButton } from './SettingsButton';
+import SettingsButton from './SettingsButton';
 
 class IndividualUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            individualUser: [
+            individualUserFile: [
                 {
                     description: `Submit a personal identity document with photo: Passport, ID, Residence document (both sides)`,
-                    id: 'one_passport'
+                    id: 'personalUserDocument',
+                    objectFile: 'individualUserFile'
                 },
                 {
                     description: 'Utility bill or any other document with a date no later than 2 months before the presentation (this confirms the address)',
-                    id: 'one_address'
+                    id: 'utilityBill',
+                    objectFile: 'individualUserFile'
                 },
             ]
         }
     }
 
     renderUploadInfo = () => {
-        const { individualUser } = this.state;
-        return individualUser.map((item, index) => {
+        const { individualUserFile } = this.state;
+        return individualUserFile.map((item, index) => {
             return (
                 <Grid.Row key={item.id}>
                     <Grid.Column width={16}>
                         <IdentificationImgUpload
                             description={item.description}
                             id={item.id}
+                            objectFile={item.objectFile}
                         />
                     </Grid.Column>
-                    { index !== (individualUser.length - 1) ?
+                    { index !== (individualUserFile.length - 1) ?
                         <Grid.Column width={16}>
                             <Divider/>
                         </Grid.Column>
@@ -51,14 +54,16 @@ class IndividualUser extends Component {
     render() {
         return (
             <Grid>
-                <PersonInformation/>
+                <PersonInformation stateObject={'individualUserInformation'}/>
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Divider />
                     </Grid.Column>
                 </Grid.Row>
                 {this.renderUploadInfo()}
-                <SettingsButton />
+                <SettingsButton
+                    settingsOption={'individual'}
+                />
             </Grid>
         );
     }

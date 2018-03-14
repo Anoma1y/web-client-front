@@ -2,16 +2,15 @@ import axios from 'axios';
 import Config from 'libs/config';
 
 class Subscribe {
-    static  subscribeBetaTestURL = "https://tsrpay.com/api/signupApp";
 
+    //Метод для отправки POST запроса - подписку на Бета Тест
     static subscribeToBetaTest(email, android, ios) {
-        let andoidString = android === true ? "android" : "";
-        let iosString = ios === true ? "ios" : "";
-        return axios.post(this.subscribeBetaTestURL, {
+        const data = {
             email,
-            andoidString,
-            iosString
-        })
+            android: android === true ? 'android' : '',
+            ios: ios === true ? 'ios' : ''
+        };
+        return axios.post(Config.subscribeBetaTestURL, JSON.stringify(data))
     }
 }
 export default Subscribe;

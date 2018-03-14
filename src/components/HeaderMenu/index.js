@@ -49,7 +49,7 @@ class HeaderMenu extends Component {
                                 {localStorage.getItem("jwt") ?
                                     <div className={"right__menu menu_login"}>
                                         <div className={"right__menu_item"}>
-                                            <Link to={"/dashboard/"}>
+                                            <Link to={"/dashboard/settings"}>
                                                 {email}
                                             </Link>
                                         </div>

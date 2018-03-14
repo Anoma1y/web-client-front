@@ -272,10 +272,10 @@ body
     font-size: 15px !important
   &__link
     color: $white-color
-    //text-decoration: underline !important
+    text-decoration: underline !important
     &:hover
-      cursor: text !important
-    //  color: darken(#fff, 10%) !important
+      color: darken(#fff, 10%) !important
+
   &__textColumn
     @media screen and (max-width: 767px) and (min-width: 320px)
       text-align: center
@@ -1136,3 +1136,11 @@ body
 .admin__application
   &_comment
     word-break: break-all !important
+
+
+.admin__users
+  &-user
+    cursor: pointer !important
+    transition: background-color .1s ease
+    &:hover
+      background-color: rgba(242, 242, 242, 1) !important

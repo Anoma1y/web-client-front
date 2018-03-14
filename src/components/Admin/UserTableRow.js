@@ -39,7 +39,12 @@ class UserTableRow extends Component {
         );
     }
 
+    goToSingleUser = (e) => {
+        console.log(e.target.className);
+    }
+    
     render() {
+        
         const {
             id,
             createdAt,
@@ -48,9 +53,10 @@ class UserTableRow extends Component {
             is_verified,
             is_kyc_passed
         } = this.props;
+
         return (
-            <Table.Row>
-                <Table.Cell>{id}</Table.Cell>
+            <Table.Row className={"admin__users-user"} >
+                <Table.Cell className={`user_${id}`} onClick={this.goToSingleUser}>{id}</Table.Cell>
                 <Table.Cell>{moment(createdAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
                 <Table.Cell>{email}</Table.Cell>
                 <Modal
