@@ -67,7 +67,7 @@ class PersonInformation extends Component {
                                     <input
                                         type="text"
                                         id={"Addres"}
-                                        placeholder={"Addres"}
+                                        placeholder={"Address"}
                                         value={settings[stateObject].Addres}
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Addres ? "populated" : ""}

@@ -184,12 +184,12 @@ class CompanyInformation extends Component {
                                     <input
                                         type='text'
                                         id={'companyEmail'}
-                                        placeholder={'EMail'}
+                                        placeholder={'Email'}
                                         value={this.props.settings.companyInformation.companyEmail}
                                         className={this.props.settings.companyInformation.companyEmail ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>EMail</span>
+                                    <span>Email</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>

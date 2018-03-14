@@ -17,19 +17,19 @@ export const handleSubscribeToBetaTest = () => {
             email
         } = getState().user;
         Subscribe.subscribeToBetaTest(email, android, ios).then((data) => {
-            if (data.data.status === "400") {
+            if (data.data.status === 400) {
                 dispatch(changeSuccessBetatest(false));
-                dispatch(changeBetaTestError("You are already subscribed"));
-            } else if (data.data.status === "subscribed"){
+                dispatch(changeBetaTestError('You are already subscribed'));
+            } else if (data.data.status === 'subscribed'){
                 dispatch(changeSuccessBetatest(true));
-                dispatch(changeBetaTestError(""));
+                dispatch(changeBetaTestError(''));
             }
             dispatch(changeAppleChecked(false));
             dispatch(changeAndroidChecked(false));
             dispatch(changeModalBeta(true));
         }).catch(() => {
             dispatch(changeSuccessBetatest(false));
-            dispatch(changeBetaTestError("Error"));
+            dispatch(changeBetaTestError('Error'));
             dispatch(changeModalBeta(true));
         })
     }
