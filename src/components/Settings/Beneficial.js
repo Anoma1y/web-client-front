@@ -10,14 +10,18 @@ import IdentificationImgUpload from './IdentificationImgUpload';
 class Beneficial extends Component {
 
     renderUploadInfoBeneficial = () => {
-        const { legalEntityBeneficial } = this.props;
+        const {
+            legalEntityBeneficial,
+            indexBeneficial
+        } = this.props;
+
         return legalEntityBeneficial.map((item, index) => {
             return (
-                <Grid.Row key={item.id}>
+                <Grid.Row key={`${item.id}_${indexBeneficial}`}>
                     <Grid.Column width={16}>
                         <IdentificationImgUpload
                             description={item.description}
-                            id={item.id}
+                            id={`${item.id}_${indexBeneficial}`}
                         />
                     </Grid.Column>
                     { index !== (legalEntityBeneficial.length - 1) ?

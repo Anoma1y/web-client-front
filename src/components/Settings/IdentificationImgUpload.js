@@ -73,7 +73,7 @@ class IdentificationImgUpload extends React.Component {
                                 {imagePreviewUrl.length > 0 ? "Upload New" : "Upload" }
                             </Button>
                         </Card.Description>
-                        <Input
+                        <input
                             type={'file'}
                             accept="image/jpeg,image/jpg,image/png"
                             id={this.props.id}
