@@ -23,7 +23,18 @@ class PersonInformation extends Component {
             valueInput: value
         });
     }
-
+    
+    shouldComponentUpdate(nextProps) {
+        const {
+            stateObject
+        } = this.props;
+        if (stateObject === 'companyUserInformation') {
+            return nextProps.settings.companyUserInformation !== this.props.settings.companyUserInformation;
+        } else if (stateObject === 'individualUserInformation') {
+            return nextProps.settings.individualUserInformation !== this.props.settings.individualUserInformation;
+        }
+    }
+    
     render() {
         const {
             settings,

@@ -28,6 +28,10 @@ class BeneficialComponent extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps) {
+        return nextProps.settings.beneficial !== this.props.settings.beneficial;
+    }
+
     handleAddBeneficial = () => {
         const { handleAddBeneficial } = this.props;
         handleAddBeneficial();
