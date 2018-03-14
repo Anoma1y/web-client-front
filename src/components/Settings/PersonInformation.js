@@ -147,12 +147,12 @@ class PersonInformation extends Component {
                                     <input
                                         type="email"
                                         id={"Email"}
-                                        placeholder={"EMail"}
+                                        placeholder={"Email"}
                                         value={settings[stateObject].Email}
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Email ? "populated" : ""}
                                     />
-                                    <span>EMail</span>
+                                    <span>Email</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
