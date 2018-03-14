@@ -48,7 +48,7 @@ class SettingsButton extends Component {
     }
 
     sendSettingsInfo = (type, obj) => {
-        const url = type === 0 ? `${Config.settingsURL}kyc?type=individual` : `${Config.settingsURL}kyc?type=legal`;
+        const url = type === 0 ? `${Config.url}kyc?type=individual` : `${Config.url}kyc?type=legal`;
         const TOKEN = localStorage.getItem('jwt');
         axios.post(url, obj, {
             headers: {

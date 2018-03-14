@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import {
     Grid,
-    Icon,
-    Button,
     Divider
 } from 'semantic-ui-react';
-import Beneficial from './Beneficial';
 import IdentificationImgUpload from './IdentificationImgUpload';
-import { handleAddBeneficial } from 'actions/settings';
 import PersonInformation from './PersonInformation';
 import CompanyInformation from './CompanyInformation';
+import BeneficialComponent from './BeneficialComponent';
 import SettingsButton from './SettingsButton';
 
 class LegalEntity extends Component {
@@ -51,28 +47,8 @@ class LegalEntity extends Component {
                     id: 'declare',
                     objectFile: 'companyFile'
                 }
-            ],
-            beneficialFile: [{
-                    description: 'Upload a Declaration for the beneficial owner and copy of the ID document of the Legal Representative/s of the company',
-                    id: 'personalBeneficialDocument',
-                    objectFile: 'beneficialFile'
-                },{
-                    description: 'Confirm upload of declaration  (Beneficial owners declaration - the Beneficial owner (BO) of the company is a physical person, who has 25% or more than 25% of the company or otherwise exercises control over the company).',
-                    id: 'declarationBeneficialOwned',
-                    objectFile: 'beneficialFile'
-                },{
-                    description: 'Copy of the ID Document (Passport or ID Card) of the Legal representative/s (Director/s, CEO/s, Manager/s or Owner of the business)',
-                    id: 'legalRepresentative',
-                    objectFile: 'beneficialFile'
-                },
-            ],
+            ]
         }
-    }
-
-
-    handleAddBeneficial = () => {
-        const { handleAddBeneficial } = this.props;
-        handleAddBeneficial();
     }
 
     renderUploadInfoCompany = () => {
@@ -122,10 +98,6 @@ class LegalEntity extends Component {
     }
 
     render() {
-        const {
-            idBeneficial,
-            maxBeneficial
-        } = this.props.settings;
         return (
             <Grid className={'settings__company'}>
                 <h1 className={'settings__company_header'}>Information about the person authorised to represent the company</h1>
@@ -144,33 +116,11 @@ class LegalEntity extends Component {
                 <Divider className={'blue__divider'}/>
 
                 <Grid.Row>
-                    <Grid.Column width={16} className={'header__input_text header_text_uppercase'}>
-                        Beneficial owner’s declaration - who own or control at least 25% of the company’s shares directly or through other companies
-                    </Grid.Column>
-                    <Grid.Column width={16}>
-                        {Object.keys(this.props.settings.beneficial).map((item, index) => {
-                            return <Beneficial
-                                key={index}
-                                indexBeneficial={index}
-                                legalEntityBeneficial={this.state.beneficialFile}
-                            />
-                        })}
+                    <Grid.Column>
+                        <BeneficialComponent />
                     </Grid.Column>
                 </Grid.Row>
-                {
-                    idBeneficial < (maxBeneficial - 1) ?
-                        <Grid.Row>
-                            <Grid.Column width={16} floated={'right'}>
-                                <Button
-                                    className={'beneficial_btn'}
-                                    onClick={this.handleAddBeneficial}
-                                >
-                                    <Icon name={'plus'} className={'beneficial_icon'}/> Add Beneficial
-                                </Button>
-                            </Grid.Column>
-                        </Grid.Row>
-                        : null
-                }
+
                 <SettingsButton
                     settingsOption={'entity'}
                 />
@@ -179,6 +129,4 @@ class LegalEntity extends Component {
     }
 }
 
-export default connect(state => ({ settings: state.settings }), {
-    handleAddBeneficial
-})(LegalEntity);
+export default LegalEntity;
