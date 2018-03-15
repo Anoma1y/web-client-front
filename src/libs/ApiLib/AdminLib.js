@@ -42,8 +42,8 @@ class AdminLib {
         )
     }
 
-    static deleteApplication(id) {
-        const URL = Config.url + `admin/application/${id}`;
+    static deleteApplication(data) {
+        const URL = Config.url + `admin/application?ids=${data}`;
         const ADMIN_TOKEN = localStorage.getItem("jwt");
         const header = {
             headers: {
@@ -81,6 +81,20 @@ class AdminLib {
             header
         )
     }
+
+    static deleteUser(data) {
+        const URL = Config.url + `admin/profile?ids=${data}`;
+        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${ADMIN_TOKEN}`
+            }
+        }
+        return axios.delete(URL,
+            header
+        )
+    }
+
 }
 
 export default AdminLib;

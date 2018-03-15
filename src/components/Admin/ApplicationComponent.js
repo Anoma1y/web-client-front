@@ -8,7 +8,6 @@ import {
     Pagination
 } from 'semantic-ui-react';
 import ApplicationTableRow from './ApplicationTableRow';
-import AdminLib from "libs/ApiLib/AdminLib";
 import {
     addAllApplication,
     sortedApplications,
@@ -18,6 +17,7 @@ import {changeCurrency} from 'actions/rate';
 import _ from "underscore";
 import { currentCountItems } from 'libs/math';
 import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
+import AdminLib from 'libs/ApiLib/AdminLib';
 
 class ApplicationComponent extends Component {
 
@@ -85,6 +85,10 @@ class ApplicationComponent extends Component {
         changeDeleteApplications([]);
     }
     componentDidMount() {
+        this.getApplication();
+    }
+
+    getApplication = () => {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
             this.setState({
@@ -148,6 +152,22 @@ class ApplicationComponent extends Component {
         sortedApplications(sortData);
     }
 
+    deleteApplication = () => {
+        const {
+            deleteApplications
+        } = this.props.admin;
+        const delApp = deleteApplications.join(',');
+        AdminLib.deleteApplication(delApp)
+            .then((data) => {
+                if (data.status === 200) {
+                    this.getApplication();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    } 
+    
     render() {
         const {
             applicationList
@@ -181,7 +201,12 @@ class ApplicationComponent extends Component {
                                             <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
                                         </Table.HeaderCell>
                                         <Table.HeaderCell colSpan='1'>
-                                            <Button floated='right' color={"youtube"} size='small'>
+                                            <Button 
+                                                floated='right' 
+                                                color={"youtube"} 
+                                                size='small'
+                                                onClick={this.deleteApplication}
+                                            >
                                                 Remove Application
                                             </Button>
                                         </Table.HeaderCell>

@@ -31,15 +31,7 @@ class UsersComponent extends Component {
     }
 
     componentDidMount() {
-        const { addAllUsers } = this.props;
-        AdminLib.getAllUsers().then((data) => {
-            this.setState({
-                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
-            })
-            addAllUsers(_.sortBy(data.data, function(node) {
-                return -(new Date(node.CreatedAt).getTime());
-            }));
-        })
+        this.getUsers();
     }
 
     handlePaginationChange = (e, { activePage }) => {
@@ -95,6 +87,34 @@ class UsersComponent extends Component {
         sortedUsers(sortData);
     }
 
+    getUsers = () => {
+        const { addAllUsers } = this.props;
+        AdminLib.getAllUsers().then((data) => {
+            this.setState({
+                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
+            })
+            addAllUsers(_.sortBy(data.data, function(node) {
+                return -(new Date(node.CreatedAt).getTime());
+            }));
+        })
+    }
+
+    deleteUser = () => {
+        const {
+            deleteUsers
+        } = this.props.admin;
+        const delUser = deleteUsers.join(',');
+        AdminLib.deleteUser(delUser)
+            .then((data) => {
+                if (data.status === 200) {
+                    this.getUsers();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+
     render() {
         const {
             usersList
@@ -126,7 +146,12 @@ class UsersComponent extends Component {
                                             <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
                                         </Table.HeaderCell>
                                         <Table.HeaderCell colSpan='1'>
-                                            <Button floated='right' color={"youtube"} size='small'>
+                                            <Button
+                                                floated='right'
+                                                color={"youtube"}
+                                                size='small'
+                                                onClick={this.deleteUser}
+                                            >
                                                 Remove User
                                             </Button>
                                         </Table.HeaderCell>
