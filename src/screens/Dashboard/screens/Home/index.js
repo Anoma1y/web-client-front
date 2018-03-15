@@ -67,17 +67,19 @@ class Home extends Component{
                 changeCurrency(INITIAL_DATA);
             })
     }
-    
+
+    componentWillUnmount() {
+        clearInterval(this.currencyInterval);
+    }
+
     componentWillMount() {
         this.getCurrency();
     }
 
-
     componentDidMount() {
-
-        setInterval(() => {
+        this.currencyInterval = setInterval(() => {
             this.getCurrency();
-        }, 10000)
+        }, 1000)
     }
 
 
