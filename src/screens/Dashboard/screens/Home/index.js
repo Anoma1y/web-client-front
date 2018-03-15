@@ -34,7 +34,7 @@ class Home extends Component{
                 'id': 'bitcoin',
                 'name': 'Bitcoin',
                 'symbol': 'BTC',
-                'price_usd': '0'
+                'price_usd': "8240.82"
             },
             {
                 'id': 'ethereum',
@@ -50,6 +50,7 @@ class Home extends Component{
                 'price_usd': '1'
             }
         ]
+
         CryptoCurrency.getCryptoCurrency()
             .then((data) => {
                 const CURRENCY = data.data;
@@ -74,12 +75,9 @@ class Home extends Component{
 
     componentWillMount() {
         this.getCurrency();
-    }
-
-    componentDidMount() {
         this.currencyInterval = setInterval(() => {
             this.getCurrency();
-        }, 1000)
+        }, 3000)
     }
 
 

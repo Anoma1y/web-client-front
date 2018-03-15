@@ -627,16 +627,19 @@ body {
   .request__item_value-active {
     color: #004fce !important; }
   .request__item_submit {
-    width: 100% !important; }
+    width: 100% !important;
+    background-color: transparent !important;
+    color: #000000 !important; }
     @media screen and (max-width: 767px) {
       .request__item_submit {
         width: 50% !important;
         margin: 15px auto 0 !important;
         display: block !important; } }
-  .request__item-rejected {
-    background-color: #df232c !important; }
-  .request__item-paid {
-    background-color: #2acf31 !important; }
+  .request__item-pay {
+    background-color: transparent !important;
+    box-shadow: none !important; }
+    .request__item-pay:hover {
+      background-color: transparent !important; }
 
 .request__column_btn .ui.button:disabled, .request__column_btn .ui.buttons .disabled.button, .request__column_btn .ui.disabled.active.button, .request__column_btn .ui.disabled.button, .request__column_btn .ui.disabled.button:hover {
   opacity: .6 !important; }
