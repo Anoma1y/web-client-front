@@ -50,7 +50,8 @@ class AdminCalculator extends Component {
 
     componentWillMount() {
         const {
-            tokenValue
+            tokenValue,
+            singleApplication
         } = this.props.admin;
         setTimeout(() => {
             this.changeState(this.calcToken(tokenValue));
@@ -178,6 +179,7 @@ class AdminCalculator extends Component {
 
     handleChange = (event, {value}) => {
         const { handleAdminCurrentCurrency } = this.props;
+
         handleAdminCurrentCurrency(value);
     }
     changeState = value => {

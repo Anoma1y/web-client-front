@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     setApplicationSingle,
     changeApplicationStatus,
-    changeFixedCurrency
+    changeFixedCurrency,changeAdminTokenValue
 } from 'actions/admin';
 import {
     Container,
@@ -83,7 +83,8 @@ class ApplicationSingle extends Component {
         } = this.props.match.params;
         const {
             setApplicationSingle,
-            changeApplicationStatus
+            changeApplicationStatus,
+            changeAdminTokenValue
         } = this.props;
         AdminLib.getApplicationByID(id)
             .then((data) => {
@@ -106,6 +107,7 @@ class ApplicationSingle extends Component {
                 }
                 changeApplicationStatus(data.data.status);
                 setApplicationSingle(APPLICATION);
+                // changeAdminTokenValue(data.data.amount)
             })
             .catch((err) => {
                 console.log(err);
@@ -236,5 +238,6 @@ export default connect(state => ({ admin: state.admin }), {
     setApplicationSingle,
     changeCurrency,
     changeApplicationStatus,
-    changeFixedCurrency
+    changeFixedCurrency,
+    changeAdminTokenValue
 })(ApplicationSingle);
