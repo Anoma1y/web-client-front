@@ -4,7 +4,9 @@ import {
     Table,
     Container,
     Button,
-    Pagination
+    Pagination,
+    Modal,
+    Icon
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import UserTableRow from './UserTableRow';
@@ -22,7 +24,8 @@ class UsersComponent extends Component {
     state = {
         itemsOnPage: 15,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
+        modalIsOpen: false
     }
     
     componentWillMount() {
@@ -91,7 +94,8 @@ class UsersComponent extends Component {
         const { addAllUsers } = this.props;
         AdminLib.getAllUsers().then((data) => {
             this.setState({
-                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
+                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage),
+                modalIsOpen: false
             })
             addAllUsers(_.sortBy(data.data, function(node) {
                 return -(new Date(node.CreatedAt).getTime());
@@ -114,11 +118,28 @@ class UsersComponent extends Component {
                 console.log(err);
             })
     }
-
+    handleCloseModal = () => {
+        this.setState({
+            modalIsOpen: false
+        })
+    }
+    openModal = () => {
+        const {
+            deleteUsers
+        } = this.props.admin;
+        if (deleteUsers.length !== 0) {
+            this.setState({
+                modalIsOpen: true
+            })
+        }
+    }
     render() {
         const {
             usersList
         } = this.props.admin;
+        const {
+            modalIsOpen
+        } = this.state;
         return (
             <Container>
                 <Grid>
@@ -146,14 +167,48 @@ class UsersComponent extends Component {
                                             <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
                                         </Table.HeaderCell>
                                         <Table.HeaderCell colSpan='1'>
-                                            <Button
-                                                floated='right'
-                                                color={"youtube"}
-                                                size='small'
-                                                onClick={this.deleteUser}
+                                            <Modal
+                                                trigger={
+                                                    <Button
+                                                        floated='right'
+                                                        color={"youtube"}
+                                                        size='small'
+                                                        fluid
+                                                        onClick={this.openModal}
+                                                    >
+                                                        Remove Users
+                                                    </Button>
+                                                }
+                                                open={modalIsOpen}
+                                                onClose={this.handleCloseModal}
+                                                basic
+                                                size='tiny'
                                             >
-                                                Remove User
-                                            </Button>
+                                                <Modal.Content className={"modal__success"}>
+                                                    <Modal.Description>
+                                                        <div className={"modal__success_icon modal__error-icon"}>
+                                                            <Icon name={"attention"} />
+                                                        </div>
+                                                        <div className={"modal__success_text black-text"}>
+                                                            <span>
+                                                                Remove users?
+                                                            </span>
+                                                        </div>
+                                                        <div className={"modal__success_btn modal__success-error"}>
+                                                            <Button
+                                                                className={"dashboard__submit"}
+                                                                onClick={this.deleteUser}
+                                                            >Remove
+                                                            </Button>
+                                                            <Button
+                                                                className={"dashboard__submit auth_btn"}
+                                                                onClick={this.handleCloseModal}
+                                                            >Cancel
+                                                            </Button>
+                                                        </div>
+                                                    </Modal.Description>
+                                                </Modal.Content>
+                                            </Modal>
                                         </Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Footer>

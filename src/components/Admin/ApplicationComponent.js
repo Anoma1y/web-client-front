@@ -5,7 +5,9 @@ import {
     Table,
     Container,
     Button,
-    Pagination
+    Pagination,
+    Modal,
+    Icon
 } from 'semantic-ui-react';
 import ApplicationTableRow from './ApplicationTableRow';
 import {
@@ -24,7 +26,8 @@ class ApplicationComponent extends Component {
     state = {
         itemsOnPage: 15,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
+        modalIsOpen: false
     }
     getCurrencyAdmin = () => {
         const {
@@ -92,7 +95,8 @@ class ApplicationComponent extends Component {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
             this.setState({
-                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
+                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage),
+                modalIsOpen: false
             })
             addAllApplication(_.sortBy(data.data, function(node) {
                 return -(new Date(node.CreatedAt).getTime());
@@ -166,12 +170,30 @@ class ApplicationComponent extends Component {
             .catch((err) => {
                 console.log(err);
             })
-    } 
-    
+    }
+
+    handleCloseModal = () => {
+        this.setState({
+            modalIsOpen: false
+        })
+    }
+    openModal = () => {
+        const {
+            deleteApplications
+        } = this.props.admin;
+        if (deleteApplications.length !== 0) {
+            this.setState({
+                modalIsOpen: true
+            })
+        }
+    }
     render() {
         const {
-            applicationList
+            applicationList,
         } = this.props.admin;
+        const {
+            modalIsOpen
+        } = this.state;
         return (
             <Container>
                 <Grid>
@@ -201,14 +223,48 @@ class ApplicationComponent extends Component {
                                             <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
                                         </Table.HeaderCell>
                                         <Table.HeaderCell colSpan='1'>
-                                            <Button 
-                                                floated='right' 
-                                                color={"youtube"} 
-                                                size='small'
-                                                onClick={this.deleteApplication}
+                                            <Modal
+                                                trigger={
+                                                    <Button
+                                                        floated='right'
+                                                        color={"youtube"}
+                                                        size='small'
+                                                        fluid
+                                                        onClick={this.openModal}
+                                                    >
+                                                        Remove Application
+                                                    </Button>
+                                                }
+                                                open={modalIsOpen}
+                                                onClose={this.handleCloseModal}
+                                                basic
+                                                size='tiny'
                                             >
-                                                Remove Application
-                                            </Button>
+                                                <Modal.Content className={"modal__success"}>
+                                                    <Modal.Description>
+                                                        <div className={"modal__success_icon modal__error-icon"}>
+                                                            <Icon name={"attention"} />
+                                                        </div>
+                                                        <div className={"modal__success_text black-text"}>
+                                                            <span>
+                                                                Remove applications?
+                                                            </span>
+                                                        </div>
+                                                        <div className={"modal__success_btn modal__success-error"}>
+                                                            <Button
+                                                                className={"dashboard__submit"}
+                                                                onClick={this.deleteApplication}
+                                                            >Remove
+                                                            </Button>
+                                                            <Button
+                                                                className={"dashboard__submit auth_btn"}
+                                                                onClick={this.handleCloseModal}
+                                                            >Cancel
+                                                            </Button>
+                                                        </div>
+                                                    </Modal.Description>
+                                                </Modal.Content>
+                                            </Modal>
                                         </Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Footer>
