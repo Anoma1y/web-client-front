@@ -180,3 +180,82 @@ export const currentCountItems = (itemsPerPage, currentPage) => {
         toPage
     }
 }
+
+
+export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRICE) => {
+    let bonus;
+    let BTC, ETH, TKNinitialValue, TSRvalue, USD;
+    const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
+    if (currencyValue === "USD") {
+        BTC = transferUSD(value, "BTC", currency);
+        ETH = transferUSD(value, "ETH", currency);
+        TKNinitialValue = transferToTKN(value, TSR_ETH);
+        bonus = checkBonus(TKNinitialValue, bonusList);
+        TSRvalue = transferToTKNbonus(value, bonus.bonusTSR, TSR_ETH);
+        USD = value;
+    } else if (currencyValue === "ETH") {
+        USD = transferETH(value, "USD", currency);
+        BTC = transferETH(value, "BTC", currency);
+        TKNinitialValue = transferToTKN(USD, TSR_ETH);
+        bonus = checkBonus(TKNinitialValue, bonusList);
+        TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
+        ETH = value;
+    } else if (currencyValue === "BTC") {
+        USD = transferBTC(value, "USD", currency);
+        ETH = transferBTC(value, "ETH", currency);
+        TKNinitialValue = transferToTKN(USD, TSR_ETH);
+        bonus = checkBonus(TKNinitialValue, bonusList);
+        TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
+        BTC = value;
+    }
+    const progressBar = handleProgressBar(TSRvalue, bonusList);
+    return {
+        sumValue: value,
+        progressBar,
+        tokenValue: TKNinitialValue.toFixed(4),
+        bonus: bonus.bonus,
+        currentBonus: bonus.bonusTSR,
+        transferData: {
+            USD,
+            TSR: TSRvalue.toFixed(4),
+            BTC,
+            ETH
+        }
+    }
+}
+
+export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) => {
+    const { bonus, bonusTSR } = checkBonus(value, bonusList);
+    const bonusValue = bonusCalc(value, bonusTSR);
+    const { USD, BTC, ETH, TSR } = transferTKN(value, bonusValue, currency, TKN_PRICE);
+    const currentTokenValue = currencyValue === "BTC" ? BTC.toFixed(4) : currencyValue === "ETH" ? ETH.toFixed(4) : USD.toFixed(2);
+    const progressBar = handleProgressBar(value, bonus);
+    return {
+        sumValue: currentTokenValue,
+        progressBar,
+        tokenValue: value,
+        bonus,
+        currentBonus: bonusTSR,
+        transferData: {
+            USD: USD.toFixed(2),
+            TSR,
+            BTC: BTC.toFixed(4),
+            ETH: ETH.toFixed(4)
+        }
+    }
+}
+const handleProgressBar = (value, bonus) => {
+    const percent = ((value * 100) / bonus[bonus.length - 1]["limit"]);
+    const isMaximum = checkMaximum(percent);
+    return {
+        isMaximum,
+        percent
+    };
+}
+const transferTKN = (value, bonusValue, currency, TKN_PRICE) => {
+    const TSR_ETH = TKNprice("ETH", TKN_PRICE, currency);
+    const USD = TSR_ETH *  value;
+    const BTC = (TSR_ETH / currency[0].price_usd) * value;
+    const ETH = (TSR_ETH / currency[1].price_usd) * value;
+    return { USD, BTC, ETH, TSR: bonusValue }
+}

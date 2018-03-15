@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     setApplicationSingle,
     changeApplicationStatus,
-    changeFixedCurrency,changeAdminTokenValue
+    changeFixedCurrency,changeAdminTokenValue, changeAdminTransferData,handleAdminCurrentCurrency
 } from 'actions/admin';
 import {
     Container,
@@ -19,6 +19,8 @@ import {
     changeCurrency
 } from 'actions/rate';
 import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
+import { calcToken,calcCurrency } from 'libs/math';
+
 
 class ApplicationSingle extends Component {
 
@@ -84,8 +86,15 @@ class ApplicationSingle extends Component {
         const {
             setApplicationSingle,
             changeApplicationStatus,
-            changeAdminTokenValue
+            changeAdminTokenValue,
+            handleAdminCurrentCurrency,
+            changeAdminTransferData
         } = this.props;
+        const {
+            currencyValue,
+            bonus: bonusList,
+        } = this.props.admin;
+
         AdminLib.getApplicationByID(id)
             .then((data) => {
                 const APPLICATION =  {
@@ -107,7 +116,19 @@ class ApplicationSingle extends Component {
                 }
                 changeApplicationStatus(data.data.status);
                 setApplicationSingle(APPLICATION);
-                // changeAdminTokenValue(data.data.amount)
+                const {
+                    currency,
+                    TSR: TKN_PRICE
+                } = this.props.rate;
+                const CURRENT_CURRENCY = data.data.currency.split('/');
+                if (CURRENT_CURRENCY[0] === 'TSR') {
+                    handleAdminCurrentCurrency(CURRENT_CURRENCY[1]);
+                    changeAdminTransferData(calcToken(data.data.amount, CURRENT_CURRENCY[1], bonusList, currency, TKN_PRICE));
+                } else if (CURRENT_CURRENCY[1] === 'TSR') {
+                    handleAdminCurrentCurrency(CURRENT_CURRENCY[0]);
+                    changeAdminTransferData(calcCurrency(data.data.amount, CURRENT_CURRENCY[0], bonusList, currency, TKN_PRICE));
+                }
+
             })
             .catch((err) => {
                 console.log(err);
@@ -234,10 +255,10 @@ class ApplicationSingle extends Component {
 }
 
 
-export default connect(state => ({ admin: state.admin }), {
+export default connect(state => ({ admin: state.admin, rate: state.rate }), {
     setApplicationSingle,
     changeCurrency,
     changeApplicationStatus,
     changeFixedCurrency,
-    changeAdminTokenValue
+    changeAdminTokenValue,changeAdminTransferData,handleAdminCurrentCurrency
 })(ApplicationSingle);
