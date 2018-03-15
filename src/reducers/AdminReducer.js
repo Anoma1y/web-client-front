@@ -14,7 +14,8 @@ import {
     SET_ADMIN_TRANSFER_DATA,
     SET_ADMIN_APPLICATION_SINGLE,
     CHANGE_FIXED_CURRENCY,
-    SET_ADMIN_USER_SINGLE
+    SET_ADMIN_USER_SINGLE,
+    SET_ADMIN_USER_KYC
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -52,7 +53,16 @@ const INITIAL_STATE = {
         is_kyc_passed: null,
         is_verified: null,
         kyc_type: null,
+        kyc_id: null,
         roles: null
+    },
+    singleUserKYC: {
+        CreatedAt: null,
+        ID: null,
+        content: null,
+        profile_id: null,
+        status: null,
+        type: null
     },
     deleteUsers: [],
     deleteApplications: [],
@@ -144,6 +154,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, singleApplication: action.payload };
         case SET_ADMIN_USER_SINGLE:
             return { ...state, singleUser: action.payload };
+        case SET_ADMIN_USER_KYC:
+            return { ...state, singleUserKYC: action.payload };
         default:
             return state;
     }

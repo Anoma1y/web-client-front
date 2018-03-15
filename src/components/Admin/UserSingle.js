@@ -8,8 +8,7 @@ import {
     Accordion,
     Icon
 } from 'semantic-ui-react';
-import { setUserSingle } from 'actions/admin';
-import AdminLib from 'libs/ApiLib/AdminLib';
+import { handleSetUserByID } from 'actions/admin';
 
 class UserSingle extends Component {
     state = { activeIndex: -1 }
@@ -26,25 +25,10 @@ class UserSingle extends Component {
         const {
             id
         } = this.props.match.params;
-        AdminLib.getUsersById(id)
-            .then((data) => {
-                const {
-                    setUserSingle
-                } = this.props;
-                const singleUser = {
-                    CreatedAt: data.data.CreatedAt,
-                    ID: data.data.ID,
-                    email: data.data.email,
-                    is_kyc_passed: data.data.is_kyc_passed,
-                    is_verified: data.data.is_verified,
-                    kyc_type: data.data.kyc_type,
-                    roles: data.data.roles,
-                }
-                setUserSingle(singleUser);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        const {
+            handleSetUserByID
+        } = this.props;
+        handleSetUserByID(id);
     }
 
     handleBlockUser = () => {}
@@ -125,5 +109,5 @@ class UserSingle extends Component {
 }
 
 export default connect(state => ({ admin: state.admin }), {
-    setUserSingle
+    handleSetUserByID
 })(UserSingle);

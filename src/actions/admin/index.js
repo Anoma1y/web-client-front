@@ -20,3 +20,5 @@ export { setApplicationSingle } from './setApplicationSingle';
 export { changeFixedCurrency } from './changeFixedCurrency';
 
 export { setUserSingle } from './setUserSingle';
+export { setUserKYC } from './setUserKYC';
+export { handleSetUserByID } from './handleSetUserByID';

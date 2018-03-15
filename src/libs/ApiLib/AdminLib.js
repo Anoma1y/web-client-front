@@ -82,6 +82,19 @@ class AdminLib {
         )
     }
 
+    static getKYCById(id) {
+        const URL = Config.url + `admin/kyc/${id}`;
+        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${ADMIN_TOKEN}`
+            }
+        }
+        return axios.get(URL,
+            header
+        )
+    }
+
     static deleteUser(data) {
         const URL = Config.url + `admin/profile?ids=${data}`;
         const ADMIN_TOKEN = localStorage.getItem("jwt");
