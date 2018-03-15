@@ -3,84 +3,90 @@ import { connect } from 'react-redux';
 import {
     Grid,
     Divider,
-    Button
+    Button,
+    Modal,
+    Icon
 } from 'semantic-ui-react';
-import axios from 'axios';
-import Config from 'libs/config';
+import {
+    changeModalSettings,
+    handleSettingsSend
+} from 'actions/settings';
 
 class SettingsButton extends Component {
 
     handleSubmit = () => {
         const {
+            handleSettingsSend,
             settingsOption
         } = this.props;
-        if (settingsOption === 'individual') {
-            const {
-                individualUserFile,
-                individualUserInformation
-            } = this.props.settings;
-            const data = {
-                individualUserFile,
-                individualUserInformation
-            };
-            this.sendSettingsInfo(0, data);
-        } else if (settingsOption === 'entity') {
-            const {
-                personCompanyFile,
-                companyFile,
-                beneficialFile,
-                companyUserInformation,
-                companyInformation,
-                beneficial,
-                sourceFunds
-            } = this.props.settings;
-            const data = {
-                personCompanyFile,
-                companyFile,
-                beneficialFile: Object.values(beneficialFile),
-                companyUserInformation,
-                companyInformation,
-                beneficial: Object.values(beneficial),
-                sourceFunds
-            };
-            this.sendSettingsInfo(1, data);
-        }
+        handleSettingsSend(settingsOption);
     }
 
-    sendSettingsInfo = (type, obj) => {
-        const url = type === 0 ? `${Config.url}kyc?type=individual` : `${Config.url}kyc?type=legal`;
-        const TOKEN = localStorage.getItem('jwt');
-        axios.post(url, obj, {
-            headers: {
-                'Authorization': `Bearer ${TOKEN}`
-            }
-        }).then((data) => {
-            console.log(data);
-        }).catch((err) => {
-            console.log(err);
-        })
+    handleCloseModal = () => {
+        const { changeModalSettings } = this.props;
+        changeModalSettings(false);
     }
+
 
     render() {
+        const {
+            settingsModalIsOpen,
+            settingsError,
+            success
+        } = this.props.settings;
         return (
             <Grid.Row>
                 <Grid.Column>
                     <Divider className={'setting_divider'}/>
-                    <Button
-                        className={'setting__button auth_btn setting__submit'}
-                        fluid
-                        floated={'right'}
-                        onClick={this.handleSubmit}
-                    > Submit
-                    </Button>
+                    <Modal
+                        trigger={
+                            <Button
+                                className={'setting__button auth_btn setting__submit'}
+                                fluid
+                                floated={'right'}
+                                onClick={this.handleSubmit}
+                            > Submit
+                            </Button>
+                        }
+                        open={settingsModalIsOpen}
+                        onClose={this.handleCloseModal}
+                        basic
+                        size='small'
+                    >
+                        <Modal.Content className={"modal__success"}>
+                            <Modal.Description>
+                                <div className={success ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
+                                    <Icon name={success ? "check circle outline" : "warning circle"} />
+                                </div>
+                                <div className={"modal__success_text betatest__modal_text"}>
+                                    <span>{success ? "We have received your details, thank you. We’ll review all KYC requests together with approving applications. So if you receive a link to pay for your applications that means you successfully passed the KYC procedure. Please note that we might ask you to share some additional details." : settingsError}</span>
+                                </div>
+                                <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
+                                    <Button
+                                        className={"dashboard__submit"}
+                                        onClick={this.handleCloseModal}
+                                        id={success ? "kycSendSuccess" : "kycSendError"}
+                                    >OK
+                                    </Button>
+                                </div>
+                            </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+
+
+
                 </Grid.Column>
             </Grid.Row>
         );
     }
 }
 
-export default connect(state => ({ settings: state.settings }), {
-
+export default connect(state => ({
+    settings: state.settings,
+    user: state.user
+}), {
+    changeModalSettings,
+    handleSettingsSend
 })(SettingsButton);
 
 
