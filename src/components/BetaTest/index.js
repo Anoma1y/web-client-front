@@ -6,7 +6,8 @@ import {
     Grid,
     List,
     Modal,
-    Icon
+    Icon,
+    Divider
 } from 'semantic-ui-react';
 import {
     changeAndroidChecked,
@@ -66,13 +67,14 @@ class BetaTest extends Component {
             betaTestError
         } = this.props.betatest;
         return (
-            <Card fluid className={"component__main component__shadow"}>
+            <Card fluid className={"component__main component__shadow betatest"}>
                 <Card.Content>
-                    <Card.Header className={"component__title"}>Beta Test</Card.Header>
-                    <Card.Description className={"betatest"}>
+                    <Card.Header className={"component__title betatest__title"}>Beta Test</Card.Header>
+                    <Divider className={"component__divider"} />
+                    <Card.Description className={"betatest__wrapper"}>
                         <Grid>
-                            <Grid.Row>
-                                <Grid.Column width={8} className={"betatest__wrapper"}>
+                            <Grid.Row className={"betatest__items"}>
+                                <Grid.Column width={8}>
                                     <List horizontal>
                                         <List.Item className={androidChecked ? "betatest__item betatest__item-checked" : "betatest__item"} onClick={this.onCheckedAndroid}>
                                             <List.Icon name='android' size='large' verticalAlign='middle' />

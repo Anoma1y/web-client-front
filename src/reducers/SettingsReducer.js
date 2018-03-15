@@ -8,7 +8,10 @@ import {
     CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER,
     CHANGE_SETTINGS_DOCUMENT_ENTITY_USER,
     CHANGE_SETTINGS_DOCUMENT_ENTITY_COMPANY,
-    CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL
+    CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL,
+    CHANGE_SETTINGS_MODAL,
+    CHANGE_SETTINGS_ERROR,
+    CHANGE_SETTINGS_SUCCESS
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
@@ -86,10 +89,20 @@ const INITIAL_STATE = {
     sourceFunds: '',
     idBeneficial: 0,
     maxBeneficial: 4,
+    settingsModalIsOpen: false,
+    settingsError: null,
+    success: false
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case CHANGE_SETTINGS_MODAL:
+            return { ...state, settingsModalIsOpen: action.payload };
+        case CHANGE_SETTINGS_ERROR:
+            return { ...state, settingsError: action.payload };
+        case CHANGE_SETTINGS_SUCCESS:
+            return { ...state, success: action.payload };
+
         case CHANGE_SETTINGS_INPUT:
             const {
                 stateInput,

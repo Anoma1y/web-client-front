@@ -9,3 +9,7 @@ export { changeDocumentIndividualUser } from './changeDocumentIndividualUser';
 export { changeDocumentEntityUser } from './changeDocumentEntityUser'; 
 export { changeDocumentEntityCompany } from './changeDocumentEntityCompany'; 
 export { changeDocumentEntityBeneficial } from './changeDocumentEntityBeneficial';
+export { changeModalSettings } from './changeModalSettings'; 
+export { changeSettingsError } from './changeSettingsError'; 
+export { changeSettingsSuccess } from './changeSettingsSuccess'; 
+export { handleSettingsSend } from './handleSettingsSend';

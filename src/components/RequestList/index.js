@@ -17,18 +17,19 @@ class RequestList extends Component {
         this.props.handleRequestItem(localStorage.jwt);
     }
 
-    shouldComponentUpdate(nextProps) {
-        return this.props.requests.items !== nextProps.requests.items;
-    }
+    // shouldComponentUpdate(nextProps) {
+        // return this.props.requests.items !== nextProps.requests.items;
+    // }
 
     renderList () {
-        const { items: request } = this.props.requests;
+        const {
+            items: request,
+            bonus
+        } = this.props.requests;
         const {
             currency: cryptoCurrency,
             TSR: TOKEN_ATTITUDE_ETH,
-            bonus
-        } = this.props.calculator;
-
+        } = this.props.rate;
         return request.map((item, index) => {
             let btnOptions = null;
             const currency = item.currency.split("/");
@@ -94,7 +95,7 @@ class RequestList extends Component {
 export default connect((state) => ({
     requests: state.requests,
     user: state.user,
-    calculator: state.calculator
+    rate: state.rate
 }), {
     handleRequestItem
 })(RequestList);

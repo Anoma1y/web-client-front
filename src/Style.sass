@@ -50,6 +50,9 @@ body
 .auth__container
   height: calc(100vh - 85.38px) !important
 
+.black-text
+  color: $black-color
+
 .menu_login
   margin-bottom: -20px !important
 
@@ -654,15 +657,19 @@ body
     color: $blue-color
   &_submit
     width: 100% !important
+    background-color: transparent !important
+    color: $black-color
     @media screen and (max-width: 767px)
       width: 50% !important
       margin: 15px auto 0 !important
       display: block !important
+  &-pay
+    background-color: transparent !important
+    box-shadow: none !important
+    &:hover
+      background-color: transparent !important
+    //background-color: rgb(42, 207, 49) !important
 
-  &-rejected
-    background-color: rgb(223, 35, 44) !important
-  &-paid
-    background-color: rgb(42, 207, 49) !important
 .request__column
   &_btn
     .ui.button:disabled, .ui.buttons .disabled.button, .ui.disabled.active.button, .ui.disabled.button, .ui.disabled.button:hover
@@ -720,45 +727,59 @@ body
       text-decoration: underline !important
 
 /***ROADMAP COMPONENT***/
-.roadmap__progress
-  margin-top: 25px !important
-  &_bar
-    background: rgba(234, 234, 234, 1) !important
-    .bar
-      background-image: -webkit-linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
-      background-image: -moz-linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
-      background-image: -o-linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
-      background-image: linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
+.roadmap
+  &__title
+    font-size: 25px !important
+    margin-top: -9px !important
+    margin-bottom: -9px !important
+  &__progress
+    margin-top: 22px !important
+    margin-bottom: -12px !important
+    &_bar
+      background: rgba(234, 234, 234, 1) !important
+      .bar
+        background-image: -webkit-linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
+        background-image: -moz-linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
+        background-image: -o-linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
+        background-image: linear-gradient(90deg, rgba(127, 166, 230, 1) 0%, rgba(0, 79, 206, 1) 100%) !important
 
 /***BETATEST COMPONENT***/
 .betatest
+  &__title
+    font-size: 20px !important
+    margin-top: -8px !important
+    margin-bottom: -8px !important
   &__wrapper
-    margin: 10px 0 !important
+    margin-bottom: -31px !important
+    padding-top: 5px !important
+    padding-bottom: 23px !important
+  &__items
+    padding-top: 3px !important
   &__item
     width: 29px !important
     height: 29px !important
     border-radius: 2px !important
     background-color: $gray-color
     cursor: pointer !important
+    margin-right: 10px !important
     i
       color: $white-color
       padding: 0 .25em 0 0.25em !important
   &__item-checked
     background-color: $blue-color
-
-.betatest__submit
-  background-color: transparent !important
-  color: $blue-color
-  text-transform: uppercase !important
-  font-size: 14px !important
-  font-weight: 600 !important
-  border-radius: 2px !important
-  height: 100% !important
-  &-active
-    background-color: $blue-color
-
-.betatest__modal_text
-  color: $black-color
+  &__submit
+    background-color: transparent !important
+    color: $blue-color
+    text-transform: uppercase !important
+    font-size: 14px !important
+    font-weight: 600 !important
+    border-radius: 2px !important
+    height: 100% !important
+    margin-top: -4px !important
+    &-active
+      background-color: $blue-color
+    &__modal_text
+      color: $black-color
 
 /***SOCIAL NETWORK SIDEBAR***/
 
@@ -847,6 +868,7 @@ body
     border-bottom: 1px solid $black-color
     .item
       width: 100% !important
+
 
 .setting__header_button
   background-color: #71779B !important
@@ -997,6 +1019,8 @@ body
     -webkit-box-shadow: none !important
     box-shadow: none !important
     padding-right: 0 !important
+    padding-left: 0 !important
+    margin: 10px 0 !important
     &:hover
       background-color: $white-color
       color: lighten(rgba(0, 79, 206, 1), 5%) !important

@@ -8,6 +8,9 @@ body {
 .auth__container {
   height: calc(100vh - 85.38px) !important; }
 
+.black-text {
+  color: #000000 !important; }
+
 .menu_login {
   margin-bottom: -20px !important; }
 
@@ -624,16 +627,19 @@ body {
   .request__item_value-active {
     color: #004fce !important; }
   .request__item_submit {
-    width: 100% !important; }
+    width: 100% !important;
+    background-color: transparent !important;
+    color: #000000 !important; }
     @media screen and (max-width: 767px) {
       .request__item_submit {
         width: 50% !important;
         margin: 15px auto 0 !important;
         display: block !important; } }
-  .request__item-rejected {
-    background-color: #df232c !important; }
-  .request__item-paid {
-    background-color: #2acf31 !important; }
+  .request__item-pay {
+    background-color: transparent !important;
+    box-shadow: none !important; }
+    .request__item-pay:hover {
+      background-color: transparent !important; }
 
 .request__column_btn .ui.button:disabled, .request__column_btn .ui.buttons .disabled.button, .request__column_btn .ui.disabled.active.button, .request__column_btn .ui.disabled.button, .request__column_btn .ui.disabled.button:hover {
   opacity: .6 !important; }
@@ -689,8 +695,14 @@ body {
       text-decoration: underline !important; }
 
 /***ROADMAP COMPONENT***/
+.roadmap__title {
+  font-size: 25px !important;
+  margin-top: -9px !important;
+  margin-bottom: -9px !important; }
+
 .roadmap__progress {
-  margin-top: 25px !important; }
+  margin-top: 22px !important;
+  margin-bottom: -12px !important; }
   .roadmap__progress_bar {
     background: #eaeaea !important; }
     .roadmap__progress_bar .bar {
@@ -700,15 +712,26 @@ body {
       background-image: linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important; }
 
 /***BETATEST COMPONENT***/
+.betatest__title {
+  font-size: 20px !important;
+  margin-top: -8px !important;
+  margin-bottom: -8px !important; }
+
 .betatest__wrapper {
-  margin: 10px 0 !important; }
+  margin-bottom: -31px !important;
+  padding-top: 5px !important;
+  padding-bottom: 23px !important; }
+
+.betatest__items {
+  padding-top: 3px !important; }
 
 .betatest__item {
   width: 29px !important;
   height: 29px !important;
   border-radius: 2px !important;
   background-color: #939393 !important;
-  cursor: pointer !important; }
+  cursor: pointer !important;
+  margin-right: 10px !important; }
   .betatest__item i {
     color: #FFFFFF !important;
     padding: 0 .25em 0 0.25em !important; }
@@ -723,12 +746,12 @@ body {
   font-size: 14px !important;
   font-weight: 600 !important;
   border-radius: 2px !important;
-  height: 100% !important; }
+  height: 100% !important;
+  margin-top: -4px !important; }
   .betatest__submit-active {
     background-color: #004fce !important; }
-
-.betatest__modal_text {
-  color: #000000 !important; }
+  .betatest__submit__modal_text {
+    color: #000000 !important; }
 
 /***SOCIAL NETWORK SIDEBAR***/
 .dashboard__social_component {
@@ -959,7 +982,9 @@ body {
   color: #004fce !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  padding-right: 0 !important; }
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  margin: 10px 0 !important; }
   .setting__button-new:hover {
     background-color: #FFFFFF !important;
     color: #0059e8 !important; }

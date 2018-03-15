@@ -13,6 +13,7 @@ import ResetReducer from './ResetReducer';
 import UserReducer from './UserReducer';
 import BetaTestReducer from './BetaTestReducer';
 import AdminReducer from './AdminReducer';
+import CurrencyReducer from './CurrencyReducer';
 
 export default combineReducers({
     routing: routerReducer,
@@ -27,5 +28,6 @@ export default combineReducers({
     signup: SignupReducer,
     reset: ResetReducer,
     user: UserReducer,
+    rate: CurrencyReducer,
     admin: AdminReducer
 })

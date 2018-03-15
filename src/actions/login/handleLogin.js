@@ -5,7 +5,8 @@ import { setAuthInProgress } from "./setAuthInProgress";
 import { handleTokenUser } from 'actions/users/handleTokenUser';
 import {
     initIdenfified,
-    initEmail
+    initEmail,
+    initKycType
 } from 'actions/users';
 
 export const handleLogin = value => {
@@ -24,11 +25,13 @@ export const handleLogin = value => {
                 const {
                     is_kyc_passed,
                     email,
-                    roles
+                    roles,
+                    kyc_type
                 } = user.data;
-                dispatch(handleTokenUser({jwt, roles}));
+                dispatch(handleTokenUser({jwt, roles, kyc_type}));
                 dispatch(initIdenfified(is_kyc_passed));
                 dispatch(initEmail(email));
+                dispatch(initKycType(kyc_type));
                 dispatch(setAuthInProgress(false));
                 dispatch(push('/dashboard/'));
             });

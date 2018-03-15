@@ -33,7 +33,6 @@ import {
 
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
-import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
 import CalculatorComment from './CalculatorComment';
 import CalculatorModal from "./CalculatorModal";
 import CalculatorPaymount from './CalculatorPaymount';
@@ -57,7 +56,8 @@ class Calculator extends Component {
     //Возвращает объект значений текущего значения Input, заполненость прогресс бара, значения токенов
     //бонусов и расчетного значения транферного значения валют и токенов
     calcCurrency = value => {
-        const { TSR: TSR_PRICE, currencyValue, bonus: bonusList, currency } = this.props.calculator;
+        const { TSR: TSR_PRICE, currencyValue, bonus: bonusList } = this.props.calculator;
+        const { currency } = this.props.rate;
         let bonus;
         let BTC, ETH, TKNinitialValue, TSRvalue, USD;
         const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
@@ -103,7 +103,7 @@ class Calculator extends Component {
     //Для выбранной валюты происходит расчет значений
     //Возвращает объект значений расчетного значения суммы валют, заполненость прогресс бара, значения токенов из текущего Input
     //бонусов и расчетного значения транферного значения валют и токенов
-    calcToken = value => {
+    calcToken = (value) => {
         const { currencyValue, bonus: bonusList } = this.props.calculator;
         const { bonus, bonusTSR } = checkBonus(value, bonusList);
         const bonusValue = bonusCalc(value, bonusTSR);
@@ -143,7 +143,8 @@ class Calculator extends Component {
     //bonusValue - бонусное значение токена
     //Возвращает объект значений для каждой валюты + токена
     transferTKN = (value, bonusValue) => {
-        const { TSR: TKN_PRICE, currency } = this.props.calculator;
+        const { TSR: TKN_PRICE } = this.props.calculator;
+        const { currency } = this.props.rate;
         const TSR_ETH = TKNprice("ETH", TKN_PRICE, currency);
         const USD = TSR_ETH *  value;
         const BTC = (TSR_ETH / currency[0].price_usd) * value;
@@ -161,50 +162,13 @@ class Calculator extends Component {
 
 
     componentWillMount() {
-        const { setCurrency } = this.props;
         const { tokenValue } = this.props.calculator;
-        const INITIAL_DATA = [
-            {
-                'id': 'bitcoin',
-                'name': 'Bitcoin',
-                'symbol': 'BTC',
-                'price_usd': '0'
-            },
-            {
-                'id': 'ethereum',
-                'name': 'Ethereum',
-                'symbol': 'ETH',
-                "price_usd": "0",
-                "price_btc": "0"
-            },
-            {
-                'id': 'usd',
-                'name': 'USD',
-                'symbol': 'USD',
-                'price_usd': '1'
-            }
-        ]
-        CryptoCurrency.getCryptoCurrency().then((data) => {
-            const CURRENCY = data.data;
-            const CURRENCY_DATA = [...CURRENCY,
-                {
-                    id: 'usd',
-                    name: 'USD',
-                    symbol: 'USD',
-                    price_usd: '1'
-                }
-            ]
-            if (CURRENCY.length !== 0) {
-                setCurrency(CURRENCY_DATA);
-            } else {
-                setCurrency(INITIAL_DATA)
-            }
+        setTimeout(() => {
             this.changeState(this.calcToken(tokenValue));
-        }).catch(() => {
-            setCurrency(INITIAL_DATA);
-            this.changeState(this.calcToken(tokenValue));
-        })
+        }, 1000)
     }
+
+
 
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
     //Принимает 1 значение (event - value) - вводимое (пользователем) значение
@@ -261,7 +225,8 @@ class Calculator extends Component {
     }
 
     renderCurrencyButton = () => {
-        const { currencyValue, currency } = this.props.calculator;
+        const { currencyValue } = this.props.calculator;
+        const { currency } = this.props.rate;
         return currency.map(item => {
             return (
                 <Grid.Column widescreen={2} computer={2} tablet={2} mobile={3} key={item["id"]}>
@@ -477,7 +442,8 @@ class Calculator extends Component {
 
 export default connect(state => ({
     calculator: state.calculator,
-    user: state.user
+    user: state.user,
+    rate: state.rate
 }), {
     changeCurrencyValue,
     changeTransferData,

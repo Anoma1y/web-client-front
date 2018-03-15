@@ -3,13 +3,15 @@ import {
     DELETE_TOKEN_USER,
     INIT_EMAIL,
     INIT_IDENFIFIED,
-    PUT_ROLES_USER
+    PUT_ROLES_USER,
+    INIT_KYC_TYPE
 } from 'actions/users/types';
 
 const INITIAL_STATE = {
     jwt: null,
-    email: "",
+    email: '',
     isIdentification: false,
+    kyc_type: '',
     roles: "user"
 };
 
@@ -25,6 +27,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, email: action.payload };
         case INIT_IDENFIFIED:
             return { ...state, isIdentification: action.payload };
+        case INIT_KYC_TYPE:
+            return { ...state, kyc_type: action.payload };
         default:
             return state;
     }

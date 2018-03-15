@@ -5,41 +5,40 @@ import {
     Table,
     Container,
     Button,
-    Pagination
+    Pagination,
+    Modal,
+    Icon
 } from 'semantic-ui-react';
 import ApplicationTableRow from './ApplicationTableRow';
-import AdminLib from "libs/ApiLib/AdminLib";
 import {
     addAllApplication,
     sortedApplications,
     changeDeleteApplications,
-    setAdminCurrency
 } from 'actions/admin';
+import {changeCurrency} from 'actions/rate';
 import _ from "underscore";
-import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
 import { currentCountItems } from 'libs/math';
+import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
+import AdminLib from 'libs/ApiLib/AdminLib';
 
 class ApplicationComponent extends Component {
 
     state = {
         itemsOnPage: 15,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
+        modalIsOpen: false
     }
-
-    componentWillMount() {
+    getCurrencyAdmin = () => {
         const {
-            setAdminCurrency,
-            changeDeleteApplications
+            changeCurrency
         } = this.props;
-        changeDeleteApplications([]);
-
         const INITIAL_DATA = [
             {
                 'id': 'bitcoin',
                 'name': 'Bitcoin',
                 'symbol': 'BTC',
-                'price_usd': '0'
+                'price_usd': "8240.82"
             },
             {
                 'id': 'ethereum',
@@ -55,30 +54,49 @@ class ApplicationComponent extends Component {
                 'price_usd': '1'
             }
         ]
-        CryptoCurrency.getCryptoCurrency().then((data) => {
-            const CURRENCY = data.data;
-            const CURRENCY_DATA = [...CURRENCY,
-                {
-                    id: 'usd',
-                    name: 'USD',
-                    symbol: 'USD',
-                    price_usd: '1'
-                }
-            ]
-            if (CURRENCY.length !== 0) {
-                setAdminCurrency(CURRENCY_DATA);
-            } else {
-                setAdminCurrency(INITIAL_DATA);
-            }
-        }).catch(() => {
-            setAdminCurrency(INITIAL_DATA);
-        })
+
+        CryptoCurrency.getCryptoCurrency()
+            .then((data) => {
+                const CURRENCY = data.data;
+                const CURRENCY_DATA = [...CURRENCY,
+                    {
+                        id: 'usd',
+                        name: 'USD',
+                        symbol: 'USD',
+                        price_usd: '1'
+                    }
+                ];
+                changeCurrency(CURRENCY_DATA);
+            })
+            .catch(() => {
+                changeCurrency(INITIAL_DATA);
+            })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.currencyIntervalAdmin);
+    }
+
+    componentWillMount() {
+        const {
+            changeDeleteApplications
+        } = this.props;
+        this.getCurrencyAdmin();
+        this.currencyIntervalAdmin = setInterval(() => {
+            this.getCurrencyAdmin();
+        }, 10000)
+        changeDeleteApplications([]);
     }
     componentDidMount() {
+        this.getApplication();
+    }
+
+    getApplication = () => {
         const { addAllApplication } = this.props;
         AdminLib.getAllApplication().then((data) => {
             this.setState({
-                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage)
+                totalPages: Math.ceil(data.data.length / this.state.itemsOnPage),
+                modalIsOpen: false
             })
             addAllApplication(_.sortBy(data.data, function(node) {
                 return -(new Date(node.CreatedAt).getTime());
@@ -109,7 +127,6 @@ class ApplicationComponent extends Component {
                 key={item.ID}
                 id={item.ID}
                 createdAt={item.CreatedAt}
-                updatedAt={item.UpdatedAt}
                 amount={item.amount}
                 comment={item.comment}
                 currency={item.currency}
@@ -139,10 +156,44 @@ class ApplicationComponent extends Component {
         sortedApplications(sortData);
     }
 
+    deleteApplication = () => {
+        const {
+            deleteApplications
+        } = this.props.admin;
+        const delApp = deleteApplications.join(',');
+        AdminLib.deleteApplication(delApp)
+            .then((data) => {
+                if (data.status === 200) {
+                    this.getApplication();
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+
+    handleCloseModal = () => {
+        this.setState({
+            modalIsOpen: false
+        })
+    }
+    openModal = () => {
+        const {
+            deleteApplications
+        } = this.props.admin;
+        if (deleteApplications.length !== 0) {
+            this.setState({
+                modalIsOpen: true
+            })
+        }
+    }
     render() {
         const {
-            applicationList
+            applicationList,
         } = this.props.admin;
+        const {
+            modalIsOpen
+        } = this.state;
         return (
             <Container>
                 <Grid>
@@ -172,9 +223,48 @@ class ApplicationComponent extends Component {
                                             <Pagination defaultActivePage={1} totalPages={this.state.totalPages} onPageChange={this.handlePaginationChange}/>
                                         </Table.HeaderCell>
                                         <Table.HeaderCell colSpan='1'>
-                                            <Button floated='right' color={"youtube"} size='small'>
-                                                Remove Application
-                                            </Button>
+                                            <Modal
+                                                trigger={
+                                                    <Button
+                                                        floated='right'
+                                                        color={"youtube"}
+                                                        size='small'
+                                                        fluid
+                                                        onClick={this.openModal}
+                                                    >
+                                                        Remove Application
+                                                    </Button>
+                                                }
+                                                open={modalIsOpen}
+                                                onClose={this.handleCloseModal}
+                                                basic
+                                                size='tiny'
+                                            >
+                                                <Modal.Content className={"modal__success"}>
+                                                    <Modal.Description>
+                                                        <div className={"modal__success_icon modal__error-icon"}>
+                                                            <Icon name={"attention"} />
+                                                        </div>
+                                                        <div className={"modal__success_text black-text"}>
+                                                            <span>
+                                                                Remove applications?
+                                                            </span>
+                                                        </div>
+                                                        <div className={"modal__success_btn modal__success-error"}>
+                                                            <Button
+                                                                className={"dashboard__submit"}
+                                                                onClick={this.deleteApplication}
+                                                            >Remove
+                                                            </Button>
+                                                            <Button
+                                                                className={"dashboard__submit auth_btn"}
+                                                                onClick={this.handleCloseModal}
+                                                            >Cancel
+                                                            </Button>
+                                                        </div>
+                                                    </Modal.Description>
+                                                </Modal.Content>
+                                            </Modal>
                                         </Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Footer>
@@ -190,7 +280,7 @@ class ApplicationComponent extends Component {
 export default connect(state => ({ admin: state.admin }), {
     addAllApplication,
     sortedApplications,
-    setAdminCurrency,
-    changeDeleteApplications
+    changeDeleteApplications,
+    changeCurrency
 })(ApplicationComponent);
 
