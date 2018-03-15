@@ -16,3 +16,5 @@ export { changeAdminCurrencyValue } from './changeAdminCurrencyValue';
 export { changeAdminTokenValue } from './changeAdminTokenValue';
 export { changeAdminTransferData } from './changeAdminTransferData';
 export { handleAdminCurrentCurrency } from './handleAdminCurrentCurrency';
+
+export { setApplicationSingle } from './setApplicationSingle';

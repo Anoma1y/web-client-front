@@ -12,7 +12,8 @@ import {
     SET_ADMIN_CURRENCY_VALUE,
     SET_ADMIN_TOKEN_VALUE,
     SET_ADMIN_CURRENT_BONUS,
-    SET_ADMIN_TRANSFER_DATA
+    SET_ADMIN_TRANSFER_DATA,
+    SET_ADMIN_APPLICATION_SINGLE
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -25,6 +26,23 @@ const INITIAL_STATE = {
         data: [],
         column: null,
         direction: 'descending'
+    },
+    singleApplication: {
+        CreatedAt: null,
+        ID: null,
+        amount: 0,
+        currency: '',
+        comment: '',
+        profile: {
+            ID: null,
+            CreatedAt: null,
+            email: '',
+            is_kyc_passed: null,
+            is_verified: null,
+            kyc_type: null,
+            roles: ''
+        },
+        status: null
     },
     deleteUsers: [],
     deleteApplications: [],
@@ -133,6 +151,8 @@ export default (state = INITIAL_STATE, action) => {
                 transferData
             } = action.payload;
             return { ...state,  sumValue, progressBar, tokenValue, bonus, currentBonus, transferData };
+        case SET_ADMIN_APPLICATION_SINGLE:
+            return { ...state, singleApplication: action.payload };
         default:
             return state;
     }

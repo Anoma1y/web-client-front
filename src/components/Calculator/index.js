@@ -104,7 +104,7 @@ class Calculator extends Component {
     //Для выбранной валюты происходит расчет значений
     //Возвращает объект значений расчетного значения суммы валют, заполненость прогресс бара, значения токенов из текущего Input
     //бонусов и расчетного значения транферного значения валют и токенов
-    calcToken = (value, cur) => {
+    calcToken = (value) => {
         const { currencyValue, bonus: bonusList } = this.props.calculator;
         const { bonus, bonusTSR } = checkBonus(value, bonusList);
         const bonusValue = bonusCalc(value, bonusTSR);
@@ -164,12 +164,12 @@ class Calculator extends Component {
 
     componentWillMount() {
         const { tokenValue } = this.props.calculator;
-        const { currency } = this.props.rate;
-        console.log(currency);
         setTimeout(() => {
             this.changeState(this.calcToken(tokenValue));
         }, 1000)
     }
+
+
 
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
     //Принимает 1 значение (event - value) - вводимое (пользователем) значение
