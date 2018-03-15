@@ -28,6 +28,32 @@ class AdminLib {
         )
     }
 
+    static editApplication(id, data) {
+        const URL = Config.url + `admin/application/${id}`;
+        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${ADMIN_TOKEN}`
+            }
+        }
+        return axios.put(URL,
+            data,
+            header
+        )
+    }
+
+    static deleteApplication(id) {
+        const URL = Config.url + `admin/application/${id}`;
+        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${ADMIN_TOKEN}`
+            }
+        }
+        return axios.delete(URL,
+            header
+        )
+    }
 
     static getAllUsers() {
         const URL = Config.url + "admin/profile";
@@ -43,7 +69,18 @@ class AdminLib {
 
     }
 
-    static getUsersById() {}
+    static getUsersById(id) {
+        const URL = Config.url + `admin/profile/${id}`;
+        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${ADMIN_TOKEN}`
+            }
+        }
+        return axios.get(URL,
+            header
+        )
+    }
 }
 
 export default AdminLib;

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CurrencyButton } from 'components/Calculator/CalculatorButton';
-import { Grid } from 'semantic-ui-react'
+import { 
+    Grid,
+    Radio
+} from 'semantic-ui-react'
 import {
     changeAdminCurrencyValue,
     changeAdminTokenValue,
     changeAdminTransferData,
-    handleAdminCurrentCurrency
+    handleAdminCurrentCurrency,
+    changeFixedCurrency
 } from 'actions/admin';
 import {
     bonusCalc,
@@ -19,13 +23,17 @@ import {
     transferBTC,
     TKNprice
 } from 'libs/math';
+import { InputSlider } from 'components/Calculator/CalculatorSlider';
+
 class AdminCalculator extends Component {
 
     renderCurrencyButton = () => {
         const {
-            currency,
             currencyValue
         } = this.props.admin;
+        const {
+            currency
+        } = this.props.rate;
         return currency.map(item => {
             return (
                 <Grid.Column widescreen={2} computer={2} tablet={2} mobile={3} key={item["id"]}>
@@ -39,8 +47,23 @@ class AdminCalculator extends Component {
         })
     }
 
+
+    componentWillMount() {
+        const {
+            tokenValue
+        } = this.props.admin;
+        setTimeout(() => {
+            this.changeState(this.calcToken(tokenValue));
+        }, 500);
+    }
+
+
     calcCurrency = value => {
-        const { TSR: TSR_PRICE, currencyValue, bonus: bonusList, currency } = this.props.admin;
+        const { currencyValue, bonus: bonusList } = this.props.admin;
+        const {
+            TSR: TSR_PRICE,
+            currency
+        } = this.props.rate;
         let bonus;
         let BTC, ETH, TKNinitialValue, TSRvalue, USD;
         const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
@@ -113,7 +136,10 @@ class AdminCalculator extends Component {
         };
     }
     transferTKN = (value, bonusValue) => {
-        const { TSR: TKN_PRICE, currency } = this.props.admin;
+        const {
+            TSR: TKN_PRICE,
+            currency
+        } = this.props.rate;
         const TSR_ETH = TKNprice("ETH", TKN_PRICE, currency);
         const USD = TSR_ETH *  value;
         const BTC = (TSR_ETH / currency[0].price_usd) * value;
@@ -158,12 +184,32 @@ class AdminCalculator extends Component {
         const { changeAdminTransferData } = this.props;
         changeAdminTransferData(value);
     }
+    handleTokenRange = event => {
+        const { value } = event.target;
+        this.changeState(this.calcToken(value));
+    }
+    handleChangeFixedCurrency = (event, {value}) => {
+        const {
+            changeFixedCurrency
+        } = this.props;
+        const {
+            currencyValue
+        } = this.props.admin;
+        if (value === "TSR") {
+            changeFixedCurrency(`TSR/${currencyValue}`)
+
+        } else if (value === currencyValue) {
+            changeFixedCurrency(`${currencyValue}/TSR`)
+        }
+    }
     render() {
         const {
             sumValue,
             tokenValue,
             currencyValue,
-            currentBonus
+            currentBonus,
+            fixedCurrency,
+            bonus
         } = this.props.admin;
         return (
             <Grid>
@@ -205,6 +251,35 @@ class AdminCalculator extends Component {
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
+                    <Grid.Column width={8}>
+                        <Radio
+                            label='TSR'
+                            name='FIXED_CURRENCY_GROUP'
+                            value='TSR'
+                            checked={fixedCurrency.split('/')[0] === 'TSR'}
+                            onChange={this.handleChangeFixedCurrency}
+                        />
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                        <Radio
+                            label={currencyValue}
+                            name='FIXED_CURRENCY_GROUP'
+                            value={currencyValue}
+                            checked={fixedCurrency.split('/')[0] === currencyValue}
+                            onChange={this.handleChangeFixedCurrency}
+                        />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <InputSlider
+                            maximumBonusToken={bonus[bonus.length - 1]["limit"]}
+                            tokenValue={tokenValue}
+                            handleTokenRange={this.handleTokenRange}
+                        />
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
                     <Grid.Column>
                         {`Bonus: ${currentBonus}%`}
                     </Grid.Column>
@@ -214,10 +289,14 @@ class AdminCalculator extends Component {
     }
 }
 
-export default connect(state => ({ admin: state.admin }), {
+export default connect(state => ({
+    admin: state.admin,
+    rate: state.rate
+}), {
     changeAdminCurrencyValue,
     changeAdminTokenValue,
     changeAdminTransferData,
-    handleAdminCurrentCurrency
+    handleAdminCurrentCurrency,
+    changeFixedCurrency
 })(AdminCalculator);
 

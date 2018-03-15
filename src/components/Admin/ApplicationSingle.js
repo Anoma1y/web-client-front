@@ -1,23 +1,89 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    setApplicationSingle
+    setApplicationSingle,
+    changeApplicationStatus,
+    changeFixedCurrency
 } from 'actions/admin';
 import {
-    Grid
+    Container,
+    Grid,
+    Card,
+    Form,
+    Radio,
+    Button
 } from 'semantic-ui-react'
-
 import AdminLib from 'libs/ApiLib/AdminLib';
+import AdminCalculator from './AdminCalculator';
+import {
+    changeCurrency
+} from 'actions/rate';
+import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
 
 class ApplicationSingle extends Component {
 
-    
+    getCurrencyAdmin = () => {
+        const {
+            changeCurrency
+        } = this.props;
+        const INITIAL_DATA = [
+            {
+                'id': 'bitcoin',
+                'name': 'Bitcoin',
+                'symbol': 'BTC',
+                'price_usd': "8240.82"
+            },
+            {
+                'id': 'ethereum',
+                'name': 'Ethereum',
+                'symbol': 'ETH',
+                "price_usd": "0",
+                "price_btc": "0"
+            },
+            {
+                'id': 'usd',
+                'name': 'USD',
+                'symbol': 'USD',
+                'price_usd': '1'
+            }
+        ]
+
+        CryptoCurrency.getCryptoCurrency()
+            .then((data) => {
+                const CURRENCY = data.data;
+                const CURRENCY_DATA = [...CURRENCY,
+                    {
+                        id: 'usd',
+                        name: 'USD',
+                        symbol: 'USD',
+                        price_usd: '1'
+                    }
+                ];
+                changeCurrency(CURRENCY_DATA);
+            })
+            .catch(() => {
+                changeCurrency(INITIAL_DATA);
+            })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.currencyIntervalAdmin);
+    }
+
+    componentWillMount() {
+        this.getCurrencyAdmin();
+        this.currencyIntervalAdmin = setInterval(() => {
+            this.getCurrencyAdmin();
+        }, 10000)
+    }
+
     componentDidMount() {
         const {
             id
         } = this.props.match.params;
         const {
-            setApplicationSingle
+            setApplicationSingle,
+            changeApplicationStatus
         } = this.props;
         AdminLib.getApplicationByID(id)
             .then((data) => {
@@ -38,29 +104,137 @@ class ApplicationSingle extends Component {
                     },
                     status: data.data.status
                 }
+                changeApplicationStatus(data.data.status);
                 setApplicationSingle(APPLICATION);
             })
             .catch((err) => {
                 console.log(err);
             })
-        
+    }
+
+    handleChange = (event, {value}) => {
+        const { changeApplicationStatus } = this.props;
+        changeApplicationStatus(Number(value));
+    }
+
+    handleSend = () => {
+        const {
+            transferData,
+            fixedCurrency,
+            applicationStatus,
+            tokenValue
+        } = this.props.admin;
+        const {
+            id
+        } = this.props.match.params;
+        const amount = fixedCurrency.split('/')[0] === 'TSR' ? Number(tokenValue) : Number(transferData[fixedCurrency.split('/')[0]]);
+        const data = {
+            status: Number(applicationStatus),
+            amount,
+            currency: fixedCurrency
+        }
+
+        AdminLib.editApplication(id, data)
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         
     }
 
     render() {
-        
+        const {
+            singleApplication,
+            applicationStatus
+        } = this.props.admin;
         return (
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column>
-                        <h1>{this.props.admin.singleApplication.ID}</h1>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
+            <Container>
+                <Grid>
+                    <Grid.Row centered>
+                        <Grid.Column>
+                            <Card fluid className={"component__main component__shadow"}>
+                                <Card.Content>
+                                    <Card.Header>
+                                        {"Application editing"}
+                                    </Card.Header>
+                                    <Grid>
+                                        <Grid.Row>
+                                            <Grid.Column>
+                                                <Form>
+                                                    <Form.Field>
+                                                        Current status: <b>{singleApplication.status === 0 ? "Awaiting" : singleApplication.status === 1 ? "Approved" : singleApplication.status === 2 ? "Rejected" : "Paid"}</b>
+                                                    </Form.Field>
+                                                    <Form.Field>
+                                                        <Radio
+                                                            label='Awaiting'
+                                                            name='applicationStatusGroup'
+                                                            value='0'
+                                                            checked={applicationStatus === 0}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                    </Form.Field>
+                                                    <Form.Field>
+                                                        <Radio
+                                                            label='Approved'
+                                                            name='applicationStatusGroup'
+                                                            value='1'
+                                                            checked={applicationStatus === 1}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                    </Form.Field>
+                                                    <Form.Field>
+                                                        <Radio
+                                                            label='Rejected'
+                                                            name='applicationStatusGroup'
+                                                            value='2'
+                                                            checked={applicationStatus === 2}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                    </Form.Field>
+                                                    <Form.Field>
+                                                        <Radio
+                                                            label='Paid'
+                                                            name='applicationStatusGroup'
+                                                            value='3'
+                                                            checked={applicationStatus === 3}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                    </Form.Field>
+                                                </Form>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column>
+                                                <AdminCalculator />
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column>
+                                                <Button
+                                                    className={"auth_btn"}
+                                                    onClick={this.handleSend}
+                                                >
+                                                    Save Changes
+                                                </Button>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                    </Grid>
+                                </Card.Content>
+                            </Card>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Container>
         );
     }
 }
 
+
 export default connect(state => ({ admin: state.admin }), {
-    setApplicationSingle
+    setApplicationSingle,
+    changeCurrency,
+    changeApplicationStatus,
+    changeFixedCurrency
 })(ApplicationSingle);

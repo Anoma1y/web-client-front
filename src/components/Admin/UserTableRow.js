@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
     Table,
     Modal,
@@ -56,7 +57,9 @@ class UserTableRow extends Component {
 
         return (
             <Table.Row className={"admin__users-user"} >
-                <Table.Cell className={`user_${id}`} onClick={this.goToSingleUser}>{id}</Table.Cell>
+                <Table.Cell className={`user_${id}`} onClick={this.goToSingleUser}>
+                    <Link to={`user/${id}`}>{id}</Link>
+                </Table.Cell>
                 <Table.Cell>{moment(createdAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
                 <Table.Cell>{email}</Table.Cell>
                 <Modal

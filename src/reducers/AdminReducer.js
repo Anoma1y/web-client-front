@@ -7,13 +7,14 @@ import {
     CHANGE_DELETE_APPLICATIONS,
     CHANGE_USER_ROLE,
     CHANGE_APPLICATION_STATUS,
-    SET_ADMIN_CURRENCY,
     SET_ADMIN_CURRENTCURRENCY,
     SET_ADMIN_CURRENCY_VALUE,
     SET_ADMIN_TOKEN_VALUE,
     SET_ADMIN_CURRENT_BONUS,
     SET_ADMIN_TRANSFER_DATA,
-    SET_ADMIN_APPLICATION_SINGLE
+    SET_ADMIN_APPLICATION_SINGLE,
+    CHANGE_FIXED_CURRENCY,
+    SET_ADMIN_USER_SINGLE
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -44,11 +45,19 @@ const INITIAL_STATE = {
         },
         status: null
     },
+    singleUser: {
+        CreatedAt: null,
+        ID: null,
+        email: null,
+        is_kyc_passed: null,
+        is_verified: null,
+        kyc_type: null,
+        roles: null
+    },
     deleteUsers: [],
     deleteApplications: [],
     userRole: null,
     applicationStatus: null,
-    TSR: 0.001,
     bonus: [
         {
             value: 2.5,
@@ -76,33 +85,13 @@ const INITIAL_STATE = {
     currencyValue: 'ETH',
     sumValue: 0,
     tokenValue: 10000,
+    fixedCurrency: 'TSR/ETH',
     transferData: {
         USD: 0,
         TSR: 0,
         BTC: 0,
         ETH: 0
-    },
-    currency: [
-        {
-            'id': 'bitcoin',
-            'name': 'Bitcoin',
-            'symbol': 'BTC',
-            'price_usd': '0'
-        },
-        {
-            'id': 'ethereum',
-            'name': 'Ethereum',
-            'symbol': 'ETH',
-            "price_usd": "0",
-            "price_btc": "0"
-        },
-        {
-            'id': 'usd',
-            'name': 'USD',
-            'symbol': 'USD',
-            'price_usd': '1'
-        }
-    ]
+    }
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -131,8 +120,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, userRole: action.payload };
         case CHANGE_APPLICATION_STATUS:
             return { ...state, applicationStatus: action.payload };
-        case SET_ADMIN_CURRENCY:
-            return { ...state, currency: action.payload };
+        case CHANGE_FIXED_CURRENCY:
+            return { ...state, fixedCurrency: action.payload };
         case SET_ADMIN_CURRENTCURRENCY:
             return { ...state, currencyValue: action.payload };
         case SET_ADMIN_CURRENCY_VALUE:
@@ -153,6 +142,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state,  sumValue, progressBar, tokenValue, bonus, currentBonus, transferData };
         case SET_ADMIN_APPLICATION_SINGLE:
             return { ...state, singleApplication: action.payload };
+        case SET_ADMIN_USER_SINGLE:
+            return { ...state, singleUser: action.payload };
         default:
             return state;
     }

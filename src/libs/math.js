@@ -29,7 +29,6 @@ export const checkPercent = (value, currency, bonus) => {
 //CRYPTO_CURRENCY (Array-Object) - курс криптовалюты, BONUS_LIST (Array Object) - список бонусов при достижении значений токена
 //Возвращает объект значений: CURRENCYVALUE - стоимость валюты, TOKENVALUE - стоимость токена
 export const applicationCalc = (FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
-
     let CURRENCYVALUE = 0;
     let TOKENVALUE = 0;
     let percent = 0;

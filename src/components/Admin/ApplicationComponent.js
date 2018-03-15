@@ -13,11 +13,11 @@ import {
     addAllApplication,
     sortedApplications,
     changeDeleteApplications,
-    setAdminCurrency
 } from 'actions/admin';
+import {changeCurrency} from 'actions/rate';
 import _ from "underscore";
-import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
 import { currentCountItems } from 'libs/math';
+import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
 
 class ApplicationComponent extends Component {
 
@@ -26,20 +26,16 @@ class ApplicationComponent extends Component {
         totalPages: 1,
         currentPage: 1
     }
-
-    componentWillMount() {
+    getCurrencyAdmin = () => {
         const {
-            setAdminCurrency,
-            changeDeleteApplications
+            changeCurrency
         } = this.props;
-        changeDeleteApplications([]);
-
         const INITIAL_DATA = [
             {
                 'id': 'bitcoin',
                 'name': 'Bitcoin',
                 'symbol': 'BTC',
-                'price_usd': '0'
+                'price_usd': "8240.82"
             },
             {
                 'id': 'ethereum',
@@ -55,24 +51,38 @@ class ApplicationComponent extends Component {
                 'price_usd': '1'
             }
         ]
-        CryptoCurrency.getCryptoCurrency().then((data) => {
-            const CURRENCY = data.data;
-            const CURRENCY_DATA = [...CURRENCY,
-                {
-                    id: 'usd',
-                    name: 'USD',
-                    symbol: 'USD',
-                    price_usd: '1'
-                }
-            ]
-            if (CURRENCY.length !== 0) {
-                setAdminCurrency(CURRENCY_DATA);
-            } else {
-                setAdminCurrency(INITIAL_DATA);
-            }
-        }).catch(() => {
-            setAdminCurrency(INITIAL_DATA);
-        })
+
+        CryptoCurrency.getCryptoCurrency()
+            .then((data) => {
+                const CURRENCY = data.data;
+                const CURRENCY_DATA = [...CURRENCY,
+                    {
+                        id: 'usd',
+                        name: 'USD',
+                        symbol: 'USD',
+                        price_usd: '1'
+                    }
+                ];
+                changeCurrency(CURRENCY_DATA);
+            })
+            .catch(() => {
+                changeCurrency(INITIAL_DATA);
+            })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.currencyIntervalAdmin);
+    }
+
+    componentWillMount() {
+        const {
+            changeDeleteApplications
+        } = this.props;
+        this.getCurrencyAdmin();
+        this.currencyIntervalAdmin = setInterval(() => {
+            this.getCurrencyAdmin();
+        }, 10000)
+        changeDeleteApplications([]);
     }
     componentDidMount() {
         const { addAllApplication } = this.props;
@@ -109,7 +119,6 @@ class ApplicationComponent extends Component {
                 key={item.ID}
                 id={item.ID}
                 createdAt={item.CreatedAt}
-                updatedAt={item.UpdatedAt}
                 amount={item.amount}
                 comment={item.comment}
                 currency={item.currency}
@@ -190,7 +199,7 @@ class ApplicationComponent extends Component {
 export default connect(state => ({ admin: state.admin }), {
     addAllApplication,
     sortedApplications,
-    setAdminCurrency,
-    changeDeleteApplications
+    changeDeleteApplications,
+    changeCurrency
 })(ApplicationComponent);
 
