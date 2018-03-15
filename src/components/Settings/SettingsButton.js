@@ -22,7 +22,7 @@ class SettingsButton extends Component {
             initKycType
         } = this.props;
         const { kyc_type } = this.props.user;
-        if (kyc_type === settingsOption) {
+        if (kyc_type === settingsOption || kyc_type === '') {
             handleSettingsSend(settingsOption);
             initKycType(settingsOption);
         }

@@ -21,7 +21,8 @@ const panes = [
 
 class Identification extends Component {
     render() {
-        const kyc_type = localStorage.getItem('kyc_type');
+        // const kyc_type = localStorage.getItem('kyc_type');
+        const { kyc_type } = this.props.user;
         return (
             <Card fluid className={'settings__identification component__main component__shadow'}>
                 <Card.Content>
