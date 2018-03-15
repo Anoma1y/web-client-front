@@ -11,15 +11,21 @@ import {
     changeModalSettings,
     handleSettingsSend
 } from 'actions/settings';
+import { initKycType } from 'actions/users';
 
 class SettingsButton extends Component {
 
     handleSubmit = () => {
         const {
             handleSettingsSend,
-            settingsOption
+            settingsOption,
+            initKycType
         } = this.props;
-        handleSettingsSend(settingsOption);
+        const { kyc_type } = this.props.user;
+        if (kyc_type === settingsOption) {
+            handleSettingsSend(settingsOption);
+            initKycType(settingsOption);
+        }
     }
 
     handleCloseModal = () => {
@@ -81,9 +87,11 @@ class SettingsButton extends Component {
 }
 
 export default connect(state => ({
-    settings: state.settings
+    settings: state.settings,
+    user: state.user
 }), {
     changeModalSettings,
+    initKycType,
     handleSettingsSend
 })(SettingsButton);
 

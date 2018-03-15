@@ -8,7 +8,7 @@ import KYC from 'libs/ApiLib/KYC';
 export const handleSettingsSend = value => {
     return (dispatch, getState) => {
         const {
-            jwt: TOKEN
+            jwt: TOKEN,
         } = getState().user;
         if (value === 'individual') {
             const {
