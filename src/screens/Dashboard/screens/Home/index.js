@@ -16,11 +16,70 @@ import TelegramWidget from 'components/TelegramWidget';
 import CryptoWidget from 'components/CryptoWidget';
 import { AttentionIdentification } from 'components/AttentionIdentification';
 import { redirectToHome } from "actions/redirect";
+import { changeCurrency } from 'actions/rate';
+import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
+
 
 class Home extends Component{
     state = {
 
     }
+
+    getCurrency = () => {
+        const {
+            changeCurrency
+        } = this.props;
+        const INITIAL_DATA = [
+            {
+                'id': 'bitcoin',
+                'name': 'Bitcoin',
+                'symbol': 'BTC',
+                'price_usd': '0'
+            },
+            {
+                'id': 'ethereum',
+                'name': 'Ethereum',
+                'symbol': 'ETH',
+                "price_usd": "0",
+                "price_btc": "0"
+            },
+            {
+                'id': 'usd',
+                'name': 'USD',
+                'symbol': 'USD',
+                'price_usd': '1'
+            }
+        ]
+        CryptoCurrency.getCryptoCurrency()
+            .then((data) => {
+                const CURRENCY = data.data;
+                const CURRENCY_DATA = [...CURRENCY,
+                    {
+                        id: 'usd',
+                        name: 'USD',
+                        symbol: 'USD',
+                        price_usd: '1'
+                    }
+                ];
+                changeCurrency(CURRENCY_DATA);
+            })
+            .catch(() => {
+                changeCurrency(INITIAL_DATA);
+            })
+    }
+    
+    componentWillMount() {
+        this.getCurrency();
+    }
+
+
+    componentDidMount() {
+
+        setInterval(() => {
+            this.getCurrency();
+        }, 10000)
+    }
+
 
     handleContextRef = contextRef => {
         this.setState({contextRef})
@@ -89,6 +148,7 @@ class Home extends Component{
 export default connect(state => ({ 
     user: state.user
 }), {
-    redirectToHome
+    redirectToHome,
+    changeCurrency
 })(Home);
 

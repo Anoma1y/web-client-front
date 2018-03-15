@@ -12,4 +12,4 @@ export { changeDocumentEntityBeneficial } from './changeDocumentEntityBeneficial
 export { changeModalSettings } from './changeModalSettings'; 
 export { changeSettingsError } from './changeSettingsError'; 
 export { changeSettingsSuccess } from './changeSettingsSuccess'; 
-export { handleSettingsSend } from './handleSettingsSend'; 
+export { handleSettingsSend } from './handleSettingsSend';

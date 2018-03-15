@@ -6,3 +6,4 @@ export { initIdenfified } from './initIdenfified';
 export { initEmail } from './initEmail';
 export { initialUser } from './initialUser';
 export { putRoles } from './putRoles';
+export { initKycType } from './initKycType'; 

@@ -155,7 +155,7 @@ class IdentificationImgUpload extends Component {
                         </Card.Description>
                         <Card.Description>
                             <Button
-                                className={imagePreviewUrl.length > 0 ? 'auth_btn setting__button-new' :'auth_btn setting__button'}
+                                className={'auth_btn setting__button-new'}
                                 floated={'right'}
                                 onClick={(e)=> {
                                     document.getElementById(this.props.id).click();

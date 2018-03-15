@@ -1,0 +1,1 @@
+export const CHANGE_RATE_CURRENCY = 'rate/CHANGE_RATE_CURRENCY';

@@ -27,7 +27,6 @@ class SettingsButton extends Component {
         changeModalSettings(false);
     }
 
-
     render() {
         const {
             settingsModalIsOpen,
@@ -51,14 +50,14 @@ class SettingsButton extends Component {
                         open={settingsModalIsOpen}
                         onClose={this.handleCloseModal}
                         basic
-                        size='small'
+                        size='tiny'
                     >
                         <Modal.Content className={"modal__success"}>
                             <Modal.Description>
                                 <div className={success ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
                                     <Icon name={success ? "check circle outline" : "warning circle"} />
                                 </div>
-                                <div className={"modal__success_text betatest__modal_text"}>
+                                <div className={"modal__success_text betatest__modal_text black-text"}>
                                     <span>{success ? "We have received your details, thank you. We’ll review all KYC requests together with approving applications. So if you receive a link to pay for your applications that means you successfully passed the KYC procedure. Please note that we might ask you to share some additional details." : settingsError}</span>
                                 </div>
                                 <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
@@ -82,8 +81,7 @@ class SettingsButton extends Component {
 }
 
 export default connect(state => ({
-    settings: state.settings,
-    user: state.user
+    settings: state.settings
 }), {
     changeModalSettings,
     handleSettingsSend

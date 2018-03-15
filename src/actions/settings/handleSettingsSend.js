@@ -10,7 +10,6 @@ export const handleSettingsSend = value => {
         const {
             jwt: TOKEN
         } = getState().user;
-        const SUCCESS_TEXT = 'We have received your details, thank you. We’ll review all KYC requests together with approving applications. So if you receive a link to pay for your applications that means you successfully passed the KYC procedure. Please note that we might ask you to share some additional details.';
         if (value === 'individual') {
             const {
                 individualUserFile,
@@ -24,7 +23,6 @@ export const handleSettingsSend = value => {
                 .then(() => {
                     dispatch(changeModalSettings(true));
                     dispatch(changeSettingsSuccess(true));
-                    dispatch(changeSettingsError(SUCCESS_TEXT));
                 })
                 .catch(() => {
                     dispatch(changeModalSettings(true));
@@ -55,7 +53,6 @@ export const handleSettingsSend = value => {
                 .then(() => {
                     dispatch(changeModalSettings(true));
                     dispatch(changeSettingsSuccess(true));
-                    dispatch(changeSettingsError(SUCCESS_TEXT));
                 })
                 .catch(() => {
                     dispatch(changeModalSettings(true));
