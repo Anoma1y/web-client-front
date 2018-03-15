@@ -31,15 +31,16 @@ class UserSingle extends Component {
         handleSetUserByID(id);
     }
 
-    handleBlockUser = () => {}
-    handleDeleteUser = () => {}
-    handleRequestKYCUser = () => {}
-    handleKYCAcceptedUser = () => {}
+    handleBlockUser = () => { console.log('BlockUser'); }
+    handleDeleteUser = () => { console.log('DeleteUser'); }
+    handleRequestKYCUser = () => { console.log('RequestKYCUser'); }
+    handleKYCAcceptedUser = () => { console.log('KYCAcceptedUser'); }
 
     render() {
         const { activeIndex } = this.state;
         const {
-            singleUser
+            singleUser,
+            singleUserKYC
         } = this.props.admin;
         return (
             <Container>
@@ -87,13 +88,27 @@ class UserSingle extends Component {
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row>
+                                            <Grid.Column>
+                                                <div>
+                                                    <p>ID : {singleUser.ID}</p>
+                                                    <p>Email : {singleUser.email}</p>
+                                                    <p>ISKYCPASSED : {singleUser.is_kyc_passed === true ? "Yes" : "No"}</p>
+                                                    <p>ISVERIFIED : {singleUser.is_verified === true ? "Yes" : "No"}</p>
+                                                    <p>Roles : {singleUser.roles}</p>
+                                                    <p>KYCTYPE : {singleUser.kyc_type}</p>
+                                                </div>
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row>
                                             <Accordion styled fluid>
                                                 <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
                                                     <Icon name='dropdown' />
                                                     KYC - {singleUser.kyc_type}
                                                 </Accordion.Title>
                                                 <Accordion.Content active={activeIndex === 0}>
-
+                                                    <div>
+                                                        {singleUserKYC.content}
+                                                    </div>
                                                 </Accordion.Content>
                                             </Accordion>
                                         </Grid.Row>
