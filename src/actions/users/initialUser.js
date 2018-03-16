@@ -9,15 +9,19 @@ import {
     initKycType
 } from 'actions/users';
 import {
-    initialUserFile,
     initialUserProfile,
-    initialUserImage,
-    initialBeneficialProfle,
-    initialCompanyImage,
-    initialCompanyProfile,
-    initialCompanyUserImage,
     initialCompanyUserProfile,
-    initialIBeneficialmage
+    initialCompanyProfile,
+    initialBeneficialProfle,
+    initialUserImage,
+    initialCompanyImage,
+    initialCompanyUserImage,
+    initialIBeneficialmage,
+    initialUserFile,
+    initialCompanyUserFile,
+    initialCompanyFile,
+    initialBeneficialFile
+
 
 } from 'actions/settings';
 import _ from 'underscore';
@@ -56,7 +60,6 @@ export const initialUser = token => {
                         const {
                             content,
                             type,
-                            status
                         } = data.data;
                         const findImage = (OBJECT, KEYS) => {
                             return _.findKey(OBJECT, function(value, key) {
@@ -100,6 +103,10 @@ export const initialUser = token => {
                             dispatch(initialCompanyUserProfile(INITIAL_DATA.companyUserInformation));
                             dispatch(initialCompanyProfile(INITIAL_DATA.companyInformation));
                             dispatch(initialBeneficialProfle(INITIAL_DATA.beneficial));
+
+                            dispatch(initialCompanyUserFile(INITIAL_DATA. personCompanyFile));
+                            dispatch(initialCompanyFile(INITIAL_DATA. companyFile));
+                            dispatch(initialBeneficialFile(INITIAL_DATA. beneficialFile));
 
                             KYC.getKYCImage(imageUSER_COMPANY_ID, token).then((userCompanyImage) => {
                                 const IMAGE = _.indexBy(userCompanyImage.data, 'ID');

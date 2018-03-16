@@ -30,7 +30,7 @@ export const handleSettingsSend = value => {
                     dispatch(changeSettingsError("Error"));
                 })
         }
-        else if (value === 'entity'){
+        else if (value === 'legal'){
             const {
                 personCompanyFile,
                 companyFile,

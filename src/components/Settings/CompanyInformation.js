@@ -38,7 +38,7 @@ class CompanyInformation extends Component {
         }
     }
     checkEnglish = (value, nameError, len) => {
-        if (!value.match(/^[A-Za-z]+$|i/)) {
+        if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
                 [nameError]: 'Enter only English alphabet characters'
             })
@@ -236,7 +236,7 @@ class CompanyInformation extends Component {
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
-                                <label className={'auth_dropdown'}>
+                                <label className={this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
                                     <Dropdown
                                         placeholder='Choose your country'
                                         fluid

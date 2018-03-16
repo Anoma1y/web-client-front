@@ -117,7 +117,7 @@ class Beneficial extends Component {
         });
     }
     checkEnglish = (value, nameError, len) => {
-        if (!value.match(/^[A-Za-z]+$|i/)) {
+        if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
                 [nameError]: 'Enter only English alphabet characters'
             })
@@ -258,7 +258,7 @@ class Beneficial extends Component {
                         </Grid.Row>
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
-                                <label className={'auth_dropdown'}>
+                                <label className={settings.beneficial[indexBeneficial].Country.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
                                     <Dropdown
                                         placeholder='Choose your country'
                                         fluid

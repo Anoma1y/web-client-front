@@ -25,7 +25,7 @@ class PersonInformation extends Component {
     }
 
     checkEnglish = (value, nameError, len) => {
-        if (!value.match(/^[A-Za-z]+$|i/)) {
+        if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
                 [nameError]: 'Enter only English alphabet characters'
             })

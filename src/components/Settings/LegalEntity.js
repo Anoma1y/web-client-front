@@ -43,7 +43,7 @@ class LegalEntity extends Component {
                     </Grid.Column>
                 </Grid.Row>
 
-                <SettingsButton settingsOption={'entity'} />
+                <SettingsButton settingsOption={'legal'} />
 
             </Grid>
         );
