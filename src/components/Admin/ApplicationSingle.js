@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import {
     setApplicationSingle,
     changeApplicationStatus,
-    changeFixedCurrency,changeAdminTokenValue
+    changeFixedCurrency,
+    changeAdminTokenValue,
+    changeAdminTransferData,
+    handleAdminCurrentCurrency,
+    handleAdminInitialCurrency
 } from 'actions/admin';
 import {
     Container,
@@ -19,6 +23,7 @@ import {
     changeCurrency
 } from 'actions/rate';
 import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
+
 
 class ApplicationSingle extends Component {
 
@@ -84,8 +89,12 @@ class ApplicationSingle extends Component {
         const {
             setApplicationSingle,
             changeApplicationStatus,
-            changeAdminTokenValue
+            handleAdminInitialCurrency
         } = this.props;
+        const {
+            bonus: bonusList,
+        } = this.props.admin;
+
         AdminLib.getApplicationByID(id)
             .then((data) => {
                 const APPLICATION =  {
@@ -107,7 +116,18 @@ class ApplicationSingle extends Component {
                 }
                 changeApplicationStatus(data.data.status);
                 setApplicationSingle(APPLICATION);
-                // changeAdminTokenValue(data.data.amount)
+                const {
+                    currency: CRYPTO_CURRENCY,
+                    TSR: TKN_PRICE
+                } = this.props.rate;
+                const CURRENT_CURRENCY = data.data.currency.split('/');
+                handleAdminInitialCurrency({
+                    AMOUNT: data.data.amount,
+                    CURRENT_CURRENCY,
+                    CRYPTO_CURRENCY,
+                    TKN_PRICE,
+                    BONUS_LIST: bonusList
+                });
             })
             .catch((err) => {
                 console.log(err);
@@ -234,10 +254,10 @@ class ApplicationSingle extends Component {
 }
 
 
-export default connect(state => ({ admin: state.admin }), {
+export default connect(state => ({ admin: state.admin, rate: state.rate }), {
     setApplicationSingle,
     changeCurrency,
     changeApplicationStatus,
     changeFixedCurrency,
-    changeAdminTokenValue
+    changeAdminTokenValue,changeAdminTransferData,handleAdminCurrentCurrency, handleAdminInitialCurrency
 })(ApplicationSingle);

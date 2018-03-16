@@ -11,13 +11,47 @@ import {
     CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL,
     CHANGE_SETTINGS_MODAL,
     CHANGE_SETTINGS_ERROR,
-    CHANGE_SETTINGS_SUCCESS
+    CHANGE_SETTINGS_SUCCESS,
+    SETTINGS_INITIAL_USER_FILE,
+    SETTINGS_INITIAL_USER_PROFILE,
+    SETTINGS_INITIAL_USER_IMAGE,
+    SETTINGS_INITIAL_COMPANY_USER_PROFILE,
+    SETTINGS_INITIAL_COMPANY_USER_FILE,
+    SETTINGS_INITIAL_COMPANY_PROFILE,
+    SETTINGS_INITIAL_COMPANY_FILE,
+    SETTINGS_INITIAL_BENEFICIAL,
+    SETTINGS_INITIAL_BENEFICIAL_FILE,
+    SETTINGS_INITIAL_COMPANY_USER_IMAGE,
+    SETTINGS_INITIAL_COMPANY_IMAGE,
+    SETTINGS_INITIAL_BENEFICIAL_IMAGE
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
     individualUserFile: {
         personalUserDocument: null,
         utilityBill: null
+    },
+    individualUserImage: {
+        personalUserDocument: '',
+        utilityBill: ''
+    },
+    companyUserImage: {
+        personalUserCompanyDocument: '',
+        representation: '',
+        certificateActualStatus: '',
+    },
+    companyImage: {
+        businessRegistrationDocument: '',
+        document3months: '',
+        businessActivityLicense: '',
+        declare: ''
+    },
+    beneficialImage: {
+        0: {
+            personalBeneficialDocument: '',
+            declarationBeneficialOwned: '',
+            legalRepresentative: ''
+        }
     },
     personCompanyFile: {
         personalUserCompanyDocument: null,
@@ -84,7 +118,7 @@ const INITIAL_STATE = {
             City: '',
             Zip: '',
             Email: '',
-        }
+        },
     },
     sourceFunds: '',
     idBeneficial: 0,
@@ -100,9 +134,32 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, settingsModalIsOpen: action.payload };
         case CHANGE_SETTINGS_ERROR:
             return { ...state, settingsError: action.payload };
+        case SETTINGS_INITIAL_USER_FILE:
+            return { ...state, individualUserFile: action.payload };
+        case SETTINGS_INITIAL_USER_PROFILE:
+            return { ...state, individualUserInformation: action.payload };
+        case SETTINGS_INITIAL_USER_IMAGE:
+            return { ...state, individualUserImage: action.payload };
+        case SETTINGS_INITIAL_COMPANY_USER_PROFILE:
+            return { ...state, companyUserInformation: action.payload };
+        case SETTINGS_INITIAL_COMPANY_USER_FILE:
+            return { ...state, personCompanyFile: action.payload };
+        case SETTINGS_INITIAL_COMPANY_PROFILE:
+            return { ...state, companyInformation: action.payload };
+        case SETTINGS_INITIAL_COMPANY_FILE:
+            return { ...state, companyFile: action.payload };
+        case SETTINGS_INITIAL_BENEFICIAL:
+            return { ...state, beneficial: action.payload };
+        case SETTINGS_INITIAL_BENEFICIAL_FILE:
+            return { ...state, beneficialFile: action.payload };
+        case SETTINGS_INITIAL_COMPANY_USER_IMAGE:
+            return { ...state, companyUserImage: action.payload };
+        case SETTINGS_INITIAL_COMPANY_IMAGE:
+            return { ...state, companyImage: action.payload };
+        case SETTINGS_INITIAL_BENEFICIAL_IMAGE:
+            return { ...state, beneficialImage: action.payload };
         case CHANGE_SETTINGS_SUCCESS:
             return { ...state, success: action.payload };
-
         case CHANGE_SETTINGS_INPUT:
             const {
                 stateInput,

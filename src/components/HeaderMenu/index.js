@@ -28,7 +28,10 @@ class HeaderMenu extends Component {
         };
     }
     render() {
-        const { email } = this.props.user;
+        const {
+            email,
+            jwt
+        } = localStorage;
         return (
             <Menu className={"header__menu"}>
                 <Container>
@@ -46,7 +49,7 @@ class HeaderMenu extends Component {
                                 </Menu>
                             </Grid.Column>
                             <Grid.Column floated={"right"} className={"user_content"} widescreen={6} computer={6} tablet={6} mobile={16}>
-                                {localStorage.getItem("jwt") ?
+                                {jwt !== undefined ?
                                     <div className={"right__menu menu_login"}>
                                         <div className={"right__menu_item"}>
                                             <Link to={"/dashboard"}>

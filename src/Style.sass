@@ -853,6 +853,37 @@ body
   font-weight: 400 !important
   color: $black-color
 
+.auth_dropdown
+  color: $black-color
+  i
+    &:before
+      position: absolute
+      top: 20px
+  .dropdown:not(.icon)
+    height: 50px !important
+    margin-top: 7px !important
+    margin-bottom: 32px !important
+    padding-left: 0 !important
+    width: 100% !important
+    .text
+      position: relative
+      top: 12px !important
+      color: $black-color
+    .default
+      color: $gray-color
+    .menu
+      -webkit-flex-wrap: wrap !important
+      -ms-flex-wrap: wrap !important
+      flex-wrap: wrap !important
+    border: none !important
+    border-radius: 0 !important
+    border-bottom: 1px solid $gray-color
+    &:hover
+      border-bottom: 3px solid $blue-color
+    .item
+      width: 100% !important
+
+
 .settings__dropdown
   .dropdown:not(.icon)
     margin-top: 10px !important
@@ -865,7 +896,7 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
-    border-bottom: 1px solid $black-color
+    border-bottom: 3px solid $black-color
     .item
       width: 100% !important
 
@@ -898,7 +929,12 @@ body
 
 .setting__imagePreview
   margin: 7px 0 !important
-
+.setting__description
+  position: relative
+.imagePreview__error
+    position: absolute !important
+    bottom: 20px
+    color: $red-color
 .setting__change_buttons
   input
     font-family: $font-robot
@@ -1027,6 +1063,7 @@ body
 
 .auth_input
   label
+    margin-bottom: 12px !important
     position: relative !important
     display: block !important
     background-color: inherit !important
@@ -1038,7 +1075,7 @@ body
       display: block !important
       position: relative !important
       border: none !important
-      padding: 30px 0 10px !important
+      padding: 30px 0 8px !important
       width: 100% !important
       outline: none !important
       background-color: inherit !important
@@ -1061,15 +1098,14 @@ body
           top: 10px !important
       &:focus, &.populated
         padding-top: 28px !important
-        padding-bottom: 12px !important
+        padding-bottom: 10px !important
         border-bottom: 3px solid $blue-color
-
         &::placeholder
           color: transparent !important
         & + span
           opacity: 1 !important
-          top: 10px !important
-    span
+          top: 4px !important
+    span.auth_input-span
       color: $blue-color
       position: absolute !important
       top: 0 !important
@@ -1079,6 +1115,10 @@ body
       -webkit-transition: all 0.2s ease-in-out !important
       -o-transition: all 0.2s ease-in-out !important
       transition: all 0.2s ease-in-out !important
+  .auth__error
+    color: $red-color
+    margin-top: 8px !important
+    font-size: 12px !important
 
 .signup__content
   &_confirm

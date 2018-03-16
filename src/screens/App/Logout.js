@@ -7,6 +7,9 @@ class Logout extends Component {
         const TOKEN = this.props.user.jwt;
         localStorage.removeItem("jwt");
         localStorage.removeItem("roles");
+        localStorage.removeItem("email");
+        localStorage.removeItem("is_kyc_passed");
+        localStorage.removeItem("kyc_type")
         this.props.handleDeleteTokenUser(TOKEN);
     }
     render() {

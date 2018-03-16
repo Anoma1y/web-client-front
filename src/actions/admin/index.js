@@ -22,3 +22,4 @@ export { changeFixedCurrency } from './changeFixedCurrency';
 export { setUserSingle } from './setUserSingle';
 export { setUserKYC } from './setUserKYC';
 export { handleSetUserByID } from './handleSetUserByID';
+export { handleAdminInitialCurrency } from './handleAdminInitialCurrency';

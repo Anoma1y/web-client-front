@@ -24,7 +24,8 @@ class IdentificationImgUpload extends Component {
         this.state = {
             file: '',
             imagePreviewUrl: '',
-            isLoading: false
+            isLoading: false,
+            fileUploadError: ''
         }
     }
 
@@ -50,15 +51,28 @@ class IdentificationImgUpload extends Component {
         })
         let reader = new FileReader();
         let file = e.target.files[0];
-
-        reader.onloadend = () => {
+        if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/tiff' || file.type === 'image/gif') {
+            if ((file.size / 1024 / 1024) <= 25) {
+                reader.onloadend = () => {
+                    this.setState({
+                        file: file,
+                        imagePreviewUrl: reader.result,
+                        fileUploadError: ''
+                    });
+                };
+                this.lazyUploadImage();
+                reader.readAsDataURL(file);
+            } else {
+                this.setState({
+                    fileUploadError: 'Maximum file size is 25MB'
+                })
+            }
+        } else {
             this.setState({
-                file: file,
-                imagePreviewUrl: reader.result
-            });
-        };
-        this.lazyUploadImage();
-        reader.readAsDataURL(file);
+                fileUploadError: 'Allowed file types: png, jpg, gif, tiff'
+            })
+        }
+
     }
 
     uploadImage = (file) => {
@@ -150,8 +164,7 @@ class IdentificationImgUpload extends Component {
                             {this.props.description}
                         </Card.Description>
                         <Card.Description className={'setting__imagePreview'} style={{zIndex: 50}}>
-
-                            {this.renderImagePreview(this.state.imagePreviewUrl)}
+                            {this.renderImagePreview(this.state.imagePreviewUrl || this.props.imageValue)}
                         </Card.Description>
                         <Card.Description>
                             <Button
@@ -162,16 +175,21 @@ class IdentificationImgUpload extends Component {
                                     this.handleSubmit(e)
                                 }}
                             >
-                                {imagePreviewUrl.length > 0 ? 'Upload New' : 'Upload' }
+                                {imagePreviewUrl.length || this.props.imageValue.length > 0 ? 'Upload New' : 'Upload' }
                             </Button>
                         </Card.Description>
                         <input
                             type={'file'}
-                            accept='image/jpeg,image/jpg,image/png'
+                            accept='image/jpeg,image/jpg,image/png,image/tiff,image/gif'
                             id={this.props.id}
                             style={{display: 'none'}}
                             onChange={(e)=>this.handleImageChange(e)}
                         />
+                        { this.state.fileUploadError.length !== 0 ?
+                            <p className={'imagePreview__error'}>
+                                {this.state.fileUploadError}
+                            </p> : null
+                        }
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

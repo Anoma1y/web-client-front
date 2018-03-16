@@ -39,6 +39,7 @@ class PersonCompanyDocument extends Component {
                             description={item.description}
                             id={item.id}
                             objectFile={item.objectFile}
+                            imageValue={""}
                         />
                     </Grid.Column>
                     { index !== (personCompanyFile.length - 1) ?

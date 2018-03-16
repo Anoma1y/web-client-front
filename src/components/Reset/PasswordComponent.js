@@ -99,7 +99,7 @@ class PasswordComponent extends Component {
                                         value={newPassword}
                                         className={this.state.newPassword ? "populated" : ""}
                                     />
-                                    <span>Password</span>
+                                    <span className={'auth_input-span'}>Password</span>
                                 </label>
                                 <label>
                                     <input
@@ -109,7 +109,7 @@ class PasswordComponent extends Component {
                                         value={repeatNewPassword}
                                         className={this.state.repeatNewPassword ? "populated" : ""}
                                     />
-                                    <span>Repeat password</span>
+                                    <span className={'auth_input-span'}>Repeat password</span>
                                 </label>
                                 { error !== null ?
                                     <Message warning color={"red"}>
