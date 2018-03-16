@@ -836,6 +836,8 @@ body {
     border: none !important;
     border-radius: 0 !important;
     border-bottom: 1px solid #939393 !important; }
+    .auth_dropdown .dropdown:not(.icon) input {
+      padding-top: 15px !important; }
     .auth_dropdown .dropdown:not(.icon) .text {
       top: -45px !important; }
     .auth_dropdown .dropdown:not(.icon) .menu {
@@ -890,6 +892,14 @@ body {
 
 .setting__imagePreview {
   margin: 7px 0 !important; }
+
+.setting__description {
+  position: relative; }
+
+.imagePreview__error {
+  position: absolute !important;
+  bottom: 20px;
+  color: #FF3E33 !important; }
 
 .setting__change_buttons input {
   font-family: "Roboto", sans-serif !important;

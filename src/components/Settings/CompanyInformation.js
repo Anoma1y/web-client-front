@@ -70,7 +70,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyCompanyName ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Company Name</span>
+                                    <span className={'auth_input-span'}>Company Name</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -86,7 +86,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyTaxIDnumber ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Tax ID number</span>
+                                    <span className={'auth_input-span'}>Tax ID number</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
@@ -99,7 +99,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyTaxrezidencecountry ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Tax rezidence country</span>
+                                    <span className={'auth_input-span'}>Tax rezidence country</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -115,7 +115,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyCity ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>City</span>
+                                    <span className={'auth_input-span'}>City</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
@@ -128,7 +128,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyZip ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Zip</span>
+                                    <span className={'auth_input-span'}>Zip</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -144,7 +144,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyLegaladdress ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Legal address</span>
+                                    <span className={'auth_input-span'}>Legal address</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -160,7 +160,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyActualbusinessplaceaddress ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Actual business place address</span>
+                                    <span className={'auth_input-span'}>Actual business place address</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -176,7 +176,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyLinktopubliccompanyregister ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Link to public company register (Business Register)</span>
+                                    <span className={'auth_input-span'}>Link to public company register (Business Register)</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -192,7 +192,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyEmail ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Email</span>
+                                    <span className={'auth_input-span'}>Email</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
@@ -205,7 +205,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyPhone ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Phone</span>
+                                    <span className={'auth_input-span'}>Phone</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -221,7 +221,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyDescriptioncompanydoes ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Description of what your company does</span>
+                                    <span className={'auth_input-span'}>Description of what your company does</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -237,7 +237,7 @@ class CompanyInformation extends Component {
                                         className={this.props.settings.companyInformation.companyWebsites ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
-                                    <span>Websites</span>
+                                    <span className={'auth_input-span'}>Websites</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>

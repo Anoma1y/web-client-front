@@ -235,7 +235,6 @@ class PersonInformation extends Component {
                                 <label className={'auth_dropdown'}>
                                     <Dropdown
                                         placeholder='Country'
-                                        search
                                         fluid
                                         selection
                                         options={countryOptions}

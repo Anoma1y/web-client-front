@@ -102,11 +102,11 @@ class LoginComponent extends Component {
                             <form action="#">
                                 <label>
                                     <input type="email" placeholder={"Email"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
-                                    <span>Email</span>
+                                    <span className={'auth_input-span'}>Email</span>
                                 </label>
                                 <label>
                                     <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
-                                    <span>Password</span>
+                                    <span className={'auth_input-span'}>Password</span>
                                 </label>
 
                                 <Item className={"login__content_forgot"}>

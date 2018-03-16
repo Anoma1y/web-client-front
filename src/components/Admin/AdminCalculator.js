@@ -147,7 +147,7 @@ class AdminCalculator extends Component {
                                             onChange={this.handleToken}
                                             ref={(input) => {this.inputToken = input}}
                                         />
-                                        <span>TSR</span>
+                                        <span className={'auth_input-span'}>TSR</span>
                                     </label>
                                 </Grid.Column>
                                 <Grid.Column width={8} className={"auth_input"}>
@@ -160,7 +160,7 @@ class AdminCalculator extends Component {
                                             onChange={this.handleCurrency}
                                             ref={(input) => {this.inputCurrency = input}}
                                         />
-                                        <span>{currencyValue}</span>
+                                        <span className={'auth_input-span'}>{currencyValue}</span>
                                     </label>
                                 </Grid.Column>
                             </Grid.Row>

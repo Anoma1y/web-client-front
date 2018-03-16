@@ -80,7 +80,7 @@ class EmailComponent extends React.Component {
                                         value={email}
                                         className={emailPlaceholder ? "populated" : ""}
                                     />
-                                    <span>Email</span>
+                                    <span className={'auth_input-span'}>Email</span>
                                 </label>
                                 { error !== null ?
                                     <Message warning color={"red"}>

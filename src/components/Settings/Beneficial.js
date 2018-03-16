@@ -73,7 +73,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Name}
                                         className={settings.beneficial[indexBeneficial].Name ? 'populated' : ''}
                                     />
-                                    <span>Name</span>
+                                    <span className={'auth_input-span'}>Name</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
@@ -86,7 +86,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Surname}
                                         className={settings.beneficial[indexBeneficial].Surname ? 'populated' : ''}
                                     />
-                                    <span>Surname</span>
+                                    <span className={'auth_input-span'}>Surname</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -101,7 +101,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Addres}
                                         className={settings.beneficial[indexBeneficial].Addres ? 'populated' : ''}
                                     />
-                                    <span>Address</span>
+                                    <span className={'auth_input-span'}>Address</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
@@ -114,7 +114,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].City}
                                         className={settings.beneficial[indexBeneficial].City ? 'populated' : ''}
                                     />
-                                    <span>City</span>
+                                    <span className={'auth_input-span'}>City</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -129,7 +129,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Country}
                                         className={settings.beneficial[indexBeneficial].Country ? 'populated' : ''}
                                     />
-                                    <span>Country</span>
+                                    <span className={'auth_input-span'}>Country</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
@@ -142,7 +142,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Zip}
                                         className={settings.beneficial[indexBeneficial].Zip ? 'populated' : ''}
                                     />
-                                    <span>Zip</span>
+                                    <span className={'auth_input-span'}>Zip</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -157,7 +157,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Dateofbirth}
                                         className={settings.beneficial[indexBeneficial].Dateofbirth ? 'populated' : ''}
                                     />
-                                    <span>Birth day</span>
+                                    <span className={'auth_input-span'}>Birth day</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
@@ -170,7 +170,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Email}
                                         className={settings.beneficial[indexBeneficial].Email ? 'populated' : ''}
                                     />
-                                    <span>Email</span>
+                                    <span className={'auth_input-span'}>Email</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -185,7 +185,7 @@ class Beneficial extends Component {
                                         value={settings.beneficial[indexBeneficial].Phone}
                                         className={settings.beneficial[indexBeneficial].Phone ? 'populated' : ''}
                                     />
-                                    <span>Phone</span>
+                                    <span className={'auth_input-span'}>Phone</span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>

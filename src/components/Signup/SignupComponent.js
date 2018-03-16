@@ -144,15 +144,15 @@ class SignupComponent extends Component {
                             <form action="#">
                                 <label>
                                     <input type="email" placeholder={"Email"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>
-                                    <span>Email</span>
+                                    <span className={'auth_input-span'}>Email</span>
                                 </label>
                                 <label>
                                     <input type="password" placeholder={"Password"} onChange={this.handleChangePassword} value={password} className={passwordPlaceholder ? "populated" : ""}/>
-                                    <span>Password</span>
+                                    <span className={'auth_input-span'}>Password</span>
                                 </label>
                                 <label>
                                     <input type="password" placeholder={"Repeat Password"} onChange={this.handleChangeRepeatPassword} value={repeatPassword} className={repeatPasswordPlaceholder ? "populated" : ""}/>
-                                    <span>Repeat Password</span>
+                                    <span className={'auth_input-span'}>Repeat Password</span>
                                 </label>
                                 <p className={"signup__content_confirm"}>
                                     By clicking Sign Up, you agree to the <a href={"https://tsrpay.com/docs/terms-of-service.pdf"} target={"_blank"}>Terms of service</a> and <a href={"https://tsrpay.com/docs/privacy-policy.pdf"} target={"_blank"}>Privacy Policy</a>
