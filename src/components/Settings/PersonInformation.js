@@ -245,7 +245,7 @@ class PersonInformation extends Component {
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
-                                <label className={'auth_dropdown'}>
+                                <label className={settings[stateObject].Country.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
                                     <Dropdown
                                         placeholder='Choose your country'
                                         fluid

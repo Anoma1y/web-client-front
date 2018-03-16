@@ -51,6 +51,21 @@ const INITIAL_STATE = {
             personalBeneficialDocument: '',
             declarationBeneficialOwned: '',
             legalRepresentative: ''
+        },
+        1: {
+            personalBeneficialDocument: '',
+            declarationBeneficialOwned: '',
+            legalRepresentative: ''
+        },
+        2: {
+            personalBeneficialDocument: '',
+            declarationBeneficialOwned: '',
+            legalRepresentative: ''
+        },
+        3: {
+            personalBeneficialDocument: '',
+            declarationBeneficialOwned: '',
+            legalRepresentative: ''
         }
     },
     personCompanyFile: {

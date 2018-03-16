@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     Grid,
     Divider
@@ -31,6 +32,9 @@ class PersonCompanyDocument extends Component {
 
     renderUploadInfoCompany = () => {
         const { personCompanyFile } = this.state;
+        const {
+            companyUserImage
+        } = this.props.settings;
         return personCompanyFile.map((item, index)=> {
             return (
                 <Grid.Row className={'settings__company_uploadInfo'} key={item.id}>
@@ -39,7 +43,7 @@ class PersonCompanyDocument extends Component {
                             description={item.description}
                             id={item.id}
                             objectFile={item.objectFile}
-                            imageValue={""}
+                            imageValue={companyUserImage[item.id]}
                         />
                     </Grid.Column>
                     { index !== (personCompanyFile.length - 1) ?
@@ -58,4 +62,7 @@ class PersonCompanyDocument extends Component {
     }
 }
 
-export default PersonCompanyDocument;
+export default connect(state => ({ settings: state.settings }), {
+
+})(PersonCompanyDocument);
+

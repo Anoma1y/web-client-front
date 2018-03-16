@@ -28,7 +28,9 @@ class Beneficial extends Component {
             legalEntityBeneficial,
             indexBeneficial
         } = this.props;
-
+        const {
+            beneficialImage
+        } = this.props.settings;
         return legalEntityBeneficial.map((item, index) => {
             return (
                 <Grid.Row key={`${item.id}_${indexBeneficial}`}>
@@ -38,7 +40,7 @@ class Beneficial extends Component {
                             id={`${item.id}_${indexBeneficial}`}
                             indexBeneficial={this.props.indexBeneficial}
                             objectFile={item.objectFile}
-                            imageValue={""}
+                            imageValue={beneficialImage[indexBeneficial][item.id]}
                         />
                     </Grid.Column>
                     { index !== (legalEntityBeneficial.length - 1) ?

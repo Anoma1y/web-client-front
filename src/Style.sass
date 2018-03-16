@@ -670,11 +670,6 @@ body
       background-color: transparent !important
     //background-color: rgb(42, 207, 49) !important
 
-.request__column
-  &_btn
-    .ui.button:disabled, .ui.buttons .disabled.button, .ui.disabled.active.button, .ui.disabled.button, .ui.disabled.button:hover
-      opacity: .6 !important
-
 .pay__modal
   position: relative
   .close__modal
@@ -852,6 +847,35 @@ body
 .settings__select
   font-weight: 400 !important
   color: $black-color
+
+.dropdown_populated
+  color: $black-color
+  i
+    &:before
+      position: absolute
+      top: 20px
+  .dropdown:not(.icon)
+    height: 50px !important
+    margin-top: 7px !important
+    margin-bottom: 32px !important
+    padding-left: 0 !important
+    width: 100% !important
+    .text
+      position: relative
+      top: 12px !important
+      color: $black-color
+    .default
+      color: $gray-color
+    .menu
+      -webkit-flex-wrap: wrap !important
+      -ms-flex-wrap: wrap !important
+      flex-wrap: wrap !important
+    border: none !important
+    border-radius: 0 !important
+    border-bottom: 3px solid $blue-color
+    &:hover
+    .item
+      width: 100% !important
 
 .auth_dropdown
   color: $black-color
