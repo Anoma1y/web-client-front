@@ -25,8 +25,11 @@ export { initialUserProfile } from './initialUserProfile';
 export { initialUserImage } from './initialUserImage';
 
 export { initialCompanyUserProfile } from './initialCompanyUserProfile';
-export { initialCompanyUserFile } from './initialCompanyUserFile'; 
+export { initialCompanyUserFile } from './initialCompanyUserFile';
+export { initialCompanyUserImage } from './initialCompanyUserImage';
 export { initialCompanyProfile } from './initialCompanyProfile'; 
-export { initialCompanyFile } from './initialCompanyFile'; 
+export { initialCompanyFile } from './initialCompanyFile';
+export { initialCompanyImage } from './initialCompanyImage';
 export { initialBeneficialProfle } from './initialBeneficialProfle'; 
-export { initialBeneficialFile } from './initialBeneficialFile'; 
+export { initialBeneficialFile } from './initialBeneficialFile';
+export { initialIBeneficialmage } from './initialIBeneficialmage';

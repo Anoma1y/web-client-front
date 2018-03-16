@@ -38,6 +38,7 @@ class Beneficial extends Component {
                             id={`${item.id}_${indexBeneficial}`}
                             indexBeneficial={this.props.indexBeneficial}
                             objectFile={item.objectFile}
+                            imageValue={""}
                         />
                     </Grid.Column>
                     { index !== (legalEntityBeneficial.length - 1) ?

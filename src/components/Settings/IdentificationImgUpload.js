@@ -164,8 +164,7 @@ class IdentificationImgUpload extends Component {
                             {this.props.description}
                         </Card.Description>
                         <Card.Description className={'setting__imagePreview'} style={{zIndex: 50}}>
-
-                            {this.renderImagePreview(this.state.imagePreviewUrl)}
+                            {this.renderImagePreview(this.state.imagePreviewUrl || this.props.imageValue)}
                         </Card.Description>
                         <Card.Description>
                             <Button
@@ -176,7 +175,7 @@ class IdentificationImgUpload extends Component {
                                     this.handleSubmit(e)
                                 }}
                             >
-                                {imagePreviewUrl.length > 0 ? 'Upload New' : 'Upload' }
+                                {imagePreviewUrl.length || this.props.imageValue.length > 0 ? 'Upload New' : 'Upload' }
                             </Button>
                         </Card.Description>
                         <input

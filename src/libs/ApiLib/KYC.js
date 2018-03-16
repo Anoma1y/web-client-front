@@ -23,8 +23,8 @@ class KYC {
         })
     }
 
-    static getImage(id, TOKEN) {
-        const url = `${Config.url}file/${id}`;
+    static getKYCImage(id, TOKEN) {
+        const url = `${Config.url}file?ids=${id}`;
         return axios.get(url, {
             headers: {
                 'Authorization': `Bearer ${TOKEN}`

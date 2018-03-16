@@ -7,6 +7,7 @@ import {
 import IdentificationImgUpload from './IdentificationImgUpload';
 import PersonInformation from './PersonInformation';
 import SettingsButton from './SettingsButton';
+import Config from 'libs/config';
 
 class IndividualUser extends Component {
 
@@ -30,6 +31,10 @@ class IndividualUser extends Component {
 
     renderUploadInfo = () => {
         const { individualUserFile } = this.state;
+        const {
+            individualUserImage
+        } = this.props.settings;
+
         return individualUserFile.map((item, index) => {
             return (
                 <Grid.Row key={item.id}>
@@ -38,6 +43,7 @@ class IndividualUser extends Component {
                             description={item.description}
                             id={item.id}
                             objectFile={item.objectFile}
+                            imageValue={Object.values(individualUserImage)[index]}
                         />
                     </Grid.Column>
                     { index !== (individualUserFile.length - 1) ?
