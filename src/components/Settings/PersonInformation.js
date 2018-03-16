@@ -77,31 +77,42 @@ class PersonInformation extends Component {
             changeSettingsInput,
             stateObject
         } = this.props;
-
-        if (id === 'Name') {
-            if (this.checkEnglish(value, 'nameError', 100) === false) {
-                return;
-            }
-        } else if (id === 'Surname') {
-            if (this.checkEnglish(value, 'lastNameError', 100) === false) {
-                return;
-            }
-        } else if (id === 'City' && value.length > 100) {
-            return;
-        } else if (id === 'Addres' && value.length > 2000) {
-            return;
-        } else if (id === 'Zip') {
-            if (this.checkOnlyNumber(value, 'zipError', 10) === false) {
-                return;
-            }
-        } else if (id === 'Phone') {
-            if (this.checkOnlyNumber(value, 'phoneError', 100) === false) {
-                return;
-            }
-        } else if (id === 'Email') {
-            if (this.checkEmail(value, 100) === false) {
-                return false;
-            }
+        switch (id) {
+            case 'Name':
+                if (this.checkEnglish(value, 'nameError', 100) === false) {
+                    return;
+                }
+                break;
+            case 'Surname':
+                if (this.checkEnglish(value, 'lastNameError', 100) === false) {
+                    return;
+                }
+                break;
+            case 'City':
+                if (value.length > 100) {
+                    return;
+                }
+                break;
+            case 'Addres':
+                if (id === 'Addres' && value.length > 2000) {
+                    return;
+                }
+                break;
+            case 'Zip':
+                if (this.checkOnlyNumber(value, 'zipError', 10) === false) {
+                    return;
+                }
+                break;
+            case 'Phone':
+                if (this.checkOnlyNumber(value, 'phoneError', 100) === false) {
+                    return;
+                }
+                break;
+            case 'Email':
+                if (this.checkEmail(value, 100) === false) {
+                    return false;
+                }
+                break;
         }
         changeSettingsInput({
             stateInput: stateObject,
@@ -163,7 +174,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Name ? "populated" : ""}
                                     />
-                                    <span>Name</span>
+                                    <span className={'auth_input-span'}>Name</span>
                                     {nameError.length !== 0 && settings[stateObject].Name.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
                                 </label>
                             </Grid.Column>
@@ -177,7 +188,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Surname ? "populated" : ""}
                                     />
-                                    <span>Surname</span>
+                                    <span className={'auth_input-span'}>Surname</span>
                                     {lastNameError.length !== 0 && settings[stateObject].Surname.length !== 0 ? <p className={'auth__error'}>{lastNameError}</p> : null}
                                 </label>
                             </Grid.Column>
@@ -193,7 +204,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Addres ? "populated" : ""}
                                     />
-                                    <span>Address</span>
+                                    <span className={'auth_input-span'}>Address</span>
                                     {
                                         settings[stateObject].Addres.length > 1900 ? <p className={'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
                                     }
@@ -209,7 +220,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].City ? "populated" : ""}
                                     />
-                                    <span>
+                                    <span className={'auth_input-span'}>
                                         City
                                     </span>
                                     {
@@ -225,6 +236,7 @@ class PersonInformation extends Component {
                                     <Dropdown
                                         placeholder='Country'
                                         search
+                                        fluid
                                         selection
                                         options={countryOptions}
                                         onChange={this.handleDropdown}
@@ -241,7 +253,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Zip ? "populated" : ""}
                                     />
-                                    <span>ZIP/Postal code</span>
+                                    <span className={'auth_input-span'}>ZIP/Postal code</span>
                                     {zipError.length !== 0 && settings[stateObject].Zip.length !== 0 ? <p className={'auth__error'}>{zipError}</p> : null}
                                 </label>
                             </Grid.Column>
@@ -259,7 +271,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Dateofbirth ? "populated" : ""}
                                     />
-                                    <span>Birth day</span>
+                                    <span className={'auth_input-span'}>Birth day</span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
@@ -272,7 +284,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Email ? "populated" : ""}
                                     />
-                                    <span>Email</span>
+                                    <span className={'auth_input-span'}>Email</span>
                                     {emailError.length !== 0 && settings[stateObject].Email.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
                                 </label>
                             </Grid.Column>
@@ -288,7 +300,7 @@ class PersonInformation extends Component {
                                         onChange={this.handleChange}
                                         className={settings[stateObject].Phone ? "populated" : ""}
                                     />
-                                    <span>Phone</span>
+                                    <span className={'auth_input-span'}>Phone</span>
                                     {phoneError.length !== 0 && settings[stateObject].Phone.length !== 0 ? <p className={'auth__error'}>{phoneError}</p> : null}
                                 </label>
                             </Grid.Column>

@@ -825,6 +825,28 @@ body {
   font-weight: 400 !important;
   color: #000000 !important; }
 
+.auth_dropdown {
+  color: #000000 !important; }
+  .auth_dropdown .dropdown:not(.icon) {
+    height: 50px !important;
+    margin-top: 7px !important;
+    margin-bottom: 32px !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #939393 !important; }
+    .auth_dropdown .dropdown:not(.icon) .text {
+      top: -45px !important; }
+    .auth_dropdown .dropdown:not(.icon) .menu {
+      -webkit-flex-wrap: wrap !important;
+      -ms-flex-wrap: wrap !important;
+      flex-wrap: wrap !important; }
+    .auth_dropdown .dropdown:not(.icon):hover {
+      border-bottom: 3px solid #004fce !important; }
+    .auth_dropdown .dropdown:not(.icon) .item {
+      width: 100% !important; }
+
 .settings__dropdown .dropdown:not(.icon) {
   margin-top: 10px !important;
   margin-bottom: 32px !important;
@@ -1037,7 +1059,7 @@ body {
       .auth_input label input:focus + span, .auth_input label input.populated + span {
         opacity: 1 !important;
         top: 10px !important; }
-  .auth_input label span {
+  .auth_input label span.auth_input-span {
     color: #004fce !important;
     position: absolute !important;
     top: 0 !important;

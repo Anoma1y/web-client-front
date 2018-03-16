@@ -853,6 +853,29 @@ body
   font-weight: 400 !important
   color: $black-color
 
+.auth_dropdown
+  color: $black-color
+  .dropdown:not(.icon)
+    height: 50px !important
+    margin-top: 7px !important
+    margin-bottom: 32px !important
+    padding-left: 0 !important
+    width: 100% !important
+    .text
+      top: -45px !important
+    .menu
+      -webkit-flex-wrap: wrap !important
+      -ms-flex-wrap: wrap !important
+      flex-wrap: wrap !important
+    border: none !important
+    border-radius: 0 !important
+    border-bottom: 1px solid $gray-color
+    &:hover
+      border-bottom: 3px solid $blue-color
+    .item
+      width: 100% !important
+
+
 .settings__dropdown
   .dropdown:not(.icon)
     margin-top: 10px !important
@@ -1069,7 +1092,7 @@ body
         & + span
           opacity: 1 !important
           top: 10px !important
-    span
+    span.auth_input-span
       color: $blue-color
       position: absolute !important
       top: 0 !important
