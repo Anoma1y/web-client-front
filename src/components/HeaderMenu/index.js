@@ -52,7 +52,7 @@ class HeaderMenu extends Component {
                                 {jwt !== undefined ?
                                     <div className={"right__menu menu_login"}>
                                         <div className={"right__menu_item"}>
-                                            <Link to={"/dashboard"}>
+                                            <Link to={"/dashboard/settings"}>
                                                 {email}
                                             </Link>
                                         </div>

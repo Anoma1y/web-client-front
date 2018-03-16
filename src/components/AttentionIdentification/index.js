@@ -21,7 +21,7 @@ export const AttentionIdentification = () => {
                                         <Icon name={"warning sign"} className={"attentionIdentification__icon"}/>
                                     </Grid.Column>
                                     <Grid.Column widescreen={13} computer={13} tablet={13} mobile={16} className={"attentionIdentification__textColumn"}>
-                                        <span className={"attentionIdentification__text"}>In order to be able to buy tokens, you need to be <Link to={"/dashboard"} className={"attentionIdentification__link"}>identified</Link>
+                                        <span className={"attentionIdentification__text"}>In order to be able to buy tokens, you need to be <Link to={"/dashboard/settings"} className={"attentionIdentification__link"}>identified</Link>
                                         </span>
                                     </Grid.Column>
                                     <Grid.Column width={1}>
