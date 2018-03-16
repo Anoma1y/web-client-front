@@ -19,7 +19,8 @@ class PersonInformation extends Component {
             lastNameError: '',
             emailError: '',
             zipError: '',
-            phoneError: ''
+            phoneError: '',
+
         }
     }
 
@@ -53,6 +54,21 @@ class PersonInformation extends Component {
         }
     }
 
+    checkPhone = (value, nameError, len) => {
+        const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
+        if (!value.match(pattern)) {
+            this.setState({
+                [nameError]: "Enter numbers only"
+            });
+        } else {
+            this.setState({
+                [nameError]: ''
+            })
+        }
+        if (value.length > len) {
+            return false;
+        }
+    }
     checkEmail = (value, len) => {
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!value.match(pattern)) {
@@ -104,7 +120,7 @@ class PersonInformation extends Component {
                 }
                 break;
             case 'Phone':
-                if (this.checkOnlyNumber(value, 'phoneError', 100) === false) {
+                if (this.checkPhone(value, 'phoneError', 15) === false) {
                     return;
                 }
                 break;
@@ -234,7 +250,7 @@ class PersonInformation extends Component {
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
                                 <label className={'auth_dropdown'}>
                                     <Dropdown
-                                        placeholder='Country'
+                                        placeholder='Choose your country'
                                         fluid
                                         selection
                                         options={countryOptions}
@@ -263,7 +279,7 @@ class PersonInformation extends Component {
                                     <InputMask
                                         type="text"
                                         id={"Dateofbirth"}
-                                        mask="99 99 9999"
+                                        mask="99.99.9999"
                                         maskChar={null}
                                         placeholder={"Birth day"}
                                         value={settings[stateObject].Dateofbirth}
