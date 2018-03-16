@@ -13,6 +13,24 @@ class KYC {
             }
         })
     }
+
+    static getKYCById(TOKEN) {
+        const url = `${Config.url}kyc`;
+        return axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${TOKEN}`
+            }
+        })
+    }
+
+    static getImage(id, TOKEN) {
+        const url = `${Config.url}file/${id}`;
+        return axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${TOKEN}`
+            }
+        })
+    }
 }
 
 export default KYC;

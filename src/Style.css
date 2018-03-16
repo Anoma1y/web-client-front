@@ -842,6 +842,8 @@ body {
     .auth_dropdown .dropdown:not(.icon) .text {
       position: relative;
       top: 12px !important;
+      color: #000000 !important; }
+    .auth_dropdown .dropdown:not(.icon) .default {
       color: #939393 !important; }
     .auth_dropdown .dropdown:not(.icon) .menu {
       -webkit-flex-wrap: wrap !important;
@@ -859,7 +861,7 @@ body {
   width: 100% !important;
   border: none !important;
   border-radius: 0 !important;
-  border-bottom: 1px solid #000000 !important; }
+  border-bottom: 3px solid #000000 !important; }
   .settings__dropdown .dropdown:not(.icon) .menu {
     -webkit-flex-wrap: wrap !important;
     -ms-flex-wrap: wrap !important;
@@ -1025,7 +1027,7 @@ body {
     color: #0059e8 !important; }
 
 .auth_input label {
-  margin-bottom: 22px !important;
+  margin-bottom: 12px !important;
   position: relative !important;
   display: block !important;
   background-color: inherit !important;

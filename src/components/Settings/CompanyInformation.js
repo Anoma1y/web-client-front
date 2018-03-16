@@ -168,12 +168,11 @@ class CompanyInformation extends Component {
         });
     }
 
-    handleDropdownCountry = (event) => {
-        const { innerText } = event.target;
+    handleDropdownCountry = (event, { value }) => {
         const { changeSettingsCompanyInput } = this.props;
         changeSettingsCompanyInput({
             keyCompany: 'companyTaxrezidencecountry',
-            valueCompany: innerText
+            valueCompany: value
         });
     }
 
@@ -242,6 +241,7 @@ class CompanyInformation extends Component {
                                         placeholder='Choose your country'
                                         fluid
                                         selection
+                                        value={this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 ? null : this.props.settings.companyInformation.companyTaxrezidencecountry}
                                         options={countryOptions}
                                         onChange={this.handleDropdownCountry}
                                     />

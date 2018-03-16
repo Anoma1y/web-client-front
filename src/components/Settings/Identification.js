@@ -7,6 +7,8 @@ import {
 } from 'semantic-ui-react';
 import LegalEntity from './LegalEntity';
 import IndividualUser from './IndividualUser';
+import {handleInitialSettings} from 'actions/settings';
+import KYC from 'libs/ApiLib/KYC';
 
 const individualUserRender = [
     { menuItem: 'Individual user', render: () => <Tab.Pane><IndividualUser /></Tab.Pane> }
@@ -20,8 +22,8 @@ const panes = [
 ]
 
 class Identification extends Component {
+
     render() {
-        // const kyc_type = localStorage.getItem('kyc_type');
         const { kyc_type } = this.props.user;
         return (
             <Card fluid className={'settings__identification component__main component__shadow'}>
@@ -42,4 +44,6 @@ class Identification extends Component {
 export default connect((state) => ({
     settings: state.settings,
     user: state.user
-}), {})(Identification);
+}), {
+    handleInitialSettings
+})(Identification);

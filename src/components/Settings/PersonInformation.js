@@ -137,8 +137,7 @@ class PersonInformation extends Component {
         });
     }
 
-    handleDropdown = event => {
-        const { innerText } = event.target;
+    handleDropdown = (event, { value }) => {
         const {
             changeSettingsInput,
             stateObject
@@ -146,7 +145,7 @@ class PersonInformation extends Component {
         changeSettingsInput({
             stateInput: stateObject,
             keyInput: 'Country',
-            valueInput: innerText
+            valueInput: value
         });
     }
 
@@ -171,9 +170,7 @@ class PersonInformation extends Component {
             lastNameError,
             emailError,
             zipError,
-            birthdayError,
             phoneError
-
         } = this.state;
         return (
             <Grid.Row className={"beneficial__wrapper"}>
@@ -253,6 +250,7 @@ class PersonInformation extends Component {
                                         placeholder='Choose your country'
                                         fluid
                                         selection
+                                        value={settings[stateObject].Country.length === 0 ? null : settings[stateObject].Country}
                                         options={countryOptions}
                                         onChange={this.handleDropdown}
                                     />

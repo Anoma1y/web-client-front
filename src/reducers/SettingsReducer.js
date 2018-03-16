@@ -11,13 +11,26 @@ import {
     CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL,
     CHANGE_SETTINGS_MODAL,
     CHANGE_SETTINGS_ERROR,
-    CHANGE_SETTINGS_SUCCESS
+    CHANGE_SETTINGS_SUCCESS,
+    SETTINGS_INITIAL_USER_FILE,
+    SETTINGS_INITIAL_USER_PROFILE,
+    SETTINGS_INITIAL_USER_IMAGE,
+    SETTINGS_INITIAL_COMPANY_USER_PROFILE,
+    SETTINGS_INITIAL_COMPANY_USER_FILE,
+    SETTINGS_INITIAL_COMPANY_PROFILE,
+    SETTINGS_INITIAL_COMPANY_FILE,
+    SETTINGS_INITIAL_BENEFICIAL,
+    SETTINGS_INITIAL_BENEFICIAL_FILE
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
     individualUserFile: {
         personalUserDocument: null,
         utilityBill: null
+    },
+    individualUserImage: {
+        personalUserDocument: '',
+        utilityBill: ''
     },
     personCompanyFile: {
         personalUserCompanyDocument: null,
@@ -100,9 +113,26 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, settingsModalIsOpen: action.payload };
         case CHANGE_SETTINGS_ERROR:
             return { ...state, settingsError: action.payload };
+        case SETTINGS_INITIAL_USER_FILE:
+            return { ...state, individualUserFile: action.payload };
+        case SETTINGS_INITIAL_USER_PROFILE:
+            return { ...state, individualUserInformation: action.payload };
+        case SETTINGS_INITIAL_USER_IMAGE:
+            return { ...state, individualUserImage: action.payload };
+        case SETTINGS_INITIAL_COMPANY_USER_PROFILE:
+            return { ...state, companyUserInformation: action.payload };
+        case SETTINGS_INITIAL_COMPANY_USER_FILE:
+            return { ...state, personCompanyFile: action.payload };
+        case SETTINGS_INITIAL_COMPANY_PROFILE:
+            return { ...state, companyInformation: action.payload };
+        case SETTINGS_INITIAL_COMPANY_FILE:
+            return { ...state, companyFile: action.payload };
+        case SETTINGS_INITIAL_BENEFICIAL:
+            return { ...state, beneficial: action.payload };
+        case SETTINGS_INITIAL_BENEFICIAL_FILE:
+            return { ...state, beneficialFile: action.payload };
         case CHANGE_SETTINGS_SUCCESS:
             return { ...state, success: action.payload };
-
         case CHANGE_SETTINGS_INPUT:
             const {
                 stateInput,

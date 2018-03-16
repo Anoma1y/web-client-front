@@ -6,7 +6,7 @@ import {redirectToSignup} from 'actions/redirect'
 import { connect } from 'react-redux';
 
 class CheckToken extends Component {
-    componentWillMount() {
+    componentDidMount() {
         const { initialUser } = this.props;
         const TOKEN = localStorage.getItem("jwt");
         if (TOKEN !== null) {

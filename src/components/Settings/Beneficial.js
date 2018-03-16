@@ -50,8 +50,7 @@ class Beneficial extends Component {
             )
         })
     }
-    handleDropdown = (event) => {
-        const { innerText } = event.target;
+    handleDropdown = (event, { value }) => {
         const {
             changeInputBeneficial,
             indexBeneficial
@@ -59,7 +58,7 @@ class Beneficial extends Component {
         changeInputBeneficial({
             indexBeneficial,
             keyBeneficial: 'Country',
-            valueBeneficial: innerText
+            valueBeneficial: value
         });
     }
     handleChange = (event) => {
@@ -261,6 +260,7 @@ class Beneficial extends Component {
                                         placeholder='Choose your country'
                                         fluid
                                         selection
+                                        value={settings.beneficial[indexBeneficial].Country.length === 0 ? null : settings.beneficial[indexBeneficial].Country}
                                         options={countryOptions}
                                         onChange={this.handleDropdown}
                                     />

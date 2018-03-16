@@ -28,7 +28,7 @@ export const handleLogin = value => {
                     roles,
                     kyc_type
                 } = user.data;
-                dispatch(handleTokenUser({jwt, roles, kyc_type}));
+                dispatch(handleTokenUser({jwt, roles, kyc_type, is_kyc_passed, email}));
                 dispatch(initIdenfified(is_kyc_passed));
                 dispatch(initEmail(email));
                 dispatch(initKycType(kyc_type));
