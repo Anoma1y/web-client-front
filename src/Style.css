@@ -827,6 +827,9 @@ body {
 
 .auth_dropdown {
   color: #000000 !important; }
+  .auth_dropdown i:before {
+    position: absolute;
+    top: 20px; }
   .auth_dropdown .dropdown:not(.icon) {
     height: 50px !important;
     margin-top: 7px !important;
@@ -838,7 +841,8 @@ body {
     border-bottom: 1px solid #939393 !important; }
     .auth_dropdown .dropdown:not(.icon) .text {
       position: relative;
-      top: 12px !important; }
+      top: 12px !important;
+      color: #939393 !important; }
     .auth_dropdown .dropdown:not(.icon) .menu {
       -webkit-flex-wrap: wrap !important;
       -ms-flex-wrap: wrap !important;
@@ -1021,6 +1025,7 @@ body {
     color: #0059e8 !important; }
 
 .auth_input label {
+  margin-bottom: 22px !important;
   position: relative !important;
   display: block !important;
   background-color: inherit !important;
@@ -1032,7 +1037,7 @@ body {
     display: block !important;
     position: relative !important;
     border: none !important;
-    padding: 30px 0 10px !important;
+    padding: 30px 0 8px !important;
     width: 100% !important;
     outline: none !important;
     background-color: inherit !important;
@@ -1061,13 +1066,13 @@ body {
         top: 10px !important; }
     .auth_input label input:focus, .auth_input label input.populated {
       padding-top: 28px !important;
-      padding-bottom: 12px !important;
+      padding-bottom: 10px !important;
       border-bottom: 3px solid #004fce !important; }
       .auth_input label input:focus::placeholder, .auth_input label input.populated::placeholder {
         color: transparent !important; }
       .auth_input label input:focus + span, .auth_input label input.populated + span {
         opacity: 1 !important;
-        top: 10px !important; }
+        top: 4px !important; }
   .auth_input label span.auth_input-span {
     color: #004fce !important;
     position: absolute !important;
@@ -1081,6 +1086,7 @@ body {
 
 .auth_input .auth__error {
   color: #FF3E33 !important;
+  margin-top: 8px !important;
   font-size: 12px !important; }
 
 .signup__content_confirm {

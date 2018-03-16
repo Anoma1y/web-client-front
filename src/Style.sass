@@ -855,6 +855,10 @@ body
 
 .auth_dropdown
   color: $black-color
+  i
+    &:before
+      position: absolute
+      top: 20px
   .dropdown:not(.icon)
     height: 50px !important
     margin-top: 7px !important
@@ -864,6 +868,7 @@ body
     .text
       position: relative
       top: 12px !important
+      color: $gray-color
     .menu
       -webkit-flex-wrap: wrap !important
       -ms-flex-wrap: wrap !important
@@ -1056,6 +1061,7 @@ body
 
 .auth_input
   label
+    margin-bottom: 22px !important
     position: relative !important
     display: block !important
     background-color: inherit !important
@@ -1067,7 +1073,7 @@ body
       display: block !important
       position: relative !important
       border: none !important
-      padding: 30px 0 10px !important
+      padding: 30px 0 8px !important
       width: 100% !important
       outline: none !important
       background-color: inherit !important
@@ -1090,14 +1096,13 @@ body
           top: 10px !important
       &:focus, &.populated
         padding-top: 28px !important
-        padding-bottom: 12px !important
+        padding-bottom: 10px !important
         border-bottom: 3px solid $blue-color
-
         &::placeholder
           color: transparent !important
         & + span
           opacity: 1 !important
-          top: 10px !important
+          top: 4px !important
     span.auth_input-span
       color: $blue-color
       position: absolute !important
@@ -1110,6 +1115,7 @@ body
       transition: all 0.2s ease-in-out !important
   .auth__error
     color: $red-color
+    margin-top: 8px !important
     font-size: 12px !important
 
 .signup__content
