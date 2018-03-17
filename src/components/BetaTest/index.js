@@ -76,11 +76,11 @@ class BetaTest extends Component {
                             <Grid.Row className={"betatest__items"}>
                                 <Grid.Column width={8}>
                                     <List horizontal>
-                                        <List.Item className={androidChecked ? "betatest__item betatest__item-checked" : "betatest__item"} onClick={this.onCheckedAndroid}>
-                                            <List.Icon name='android' size='large' verticalAlign='middle' />
-                                        </List.Item>
                                         <List.Item className={appleChecked ? "betatest__item betatest__item-checked" : "betatest__item"} onClick={this.onCheckedApple}>
                                             <List.Icon name='apple' size='large' verticalAlign='middle' />
+                                        </List.Item>
+                                        <List.Item className={androidChecked ? "betatest__item betatest__item-checked" : "betatest__item"} onClick={this.onCheckedAndroid}>
+                                            <List.Icon name='android' size='large' verticalAlign='middle' />
                                         </List.Item>
                                     </List>
                                 </Grid.Column>
