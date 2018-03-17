@@ -3,6 +3,7 @@ import {
     changeSettingsError,
     changeSettingsSuccess
 } from 'actions/settings';
+import { initKycType } from 'actions/users';
 import KYC from 'libs/ApiLib/KYC';
 
 export const handleSettingsSend = value => {
@@ -23,6 +24,8 @@ export const handleSettingsSend = value => {
                 .then(() => {
                     dispatch(changeModalSettings(true));
                     dispatch(changeSettingsSuccess(true));
+                    dispatch(initKycType(value));
+                    localStorage.setItem('kyc_type', value);
                 })
                 .catch(() => {
                     dispatch(changeModalSettings(true));
@@ -53,6 +56,8 @@ export const handleSettingsSend = value => {
                 .then(() => {
                     dispatch(changeModalSettings(true));
                     dispatch(changeSettingsSuccess(true));
+                    dispatch(initKycType(value));
+                    localStorage.setItem('kyc_type', value);
                 })
                 .catch(() => {
                     dispatch(changeModalSettings(true));

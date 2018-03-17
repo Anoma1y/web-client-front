@@ -245,6 +245,9 @@ class CompanyInformation extends Component {
                                         options={countryOptions}
                                         onChange={this.handleDropdownCountry}
                                     />
+                                    <span className={'auth_input-dropdown'}>
+                                        Tax residence country
+                                </span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>

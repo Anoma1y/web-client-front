@@ -578,7 +578,8 @@ body {
 
 .modal {
   -webkit-box-shadow: none !important;
-  box-shadow: none !important; }
+  box-shadow: none !important;
+  color: #000000 !important; }
 
 .modal__success {
   text-align: center !important; }
@@ -693,7 +694,7 @@ body {
 
 /***ROADMAP COMPONENT***/
 .roadmap__title {
-  font-size: 25px !important;
+  font-size: 22px !important;
   margin-top: -9px !important;
   margin-bottom: -9px !important; }
 
@@ -835,7 +836,7 @@ body {
     width: 100% !important;
     border: none !important;
     border-radius: 0 !important;
-    border-bottom: 3px solid #004fce !important; }
+    border-bottom: 1px solid #939393 !important; }
     .dropdown_populated .dropdown:not(.icon) .text {
       position: relative;
       top: 12px !important;
@@ -846,8 +847,12 @@ body {
       -webkit-flex-wrap: wrap !important;
       -ms-flex-wrap: wrap !important;
       flex-wrap: wrap !important; }
+    .dropdown_populated .dropdown:not(.icon):hover {
+      border-bottom: 3px solid #004fce !important; }
     .dropdown_populated .dropdown:not(.icon) .item {
       width: 100% !important; }
+    .dropdown_populated .dropdown:not(.icon):hover + .auth_input-dropdown {
+      color: #004fce !important; }
 
 .auth_dropdown {
   color: #000000 !important; }
@@ -877,19 +882,28 @@ body {
       border-bottom: 3px solid #004fce !important; }
     .auth_dropdown .dropdown:not(.icon) .item {
       width: 100% !important; }
+    .auth_dropdown .dropdown:not(.icon):hover + .auth_input-dropdown {
+      color: #004fce !important; }
+  .auth_dropdown span.auth_input-dropdown {
+    opacity: 0 !important; }
+  .auth_dropdown .visible ~ span.auth_input-dropdown {
+    opacity: 1 !important; }
 
 .settings__dropdown .dropdown:not(.icon) {
   margin-top: 10px !important;
   margin-bottom: 32px !important;
   padding-left: 0 !important;
   width: 100% !important;
+  height: 40px !important;
   border: none !important;
   border-radius: 0 !important;
-  border-bottom: 3px solid #000000 !important; }
+  border-bottom: 1px solid #000000 !important; }
   .settings__dropdown .dropdown:not(.icon) .menu {
     -webkit-flex-wrap: wrap !important;
     -ms-flex-wrap: wrap !important;
     flex-wrap: wrap !important; }
+  .settings__dropdown .dropdown:not(.icon):hover {
+    border-bottom: 3px solid #004fce !important; }
   .settings__dropdown .dropdown:not(.icon) .item {
     width: 100% !important; }
 
@@ -1051,7 +1065,7 @@ body {
     color: #0059e8 !important; }
 
 .auth_input label {
-  margin-bottom: 12px !important;
+  margin-bottom: 16px !important;
   position: relative !important;
   display: block !important;
   background-color: inherit !important;
@@ -1092,15 +1106,17 @@ body {
         top: 10px !important; }
     .auth_input label input:focus, .auth_input label input.populated {
       padding-top: 28px !important;
-      padding-bottom: 10px !important;
-      border-bottom: 3px solid #004fce !important; }
+      padding-bottom: 10px !important; }
       .auth_input label input:focus::placeholder, .auth_input label input.populated::placeholder {
         color: transparent !important; }
       .auth_input label input:focus + span, .auth_input label input.populated + span {
         opacity: 1 !important;
         top: 4px !important; }
+    .auth_input label input:focus {
+      border-bottom: 3px solid #004fce !important; }
+    .auth_input label input:focus + .auth_input-span, .auth_input label input:hover + .auth_input-span {
+      color: #004fce !important; }
   .auth_input label span.auth_input-span {
-    color: #004fce !important;
     position: absolute !important;
     top: 0 !important;
     font-size: 12px !important;
@@ -1109,10 +1125,20 @@ body {
     -webkit-transition: all 0.2s ease-in-out !important;
     -o-transition: all 0.2s ease-in-out !important;
     transition: all 0.2s ease-in-out !important; }
+  .auth_input label span.auth_input-dropdown {
+    position: absolute !important;
+    top: -3px !important;
+    font-size: 12px !important;
+    left: 0 !important;
+    z-index: 999999 !important;
+    -webkit-transition: all 0.2s ease-in-out !important;
+    -o-transition: all 0.2s ease-in-out !important;
+    transition: all 0.2s ease-in-out !important; }
 
 .auth_input .auth__error {
   color: #FF3E33 !important;
-  margin-top: 8px !important;
+  position: absolute;
+  bottom: -17px;
   font-size: 12px !important; }
 
 .signup__content_confirm {

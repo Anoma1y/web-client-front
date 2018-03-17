@@ -8,7 +8,6 @@ import {
 import LegalEntity from './LegalEntity';
 import IndividualUser from './IndividualUser';
 import {handleInitialSettings} from 'actions/settings';
-import KYC from 'libs/ApiLib/KYC';
 
 const individualUserRender = [
     { menuItem: 'Individual user', render: () => <Tab.Pane><IndividualUser /></Tab.Pane> }
@@ -24,7 +23,7 @@ const panes = [
 class Identification extends Component {
 
     render() {
-        const { kyc_type } = this.props.user;
+        const { kyc_type } = localStorage;
         return (
             <Card fluid className={'settings__identification component__main component__shadow'}>
                 <Card.Content>

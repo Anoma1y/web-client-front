@@ -254,6 +254,9 @@ class PersonInformation extends Component {
                                         options={countryOptions}
                                         onChange={this.handleDropdown}
                                     />
+                                    <span className={'auth_input-dropdown'}>
+                                        Country
+                                    </span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>

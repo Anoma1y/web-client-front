@@ -20,9 +20,9 @@ import {
     initialUserFile,
     initialCompanyUserFile,
     initialCompanyFile,
-    initialBeneficialFile
-
-
+    initialBeneficialFile,
+    changeSourceFunds,
+    incrementBeneficialID
 } from 'actions/settings';
 import _ from 'underscore';
 import { redirectToSignup } from 'actions/redirect';
@@ -102,11 +102,12 @@ export const initialUser = token => {
 
                             dispatch(initialCompanyUserProfile(INITIAL_DATA.companyUserInformation));
                             dispatch(initialCompanyProfile(INITIAL_DATA.companyInformation));
-                            dispatch(initialBeneficialProfle(INITIAL_DATA.beneficial));
 
-                            dispatch(initialCompanyUserFile(INITIAL_DATA. personCompanyFile));
-                            dispatch(initialCompanyFile(INITIAL_DATA. companyFile));
-                            dispatch(initialBeneficialFile(INITIAL_DATA. beneficialFile));
+
+                            dispatch(changeSourceFunds(INITIAL_DATA.sourceFunds));
+
+                            dispatch(initialCompanyUserFile(INITIAL_DATA.personCompanyFile));
+                            dispatch(initialCompanyFile(INITIAL_DATA.companyFile));
 
                             KYC.getKYCImage(imageUSER_COMPANY_ID, token).then((userCompanyImage) => {
                                 const IMAGE = _.indexBy(userCompanyImage.data, 'ID');
@@ -163,6 +164,24 @@ export const initialUser = token => {
                                     console.log(err);
                                 })
 
+                            const {
+                                beneficialFile
+                            } = INITIAL_DATA;
+
+                            const BENEFICIAL_FILE = INITIAL_DATA.beneficialFile.reduce((result, { ...beneficialFile }, index) => {
+                                result[index] = {...beneficialFile};
+                                return result;
+                            }, {});
+                            const BENEFICIAL_PROFILE = INITIAL_DATA.beneficial.reduce((result, { ...beneficial}, index) => {
+                                result[index] = {...beneficial};
+                                return result;
+                            }, {});
+                            const INCREMENT_ID = Object.keys(BENEFICIAL_FILE).length - 1;
+
+                            dispatch(incrementBeneficialID(INCREMENT_ID));
+                            dispatch(initialBeneficialFile(BENEFICIAL_FILE));
+                            dispatch(initialBeneficialProfle(BENEFICIAL_PROFILE));
+
                             const BENEFICIAL_IMAGE = imageBENEFICIAL_ID.map((item) => {
                                 return Object.values(item);
                             }).reduce((acc, items) => {
@@ -171,22 +190,23 @@ export const initialUser = token => {
 
                             KYC.getKYCImage(_.compact(BENEFICIAL_IMAGE).join(','), token).then((beneficialImage) => {
                                 const IMAGE = _.indexBy(beneficialImage.data, 'ID');
-                                const DATA_IMAGE_BENEFICIAL = imageBENEFICIAL_ID.map(item => {
-                                    return {
+                                const DATA_IMAGE_BENEFICIAL = INITIAL_DATA.beneficialFile.reduce((result, {  }, index) => {
+                                    result[index] = {
                                         personalBeneficialDocument:
-                                            findImage(IMAGE, item.personalBeneficialDocument) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, item.personalBeneficialDocument)].filename}`
+                                            findImage(IMAGE, beneficialFile[index].personalBeneficialDocument) !== undefined
+                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, beneficialFile[index].personalBeneficialDocument)].filename}`
                                                 : '',
                                         declarationBeneficialOwned:
-                                            findImage(IMAGE, item.declarationBeneficialOwned) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, item.declarationBeneficialOwned)].filename}`
+                                            findImage(IMAGE, beneficialFile[index].declarationBeneficialOwned) !== undefined
+                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, beneficialFile[index].declarationBeneficialOwned)].filename}`
                                                 : '',
                                         legalRepresentative:
-                                            findImage(IMAGE, item.legalRepresentative) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, item.legalRepresentative)].filename}`
+                                            findImage(IMAGE, beneficialFile[index].legalRepresentative) !== undefined
+                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, beneficialFile[index].legalRepresentative)].filename}`
                                                 : ''
-                                    }
-                                })
+                                    };
+                                    return result;
+                                }, {});
                                 dispatch(initialIBeneficialmage(DATA_IMAGE_BENEFICIAL));
                             }).catch((err) => console.log(err));
                         }

@@ -19,12 +19,10 @@ class SettingsButton extends Component {
         const {
             handleSettingsSend,
             settingsOption,
-            initKycType
         } = this.props;
         const { kyc_type } = this.props.user;
         if (kyc_type === settingsOption || kyc_type === '') {
             handleSettingsSend(settingsOption);
-            initKycType(settingsOption);
         }
     }
 

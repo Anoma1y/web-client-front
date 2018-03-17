@@ -40,7 +40,9 @@ class Beneficial extends Component {
                             id={`${item.id}_${indexBeneficial}`}
                             indexBeneficial={this.props.indexBeneficial}
                             objectFile={item.objectFile}
-                            imageValue={beneficialImage[indexBeneficial][item.id]}
+                            imageValue={
+                                beneficialImage[indexBeneficial] !== undefined ? beneficialImage[indexBeneficial][item.id] : ''
+                            }
                         />
                     </Grid.Column>
                     { index !== (legalEntityBeneficial.length - 1) ?
@@ -267,6 +269,9 @@ class Beneficial extends Component {
                                         options={countryOptions}
                                         onChange={this.handleDropdown}
                                     />
+                                    <span className={'auth_input-dropdown'}>
+                                        Country
+                                    </span>
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>

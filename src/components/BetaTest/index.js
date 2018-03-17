@@ -69,7 +69,7 @@ class BetaTest extends Component {
         return (
             <Card fluid className={"component__main component__shadow betatest"}>
                 <Card.Content>
-                    <Card.Header className={"component__title betatest__title"}>Beta Test</Card.Header>
+                    <Card.Header className={"component__title betatest__title"}>Beta test</Card.Header>
                     <Divider className={"component__divider"} />
                     <Card.Description className={"betatest__wrapper"}>
                         <Grid>

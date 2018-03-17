@@ -49,7 +49,7 @@ export const handleApplication = () => {
                     dispatch(changeQuerySuccessful(false));
                 }
             } else {
-                dispatch(changeApplicationError("You are not verified"));
+                dispatch(changeApplicationError("You are not identified"));
                 dispatch(changeModalSuccessful(true));
                 dispatch(changeQuerySuccessful(false));
             }

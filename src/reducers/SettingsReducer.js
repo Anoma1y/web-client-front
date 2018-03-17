@@ -51,22 +51,23 @@ const INITIAL_STATE = {
             personalBeneficialDocument: '',
             declarationBeneficialOwned: '',
             legalRepresentative: ''
-        },
-        1: {
-            personalBeneficialDocument: '',
-            declarationBeneficialOwned: '',
-            legalRepresentative: ''
-        },
-        2: {
-            personalBeneficialDocument: '',
-            declarationBeneficialOwned: '',
-            legalRepresentative: ''
-        },
-        3: {
-            personalBeneficialDocument: '',
-            declarationBeneficialOwned: '',
-            legalRepresentative: ''
         }
+        // ,
+        // 1: {
+        //     personalBeneficialDocument: '',
+        //     declarationBeneficialOwned: '',
+        //     legalRepresentative: ''
+        // },
+        // 2: {
+        //     personalBeneficialDocument: '',
+        //     declarationBeneficialOwned: '',
+        //     legalRepresentative: ''
+        // },
+        // 3: {
+        //     personalBeneficialDocument: '',
+        //     declarationBeneficialOwned: '',
+        //     legalRepresentative: ''
+        // }
     },
     personCompanyFile: {
         personalUserCompanyDocument: null,
@@ -252,6 +253,14 @@ export default (state = INITIAL_STATE, action) => {
                         legalRepresentative: null
                     }
                 },
+                beneficialImage: {
+                    ...state.beneficialImage,
+                    [action.payload]: {
+                        personalBeneficialDocument: '',
+                        declarationBeneficialOwned: '',
+                        legalRepresentative: ''
+                    }
+                }
             }
         case CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER:
             return {
