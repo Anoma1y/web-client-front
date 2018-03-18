@@ -1142,6 +1142,13 @@ body {
   bottom: -17px;
   font-size: 12px !important; }
 
+.auth_input .auth_length {
+  color: #939393 !important;
+  position: absolute;
+  right: 0;
+  bottom: -17px;
+  font-size: 12px; }
+
 .signup__content_confirm {
   margin: 20px 0 34px !important;
   font-size: 14px !important;

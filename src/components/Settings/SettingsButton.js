@@ -12,6 +12,7 @@ import {
     handleSettingsSend
 } from 'actions/settings';
 import { initKycType } from 'actions/users';
+import _ from 'underscore';
 
 class SettingsButton extends Component {
 
@@ -22,7 +23,121 @@ class SettingsButton extends Component {
         } = this.props;
         const { kyc_type } = this.props.user;
         if (kyc_type === settingsOption || kyc_type === '') {
-            handleSettingsSend(settingsOption);
+            this.checkCompletenessFields(kyc_type);
+            // handleSettingsSend(settingsOption);
+        }
+    }
+    checkEnglish = value => {
+        if (value.match(/^[A-Za-z\s]+$|i/) && value.length > 0) return true;
+        else return false;
+    }
+    checkNumber = value => {
+        if (value.match(/^[0-9]+$|i/) && value.length > 0) return true;
+        else return false;
+    }
+    checkEmail = value => {
+        if (value.match(/^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i) && value.length > 0) return true;
+        else return false;
+    }
+    checkPhone = value => {
+        if (value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/) && value.length > 0) return true;
+        else return false;
+    }
+    checkWeb = value => {
+        if (value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/) && value.length > 0) return true;
+        else return false;
+    }
+
+
+    checkCompletenessFields = (TYPE) => {
+        if (TYPE === 'individual') {
+            const {
+                individualUserFile,
+                individualUserInformation
+            } = this.props.settings;
+            const checkedUserInformation = Object.keys(individualUserInformation).map((item) => {
+                if (item === 'Name' || item === 'Surname') {
+                    return this.checkEnglish(individualUserInformation[item])
+                } else if (item === 'Zip') {
+                    return this.checkNumber(individualUserInformation[item]);
+                } else if (item === 'Email') {
+                    return this.checkEmail(individualUserInformation[item]);
+                } else if (item === 'Phone') {
+                    return this.checkPhone(individualUserInformation[item]);
+                } else if (item === 'City' || item === 'Addres' || item === 'Country' || item === 'Dateofbirth') {
+                    return individualUserInformation[item].length > 0;
+                }
+            });
+            const checkedUserFile = _.every(individualUserFile, (num) => num !== null);
+        }
+        else if (TYPE === 'legal') {
+            const {
+                personCompanyFile,
+                companyFile,
+                beneficialFile,
+                companyUserInformation,
+                companyInformation,
+                beneficial,
+                sourceFunds
+            } = this.props.settings;
+
+            const checkedCompanyUserInformation = Object.keys(companyUserInformation).map((item) => {
+                if (item === 'Name' || item === 'Surname') {
+                    return this.checkEnglish(companyUserInformation[item])
+                } else if (item === 'Zip') {
+                    return this.checkNumber(companyUserInformation[item]);
+                } else if (item === 'Email') {
+                    return this.checkEmail(companyUserInformation[item]);
+                } else if (item === 'Phone') {
+                    return this.checkPhone(companyUserInformation[item]);
+                } else if (item === 'City' || item === 'Addres' || item === 'Country' || item === 'Dateofbirth') {
+                    return companyUserInformation[item].length > 0;
+                }
+            });
+            const checkedPersonCompanyFile = _.every(personCompanyFile, (num) => num !== null);
+
+            const checkedCompanyInformation = Object.keys(companyInformation).map((item) => {
+                if (item === 'companyCompanyName') {
+                    return this.checkEnglish(companyInformation[item]);
+                } else if (item === 'companyTaxIDnumber' || item === 'companyZip') {
+                    return this.checkNumber(companyInformation[item]);
+                } else if (item === 'companyWebsites') {
+                    return this.checkWeb(companyInformation[item]);
+                } else if (item === 'companyEmail') {
+                    return this.checkEmail(companyInformation[item]);
+                } else if (item === 'companyPhone') {
+                    return this.checkPhone(companyInformation[item]);
+                } else if (item === 'companyCity' || item === 'companyLegaladdress' || item === 'companyActualbusinessplaceaddress' || item === 'companyDescriptioncompanydoes' || item === 'companyTaxrezidencecountry' || item === 'companyLinktopubliccompanyregister') {
+                    return companyInformation[item].length > 0;
+                }
+            });
+
+            const checkedCompanyFile = _.every(companyFile, (num) => num !== null);
+
+            const checkedSourceFunds = sourceFunds !== 'None';
+
+            const chekedBeneficial = Object.values(beneficial).map(item => {
+                return Object.keys(item).map(it => {
+                    if (it === 'Name' || it === 'Surname') {
+                        return this.checkEnglish(item[it])
+                    } else if (it === 'Zip') {
+                        return this.checkNumber(item[it]);
+                    } else if (it === 'Email') {
+                        return this.checkEmail(item[it]);
+                    } else if (it === 'Phone') {
+                        return this.checkPhone(item[it]);
+                    } else if (it === 'City' || it === 'Addres' || it === 'Country' || it === 'Dateofbirth') {
+                        return item[it].length > 0;
+                    }
+                })
+            })
+
+            const chekedBeneficialFile = Object.values(beneficialFile).map(item => {
+                return Object.keys(item).map(it => {
+                    return item[it] !== null
+                })
+            })
+
         }
     }
 

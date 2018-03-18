@@ -23,7 +23,8 @@ import {
     SETTINGS_INITIAL_BENEFICIAL_FILE,
     SETTINGS_INITIAL_COMPANY_USER_IMAGE,
     SETTINGS_INITIAL_COMPANY_IMAGE,
-    SETTINGS_INITIAL_BENEFICIAL_IMAGE
+    SETTINGS_INITIAL_BENEFICIAL_IMAGE,
+    CHANGE_SETTINGS_INPUT_ERROR
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
@@ -125,7 +126,8 @@ const INITIAL_STATE = {
     maxBeneficial: 4,
     settingsModalIsOpen: false,
     settingsError: null,
-    success: false
+    success: false,
+    settingsInputError: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -134,6 +136,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, settingsModalIsOpen: action.payload };
         case CHANGE_SETTINGS_ERROR:
             return { ...state, settingsError: action.payload };
+        case CHANGE_SETTINGS_INPUT_ERROR:
+            return { ...state, settingsInputError: action.payload };
         case SETTINGS_INITIAL_USER_FILE:
             return { ...state, individualUserFile: action.payload };
         case SETTINGS_INITIAL_USER_PROFILE:

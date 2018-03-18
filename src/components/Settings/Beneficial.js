@@ -152,7 +152,7 @@ class Beneficial extends Component {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
-                [nameError]: "Enter numbers only"
+                [nameError]: "Enter valid phone number"
             });
         } else {
             this.setState({

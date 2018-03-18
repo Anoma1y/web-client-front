@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    changeSettingsInput
+    changeSettingsInput,
+    changeSettingsInputError
 } from 'actions/settings';
 import {
     Grid,
     Dropdown
 } from 'semantic-ui-react';
 import { countryOptions } from 'libs/country';
+import { ERROR_VALIDATION } from 'libs/messages';
 import InputMask from 'react-input-mask';
 
 class PersonInformation extends Component {
@@ -20,19 +22,18 @@ class PersonInformation extends Component {
             emailError: '',
             zipError: '',
             phoneError: '',
-
         }
     }
 
     checkEnglish = (value, nameError, len) => {
         if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter only English alphabet characters'
-            })
+                [nameError]: ERROR_VALIDATION.ENGLISH
+            });
         } else {
             this.setState({
                 [nameError]: ''
-            })
+            });
         }
         if (value.length > len) {
             return false;
@@ -42,12 +43,12 @@ class PersonInformation extends Component {
     checkOnlyNumber = (value, nameError, len) => {
         if (!value.match(/^[0-9]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter numbers only'
-            })
+                [nameError]: ERROR_VALIDATION.NUMBER
+            });
         } else {
             this.setState({
                 [nameError]: ''
-            })
+            });
         }
         if (value.length > len) {
             return false;
@@ -58,27 +59,27 @@ class PersonInformation extends Component {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
-                [nameError]: "Enter numbers only"
+                [nameError]: ERROR_VALIDATION.PHONE
             });
         } else {
             this.setState({
                 [nameError]: ''
-            })
+            });
         }
         if (value.length > len) {
             return false;
         }
     }
-    checkEmail = (value, len) => {
+    checkEmail = (value, nameError, len) => {
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!value.match(pattern)) {
             this.setState({
-                emailError: "Please enter a valid Email"
+                [nameError]: ERROR_VALIDATION.EMAIL
             });
         } else {
             this.setState({
-                emailError: ''
-            })
+                [nameError]: ''
+            });
         }
         if (value.length > len) {
             return false;
@@ -91,7 +92,7 @@ class PersonInformation extends Component {
         } = event.target;
         const {
             changeSettingsInput,
-            stateObject
+            stateObject,
         } = this.props;
         switch (id) {
             case 'Name':
@@ -125,11 +126,11 @@ class PersonInformation extends Component {
                 }
                 break;
             case 'Email':
-                if (this.checkEmail(value, 100) === false) {
+                if (this.checkEmail(value, 'emailError', 100) === false) {
                     return false;
                 }
                 break;
-        }
+        };
         changeSettingsInput({
             stateInput: stateObject,
             keyInput: id,
@@ -329,5 +330,6 @@ class PersonInformation extends Component {
 }
 
 export default connect(state => ({ settings: state.settings }), {
-    changeSettingsInput
+    changeSettingsInput,
+    changeSettingsInputError
 })(PersonInformation);
