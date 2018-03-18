@@ -25,31 +25,25 @@ export const handleApplication = () => {
             token: TOKEN
         };
         ApplicationLib.getApplication(TOKEN).then((data) => {
-            if (isIdentification === true) {
-                if (data.length < 10) {
-                    ApplicationLib.addApplication(dataOrder).then((data) => {
-                        dispatch(changeModalSuccessful(true));
-                        dispatch(changeQuerySuccessful(true));
-                        dispatch(addRequestItem([
-                            data.data,
-                            ...requests.items
-                        ]));
-                        if (calculator.comments.length !== 0) {
-                            dispatch(changeComments(""));
-                        }
-                        dispatch(changeApplicationError(null));
-                    }).catch(() => {
-                        dispatch(changeApplicationError("Error"));
-                        dispatch(changeModalSuccessful(true));
-                        dispatch(changeQuerySuccessful(false));
-                    })
-                } else {
-                    dispatch(changeApplicationError("To proceed please contact us"));
+            if (data.length < 10) {
+                ApplicationLib.addApplication(dataOrder).then((data) => {
+                    dispatch(changeModalSuccessful(true));
+                    dispatch(changeQuerySuccessful(true));
+                    dispatch(addRequestItem([
+                        data.data,
+                        ...requests.items
+                    ]));
+                    if (calculator.comments.length !== 0) {
+                        dispatch(changeComments(""));
+                    }
+                    dispatch(changeApplicationError(null));
+                }).catch(() => {
+                    dispatch(changeApplicationError("Error"));
                     dispatch(changeModalSuccessful(true));
                     dispatch(changeQuerySuccessful(false));
-                }
+                })
             } else {
-                dispatch(changeApplicationError("You are not identified"));
+                dispatch(changeApplicationError("To proceed please contact us"));
                 dispatch(changeModalSuccessful(true));
                 dispatch(changeQuerySuccessful(false));
             }
