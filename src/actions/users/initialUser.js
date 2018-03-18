@@ -102,10 +102,7 @@ export const initialUser = token => {
 
                             dispatch(initialCompanyUserProfile(INITIAL_DATA.companyUserInformation));
                             dispatch(initialCompanyProfile(INITIAL_DATA.companyInformation));
-
-
                             dispatch(changeSourceFunds(INITIAL_DATA.sourceFunds));
-
                             dispatch(initialCompanyUserFile(INITIAL_DATA.personCompanyFile));
                             dispatch(initialCompanyFile(INITIAL_DATA.companyFile));
 
