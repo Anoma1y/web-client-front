@@ -82,16 +82,13 @@ class AdminLib {
         )
     }
 
-    static getKYCById(id) {
+    static getKYCById(id, TOKEN) {
         const URL = Config.url + `admin/kyc/${id}`;
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
-        const header = {
-            headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+        return axios.get(URL, {
+                headers: {
+                    'Authorization': `Bearer ${TOKEN}`
+                }
             }
-        }
-        return axios.get(URL,
-            header
         )
     }
 
