@@ -26,7 +26,11 @@ class UserSingle extends Component {
         const data = JSON.parse(singleUserKYC.content);
         
         // console.log(singleUserKYC);
-        
+        const findImage = (OBJECT, KEYS) => {
+            return _.findKey(OBJECT, function(value, key) {
+                return key.indexOf(KEYS) >= 0;
+            });
+        }
         const newIndex = activeIndex === index ? -1 : index;
         if (index !== activeIndex) {
 
@@ -36,7 +40,22 @@ class UserSingle extends Component {
                     const KYC_DATA = JSON.parse(kycData.data.content);
                     const USER_IMAGE_ID = _.compact(Object.values(KYC_DATA.individualUserFile)).join(',');
                     AdminLib.getKYCImage(USER_IMAGE_ID, jwt).then((kycImage) => {
+                        const IMAGE = _.indexBy(kycImage.data, 'ID');
 
+                        const {
+                            personalUserDocument,
+                            utilityBill
+                        } = KYC_DATA.individualUserFile;
+                        console.log({
+                            personalUserDocument:
+                                findImage(IMAGE, personalUserDocument) !== undefined
+                                    ? `${Config.url}static/${IMAGE[findImage(IMAGE, personalUserDocument)].filename}`
+                                    : '',
+                            utilityBill:
+                                findImage(IMAGE, utilityBill) !== undefined
+                                    ? `${Config.url}static/${IMAGE[findImage(IMAGE, utilityBill)].filename}`
+                                    : ''
+                        });
                     })
                     
                 })
