@@ -36,6 +36,19 @@ class UserSingle extends Component {
     handleRequestKYCUser = () => { console.log('RequestKYCUser'); }
     handleKYCAcceptedUser = () => { console.log('KYCAcceptedUser'); }
 
+    renderKYC = () => {
+        const {
+            singleUser,
+            singleUserKYC
+        } = this.props.admin;
+        const data = JSON.parse(singleUserKYC.content);
+        return (
+            <div>
+                <h1>User Profile</h1>
+            </div>
+        )
+    }
+
     render() {
         const { activeIndex } = this.state;
         const {
@@ -107,7 +120,7 @@ class UserSingle extends Component {
                                                 </Accordion.Title>
                                                 <Accordion.Content active={activeIndex === 0}>
                                                     <div>
-                                                        {singleUserKYC.content}
+                                                        {this.renderKYC()}
                                                     </div>
                                                 </Accordion.Content>
                                             </Accordion>

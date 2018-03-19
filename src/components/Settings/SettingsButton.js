@@ -12,6 +12,7 @@ import {
     handleSettingsSend
 } from 'actions/settings';
 import { initKycType } from 'actions/users';
+import { SETTINGS } from 'libs/messages';
 import _ from 'underscore';
 
 class SettingsButton extends Component {
@@ -116,7 +117,7 @@ class SettingsButton extends Component {
 
             const checkedSourceFunds = sourceFunds !== 'None';
 
-            const chekedBeneficial = Object.values(beneficial).map(item => {
+            const chekedBeneficial = _.every(Object.values(beneficial).map(item => {
                 return Object.keys(item).map(it => {
                     if (it === 'Name' || it === 'Surname') {
                         return this.checkEnglish(item[it])
@@ -130,13 +131,9 @@ class SettingsButton extends Component {
                         return item[it].length > 0;
                     }
                 })
-            })
-
-            const chekedBeneficialFile = Object.values(beneficialFile).map(item => {
-                return Object.keys(item).map(it => {
-                    return item[it] !== null
-                })
-            })
+            }).reduce((acc, curr) => acc.concat(curr)), (num) => num === true);
+            
+            const chekedBeneficialFile = _.every(Object.values(beneficialFile).map(item => Object.keys(item).map(it => item[it] !== null)).reduce((acc, curr) => acc.concat(curr)), (num) => num === true);
 
         }
     }
@@ -177,7 +174,7 @@ class SettingsButton extends Component {
                                     <Icon name={success ? "check circle outline" : "warning circle"} />
                                 </div>
                                 <div className={"modal__success_text betatest__modal_text black-text"}>
-                                    <span>{success ? "We have received your details, thank you. We’ll review all KYC requests together with approving applications. So if you receive a link to pay for your applications that means you successfully passed the KYC procedure. Please note that we might ask you to share some additional details." : settingsError}</span>
+                                    <span>{success ? SETTINGS.SUCCESS : settingsError}</span>
                                 </div>
                                 <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                     <Button
