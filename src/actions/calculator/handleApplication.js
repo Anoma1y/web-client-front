@@ -15,8 +15,7 @@ export const handleApplication = () => {
             user
         } = getState();
         const {
-            jwt: TOKEN,
-            isIdentification
+            jwt: TOKEN
         } = user;
         const dataOrder = {
             currency: `${calculator.order.fixCurrency}/${calculator.order.forCurrency}`,
@@ -46,7 +45,7 @@ export const handleApplication = () => {
                 dispatch(changeApplicationError("To proceed please contact us"));
                 dispatch(changeModalSuccessful(true));
                 dispatch(changeQuerySuccessful(false));
-                }
+            }
         })
     }
 };

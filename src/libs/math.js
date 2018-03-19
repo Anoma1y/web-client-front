@@ -81,7 +81,7 @@ export const checkMaximum = value => value >= 100;
 //bonusTKN - бонусное значение токена, TKN - стоимость токена
 //Возвращает значение токена с бонусом
 //Функция добавляет значение в общее количество токенов
-export const transferToTKNbonus = (value, bonusTKN, TSR) => (value / TSR) + ((value / TSR) * (bonusTKN / 100));
+export const transferToTKNbonus = (value, bonusTKN, TSR) => Math.round(value  / TSR) + ((value / TSR) * (bonusTKN / 100));
 
 //Функция для расчета текущего значения токена из вводимой валюты
 //Принимает 2 параметра: value - значения, вводимое пользователем в Input-валюты
@@ -193,13 +193,16 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         bonus = checkBonus(TKNinitialValue, bonusList);
         TSRvalue = transferToTKNbonus(value, bonus.bonusTSR, TSR_ETH);
         USD = value;
+
     } else if (currencyValue === "ETH") {
+
         USD = transferETH(value, "USD", currency);
         BTC = transferETH(value, "BTC", currency);
         TKNinitialValue = transferToTKN(value, TSR_PRICE);
         bonus = checkBonus(TKNinitialValue, bonusList);
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         ETH = value;
+
     } else if (currencyValue === "BTC") {
         USD = transferBTC(value, "USD", currency);
         ETH = transferBTC(value, "ETH", currency);
@@ -208,6 +211,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         BTC = value;
     }
+
     const progressBar = handleProgressBar(TSRvalue, bonusList);
     return {
         sumValue: value,
@@ -217,7 +221,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         currentBonus: bonus.bonusTSR,
         transferData: {
             USD,
-            TSR: Number(TSRvalue.toFixed(4)),
+            TSR: TSRvalue,
             BTC,
             ETH
         }
