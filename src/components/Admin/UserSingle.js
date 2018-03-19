@@ -8,7 +8,7 @@ import {
     Accordion,
     Icon
 } from 'semantic-ui-react';
-import { handleSetUserByID } from 'actions/admin';
+import { handleSetUserByID, handleChangeIndividualUser } from 'actions/admin';
 import AdminLib from 'libs/ApiLib/AdminLib';
 import _ from "underscore";
 import Config from "libs/config";
@@ -24,48 +24,12 @@ class UserSingle extends Component {
         } = this.props.admin;
         const { jwt } = this.props.user;
         const data = JSON.parse(singleUserKYC.content);
-        
-        // console.log(singleUserKYC);
-        const findImage = (OBJECT, KEYS) => {
-            return _.findKey(OBJECT, function(value, key) {
-                return key.indexOf(KEYS) >= 0;
-            });
-        }
+
         const newIndex = activeIndex === index ? -1 : index;
         if (index !== activeIndex) {
-
-            AdminLib.getUsersById(this.props.match.params.id).then((data) => {
-                AdminLib.getKYCById(data.data.kyc_id, jwt).then((kycData) => {
-
-                    const KYC_DATA = JSON.parse(kycData.data.content);
-                    const USER_IMAGE_ID = _.compact(Object.values(KYC_DATA.individualUserFile)).join(',');
-                    AdminLib.getKYCImage(USER_IMAGE_ID, jwt).then((kycImage) => {
-                        const IMAGE = _.indexBy(kycImage.data, 'ID');
-
-                        const {
-                            personalUserDocument,
-                            utilityBill
-                        } = KYC_DATA.individualUserFile;
-                        console.log({
-                            personalUserDocument:
-                                findImage(IMAGE, personalUserDocument) !== undefined
-                                    ? `${Config.url}static/${IMAGE[findImage(IMAGE, personalUserDocument)].filename}`
-                                    : '',
-                            utilityBill:
-                                findImage(IMAGE, utilityBill) !== undefined
-                                    ? `${Config.url}static/${IMAGE[findImage(IMAGE, utilityBill)].filename}`
-                                    : ''
-                        });
-                    })
-                    
-                })
-            })
-
-
-            // AdminLib.getKYCImage('2,4', jwt).then((data) => {
-            //     console.log(data.data);
-            // }).catch((err) => console.log(err));
-
+            const { handleChangeIndividualUser } = this.props;
+            const { id } = this.props.match.params;
+            handleChangeIndividualUser(id);
         }
 
         this.setState({ activeIndex: newIndex })
@@ -188,5 +152,6 @@ export default connect(state => ({
     admin: state.admin,
     user: state.user
 }), {
-    handleSetUserByID
+    handleSetUserByID,
+    handleChangeIndividualUser
 })(UserSingle);

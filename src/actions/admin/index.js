@@ -23,3 +23,7 @@ export { setUserSingle } from './setUserSingle';
 export { setUserKYC } from './setUserKYC';
 export { handleSetUserByID } from './handleSetUserByID';
 export { handleAdminInitialCurrency } from './handleAdminInitialCurrency';
+
+export { changeIndividualUserImage } from './changeIndividualUserImage'; 
+export { changeIndividualUserProfile } from './changeIndividualUserProfile';
+export { handleChangeIndividualUser } from './handleChangeIndividualUser';

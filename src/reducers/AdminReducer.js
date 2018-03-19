@@ -15,7 +15,9 @@ import {
     SET_ADMIN_APPLICATION_SINGLE,
     CHANGE_FIXED_CURRENCY,
     SET_ADMIN_USER_SINGLE,
-    SET_ADMIN_USER_KYC
+    SET_ADMIN_USER_KYC,
+    CHANGE_INDIVIDUAL_USER_IMAGE,
+    CHANGE_INDIVIDUAL_USER_PROFILE
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -63,6 +65,21 @@ const INITIAL_STATE = {
         profile_id: null,
         status: null,
         type: null
+    },
+    individualUserImage: {
+        personalUserDocument: '',
+        utilityBill: ''
+    },
+    individualUserInformation: {
+        Name: '',
+        Addres: '',
+        Country: '',
+        Dateofbirth: '',
+        Phone: '',
+        Surname: '',
+        City: '',
+        Zip: '',
+        Email: ''
     },
     deleteUsers: [],
     deleteApplications: [],
@@ -138,6 +155,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, sumValue: action.payload };
         case SET_ADMIN_TOKEN_VALUE:
             return { ...state, tokenValue: action.payload };
+        case CHANGE_INDIVIDUAL_USER_IMAGE:
+            return { ...state, individualUserImage: action.payload };
+        case CHANGE_INDIVIDUAL_USER_PROFILE:
+            return { ...state, individualUserInformation: action.payload };
         case SET_ADMIN_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
         case SET_ADMIN_TRANSFER_DATA:
