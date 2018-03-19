@@ -9,6 +9,9 @@ import {
     Icon
 } from 'semantic-ui-react';
 import { handleSetUserByID } from 'actions/admin';
+import AdminLib from 'libs/ApiLib/AdminLib';
+import _ from "underscore";
+import Config from "libs/config";
 
 class UserSingle extends Component {
     state = { activeIndex: -1 }
@@ -16,7 +19,34 @@ class UserSingle extends Component {
     handleClick = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
+        const {
+            singleUserKYC
+        } = this.props.admin;
+        const { jwt } = this.props.user;
+        const data = JSON.parse(singleUserKYC.content);
+        
+        // console.log(singleUserKYC);
+        
         const newIndex = activeIndex === index ? -1 : index;
+        if (index !== activeIndex) {
+            
+            AdminLib.getUsersById(this.props.match.params.id).then((data) => {
+                AdminLib.getKYCById(data.data.kyc_id, jwt).then((kycData) => {
+
+                    const KYC_DATA = JSON.parse(kycData.data.content);
+                    const USER_IMAGE_ID = _.compact(Object.values(KYC_DATA.individualUserFile)).join(',');
+                    AdminLib.getKYCImage(USER_IMAGE_ID, jwt).then((kycImage) => {
+
+                    })
+                })
+            })
+            
+            
+            // AdminLib.getKYCImage('2,4', jwt).then((data) => {
+            //     console.log(data.data);
+            // }).catch((err) => console.log(err));
+
+        }
 
         this.setState({ activeIndex: newIndex })
     }
@@ -28,20 +58,18 @@ class UserSingle extends Component {
         const {
             handleSetUserByID
         } = this.props;
-        handleSetUserByID(id);
     }
 
-    handleBlockUser = () => { console.log('BlockUser'); }
+    handleBlockUser = () => {
+
+    }
     handleDeleteUser = () => { console.log('DeleteUser'); }
     handleRequestKYCUser = () => { console.log('RequestKYCUser'); }
     handleKYCAcceptedUser = () => { console.log('KYCAcceptedUser'); }
 
     renderKYC = () => {
-        const {
-            singleUser,
-            singleUserKYC
-        } = this.props.admin;
-        const data = JSON.parse(singleUserKYC.content);
+
+
         return (
             <div>
                 <h1>User Profile</h1>
@@ -120,7 +148,7 @@ class UserSingle extends Component {
                                                 </Accordion.Title>
                                                 <Accordion.Content active={activeIndex === 0}>
                                                     <div>
-                                                        {this.renderKYC()}
+                                                        {}
                                                     </div>
                                                 </Accordion.Content>
                                             </Accordion>
@@ -136,6 +164,9 @@ class UserSingle extends Component {
     }
 }
 
-export default connect(state => ({ admin: state.admin }), {
+export default connect(state => ({
+    admin: state.admin,
+    user: state.user
+}), {
     handleSetUserByID
 })(UserSingle);

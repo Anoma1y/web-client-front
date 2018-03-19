@@ -16,12 +16,10 @@ import { initKycType } from 'actions/users';
 import { SETTINGS } from 'libs/messages';
 import _ from 'underscore';
 
-
 class SettingsButton extends Component {
 
     handleSubmit = () => {
         const {
-            handleSettingsSend,
             settingsOption,
         } = this.props;
         const { kyc_type } = this.props.user;
@@ -95,7 +93,6 @@ class SettingsButton extends Component {
                     handleSettingsSend(TYPE);
                 } else {
                     changeSettingsInputError(SETTINGS.VALID_INPUT);
-
                 }
             } else {
                 changeSettingsInputError(SETTINGS.FILL_INPUT);
