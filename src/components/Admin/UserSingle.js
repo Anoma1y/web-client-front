@@ -29,7 +29,7 @@ class UserSingle extends Component {
         
         const newIndex = activeIndex === index ? -1 : index;
         if (index !== activeIndex) {
-            
+
             AdminLib.getUsersById(this.props.match.params.id).then((data) => {
                 AdminLib.getKYCById(data.data.kyc_id, jwt).then((kycData) => {
 
@@ -38,10 +38,11 @@ class UserSingle extends Component {
                     AdminLib.getKYCImage(USER_IMAGE_ID, jwt).then((kycImage) => {
 
                     })
+                    
                 })
             })
-            
-            
+
+
             // AdminLib.getKYCImage('2,4', jwt).then((data) => {
             //     console.log(data.data);
             // }).catch((err) => console.log(err));
