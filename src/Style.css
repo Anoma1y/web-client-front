@@ -846,7 +846,7 @@ body {
     top: 20px; }
   .dropdown_populated .dropdown:not(.icon) {
     height: 50px !important;
-    margin-top: 7px !important;
+    margin-top: 5px !important;
     margin-bottom: 32px !important;
     padding-left: 0 !important;
     width: 100% !important;
@@ -870,6 +870,8 @@ body {
       border-bottom: 3px solid #004fce !important; }
     .dropdown_populated .dropdown:not(.icon) .item {
       width: 100% !important; }
+    .dropdown_populated .dropdown:not(.icon) + .auth_input-dropdown {
+      color: #939393 !important; }
     .dropdown_populated .dropdown:not(.icon):hover + .auth_input-dropdown {
       color: #004fce !important; }
 
@@ -880,7 +882,7 @@ body {
     top: 20px; }
   .auth_dropdown .dropdown:not(.icon) {
     height: 50px !important;
-    margin-top: 7px !important;
+    margin-top: 5px !important;
     margin-bottom: 32px !important;
     padding-left: 0 !important;
     width: 100% !important;
@@ -904,6 +906,8 @@ body {
       border-bottom: 3px solid #004fce !important; }
     .auth_dropdown .dropdown:not(.icon) .item {
       width: 100% !important; }
+    .auth_dropdown .dropdown:not(.icon) + .auth_input-dropdown {
+      color: #939393 !important; }
     .auth_dropdown .dropdown:not(.icon):hover + .auth_input-dropdown {
       color: #004fce !important; }
   .auth_dropdown span.auth_input-dropdown {
