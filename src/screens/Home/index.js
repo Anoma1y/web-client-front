@@ -2,13 +2,13 @@ import React from 'react'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Header, Button } from 'semantic-ui-react'
+import { Header, Button, Container } from 'semantic-ui-react'
 
 const Home = props => (
-    <div>
+    <Container>
         <Header as={'h1'}>Home</Header>
         <Button onClick={() => props.changePage()}>Go to login</Button>
-    </div>
+    </Container>
 );
 
 const mapDispatchToProps = dispatch => bindActionCreators({

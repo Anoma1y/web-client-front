@@ -10,7 +10,6 @@ import {
     CHANGE_ORDER,
     CHANGE_MODAL_OPEN,
     CHANGE_APPLICATION_ERROR,
-    SET_CURRENCY
 } from 'actions/calculator/types';
 
 const INITIAL_STATE = {
@@ -61,28 +60,7 @@ const INITIAL_STATE = {
         fixCurrency: "TSR",
         forCurrency: "",
         amount: 0
-    },
-    currency: [
-        {
-            'id': 'bitcoin',
-            'name': 'Bitcoin',
-            'symbol': 'BTC',
-            'price_usd': '0'
-        },
-        {
-            'id': 'ethereum',
-            'name': 'Ethereum',
-            'symbol': 'ETH',
-            "price_usd": "0",
-            "price_btc": "0"
-        },
-        {
-            'id': 'usd',
-            'name': 'USD',
-            'symbol': 'USD',
-            'price_usd': '1'
-        }
-    ]
+    }
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -117,8 +95,6 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, modalOpen: action.payload };
         case CHANGE_APPLICATION_ERROR:
             return { ...state, applicationError: action.payload };
-        case SET_CURRENCY:
-            return { ...state, currency: action.payload };
         default:
             return state;
     }

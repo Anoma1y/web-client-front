@@ -196,7 +196,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     } else if (currencyValue === "ETH") {
         USD = transferETH(value, "USD", currency);
         BTC = transferETH(value, "BTC", currency);
-        TKNinitialValue = transferToTKN(USD, TSR_ETH);
+        TKNinitialValue = transferToTKN(value, TSR_PRICE);
         bonus = checkBonus(TKNinitialValue, bonusList);
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         ETH = value;
@@ -217,7 +217,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         currentBonus: bonus.bonusTSR,
         transferData: {
             USD,
-            TSR: TSRvalue.toFixed(4),
+            TSR: Number(TSRvalue.toFixed(4)),
             BTC,
             ETH
         }
@@ -228,7 +228,11 @@ export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) 
     const { bonus, bonusTSR } = checkBonus(value, bonusList);
     const bonusValue = bonusCalc(value, bonusTSR);
     const { USD, BTC, ETH, TSR } = transferTKN(value, bonusValue, currency, TKN_PRICE);
-    const currentTokenValue = currencyValue === "BTC" ? BTC.toFixed(4) : currencyValue === "ETH" ? ETH.toFixed(4) : USD.toFixed(2);
+    const currentTokenValue = currencyValue === "BTC"
+        ? Number(BTC.toFixed(4))
+        : currencyValue === "ETH"
+            ? Number(ETH.toFixed(4))
+            : Number(USD.toFixed(2));
     const progressBar = handleProgressBar(value, bonus);
     return {
         sumValue: currentTokenValue,
@@ -237,10 +241,10 @@ export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) 
         bonus,
         currentBonus: bonusTSR,
         transferData: {
-            USD: USD.toFixed(2),
+            USD: Number(USD.toFixed(2)),
             TSR,
-            BTC: BTC.toFixed(4),
-            ETH: ETH.toFixed(4)
+            BTC: Number(BTC.toFixed(4)),
+            ETH: Number(ETH.toFixed(4))
         }
     }
 }

@@ -15,11 +15,10 @@ import SocialNetwork from 'components/SocialNetwork';
 import TelegramWidget from 'components/TelegramWidget';
 import CryptoWidget from 'components/CryptoWidget';
 import { AttentionIdentification } from 'components/AttentionIdentification';
-import { redirectToHome } from "actions/redirect";
 import { changeCurrency } from 'actions/rate';
 import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
-
-
+import {changeTransferData} from 'actions/calculator';
+import {calcToken} from 'libs/math';
 class Home extends Component{
     state = {
 
@@ -27,7 +26,8 @@ class Home extends Component{
 
     getCurrency = () => {
         const {
-            changeCurrency
+            changeCurrency,
+            changeTransferData
         } = this.props;
         const INITIAL_DATA = [
             {
@@ -50,7 +50,6 @@ class Home extends Component{
                 'price_usd': '1'
             }
         ]
-
         CryptoCurrency.getCryptoCurrency()
             .then((data) => {
                 const CURRENCY = data.data;
@@ -62,6 +61,15 @@ class Home extends Component{
                         price_usd: '1'
                     }
                 ];
+                const {
+                    tokenValue,
+                    currencyValue,
+                    bonus
+                } = this.props.calculator;
+                const {
+                    TSR
+                } = this.props.rate;
+                changeTransferData(calcToken(tokenValue, currencyValue, bonus, CURRENCY_DATA, TSR));
                 changeCurrency(CURRENCY_DATA);
             })
             .catch(() => {
@@ -77,7 +85,7 @@ class Home extends Component{
         this.getCurrency();
         this.currencyInterval = setInterval(() => {
             this.getCurrency();
-        }, 3000)
+        }, 15000)
     }
 
 
@@ -87,10 +95,10 @@ class Home extends Component{
 
     render() {
         const { contextRef } = this.state;
-        const { is_kyc_passed } = localStorage;
+        const { kyc_type } = localStorage;
         return (
             <div>
-                {is_kyc_passed ? null :
+                {kyc_type !== '' ? null :
                     <div className={"attentionIdentification"}>
                         <AttentionIdentification />
                     </div>
@@ -117,7 +125,7 @@ class Home extends Component{
                                         <DownloadList />
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <CryptoWidget />
+                                        {/*<CryptoWidget />*/}
                                     </Grid.Row>
                                     <Grid.Row>
                                         <Roadmap />
@@ -146,9 +154,11 @@ class Home extends Component{
 }
 
 export default connect(state => ({ 
-    user: state.user
+    user: state.user,
+    calculator: state.calculator,
+    rate: state.rate
 }), {
-    redirectToHome,
-    changeCurrency
+    changeCurrency,
+    changeTransferData
 })(Home);
 

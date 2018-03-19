@@ -23,7 +23,9 @@ import {
     SETTINGS_INITIAL_BENEFICIAL_FILE,
     SETTINGS_INITIAL_COMPANY_USER_IMAGE,
     SETTINGS_INITIAL_COMPANY_IMAGE,
-    SETTINGS_INITIAL_BENEFICIAL_IMAGE
+    SETTINGS_INITIAL_BENEFICIAL_IMAGE,
+    CHANGE_SETTINGS_INPUT_ERROR,
+    SETTINGS_CHANGE_ACTIVE_TAB
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
@@ -125,7 +127,9 @@ const INITIAL_STATE = {
     maxBeneficial: 4,
     settingsModalIsOpen: false,
     settingsError: null,
-    success: false
+    success: false,
+    settingsInputError: null,
+    activeTab: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -134,6 +138,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, settingsModalIsOpen: action.payload };
         case CHANGE_SETTINGS_ERROR:
             return { ...state, settingsError: action.payload };
+        case CHANGE_SETTINGS_INPUT_ERROR:
+            return { ...state, settingsInputError: action.payload };
         case SETTINGS_INITIAL_USER_FILE:
             return { ...state, individualUserFile: action.payload };
         case SETTINGS_INITIAL_USER_PROFILE:
@@ -212,6 +218,8 @@ export default (state = INITIAL_STATE, action) => {
             }
         case INCREMENT_BENEFICIAL_ID:
             return { ...state, idBeneficial: action.payload };
+        case SETTINGS_CHANGE_ACTIVE_TAB:
+            return { ...state, activeTab: action.payload };
         case ADD_BENEFICIAL:
             return {
                 ...state,
@@ -237,6 +245,14 @@ export default (state = INITIAL_STATE, action) => {
                         legalRepresentative: null
                     }
                 },
+                beneficialImage: {
+                    ...state.beneficialImage,
+                    [action.payload]: {
+                        personalBeneficialDocument: '',
+                        declarationBeneficialOwned: '',
+                        legalRepresentative: ''
+                    }
+                }
             }
         case CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER:
             return {

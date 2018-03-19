@@ -69,18 +69,18 @@ class BetaTest extends Component {
         return (
             <Card fluid className={"component__main component__shadow betatest"}>
                 <Card.Content>
-                    <Card.Header className={"component__title betatest__title"}>Beta Test</Card.Header>
+                    <Card.Header className={"component__title betatest__title"}>Beta test</Card.Header>
                     <Divider className={"component__divider"} />
                     <Card.Description className={"betatest__wrapper"}>
                         <Grid>
                             <Grid.Row className={"betatest__items"}>
                                 <Grid.Column width={8}>
                                     <List horizontal>
-                                        <List.Item className={androidChecked ? "betatest__item betatest__item-checked" : "betatest__item"} onClick={this.onCheckedAndroid}>
-                                            <List.Icon name='android' size='large' verticalAlign='middle' />
-                                        </List.Item>
                                         <List.Item className={appleChecked ? "betatest__item betatest__item-checked" : "betatest__item"} onClick={this.onCheckedApple}>
                                             <List.Icon name='apple' size='large' verticalAlign='middle' />
+                                        </List.Item>
+                                        <List.Item className={androidChecked ? "betatest__item betatest__item-checked" : "betatest__item"} onClick={this.onCheckedAndroid}>
+                                            <List.Icon name='android' size='large' verticalAlign='middle' />
                                         </List.Item>
                                     </List>
                                 </Grid.Column>

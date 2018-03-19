@@ -16,23 +16,21 @@ class App extends Component {
 
      render () {
         return (
-            <div>
+            <main>
                 <CheckToken />
-                <main>
-                    <HeaderMenu/>
-                    <Switch>
-                        <Route exact path={'/'} component={Signup} />
-                        <Route exact path={'/login'} component={Login} />
-                        <Route exact path={'/signup'} component={Signup} />
-                        <Route exact path={'/signupsuccess'} component={SignupSuccess} />
-                        <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : Redirect } />
-                        {localStorage.roles  === "admin" ? <Route path={'/admin'} component={Admin} /> : null}
-                        <Route path={'/reset'} component={ResetPassword} />
-                        <Route path={'/logout'} component={Logout} />
-                        <Route path={'/confirm'} component={VerificationUser} />
-                    </Switch>
-                </main>
-            </div>
+                <HeaderMenu/>
+                <Switch>
+                    <Route exact path={'/'} component={Signup} />
+                    <Route exact path={'/login'} component={Login} />
+                    <Route exact path={'/signup'} component={Signup} />
+                    <Route exact path={'/signupsuccess'} component={SignupSuccess} />
+                    <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : Redirect } />
+                    {localStorage.roles  === "admin" ? <Route path={'/admin'} component={Admin} /> : null}
+                    <Route path={'/reset'} component={ResetPassword} />
+                    <Route path={'/logout'} component={Logout} />
+                    <Route path={'/confirm'} component={VerificationUser} />
+                </Switch>
+            </main>
         )
     }
 }

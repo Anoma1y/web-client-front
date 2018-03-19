@@ -6,9 +6,10 @@ import {
 import Email from './screens/Email';
 import Password from  './screens/Password';
 import Confirmation from './screens/Confirmation';
+import { Container } from 'semantic-ui-react'
 
 const ResetPassword = ({ match }) => (
-    <div>
+    <Container className={'auth__container'}>
         <main>
             <Switch>
                 <Route exact path={`${match.url}`} component={Email} />
@@ -16,7 +17,7 @@ const ResetPassword = ({ match }) => (
                 <Route exact path={`${match.url}/password`} component={Password} />
             </Switch>
         </main>
-    </div>
+    </Container>
 );
 
 export default ResetPassword;

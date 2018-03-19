@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    changeSettingsInput
+    changeSettingsInput,
+    changeSettingsInputError
 } from 'actions/settings';
 import {
     Grid,
     Dropdown
 } from 'semantic-ui-react';
 import { countryOptions } from 'libs/country';
+import {
+    ERROR_VALIDATION,
+    SETTINGS
+} from 'libs/messages';
 import InputMask from 'react-input-mask';
 
 class PersonInformation extends Component {
@@ -20,19 +25,18 @@ class PersonInformation extends Component {
             emailError: '',
             zipError: '',
             phoneError: '',
-
         }
     }
 
     checkEnglish = (value, nameError, len) => {
-        if (!value.match(/^[A-Za-z]+$|i/)) {
+        if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter only English alphabet characters'
-            })
+                [nameError]: ERROR_VALIDATION.ENGLISH
+            });
         } else {
             this.setState({
                 [nameError]: ''
-            })
+            });
         }
         if (value.length > len) {
             return false;
@@ -42,12 +46,12 @@ class PersonInformation extends Component {
     checkOnlyNumber = (value, nameError, len) => {
         if (!value.match(/^[0-9]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter numbers only'
-            })
+                [nameError]: ERROR_VALIDATION.NUMBER
+            });
         } else {
             this.setState({
                 [nameError]: ''
-            })
+            });
         }
         if (value.length > len) {
             return false;
@@ -58,27 +62,27 @@ class PersonInformation extends Component {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
-                [nameError]: "Enter numbers only"
+                [nameError]: ERROR_VALIDATION.PHONE
             });
         } else {
             this.setState({
                 [nameError]: ''
-            })
+            });
         }
         if (value.length > len) {
             return false;
         }
     }
-    checkEmail = (value, len) => {
+    checkEmail = (value, nameError, len) => {
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!value.match(pattern)) {
             this.setState({
-                emailError: "Please enter a valid Email"
+                [nameError]: ERROR_VALIDATION.EMAIL
             });
         } else {
             this.setState({
-                emailError: ''
-            })
+                [nameError]: ''
+            });
         }
         if (value.length > len) {
             return false;
@@ -91,45 +95,25 @@ class PersonInformation extends Component {
         } = event.target;
         const {
             changeSettingsInput,
-            stateObject
+            stateObject,
         } = this.props;
         switch (id) {
             case 'Name':
-                if (this.checkEnglish(value, 'nameError', 100) === false) {
-                    return;
-                }
+                this.checkEnglish(value, 'nameError', 100);
                 break;
             case 'Surname':
-                if (this.checkEnglish(value, 'lastNameError', 100) === false) {
-                    return;
-                }
-                break;
-            case 'City':
-                if (value.length > 100) {
-                    return;
-                }
-                break;
-            case 'Addres':
-                if (id === 'Addres' && value.length > 2000) {
-                    return;
-                }
+                this.checkEnglish(value, 'lastNameError', 100);
                 break;
             case 'Zip':
-                if (this.checkOnlyNumber(value, 'zipError', 10) === false) {
-                    return;
-                }
+                this.checkOnlyNumber(value, 'zipError', 10);
                 break;
             case 'Phone':
-                if (this.checkPhone(value, 'phoneError', 15) === false) {
-                    return;
-                }
+                this.checkPhone(value, 'phoneError', 15);
                 break;
             case 'Email':
-                if (this.checkEmail(value, 100) === false) {
-                    return false;
-                }
+                this.checkEmail(value, 'emailError', 100);
                 break;
-        }
+        };
         changeSettingsInput({
             stateInput: stateObject,
             keyInput: id,
@@ -154,12 +138,12 @@ class PersonInformation extends Component {
             stateObject
         } = this.props;
         if (stateObject === 'companyUserInformation') {
-            return nextProps.settings.companyUserInformation !== this.props.settings.companyUserInformation;
+            return nextProps.settings.companyUserInformation !== this.props.settings.companyUserInformation || nextProps.settings.settingsInputError !== this.props.settings.settingsInputError;
         } else if (stateObject === 'individualUserInformation') {
-            return nextProps.settings.individualUserInformation !== this.props.settings.individualUserInformation;
-        }
+            return nextProps.settings.individualUserInformation !== this.props.settings.individualUserInformation || nextProps.settings.settingsInputError !== this.props.settings.settingsInputError;
+        } 
     }
-    
+
     render() {
         const {
             settings,
@@ -172,12 +156,15 @@ class PersonInformation extends Component {
             zipError,
             phoneError
         } = this.state;
+        const { settingsInputError } = this.props.settings;
         return (
             <Grid.Row className={"beneficial__wrapper"}>
                 <Grid.Column>
                     <Grid>
-                        <Grid.Row className={"auth_input settings__information"}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                        <Grid.Row className={'auth_input settings__information'}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (nameError.length !== 0 && settings[stateObject].Name.length > 0) ? "auth_input-error" : (settings[stateObject].Name.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type="text"
@@ -191,7 +178,10 @@ class PersonInformation extends Component {
                                     {nameError.length !== 0 && settings[stateObject].Name.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (lastNameError.length !== 0 && settings[stateObject].Surname.length > 0) ? "auth_input-error" : (settings[stateObject].Surname.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }
+                            >
                                 <label>
                                     <input
                                         type="text"
@@ -207,7 +197,9 @@ class PersonInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings[stateObject].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type="text"
@@ -219,11 +211,13 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Address</span>
                                     {
-                                        settings[stateObject].Addres.length > 1900 ? <p className={'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
+                                        settings[stateObject].Addres.length > 1900 ? <p className={settings[stateObject].City.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings[stateObject].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type="text"
@@ -237,26 +231,36 @@ class PersonInformation extends Component {
                                         City
                                     </span>
                                     {
-                                        settings[stateObject].City.length > 90 ? <p className={'auth_length'}> {`${settings[stateObject].City.length}/100`}</p> : null
+                                        settings[stateObject].City.length > 90 ? <p className={settings[stateObject].City.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].City.length}/100`}</p> : null
                                     }
 
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
-                                <label className={'auth_dropdown'}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings[stateObject].Country.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
+                                <label className={settings[stateObject].Country.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
                                     <Dropdown
                                         placeholder='Choose your country'
                                         fluid
                                         selection
+                                        className={
+                                            (settings[stateObject].Country.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "dropdown-error" :  "dropdown-success"
+                                        }
                                         value={settings[stateObject].Country.length === 0 ? null : settings[stateObject].Country}
                                         options={countryOptions}
                                         onChange={this.handleDropdown}
                                     />
+                                    <span className={'auth_input-dropdown'}>
+                                        Country
+                                    </span>
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (zipError.length !== 0 && settings[stateObject].Zip.length > 0) ? "auth_input-error" : (settings[stateObject].Zip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label style={{width: "50%"}}>
                                     <input
                                         type="text"
@@ -272,7 +276,9 @@ class PersonInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings[stateObject].Dateofbirth.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <InputMask
                                         type="text"
@@ -287,7 +293,9 @@ class PersonInformation extends Component {
                                     <span className={'auth_input-span'}>Birth day</span>
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (emailError.length !== 0 && settings[stateObject].Email.length > 0) ? "auth_input-error" : (settings[stateObject].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type="email"
@@ -303,7 +311,9 @@ class PersonInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (phoneError.length !== 0 && settings[stateObject].Phone.length > 0) ? "auth_input-error" : (settings[stateObject].Phone.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label >
                                     <input
                                         type="text"
@@ -326,5 +336,6 @@ class PersonInformation extends Component {
 }
 
 export default connect(state => ({ settings: state.settings }), {
-    changeSettingsInput
+    changeSettingsInput,
+    changeSettingsInputError
 })(PersonInformation);

@@ -9,9 +9,13 @@ import {
 } from 'semantic-ui-react';
 import {
     changeModalSettings,
-    handleSettingsSend
+    handleSettingsSend,
+    changeSettingsInputError,
 } from 'actions/settings';
 import { initKycType } from 'actions/users';
+import { SETTINGS } from 'libs/messages';
+import _ from 'underscore';
+
 
 class SettingsButton extends Component {
 
@@ -19,12 +23,202 @@ class SettingsButton extends Component {
         const {
             handleSettingsSend,
             settingsOption,
-            initKycType
         } = this.props;
         const { kyc_type } = this.props.user;
-        if (kyc_type === settingsOption || kyc_type === '') {
-            handleSettingsSend(settingsOption);
-            initKycType(settingsOption);
+        if (kyc_type === '') {
+            const { activeTab } = this.props.settings;
+            this.checkCompletenessFields(activeTab);
+        } else if (kyc_type === settingsOption ) {
+            this.checkCompletenessFields(kyc_type);
+        }
+    }
+    checkFill = value => value.length > 0;
+    checkEnglish = value => {
+        if (value.match(/^[A-Za-z\s]+$|i/)) return true;
+        else return false;
+    }
+    checkNumber = value => {
+        if (value.match(/^[0-9]+$|i/)) return true;
+        else return false;
+    }
+    checkEmail = value => {
+        if (value.match(/^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i)) return true;
+        else return false;
+    }
+    checkPhone = value => {
+        if (value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/)) return true;
+        else return false;
+    }
+    checkWeb = value => {
+        if (value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)) return true;
+        else return false;
+    }
+
+
+    checkCompletenessFields = (TYPE) => {
+        if (TYPE === 'individual') {
+            const {
+                individualUserFile,
+                individualUserInformation
+            } = this.props.settings;
+            const {
+                changeSettingsInputError,
+                handleSettingsSend
+            } = this.props;
+            const checkedValidationUserInformation = _.every(Object.keys(individualUserInformation).map((item) => {
+                if (item === 'Name' || item === 'Surname') {
+                    return this.checkEnglish(individualUserInformation[item])
+                } else if (item === 'Zip') {
+                    return this.checkNumber(individualUserInformation[item]);
+                } else if (item === 'Email') {
+                    return this.checkEmail(individualUserInformation[item]);
+                } else if (item === 'Phone') {
+                    return this.checkPhone(individualUserInformation[item]);
+                } else if (item === 'City') {
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 100;
+                } else if (item === 'Addres') {
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 2000;
+                } else if (item === 'Country' || item === 'Dateofbirth') {
+                    return individualUserInformation[item].length > 0;
+                }
+            }), num => num === true);
+
+            const checkedFillUserInformation = _.every(Object.keys(individualUserInformation).map((item) => {
+                return this.checkFill(individualUserInformation[item]);
+            }), (num) => num === true);
+
+            const checkedPersonCompanyFile = _.every(individualUserFile, (num) => num !== null);
+
+            if (checkedFillUserInformation === true && checkedPersonCompanyFile === true) {
+                if (checkedValidationUserInformation === true) {
+                    changeSettingsInputError(null);
+                    handleSettingsSend(TYPE);
+                } else {
+                    changeSettingsInputError(SETTINGS.VALID_INPUT);
+
+                }
+            } else {
+                changeSettingsInputError(SETTINGS.FILL_INPUT);
+            }
+        }
+        else if (TYPE === 'legal') {
+            const {
+                personCompanyFile,
+                companyFile,
+                beneficialFile,
+                companyUserInformation,
+                companyInformation,
+                beneficial,
+                sourceFunds
+            } = this.props.settings;
+            const {
+                handleSettingsSend,
+                changeSettingsInputError
+            } = this.props;
+            const checkedValidationCompanyUserInformation = _.every(Object.keys(companyUserInformation).map((item) => {
+                if (item === 'Name' || item === 'Surname') {
+                    return this.checkEnglish(companyUserInformation[item])
+                } else if (item === 'Zip') {
+                    return this.checkNumber(companyUserInformation[item]);
+                } else if (item === 'Email') {
+                    return this.checkEmail(companyUserInformation[item]);
+                } else if (item === 'Phone') {
+                    return this.checkPhone(companyUserInformation[item]);
+                } else if (item === 'City') {
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 100;
+                } else if (item === 'Addres') {
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 2000;
+                } else if (item === 'Country' || item === 'Dateofbirth') {
+                    return companyUserInformation[item].length > 0;
+                }
+            }), (num) => num === true);
+
+            const checkedFillCompanyUserInformation = _.every(Object.keys(companyUserInformation).map((item) => {
+                return this.checkFill(companyUserInformation[item]);
+            }), (num) => num === true);
+
+            const checkedPersonCompanyFile = _.every(personCompanyFile, (num) => num !== null);
+
+            const checkedValidationCompanyInformation = _.every(Object.keys(companyInformation).map((item) => {
+                if (item === 'companyCompanyName') {
+                    return this.checkEnglish(companyInformation[item]);
+                } else if (item === 'companyTaxIDnumber' || item === 'companyZip') {
+                    return this.checkNumber(companyInformation[item]);
+                } else if (item === 'companyWebsites') {
+                    return this.checkWeb(companyInformation[item]);
+                } else if (item === 'companyEmail') {
+                    return this.checkEmail(companyInformation[item]);
+                } else if (item === 'companyPhone') {
+                    return this.checkPhone(companyInformation[item]);
+                } else if (item === 'companyCity') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 100;
+                } else if (item === 'companyLegaladdress') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                } else if (item === 'companyActualbusinessplaceaddress') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                } else if (item === 'companyDescriptioncompanydoes') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 4500;
+                } else if (item === 'companyTaxrezidencecountry' || item === 'companyLinktopubliccompanyregister') {
+                    return companyInformation[item].length > 0;
+                }
+            }), (num) => num === true);
+
+            const checkedFillCompanyInformation = _.every(Object.keys(companyInformation).map((item) => {
+                if (item !== 'companyLinktopubliccompanyregister') {
+                    return this.checkFill(companyInformation[item]);
+                }
+            }).filter(item => item !== undefined), num => num === true);
+
+            const checkedCompanyFile = _.every(companyFile, (num) => num !== null);
+
+            const checkedSourceFunds = sourceFunds !== 'None';
+
+            const checkedValidationBeneficial = Object.values(beneficial).map(item => {
+                return Object.keys(item).map(it => {
+                    if (it === 'Name' || it === 'Surname') {
+                        return this.checkEnglish(item[it])
+                    } else if (it === 'Zip') {
+                        return this.checkNumber(item[it]);
+                    } else if (it === 'Email') {
+                        return this.checkEmail(item[it]);
+                    } else if (it === 'Phone') {
+                        return this.checkPhone(item[it]);
+                    } else if (it === 'City') {
+                        return item[it].length > 0 && item[it].length <= 100;
+                    } else if (it === 'Addres') {
+                        return item[it].length > 0 && item[it].length <= 2000;
+                    } else if (it === 'Country' || it === 'Dateofbirth') {
+                        return item[it].length > 0;
+                    }
+                })
+            }).map(item => _.every(item, num => num === true))
+
+            const checkedFillBeneficial = _.every(Object.keys(beneficial[0]).map(item => {
+                return this.checkFill(beneficial[0][item]);
+            }), num => num === true);
+            
+            const checkedBeneficialFile = Object.values(beneficialFile).map(item => Object.keys(item).map(it => item[it] !== null)).map(item => _.every(item, num => num === true));
+            if (checkedBeneficialFile[0] === true
+                && checkedFillBeneficial === true
+                && checkedSourceFunds === true
+                && checkedCompanyFile === true
+                && checkedPersonCompanyFile === true
+                && checkedFillCompanyUserInformation === true
+                && checkedFillCompanyInformation === true
+            ) {
+                if(checkedValidationBeneficial[0] === true
+                   && checkedValidationCompanyInformation === true
+                   && checkedValidationCompanyUserInformation === true
+                ) {
+                    changeSettingsInputError(null);
+                    handleSettingsSend(TYPE);
+                } else {
+                    changeSettingsInputError(SETTINGS.VALID_INPUT);
+                }
+            } else {
+                changeSettingsInputError(SETTINGS.FILL_INPUT);
+            }
+
         }
     }
 
@@ -37,49 +231,63 @@ class SettingsButton extends Component {
         const {
             settingsModalIsOpen,
             settingsError,
+            settingsInputError,
             success
         } = this.props.settings;
         return (
             <Grid.Row>
                 <Grid.Column>
-                    <Divider className={'setting_divider'}/>
-                    <Modal
-                        trigger={
-                            <Button
-                                className={'setting__button auth_btn setting__submit'}
-                                fluid
-                                floated={'right'}
-                                onClick={this.handleSubmit}
-                            > Submit
-                            </Button>
-                        }
-                        open={settingsModalIsOpen}
-                        onClose={this.handleCloseModal}
-                        basic
-                        size='tiny'
-                    >
-                        <Modal.Content className={"modal__success"}>
-                            <Modal.Description>
-                                <div className={success ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
-                                    <Icon name={success ? "check circle outline" : "warning circle"} />
-                                </div>
-                                <div className={"modal__success_text betatest__modal_text black-text"}>
-                                    <span>{success ? "We have received your details, thank you. We’ll review all KYC requests together with approving applications. So if you receive a link to pay for your applications that means you successfully passed the KYC procedure. Please note that we might ask you to share some additional details." : settingsError}</span>
-                                </div>
-                                <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
-                                    <Button
-                                        className={"dashboard__submit"}
-                                        onClick={this.handleCloseModal}
-                                        id={success ? "kycSendSuccess" : "kycSendError"}
-                                    >OK
-                                    </Button>
-                                </div>
-                            </Modal.Description>
-                        </Modal.Content>
-                    </Modal>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Divider className={'setting_divider'}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={8} className={'error__validation'}>
+                                { settingsInputError !== null ? <span className={'error__validation_text'}>{settingsInputError}</span> : null }
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <Modal
+                                    trigger={
+                                        <Button
+                                            className={'setting__button auth_btn setting__submit'}
+                                            fluid
+                                            floated={'right'}
+                                            onClick={this.handleSubmit}
+                                        > Submit
+                                        </Button>
+                                    }
+                                    open={settingsModalIsOpen}
+                                    onClose={this.handleCloseModal}
+                                    basic
+                                    size='tiny'
+                                >
+                                    <Modal.Content className={"modal__success"}>
+                                        <Modal.Description>
+                                            <div className={success ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
+                                                <Icon name={success ? "check circle outline" : "warning circle"} />
+                                            </div>
+                                            <div className={"modal__success_text betatest__modal_text black-text"}>
+                                                <span>{success ? SETTINGS.SUCCESS : settingsError}</span>
+                                            </div>
+                                            <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
+                                                <Button
+                                                    className={"dashboard__submit"}
+                                                    onClick={this.handleCloseModal}
+                                                    id={success ? "kycSendSuccess" : "kycSendError"}
+                                                >OK
+                                                </Button>
+                                            </div>
+                                        </Modal.Description>
+                                    </Modal.Content>
+                                </Modal>
 
 
 
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
                 </Grid.Column>
             </Grid.Row>
         );
@@ -92,7 +300,8 @@ export default connect(state => ({
 }), {
     changeModalSettings,
     initKycType,
-    handleSettingsSend
+    handleSettingsSend,
+    changeSettingsInputError
 })(SettingsButton);
 
 

@@ -8,7 +8,6 @@ import {
     changeOrder,
     handleFormOrder,
     handleChangeOrder,
-    setCurrency,
     handleApplication,
     handleCloseModal
 } from 'actions/calculator';
@@ -20,15 +19,8 @@ import {
 } from 'semantic-ui-react';
 import {
     separationValue,
-    bonusCalc,
-    checkMaximum,
-    transferToTKNbonus,
-    transferToTKN,
-    checkBonus,
-    transferUSD,
-    transferETH,
-    transferBTC,
-    TKNprice
+    calcCurrency,
+    calcToken
 } from 'libs/math';
 
 import { CurrencyButton } from './CalculatorButton';
@@ -47,111 +39,6 @@ class Calculator extends Component {
         }
 
     }
-    
-
-
-    //Метод для расчета количества токенов из вводимого пользователем значения в Input-валюты
-    //Принимает 1 параметр: value - вводимое пользователем значение валюты
-    //Для выбранной валюты происходит расчет значений
-    //Возвращает объект значений текущего значения Input, заполненость прогресс бара, значения токенов
-    //бонусов и расчетного значения транферного значения валют и токенов
-    calcCurrency = value => {
-        const { TSR: TSR_PRICE, currencyValue, bonus: bonusList } = this.props.calculator;
-        const { currency } = this.props.rate;
-        let bonus;
-        let BTC, ETH, TKNinitialValue, TSRvalue, USD;
-        const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
-        if (currencyValue === "USD") {
-            BTC = transferUSD(value, "BTC", currency);
-            ETH = transferUSD(value, "ETH", currency);
-            TKNinitialValue = transferToTKN(value, TSR_ETH);
-            bonus = checkBonus(TKNinitialValue, bonusList);
-            TSRvalue = transferToTKNbonus(value, bonus.bonusTSR, TSR_ETH);
-            USD = value;
-        } else if (currencyValue === "ETH") {
-            USD = transferETH(value, "USD", currency);
-            BTC = transferETH(value, "BTC", currency);
-            TKNinitialValue = transferToTKN(USD, TSR_ETH);
-            bonus = checkBonus(TKNinitialValue, bonusList);
-            TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
-            ETH = value;
-        } else if (currencyValue === "BTC") {
-            USD = transferBTC(value, "USD", currency);
-            ETH = transferBTC(value, "ETH", currency);
-            TKNinitialValue = transferToTKN(USD, TSR_ETH);
-            bonus = checkBonus(TKNinitialValue, bonusList);
-            TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
-            BTC = value;
-        }
-        const progressBar = this.handleProgressBar(TSRvalue);
-        return {
-            sumValue: value,
-            progressBar,
-            tokenValue: TKNinitialValue.toFixed(4),
-            bonus: bonus.bonus,
-            currentBonus: bonus.bonusTSR,
-            transferData: {
-                USD,
-                TSR: TSRvalue.toFixed(4),
-                BTC,
-                ETH
-            }
-        }
-    }
-    //Метод для расчета количества токенов из вводимого пользователем значения в Input-токен
-    //Принимает 1 параметр: value - вводимое пользователем значение токенов
-    //Для выбранной валюты происходит расчет значений
-    //Возвращает объект значений расчетного значения суммы валют, заполненость прогресс бара, значения токенов из текущего Input
-    //бонусов и расчетного значения транферного значения валют и токенов
-    calcToken = (value) => {
-        const { currencyValue, bonus: bonusList } = this.props.calculator;
-        const { bonus, bonusTSR } = checkBonus(value, bonusList);
-        const bonusValue = bonusCalc(value, bonusTSR);
-        const { USD, BTC, ETH, TSR } = this.transferTKN(value, bonusValue);
-        const currentTokenValue = currencyValue === "BTC" ? BTC.toFixed(4) : currencyValue === "ETH" ? ETH.toFixed(4) : USD.toFixed(2);
-        const progressBar = this.handleProgressBar(value);
-        return {
-            sumValue: currentTokenValue,
-            progressBar,
-            tokenValue: value,
-            bonus,
-            currentBonus: bonusTSR,
-            transferData: {
-                USD: USD.toFixed(2),
-                TSR,
-                BTC: BTC.toFixed(4),
-                ETH: ETH.toFixed(4)
-            }
-        }
-    }
-
-    //Обраточки прогресс бара
-    //Принимает 1 значение: value - текущее количество заполнености
-    //Возвращает объект значение: максимум (true || false) и percent - текущее кол-во процентов заполнености
-    handleProgressBar = value => {
-        const { bonus } = this.props.calculator;
-        const percent = ((value * 100) / bonus[bonus.length - 1]["limit"]);
-        const isMaximum = checkMaximum(percent);
-        return {
-            isMaximum,
-            percent
-        };
-    }
-
-    //Метод для расчета текущего значения токена из вводимого токена
-    //Принимает 2 значения: value - значение, вводимое пользователем в Input-токен
-    //bonusValue - бонусное значение токена
-    //Возвращает объект значений для каждой валюты + токена
-    transferTKN = (value, bonusValue) => {
-        const { TSR: TKN_PRICE } = this.props.calculator;
-        const { currency } = this.props.rate;
-        const TSR_ETH = TKNprice("ETH", TKN_PRICE, currency);
-        const USD = TSR_ETH *  value;
-        const BTC = (TSR_ETH / currency[0].price_usd) * value;
-        const ETH = (TSR_ETH / currency[1].price_usd) * value;
-        return { USD, BTC, ETH, TSR: bonusValue }
-    }
-
     //Метод для изменения состояния
     //Принимает 1 значение: value - объект данных
     //Вызывает Action для добавления данных в Store
@@ -159,16 +46,6 @@ class Calculator extends Component {
         const { changeTransferData } = this.props;
         changeTransferData(value);
     }
-
-
-    componentWillMount() {
-        const { tokenValue } = this.props.calculator;
-        setTimeout(() => {
-            this.changeState(this.calcToken(tokenValue));
-        }, 1000)
-    }
-
-
 
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
     //Принимает 1 значение (event - value) - вводимое (пользователем) значение
@@ -184,12 +61,28 @@ class Calculator extends Component {
         if (value > 2000000) {
             return;
         }
-        this.changeState(this.calcToken(value));
+        const {
+            currencyValue,
+            bonus: BONUS_LIST
+        } = this.props.calculator;
+        const {
+            TSR: TSR_RATE,
+            currency: CRYPTO_CURRENCY
+        } = this.props.rate;
+        this.changeState(calcToken(value, currencyValue, BONUS_LIST, CRYPTO_CURRENCY, TSR_RATE));
     }
 
     handleTokenRange = event => {
         const { value } = event.target;
-        this.changeState(this.calcToken(value));
+        const {
+            currencyValue,
+            bonus: BONUS_LIST
+        } = this.props.calculator;
+        const {
+            TSR: TSR_RATE,
+            currency: CRYPTO_CURRENCY
+        } = this.props.rate;
+        this.changeState(calcToken(value, currencyValue, BONUS_LIST, CRYPTO_CURRENCY, TSR_RATE));
     }
     
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
@@ -198,7 +91,14 @@ class Calculator extends Component {
     //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
     //Передает в данную фукнцию функцию которая расчитывает данные
     handleCurrency = event => {
-        const { currencyValue } = this.props.calculator;
+        const {
+            currencyValue,
+            bonus: BONUS_LIST
+        } = this.props.calculator;
+        const {
+            TSR: TSR_RATE,
+            currency: CRYPTO_CURRENCY
+        } = this.props.rate;
         const { value } = event.target;
         let checkNumber;
         if (currencyValue === "USD") {
@@ -209,7 +109,7 @@ class Calculator extends Component {
         if(!value.match(checkNumber)) {
             return;
         }
-        const data = this.calcCurrency(value);
+        const data = calcCurrency(value, currencyValue, BONUS_LIST, CRYPTO_CURRENCY, TSR_RATE);
         if (data.tokenValue > 2000000) {
             return;
         }
@@ -350,7 +250,7 @@ class Calculator extends Component {
                             <Grid.Column>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={8} className={"auth_input"}>
+                                        <Grid.Column width={8} className={"auth_input auth_input-success"}>
                                             <label>
                                                 <input
                                                     className={"input__currency populated_currency"}
@@ -362,10 +262,10 @@ class Calculator extends Component {
                                                     onFocus={this.handleFocus}
                                                     ref={(input) => {this.inputToken = input}}
                                                 />
-                                                <span className={'auth_input-span'}>TSR</span>
+                                                <span className={'auth_input-span auth_input-success'}>TSR</span>
                                             </label>
                                         </Grid.Column>
-                                        <Grid.Column width={8} className={"auth_input"}>
+                                        <Grid.Column width={8} className={"auth_input auth_input-success"}>
                                             <label>
                                                 <input
                                                     type="text"
@@ -453,6 +353,5 @@ export default connect(state => ({
     handleApplication,
     handleChangeOrder,
     handleFormOrder,
-    setCurrency,
     handleCloseModal
 })(Calculator);

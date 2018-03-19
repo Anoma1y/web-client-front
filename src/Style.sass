@@ -48,7 +48,13 @@ body
   cursor: pointer !important
 
 .auth__container
-  height: calc(100vh - 85.38px) !important
+  height: calc(100vh - 100px) !important
+  display: -ms-grid !important
+  display: grid !important
+  -webkit-box-align: center !important
+  -webkit-align-items: center !important
+  -ms-flex-align: center !important
+  align-items: center !important
 
 .black-text
   color: $black-color
@@ -63,6 +69,7 @@ body
   background-color: $header-menu-background-color
   height: 49px !important
   border-radius: 0 !important
+  margin-top: 0 !important
   @media screen and (max-width: 767px)
     height: 100px !important
 .logo_content
@@ -609,6 +616,7 @@ body
 .modal
   -webkit-box-shadow: none !important
   box-shadow: none !important
+  color: $black-color
 
 .modal__success
   text-align: center !important
@@ -670,11 +678,6 @@ body
       background-color: transparent !important
     //background-color: rgb(42, 207, 49) !important
 
-.request__column
-  &_btn
-    .ui.button:disabled, .ui.buttons .disabled.button, .ui.disabled.active.button, .ui.disabled.button, .ui.disabled.button:hover
-      opacity: .6 !important
-
 .pay__modal
   position: relative
   .close__modal
@@ -729,7 +732,7 @@ body
 /***ROADMAP COMPONENT***/
 .roadmap
   &__title
-    font-size: 25px !important
+    font-size: 20px !important
     margin-top: -9px !important
     margin-bottom: -9px !important
   &__progress
@@ -853,7 +856,16 @@ body
   font-weight: 400 !important
   color: $black-color
 
-.auth_dropdown
+.error__validation
+  position: relative !important
+  &_text
+    position: absolute !important
+    color: $red-color
+    top: 50%
+    transform: translateY(35%) !important
+    font-size: 14px !important
+
+.dropdown_populated
   color: $black-color
   i
     &:before
@@ -861,7 +873,7 @@ body
       top: 20px
   .dropdown:not(.icon)
     height: 50px !important
-    margin-top: 7px !important
+    margin-top: 5px !important
     margin-bottom: 32px !important
     padding-left: 0 !important
     width: 100% !important
@@ -877,26 +889,79 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
-    border-bottom: 1px solid $gray-color
+    &.dropdown-error
+      border-bottom: 1px solid $red-color
+    &.dropdown-success
+      border-bottom: 1px solid $gray-color
     &:hover
       border-bottom: 3px solid $blue-color
     .item
       width: 100% !important
+    & + .auth_input-dropdown
+      color: $gray-color
+    &:hover + .auth_input-dropdown
+      color: $blue-color
 
-
-.settings__dropdown
+.auth_dropdown
+  color: $black-color
+  i
+    &:before
+      position: absolute
+      top: 20px
   .dropdown:not(.icon)
-    margin-top: 10px !important
+    height: 50px !important
+    margin-top: 5px !important
     margin-bottom: 32px !important
     padding-left: 0 !important
     width: 100% !important
+    .text
+      position: relative
+      top: 12px !important
+      color: $black-color
+    .default
+      color: $gray-color
     .menu
       -webkit-flex-wrap: wrap !important
       -ms-flex-wrap: wrap !important
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
-    border-bottom: 3px solid $black-color
+    &.dropdown-error
+      border-bottom: 1px solid $red-color
+    &.dropdown-success
+      border-bottom: 1px solid $gray-color
+    &:hover
+      border-bottom: 3px solid $blue-color
+    .item
+      width: 100% !important
+    & + .auth_input-dropdown
+      color: $gray-color
+    &:hover + .auth_input-dropdown
+      color: $blue-color
+  span.auth_input-dropdown
+    opacity: 0 !important
+  .visible ~ span.auth_input-dropdown
+    opacity: 1 !important
+.settings__dropdown
+  .dropdown:not(.icon)
+    margin-top: 10px !important
+    margin-bottom: 32px !important
+    padding-left: 0 !important
+    width: 100% !important
+    height: 40px !important
+    .menu
+      -webkit-flex-wrap: wrap !important
+      -ms-flex-wrap: wrap !important
+      flex-wrap: wrap !important
+    border: none !important
+    border-radius: 0 !important
+
+    &.settings__dropdown-error
+      border-bottom: 1px solid $red-color
+    &.settings__dropdown-success
+      border-bottom: 1px solid $gray-color
+    &:hover
+      border-bottom: 3px solid $blue-color
     .item
       width: 100% !important
 
@@ -990,10 +1055,10 @@ body
   &:hover
     color: lighten(rgba(0, 79, 206, 1), 15%) !important
 
-.login, .signup
+.login, .signup, .signup__success
   font-family: $font-robot
   max-width: 416px !important
-  margin: 90px auto 20px !important
+  margin: 5px auto !important
 
 .auth__content
   padding: 20px !important
@@ -1063,7 +1128,7 @@ body
 
 .auth_input
   label
-    margin-bottom: 12px !important
+    margin-bottom: 16px !important
     position: relative !important
     display: block !important
     background-color: inherit !important
@@ -1079,15 +1144,13 @@ body
       width: 100% !important
       outline: none !important
       background-color: inherit !important
-      border-bottom: 1px solid $gray-color
+      //border-bottom: 1px solid $gray-color
       color: $black-color
       -webkit-transition: all 0.1s ease-in-out !important
       -o-transition: all 0.1s ease-in-out !important
       transition: all 0.1s ease-in-out !important
       +placeholder
         color: $gray-color
-      &:hover
-        border-bottom: 3px solid $blue-color
       &.populated_currency
         padding-top: 28px !important
         padding-bottom: 12px !important
@@ -1099,27 +1162,64 @@ body
       &:focus, &.populated
         padding-top: 28px !important
         padding-bottom: 10px !important
-        border-bottom: 3px solid $blue-color
         &::placeholder
           color: transparent !important
         & + span
           opacity: 1 !important
           top: 4px !important
     span.auth_input-span
-      color: $blue-color
       position: absolute !important
       top: 0 !important
       font-size: 12px !important
       left: 0 !important
       opacity: 0 !important
+      color: $gray-color
+      -webkit-transition: all 0.2s ease-in-out !important
+      -o-transition: all 0.2s ease-in-out !important
+      transition: all 0.2s ease-in-out !important
+
+    span.auth_input-dropdown
+      position: absolute !important
+      top: -3px !important
+      font-size: 12px !important
+      left: 0 !important
+      z-index: 999999 !important
       -webkit-transition: all 0.2s ease-in-out !important
       -o-transition: all 0.2s ease-in-out !important
       transition: all 0.2s ease-in-out !important
   .auth__error
     color: $red-color
-    margin-top: 8px !important
+    position: absolute
+    bottom: -17px
     font-size: 12px !important
-
+  .auth_length
+    color: $gray-color
+    position: absolute
+    right: 0
+    bottom: -17px
+    font-size: 12px
+    &-red
+      color: $red-color
+  &-success
+    label
+      input
+        border-bottom: 1px solid $gray-color
+        &:hover
+          border-bottom: 3px solid $blue-color
+        &:focus
+          border-bottom: 3px solid $blue-color
+        &:focus + .auth_input-span, &:hover + .auth_input-span
+          color: $blue-color
+  &-error
+    label
+      input
+        border-bottom: 1px solid $red-color
+        &:hover
+          border-bottom: 3px solid $red-color
+        &:focus
+          border-bottom: 3px solid $red-color
+        &:focus + .auth_input-span, &:hover + .auth_input-span
+          color: $red-color
 .signup__content
   &_confirm
     margin: 20px 0 34px !important
@@ -1200,7 +1300,6 @@ body
 .admin__application
   &_comment
     word-break: break-all !important
-
 
 .admin__users
   &-user

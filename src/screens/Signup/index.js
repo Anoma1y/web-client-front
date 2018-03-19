@@ -7,7 +7,7 @@ import {
 import SignupComponent from 'components/Signup/SignupComponent'
 
 const Signup = () => (
-    <Container>
+    <Container className={'auth__container'}>
         <Grid>
             <Grid.Row centered>
                 <Grid.Column widescreen={7} computer={7} tablet={16} mobile={16}>

@@ -9,7 +9,7 @@ import {
     Dropdown
 } from 'semantic-ui-react';
 import {countryOptions} from "libs/country";
-
+import { SETTINGS } from 'libs/messages';
 
 class CompanyInformation extends Component {
 
@@ -38,7 +38,7 @@ class CompanyInformation extends Component {
         }
     }
     checkEnglish = (value, nameError, len) => {
-        if (!value.match(/^[A-Za-z]+$|i/)) {
+        if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
                 [nameError]: 'Enter only English alphabet characters'
             })
@@ -71,7 +71,7 @@ class CompanyInformation extends Component {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
-                [nameError]: "Enter numbers only"
+                [nameError]: "Enter valid phone number"
             });
         } else {
             this.setState({
@@ -116,7 +116,7 @@ class CompanyInformation extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return nextProps.settings.companyInformation !== this.props.settings.companyInformation || nextProps.settings.sourceFunds !== this.props.settings.sourceFunds;
+        return nextProps.settings.companyInformation !== this.props.settings.companyInformation || nextProps.settings.sourceFunds !== this.props.settings.sourceFunds || nextProps.settings.settingsInputError !== this.props.settings.settingsInputError;
     }
 
     handleChange = (event) => {
@@ -126,40 +126,26 @@ class CompanyInformation extends Component {
         } = event.target;
         switch (id) {
             case 'companyCompanyName':
-                if (this.checkEnglish(value, 'nameError', 200) === false) {
-                    return;
-                }
-                break;
+               this.checkEnglish(value, 'nameError', 200);
+               break;
             case 'companyTaxIDnumber':
-                if (this.checkOnlyNumber(value, 'taxIDError', 20) === false) {
-                    return;
-                }
-                break;
+               this.checkOnlyNumber(value, 'taxIDError', 20);
+               break;
             case 'companyZip':
-                if (this.checkOnlyNumber(value, 'zipError', 10) === false) {
-                    return;
-                }
-                break;
+               this.checkOnlyNumber(value, 'zipError', 10);
+               break;
             case 'companyLinktopubliccompanyregister':
-                if (this.checkWebURL(value, 'linkURLError', 300) === false) {
-                    return;
-                }
-                break;
+               this.checkWebURL(value, 'linkURLError', 300);
+               break;
             case 'companyEmail':
-                if (this.checkEmail(value, 100) === false) {
-                    return;
-                }
-                break;
+               this.checkEmail(value, 100);
+               break;
             case 'companyPhone':
-                if (this.checkPhone(value, 'phoneError', 15) === false) {
-                    return;
-                }
-                break;
+               this.checkPhone(value, 'phoneError', 15);
+               break;
             case 'companyWebsites':
-                if (this.checkWebURL(value, 'webSiteError', 300) === false) {
-                    return;
-                }
-                break;
+               this.checkWebURL(value, 'webSiteError', 300);
+               break;
         }
         const { changeSettingsCompanyInput } = this.props;
         changeSettingsCompanyInput({
@@ -191,8 +177,12 @@ class CompanyInformation extends Component {
             linkURLError,
             webSiteError,
             emailError,
-            phoneError
+            phoneError,
         } = this.state;
+        const {
+            settingsInputError,
+            sourceFunds
+        } = this.props.settings;
         return (
             <Grid.Row>
                 <Grid.Column>
@@ -203,8 +193,10 @@ class CompanyInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column width={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information'} >
+                            <Grid.Column width={16} className={
+                                (nameError.length !== 0 && this.props.settings.companyInformation.companyCompanyName.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyCompanyName.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -221,7 +213,9 @@ class CompanyInformation extends Component {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
+                                (taxIDError.length !== 0 && this.props.settings.companyInformation.companyTaxIDnumber.length > 0) ? "auth_input settings__information auth_input-error" : (this.props.settings.companyInformation.companyTaxIDnumber.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input settings__information auth_input-error" :  "auth_input settings__information auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -235,22 +229,30 @@ class CompanyInformation extends Component {
                                     {taxIDError.length !== 0 && this.props.settings.companyInformation.companyTaxIDnumber.length !== 0 ? <p className={'auth__error'}>{taxIDError}</p> : null}
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
-                                <label className={'auth_dropdown'}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input auth_input-success settings__information'}>
+                                <label className={this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
                                     <Dropdown
                                         placeholder='Choose your country'
                                         fluid
                                         selection
+                                        className={
+                                            (this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "dropdown-error" :  "dropdown-success"
+                                        }
                                         value={this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 ? null : this.props.settings.companyInformation.companyTaxrezidencecountry}
                                         options={countryOptions}
                                         onChange={this.handleDropdownCountry}
                                     />
+                                    <span className={'auth_input-dropdown'}>
+                                        Tax residence country
+                                </span>
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information'}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
+                                (this.props.settings.companyInformation.companyCity.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -262,11 +264,13 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>City</span>
                                     {
-                                        this.props.settings.companyInformation.companyCity.length > 1900 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyCity.length}/2000`}</p> : null
+                                        this.props.settings.companyInformation.companyCity.length > 90 ? <p className={this.props.settings.companyInformation.companyCity.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyCity.length}/100`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
+                                (zipError.length !== 0 && this.props.settings.companyInformation.companyZip.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyZip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label style={{width: '50%'}}>
                                     <input
                                         type='text'
@@ -282,8 +286,10 @@ class CompanyInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column width={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information'}>
+                            <Grid.Column width={16} className={
+                                 (this.props.settings.companyInformation.companyLegaladdress.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -295,14 +301,16 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Legal address</span>
                                     {
-                                        this.props.settings.companyInformation.companyLegaladdress.length > 1900 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyLegaladdress.length}/2000`}</p> : null
+                                        this.props.settings.companyInformation.companyLegaladdress.length > 1900 ? <p className={this.props.settings.companyInformation.companyLegaladdress.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyLegaladdress.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column width={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information'}>
+                            <Grid.Column width={16} className={
+                                 (this.props.settings.companyInformation.companyActualbusinessplaceaddress.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -314,14 +322,14 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Actual business place address</span>
                                     {
-                                        this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 1900 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyActualbusinessplaceaddress.length}/2000`}</p> : null
+                                        this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 1900 ? <p className={this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyActualbusinessplaceaddress.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column width={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information auth_input-success'}>
+                            <Grid.Column width={16}>
                                 <label>
                                     <input
                                         type='text'
@@ -337,8 +345,10 @@ class CompanyInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information'}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
+                                (emailError.length !== 0 && this.props.settings.companyInformation.companyEmail.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyEmail.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -352,7 +362,9 @@ class CompanyInformation extends Component {
                                     {emailError.length !== 0 && this.props.settings.companyInformation.companyEmail.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input settings__information'}>
+                            <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
+                                (phoneError.length !== 0 && this.props.settings.companyInformation.companyPhone.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyPhone.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -368,8 +380,10 @@ class CompanyInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column width={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information'}>
+                            <Grid.Column width={16} className={
+                                (this.props.settings.companyInformation.companyDescriptioncompanydoes.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -381,14 +395,16 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Description of what your company does</span>
                                     {
-                                        this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 4500 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyDescriptioncompanydoes.length}/5000`}</p> : null
+                                        this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 4500 ? <p className={this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 5000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyDescriptioncompanydoes.length}/5000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
-                        <Grid.Row>
-                            <Grid.Column width={16} className={'auth_input settings__information'}>
+                        <Grid.Row className={'auth_input settings__information'}>
+                            <Grid.Column width={16} className={
+                                (webSiteError.length !== 0 && this.props.settings.companyInformation.companyWebsites.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyWebsites.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label style={{width: '50%'}}>
                                     <input
                                         type='text'
@@ -409,9 +425,12 @@ class CompanyInformation extends Component {
                                 I hereby certify that origin of funds that is available to company is legal, and its source is
                             </Grid.Column>
                             <Grid.Column width={16} className={'auth_input settings__dropdown'}>
-                                <Dropdown 
+                                <Dropdown
                                     placeholder='None' 
-                                    selection 
+                                    selection
+                                    className={
+                                        (sourceFunds === 'None' && settingsInputError === SETTINGS.FILL_INPUT) ? "settings__dropdown-error" :  "settings__dropdown-success"
+                                    }
                                     options={certifyOption}
                                     value={this.props.settings.sourceFunds}
                                     onChange={this.handleDropdown}

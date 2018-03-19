@@ -94,6 +94,10 @@ class IdentificationImgUpload extends Component {
             .then(response => {
                 return response;
             }).catch(error => {
+                this.setState({
+                    fileUploadError: 'Error loading image',
+                    imagePreviewUrl: this.props.imageValue || ''
+                });
                 return error.response;
             });
     }

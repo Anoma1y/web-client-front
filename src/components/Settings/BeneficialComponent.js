@@ -29,7 +29,7 @@ class BeneficialComponent extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return nextProps.settings.beneficial !== this.props.settings.beneficial;
+        return nextProps.settings.beneficial !== this.props.settings.beneficial || nextProps.settings.settingsInputError !== this.props.settings.settingsInputError;
     }
 
     handleAddBeneficial = () => {
