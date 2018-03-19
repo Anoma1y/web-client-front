@@ -250,7 +250,7 @@ class Calculator extends Component {
                             <Grid.Column>
                                 <Grid>
                                     <Grid.Row>
-                                        <Grid.Column width={8} className={"auth_input"}>
+                                        <Grid.Column width={8} className={"auth_input auth_input-success"}>
                                             <label>
                                                 <input
                                                     className={"input__currency populated_currency"}
@@ -262,10 +262,10 @@ class Calculator extends Component {
                                                     onFocus={this.handleFocus}
                                                     ref={(input) => {this.inputToken = input}}
                                                 />
-                                                <span className={'auth_input-span'}>TSR</span>
+                                                <span className={'auth_input-span auth_input-success'}>TSR</span>
                                             </label>
                                         </Grid.Column>
-                                        <Grid.Column width={8} className={"auth_input"}>
+                                        <Grid.Column width={8} className={"auth_input auth_input-success"}>
                                             <label>
                                                 <input
                                                     type="text"

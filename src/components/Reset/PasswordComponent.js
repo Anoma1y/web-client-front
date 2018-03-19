@@ -90,7 +90,7 @@ class PasswordComponent extends Component {
                             Create a new password
                         </Card.Description>
                         <Card.Description>
-                            <form action="#" className={"auth_input"}>
+                            <form action="#" className={"auth_input auth_input-success"}>
                                 <label>
                                     <input
                                         type="password"
@@ -117,7 +117,7 @@ class PasswordComponent extends Component {
                                     </Message> : ""
                                 }
                                 <Button
-                                    className={"auth_btn reset_btn"}
+                                    className={"auth_btn auth_input-success reset_btn"}
                                     onClick={this.handleResetPassword}
                                     disabled={isResetInProgress === true ? true : false}
                                 >{isResetInProgress ? <Loader active inline size={"mini"}/> : "Send"}

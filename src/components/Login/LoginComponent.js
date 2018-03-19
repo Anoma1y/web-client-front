@@ -98,7 +98,7 @@ class LoginComponent extends Component {
                             Sign In
                         </Card.Header>
                         <Divider className={"auth__divider"}/>
-                        <Card.Description className={"login__content auth_input"}>
+                        <Card.Description className={"login__content auth_input auth_input-success"}>
                             <form action="#">
                                 <label>
                                     <input type="email" placeholder={"Email"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>

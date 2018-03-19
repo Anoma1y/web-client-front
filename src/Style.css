@@ -1097,7 +1097,6 @@ body {
     width: 100% !important;
     outline: none !important;
     background-color: inherit !important;
-    border-bottom: 1px solid #939393 !important;
     color: #000000 !important;
     -webkit-transition: all 0.1s ease-in-out !important;
     -o-transition: all 0.1s ease-in-out !important;
@@ -1110,8 +1109,6 @@ body {
       color: #939393 !important; }
     .auth_input label input:-ms-input-placeholder {
       color: #939393 !important; }
-    .auth_input label input:hover {
-      border-bottom: 3px solid #004fce !important; }
     .auth_input label input.populated_currency {
       padding-top: 28px !important;
       padding-bottom: 12px !important; }
@@ -1128,10 +1125,6 @@ body {
       .auth_input label input:focus + span, .auth_input label input.populated + span {
         opacity: 1 !important;
         top: 4px !important; }
-    .auth_input label input:focus {
-      border-bottom: 3px solid #004fce !important; }
-    .auth_input label input:focus + .auth_input-span, .auth_input label input:hover + .auth_input-span {
-      color: #004fce !important; }
   .auth_input label span.auth_input-span {
     position: absolute !important;
     top: 0 !important;
@@ -1164,6 +1157,24 @@ body {
   right: 0;
   bottom: -17px;
   font-size: 12px; }
+
+.auth_input-success label input {
+  border-bottom: 1px solid #939393 !important; }
+  .auth_input-success label input:hover {
+    border-bottom: 3px solid #004fce !important; }
+  .auth_input-success label input:focus {
+    border-bottom: 3px solid #004fce !important; }
+  .auth_input-success label input:focus + .auth_input-span, .auth_input-success label input:hover + .auth_input-span {
+    color: #004fce !important; }
+
+.auth_input-error label input {
+  border-bottom: 1px solid #FF3E33 !important; }
+  .auth_input-error label input:hover {
+    border-bottom: 3px solid #FF3E33 !important; }
+  .auth_input-error label input:focus {
+    border-bottom: 3px solid #FF3E33 !important; }
+  .auth_input-error label input:focus + .auth_input-span, .auth_input-error label input:hover + .auth_input-span {
+    color: #FF3E33 !important; }
 
 .signup__content_confirm {
   margin: 20px 0 34px !important;

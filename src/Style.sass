@@ -1130,15 +1130,13 @@ body
       width: 100% !important
       outline: none !important
       background-color: inherit !important
-      border-bottom: 1px solid $gray-color
+      //border-bottom: 1px solid $gray-color
       color: $black-color
       -webkit-transition: all 0.1s ease-in-out !important
       -o-transition: all 0.1s ease-in-out !important
       transition: all 0.1s ease-in-out !important
       +placeholder
         color: $gray-color
-      &:hover
-        border-bottom: 3px solid $blue-color
       &.populated_currency
         padding-top: 28px !important
         padding-bottom: 12px !important
@@ -1155,11 +1153,6 @@ body
         & + span
           opacity: 1 !important
           top: 4px !important
-      &:focus
-        border-bottom: 3px solid $blue-color
-      &:focus + .auth_input-span, &:hover + .auth_input-span
-        color: $blue-color
-
     span.auth_input-span
       position: absolute !important
       top: 0 !important
@@ -1180,7 +1173,6 @@ body
       -webkit-transition: all 0.2s ease-in-out !important
       -o-transition: all 0.2s ease-in-out !important
       transition: all 0.2s ease-in-out !important
-
   .auth__error
     color: $red-color
     position: absolute
@@ -1192,7 +1184,26 @@ body
     right: 0
     bottom: -17px
     font-size: 12px
-
+  &-success
+    label
+      input
+        border-bottom: 1px solid $gray-color
+        &:hover
+          border-bottom: 3px solid $blue-color
+        &:focus
+          border-bottom: 3px solid $blue-color
+        &:focus + .auth_input-span, &:hover + .auth_input-span
+          color: $blue-color
+  &-error
+    label
+      input
+        border-bottom: 1px solid $red-color
+        &:hover
+          border-bottom: 3px solid $red-color
+        &:focus
+          border-bottom: 3px solid $red-color
+        &:focus + .auth_input-span, &:hover + .auth_input-span
+          color: $red-color
 .signup__content
   &_confirm
     margin: 20px 0 34px !important

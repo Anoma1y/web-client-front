@@ -70,7 +70,7 @@ class EmailComponent extends React.Component {
                         <Card.Description>
                             No problem! Just fill in the email below and we'll send you password reset instructions!
                         </Card.Description>
-                        <Card.Description className={"auth_input reset__password_content"}>
+                        <Card.Description className={"auth_input auth_input-success reset__password_content"}>
                             <form action="#">
                                 <label>
                                     <input

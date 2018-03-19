@@ -140,7 +140,7 @@ class SignupComponent extends Component {
                            Sign Up
                        </Card.Header>
                        <Divider className={"auth__divider"}/>
-                        <Card.Description className={"signup__content auth_input"}>
+                        <Card.Description className={"signup__content auth_input auth_input-success"}>
                             <form action="#">
                                 <label>
                                     <input type="email" placeholder={"Email"} onChange={this.handleChangeEmail} value={email} className={emailPlaceholder ? "populated" : ""}/>

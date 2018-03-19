@@ -167,7 +167,7 @@ class SettingsButton extends Component {
                    && checkedValidationCompanyInformation === true
                    && checkedValidationCompanyUserInformation === true
                 ) {
-                    
+                    changeSettingsInputError(null);
                 } else {
                     changeSettingsInputError(SETTINGS.VALID_INPUT);
                 }
@@ -187,52 +187,63 @@ class SettingsButton extends Component {
         const {
             settingsModalIsOpen,
             settingsError,
+            settingsInputError,
             success
         } = this.props.settings;
         return (
             <Grid.Row>
-                <Grid.Column width={8} className={'error__validation'}>
-                    <span className={'error__validation_text'}>Please fill in all required fields</span>
-                </Grid.Column>
-                <Grid.Column width={8}>
-                    <Divider className={'setting_divider'}/>
-                    <Modal
-                        trigger={
-                            <Button
-                                className={'setting__button auth_btn setting__submit'}
-                                fluid
-                                floated={'right'}
-                                onClick={this.handleSubmit}
-                            > Submit
-                            </Button>
-                        }
-                        open={settingsModalIsOpen}
-                        onClose={this.handleCloseModal}
-                        basic
-                        size='tiny'
-                    >
-                        <Modal.Content className={"modal__success"}>
-                            <Modal.Description>
-                                <div className={success ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
-                                    <Icon name={success ? "check circle outline" : "warning circle"} />
-                                </div>
-                                <div className={"modal__success_text betatest__modal_text black-text"}>
-                                    <span>{success ? SETTINGS.SUCCESS : settingsError}</span>
-                                </div>
-                                <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
-                                    <Button
-                                        className={"dashboard__submit"}
-                                        onClick={this.handleCloseModal}
-                                        id={success ? "kycSendSuccess" : "kycSendError"}
-                                    >OK
-                                    </Button>
-                                </div>
-                            </Modal.Description>
-                        </Modal.Content>
-                    </Modal>
+                <Grid.Column>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <Divider className={'setting_divider'}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={8} className={'error__validation'}>
+                                { settingsInputError !== null ? <span className={'error__validation_text'}>{settingsInputError}</span> : null }
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <Modal
+                                    trigger={
+                                        <Button
+                                            className={'setting__button auth_btn setting__submit'}
+                                            fluid
+                                            floated={'right'}
+                                            onClick={this.handleSubmit}
+                                        > Submit
+                                        </Button>
+                                    }
+                                    open={settingsModalIsOpen}
+                                    onClose={this.handleCloseModal}
+                                    basic
+                                    size='tiny'
+                                >
+                                    <Modal.Content className={"modal__success"}>
+                                        <Modal.Description>
+                                            <div className={success ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
+                                                <Icon name={success ? "check circle outline" : "warning circle"} />
+                                            </div>
+                                            <div className={"modal__success_text betatest__modal_text black-text"}>
+                                                <span>{success ? SETTINGS.SUCCESS : settingsError}</span>
+                                            </div>
+                                            <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
+                                                <Button
+                                                    className={"dashboard__submit"}
+                                                    onClick={this.handleCloseModal}
+                                                    id={success ? "kycSendSuccess" : "kycSendError"}
+                                                >OK
+                                                </Button>
+                                            </div>
+                                        </Modal.Description>
+                                    </Modal.Content>
+                                </Modal>
 
 
 
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
                 </Grid.Column>
             </Grid.Row>
         );
