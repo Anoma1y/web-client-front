@@ -9,6 +9,7 @@ import { changeInputBeneficial } from 'actions/settings';
 import IdentificationImgUpload from './IdentificationImgUpload';
 import {countryOptions} from "libs/country";
 import InputMask from 'react-input-mask';
+import { SETTINGS } from 'libs/messages';
 
 class Beneficial extends Component {
 
@@ -190,12 +191,15 @@ class Beneficial extends Component {
             emailError,
             phoneError
         } = this.state;
+        const { settingsInputError } = this.props.settings;
         return (
             <Grid.Row className={'beneficial__wrapper'}>
                 <Grid.Column>
                     <Grid>
                         <Grid.Row className={'auth_input settings__information'}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (nameError.length !== 0 && settings.beneficial[indexBeneficial].Name.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Name.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -209,7 +213,9 @@ class Beneficial extends Component {
                                     {nameError.length !== 0 && settings.beneficial[indexBeneficial].Name.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (lastNameError.length !== 0 && settings.beneficial[indexBeneficial].Surname.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Surname.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -225,7 +231,9 @@ class Beneficial extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={'auth_input settings__information'}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings.beneficial[indexBeneficial].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -241,7 +249,9 @@ class Beneficial extends Component {
                                     }
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings.beneficial[indexBeneficial].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -265,6 +275,9 @@ class Beneficial extends Component {
                                         placeholder='Choose your country'
                                         fluid
                                         selection
+                                        className={
+                                            (settings.beneficial[indexBeneficial].Country.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "dropdown-error" :  "dropdown-success"
+                                        }
                                         value={settings.beneficial[indexBeneficial].Country.length === 0 ? null : settings.beneficial[indexBeneficial].Country}
                                         options={countryOptions}
                                         onChange={this.handleDropdown}
@@ -274,7 +287,9 @@ class Beneficial extends Component {
                                     </span>
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (zipError.length !== 0 && settings.beneficial[indexBeneficial].Zip.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Zip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label style={{width: '50%'}}>
                                     <input
                                         type='text'
@@ -290,7 +305,9 @@ class Beneficial extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={'auth_input settings__information'}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings.beneficial[indexBeneficial].Dateofbirth.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <InputMask
                                         type='text'
@@ -305,7 +322,9 @@ class Beneficial extends Component {
                                     <span className={'auth_input-span'}>Birth day</span>
                                 </label>
                             </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (emailError.length !== 0 && settings.beneficial[indexBeneficial].Email.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
@@ -321,7 +340,9 @@ class Beneficial extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={'auth_input settings__information'}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (phoneError.length !== 0 && settings.beneficial[indexBeneficial].Phone.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Phone.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label >
                                     <input
                                         type='text'

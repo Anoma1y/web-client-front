@@ -266,6 +266,9 @@ class PersonInformation extends Component {
                                         placeholder='Choose your country'
                                         fluid
                                         selection
+                                        className={
+                                            (settings[stateObject].Country.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "dropdown-error" :  "dropdown-success"
+                                        }
                                         value={settings[stateObject].Country.length === 0 ? null : settings[stateObject].Country}
                                         options={countryOptions}
                                         onChange={this.handleDropdown}

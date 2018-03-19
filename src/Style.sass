@@ -889,7 +889,10 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
-    border-bottom: 1px solid $gray-color
+    &.dropdown-error
+      border-bottom: 1px solid $red-color
+    &.dropdown-success
+      border-bottom: 1px solid $gray-color
     &:hover
       border-bottom: 3px solid $blue-color
     .item
@@ -921,7 +924,10 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
-    border-bottom: 1px solid $gray-color
+    &.dropdown-error
+      border-bottom: 1px solid $red-color
+    &.dropdown-success
+      border-bottom: 1px solid $gray-color
     &:hover
       border-bottom: 3px solid $blue-color
     .item
@@ -945,7 +951,11 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
-    border-bottom: 1px solid $black-color
+
+    &.settings__dropdown-error
+      border-bottom: 1px solid $red-color
+    &.settings__dropdown-success
+      border-bottom: 1px solid $gray-color
     &:hover
       border-bottom: 3px solid $blue-color
     .item

@@ -851,8 +851,7 @@ body {
     padding-left: 0 !important;
     width: 100% !important;
     border: none !important;
-    border-radius: 0 !important;
-    border-bottom: 1px solid #939393 !important; }
+    border-radius: 0 !important; }
     .dropdown_populated .dropdown:not(.icon) .text {
       position: relative;
       top: 12px !important;
@@ -863,6 +862,10 @@ body {
       -webkit-flex-wrap: wrap !important;
       -ms-flex-wrap: wrap !important;
       flex-wrap: wrap !important; }
+    .dropdown_populated .dropdown:not(.icon).dropdown-error {
+      border-bottom: 1px solid #FF3E33 !important; }
+    .dropdown_populated .dropdown:not(.icon).dropdown-success {
+      border-bottom: 1px solid #939393 !important; }
     .dropdown_populated .dropdown:not(.icon):hover {
       border-bottom: 3px solid #004fce !important; }
     .dropdown_populated .dropdown:not(.icon) .item {
@@ -882,8 +885,7 @@ body {
     padding-left: 0 !important;
     width: 100% !important;
     border: none !important;
-    border-radius: 0 !important;
-    border-bottom: 1px solid #939393 !important; }
+    border-radius: 0 !important; }
     .auth_dropdown .dropdown:not(.icon) .text {
       position: relative;
       top: 12px !important;
@@ -894,6 +896,10 @@ body {
       -webkit-flex-wrap: wrap !important;
       -ms-flex-wrap: wrap !important;
       flex-wrap: wrap !important; }
+    .auth_dropdown .dropdown:not(.icon).dropdown-error {
+      border-bottom: 1px solid #FF3E33 !important; }
+    .auth_dropdown .dropdown:not(.icon).dropdown-success {
+      border-bottom: 1px solid #939393 !important; }
     .auth_dropdown .dropdown:not(.icon):hover {
       border-bottom: 3px solid #004fce !important; }
     .auth_dropdown .dropdown:not(.icon) .item {
@@ -912,12 +918,15 @@ body {
   width: 100% !important;
   height: 40px !important;
   border: none !important;
-  border-radius: 0 !important;
-  border-bottom: 1px solid #000000 !important; }
+  border-radius: 0 !important; }
   .settings__dropdown .dropdown:not(.icon) .menu {
     -webkit-flex-wrap: wrap !important;
     -ms-flex-wrap: wrap !important;
     flex-wrap: wrap !important; }
+  .settings__dropdown .dropdown:not(.icon).settings__dropdown-error {
+    border-bottom: 1px solid #FF3E33 !important; }
+  .settings__dropdown .dropdown:not(.icon).settings__dropdown-success {
+    border-bottom: 1px solid #939393 !important; }
   .settings__dropdown .dropdown:not(.icon):hover {
     border-bottom: 3px solid #004fce !important; }
   .settings__dropdown .dropdown:not(.icon) .item {
