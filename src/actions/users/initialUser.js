@@ -115,16 +115,16 @@ export const initialUser = token => {
                                 } = INITIAL_DATA.personCompanyFile;
                                 dispatch(initialCompanyUserImage({
                                     certificateActualStatus:
-                                        findImage(IMAGE, personalUserCompanyDocument) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, personalUserCompanyDocument)].filename}`
+                                        findImage(IMAGE, certificateActualStatus) !== undefined
+                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, certificateActualStatus)].filename}`
                                             : '',
                                     personalUserCompanyDocument:
                                         findImage(IMAGE, representation) !== undefined
                                             ? `${Config.url}static/${IMAGE[findImage(IMAGE, representation)].filename}`
                                             : '',
                                     representation:
-                                        findImage(IMAGE, certificateActualStatus) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, certificateActualStatus)].filename}`
+                                        findImage(IMAGE, representation) !== undefined
+                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, representation)].filename}`
                                             : ''
                                 }))
                             }).catch((err) => console.log(err));

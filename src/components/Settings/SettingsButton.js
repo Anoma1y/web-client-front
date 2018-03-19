@@ -9,11 +9,13 @@ import {
 } from 'semantic-ui-react';
 import {
     changeModalSettings,
-    handleSettingsSend
+    handleSettingsSend,
+    changeSettingsInputError,
 } from 'actions/settings';
 import { initKycType } from 'actions/users';
 import { SETTINGS } from 'libs/messages';
 import _ from 'underscore';
+
 
 class SettingsButton extends Component {
 
@@ -28,24 +30,25 @@ class SettingsButton extends Component {
             // handleSettingsSend(settingsOption);
         }
     }
+    checkFill = value => value.length > 0;
     checkEnglish = value => {
-        if (value.match(/^[A-Za-z\s]+$|i/) && value.length > 0) return true;
+        if (value.match(/^[A-Za-z\s]+$|i/)) return true;
         else return false;
     }
     checkNumber = value => {
-        if (value.match(/^[0-9]+$|i/) && value.length > 0) return true;
+        if (value.match(/^[0-9]+$|i/)) return true;
         else return false;
     }
     checkEmail = value => {
-        if (value.match(/^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i) && value.length > 0) return true;
+        if (value.match(/^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i)) return true;
         else return false;
     }
     checkPhone = value => {
-        if (value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/) && value.length > 0) return true;
+        if (value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/)) return true;
         else return false;
     }
     checkWeb = value => {
-        if (value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/) && value.length > 0) return true;
+        if (value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)) return true;
         else return false;
     }
 
@@ -69,7 +72,7 @@ class SettingsButton extends Component {
                     return individualUserInformation[item].length > 0;
                 }
             });
-            const checkedUserFile = _.every(individualUserFile, (num) => num !== null);
+            console.log(checkedUserInformation);
         }
         else if (TYPE === 'legal') {
             const {
@@ -81,8 +84,11 @@ class SettingsButton extends Component {
                 beneficial,
                 sourceFunds
             } = this.props.settings;
-
-            const checkedCompanyUserInformation = Object.keys(companyUserInformation).map((item) => {
+            const {
+                handleSettingsSend,
+                changeSettingsInputError
+            } = this.props;
+            const checkedValidationCompanyUserInformation = _.every(Object.keys(companyUserInformation).map((item) => {
                 if (item === 'Name' || item === 'Surname') {
                     return this.checkEnglish(companyUserInformation[item])
                 } else if (item === 'Zip') {
@@ -94,10 +100,15 @@ class SettingsButton extends Component {
                 } else if (item === 'City' || item === 'Addres' || item === 'Country' || item === 'Dateofbirth') {
                     return companyUserInformation[item].length > 0;
                 }
-            });
+            }), (num) => num === true);
+
+            const checkedFillCompanyUserInformation = _.every(Object.keys(companyUserInformation).map((item) => {
+                return this.checkFill(companyUserInformation[item]);
+            }), (num) => num === true);
+
             const checkedPersonCompanyFile = _.every(personCompanyFile, (num) => num !== null);
 
-            const checkedCompanyInformation = Object.keys(companyInformation).map((item) => {
+            const checkedValidationCompanyInformation = _.every(Object.keys(companyInformation).map((item) => {
                 if (item === 'companyCompanyName') {
                     return this.checkEnglish(companyInformation[item]);
                 } else if (item === 'companyTaxIDnumber' || item === 'companyZip') {
@@ -111,13 +122,19 @@ class SettingsButton extends Component {
                 } else if (item === 'companyCity' || item === 'companyLegaladdress' || item === 'companyActualbusinessplaceaddress' || item === 'companyDescriptioncompanydoes' || item === 'companyTaxrezidencecountry' || item === 'companyLinktopubliccompanyregister') {
                     return companyInformation[item].length > 0;
                 }
-            });
+            }), (num) => num === true);
+
+            const checkedFillCompanyInformation = _.every(Object.keys(companyInformation).map((item) => {
+                if (item !== 'companyLinktopubliccompanyregister') {
+                    return this.checkFill(companyInformation[item]);
+                }
+            }).filter(item => item !== undefined), num => num === true);
 
             const checkedCompanyFile = _.every(companyFile, (num) => num !== null);
 
             const checkedSourceFunds = sourceFunds !== 'None';
 
-            const chekedBeneficial = _.every(Object.values(beneficial).map(item => {
+            const checkedValidationBeneficial = Object.values(beneficial).map(item => {
                 return Object.keys(item).map(it => {
                     if (it === 'Name' || it === 'Surname') {
                         return this.checkEnglish(item[it])
@@ -131,9 +148,32 @@ class SettingsButton extends Component {
                         return item[it].length > 0;
                     }
                 })
-            }).reduce((acc, curr) => acc.concat(curr)), (num) => num === true);
+            }).map(item => _.every(item, num => num === true))
+
+            const checkedFillBeneficial = _.every(Object.keys(beneficial[0]).map(item => {
+                return this.checkFill(beneficial[0][item]);
+            }), num => num === true);
             
-            const chekedBeneficialFile = _.every(Object.values(beneficialFile).map(item => Object.keys(item).map(it => item[it] !== null)).reduce((acc, curr) => acc.concat(curr)), (num) => num === true);
+            const checkedBeneficialFile = Object.values(beneficialFile).map(item => Object.keys(item).map(it => item[it] !== null)).map(item => _.every(item, num => num === true));
+            if (checkedBeneficialFile[0] === true
+                && checkedFillBeneficial === true
+                && checkedSourceFunds === true
+                && checkedCompanyFile === true
+                && checkedPersonCompanyFile === true
+                && checkedFillCompanyUserInformation === true
+                && checkedFillCompanyInformation === true
+            ) {
+                if(checkedValidationBeneficial[0] === true
+                   && checkedValidationCompanyInformation === true
+                   && checkedValidationCompanyUserInformation === true
+                ) {
+                    
+                } else {
+                    changeSettingsInputError(SETTINGS.VALID_INPUT);
+                }
+            } else {
+                changeSettingsInputError(SETTINGS.FILL_INPUT);
+            }
 
         }
     }
@@ -151,7 +191,10 @@ class SettingsButton extends Component {
         } = this.props.settings;
         return (
             <Grid.Row>
-                <Grid.Column>
+                <Grid.Column width={8} className={'error__validation'}>
+                    <span className={'error__validation_text'}>Please fill in all required fields</span>
+                </Grid.Column>
+                <Grid.Column width={8}>
                     <Divider className={'setting_divider'}/>
                     <Modal
                         trigger={
@@ -202,7 +245,8 @@ export default connect(state => ({
 }), {
     changeModalSettings,
     initKycType,
-    handleSettingsSend
+    handleSettingsSend,
+    changeSettingsInputError
 })(SettingsButton);
 
 

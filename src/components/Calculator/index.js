@@ -47,20 +47,6 @@ class Calculator extends Component {
         changeTransferData(value);
     }
 
-
-    // componentDidMount() {
-    //     const {
-    //         tokenValue,
-    //         currencyValue,
-    //         bonus: BONUS_LIST
-    //     } = this.props.calculator;
-    //     const {
-    //         TSR: TSR_RATE,
-    //         currency: CRYPTO_CURRENCY
-    //     } = this.props.rate;
-    //     this.changeState(calcToken(tokenValue, currencyValue, BONUS_LIST, CRYPTO_CURRENCY, TSR_RATE));
-    // }
-
     //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
     //Принимает 1 значение (event - value) - вводимое (пользователем) значение
     //Происходит проверка на отсутствие текста и спец-символов

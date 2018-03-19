@@ -196,7 +196,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     } else if (currencyValue === "ETH") {
         USD = transferETH(value, "USD", currency);
         BTC = transferETH(value, "BTC", currency);
-        TKNinitialValue = transferToTKN(USD, TSR_ETH);
+        TKNinitialValue = transferToTKN(value, TSR_PRICE);
         bonus = checkBonus(TKNinitialValue, bonusList);
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         ETH = value;

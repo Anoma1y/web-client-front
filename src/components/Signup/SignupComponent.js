@@ -135,7 +135,7 @@ class SignupComponent extends Component {
         return (
             <div>
                 <Card fluid className={"signup component__shadow"}>
-                   <Card.Content className={"auth__content"}>
+                    <Card.Content className={"auth__content"}>
                        <Card.Header as={"h1"} className={"login__header"}>
                            Sign Up
                        </Card.Header>

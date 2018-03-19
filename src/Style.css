@@ -6,7 +6,13 @@ body {
   cursor: pointer !important; }
 
 .auth__container {
-  height: calc(100vh - 85.38px) !important; }
+  height: calc(100vh - 100px) !important;
+  display: -ms-grid !important;
+  display: grid !important;
+  -webkit-box-align: center !important;
+  -webkit-align-items: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important; }
 
 .black-text {
   color: #000000 !important; }
@@ -20,7 +26,8 @@ body {
 .header__menu {
   background-color: #282828 !important;
   height: 49px !important;
-  border-radius: 0 !important; }
+  border-radius: 0 !important;
+  margin-top: 0 !important; }
   @media screen and (max-width: 767px) {
     .header__menu {
       height: 100px !important; } }
@@ -694,7 +701,7 @@ body {
 
 /***ROADMAP COMPONENT***/
 .roadmap__title {
-  font-size: 22px !important;
+  font-size: 20px !important;
   margin-top: -9px !important;
   margin-bottom: -9px !important; }
 
@@ -822,6 +829,15 @@ body {
 .settings__select {
   font-weight: 400 !important;
   color: #000000 !important; }
+
+.error__validation {
+  position: relative !important; }
+  .error__validation_text {
+    position: absolute !important;
+    color: #FF3E33 !important;
+    top: 50%;
+    transform: translateY(35%) !important;
+    font-size: 14px !important; }
 
 .dropdown_populated {
   color: #000000 !important; }
@@ -998,7 +1014,7 @@ body {
 .login, .signup {
   font-family: "Roboto", sans-serif !important;
   max-width: 416px !important;
-  margin: 90px auto 20px !important; }
+  margin: 5px auto !important; }
 
 .auth__content {
   padding: 20px !important; }

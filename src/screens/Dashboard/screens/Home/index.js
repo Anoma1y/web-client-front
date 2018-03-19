@@ -98,7 +98,7 @@ class Home extends Component{
         const { is_kyc_passed } = localStorage;
         return (
             <div>
-                {is_kyc_passed ? null :
+                {is_kyc_passed === true ? null :
                     <div className={"attentionIdentification"}>
                         <AttentionIdentification />
                     </div>
@@ -125,7 +125,7 @@ class Home extends Component{
                                         <DownloadList />
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <CryptoWidget />
+                                        {/*<CryptoWidget />*/}
                                     </Grid.Row>
                                     <Grid.Row>
                                         <Roadmap />
