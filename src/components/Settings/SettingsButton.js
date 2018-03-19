@@ -25,9 +25,11 @@ class SettingsButton extends Component {
             settingsOption,
         } = this.props;
         const { kyc_type } = this.props.user;
-        if (kyc_type === settingsOption || kyc_type === '') {
+        if (kyc_type === '') {
+            const { activeTab } = this.props.settings;
+            this.checkCompletenessFields(activeTab);
+        } else if (kyc_type === settingsOption ) {
             this.checkCompletenessFields(kyc_type);
-            // handleSettingsSend(settingsOption);
         }
     }
     checkFill = value => value.length > 0;
@@ -59,7 +61,11 @@ class SettingsButton extends Component {
                 individualUserFile,
                 individualUserInformation
             } = this.props.settings;
-            const checkedUserInformation = Object.keys(individualUserInformation).map((item) => {
+            const {
+                changeSettingsInputError,
+                handleSettingsSend
+            } = this.props;
+            const checkedValidationUserInformation = _.every(Object.keys(individualUserInformation).map((item) => {
                 if (item === 'Name' || item === 'Surname') {
                     return this.checkEnglish(individualUserInformation[item])
                 } else if (item === 'Zip') {
@@ -68,11 +74,32 @@ class SettingsButton extends Component {
                     return this.checkEmail(individualUserInformation[item]);
                 } else if (item === 'Phone') {
                     return this.checkPhone(individualUserInformation[item]);
-                } else if (item === 'City' || item === 'Addres' || item === 'Country' || item === 'Dateofbirth') {
+                } else if (item === 'City') {
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 100;
+                } else if (item === 'Addres') {
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 2000;
+                } else if (item === 'Country' || item === 'Dateofbirth') {
                     return individualUserInformation[item].length > 0;
                 }
-            });
-            console.log(checkedUserInformation);
+            }), num => num === true);
+
+            const checkedFillUserInformation = _.every(Object.keys(individualUserInformation).map((item) => {
+                return this.checkFill(individualUserInformation[item]);
+            }), (num) => num === true);
+
+            const checkedPersonCompanyFile = _.every(individualUserFile, (num) => num !== null);
+
+            if (checkedFillUserInformation === true && checkedPersonCompanyFile === true) {
+                if (checkedValidationUserInformation === true) {
+                    changeSettingsInputError(null);
+                    handleSettingsSend(TYPE);
+                } else {
+                    changeSettingsInputError(SETTINGS.VALID_INPUT);
+
+                }
+            } else {
+                changeSettingsInputError(SETTINGS.FILL_INPUT);
+            }
         }
         else if (TYPE === 'legal') {
             const {
@@ -97,7 +124,11 @@ class SettingsButton extends Component {
                     return this.checkEmail(companyUserInformation[item]);
                 } else if (item === 'Phone') {
                     return this.checkPhone(companyUserInformation[item]);
-                } else if (item === 'City' || item === 'Addres' || item === 'Country' || item === 'Dateofbirth') {
+                } else if (item === 'City') {
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 100;
+                } else if (item === 'Addres') {
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 2000;
+                } else if (item === 'Country' || item === 'Dateofbirth') {
                     return companyUserInformation[item].length > 0;
                 }
             }), (num) => num === true);
@@ -119,7 +150,15 @@ class SettingsButton extends Component {
                     return this.checkEmail(companyInformation[item]);
                 } else if (item === 'companyPhone') {
                     return this.checkPhone(companyInformation[item]);
-                } else if (item === 'companyCity' || item === 'companyLegaladdress' || item === 'companyActualbusinessplaceaddress' || item === 'companyDescriptioncompanydoes' || item === 'companyTaxrezidencecountry' || item === 'companyLinktopubliccompanyregister') {
+                } else if (item === 'companyCity') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 100;
+                } else if (item === 'companyLegaladdress') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                } else if (item === 'companyActualbusinessplaceaddress') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                } else if (item === 'companyDescriptioncompanydoes') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= 4500;
+                } else if (item === 'companyTaxrezidencecountry' || item === 'companyLinktopubliccompanyregister') {
                     return companyInformation[item].length > 0;
                 }
             }), (num) => num === true);
@@ -144,7 +183,11 @@ class SettingsButton extends Component {
                         return this.checkEmail(item[it]);
                     } else if (it === 'Phone') {
                         return this.checkPhone(item[it]);
-                    } else if (it === 'City' || it === 'Addres' || it === 'Country' || it === 'Dateofbirth') {
+                    } else if (it === 'City') {
+                        return item[it].length > 0 && item[it].length <= 100;
+                    } else if (it === 'Addres') {
+                        return item[it].length > 0 && item[it].length <= 2000;
+                    } else if (it === 'Country' || it === 'Dateofbirth') {
                         return item[it].length > 0;
                     }
                 })
@@ -168,6 +211,7 @@ class SettingsButton extends Component {
                    && checkedValidationCompanyUserInformation === true
                 ) {
                     changeSettingsInputError(null);
+                    handleSettingsSend(TYPE);
                 } else {
                     changeSettingsInputError(SETTINGS.VALID_INPUT);
                 }

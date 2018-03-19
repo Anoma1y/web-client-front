@@ -78,39 +78,19 @@ class Beneficial extends Component {
          } = this.props;
         switch (id) {
             case 'Name':
-                if (this.checkEnglish(value, 'nameError', 100) === false) {
-                    return;
-                }
+                this.checkEnglish(value, 'nameError', 100);
                 break;
             case 'Surname':
-                if (this.checkEnglish(value, 'lastNameError', 100) === false) {
-                    return;
-                }
-                break;
-            case 'City':
-                if (value.length > 100) {
-                    return;
-                }
-                break;
-            case 'Addres':
-                if (id === 'Addres' && value.length > 2000) {
-                    return;
-                }
+                this.checkEnglish(value, 'lastNameError', 100);
                 break;
             case 'Zip':
-                if (this.checkOnlyNumber(value, 'zipError', 10) === false) {
-                    return;
-                }
+                this.checkOnlyNumber(value, 'zipError', 10);
                 break;
             case 'Phone':
-                if (this.checkPhone(value, 'phoneError', 15) === false) {
-                    return;
-                }
+                this.checkPhone(value, 'phoneError', 15);
                 break;
             case 'Email':
-                if (this.checkEmail(value, 'emailError' ,100) === false) {
-                    return false;
-                }
+                this.checkEmail(value, 'emailError' ,100);
                 break;
         }
         changeInputBeneficial({

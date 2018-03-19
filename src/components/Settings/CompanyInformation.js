@@ -126,40 +126,26 @@ class CompanyInformation extends Component {
         } = event.target;
         switch (id) {
             case 'companyCompanyName':
-                if (this.checkEnglish(value, 'nameError', 200) === false) {
-                    return;
-                }
-                break;
+               this.checkEnglish(value, 'nameError', 200);
+               break;
             case 'companyTaxIDnumber':
-                if (this.checkOnlyNumber(value, 'taxIDError', 20) === false) {
-                    return;
-                }
-                break;
+               this.checkOnlyNumber(value, 'taxIDError', 20);
+               break;
             case 'companyZip':
-                if (this.checkOnlyNumber(value, 'zipError', 10) === false) {
-                    return;
-                }
-                break;
+               this.checkOnlyNumber(value, 'zipError', 10);
+               break;
             case 'companyLinktopubliccompanyregister':
-                if (this.checkWebURL(value, 'linkURLError', 300) === false) {
-                    return;
-                }
-                break;
+               this.checkWebURL(value, 'linkURLError', 300);
+               break;
             case 'companyEmail':
-                if (this.checkEmail(value, 100) === false) {
-                    return;
-                }
-                break;
+               this.checkEmail(value, 100);
+               break;
             case 'companyPhone':
-                if (this.checkPhone(value, 'phoneError', 15) === false) {
-                    return;
-                }
-                break;
+               this.checkPhone(value, 'phoneError', 15);
+               break;
             case 'companyWebsites':
-                if (this.checkWebURL(value, 'webSiteError', 300) === false) {
-                    return;
-                }
-                break;
+               this.checkWebURL(value, 'webSiteError', 300);
+               break;
         }
         const { changeSettingsCompanyInput } = this.props;
         changeSettingsCompanyInput({
@@ -278,7 +264,7 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>City</span>
                                     {
-                                        this.props.settings.companyInformation.companyCity.length > 1900 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyCity.length}/2000`}</p> : null
+                                        this.props.settings.companyInformation.companyCity.length > 90 ? <p className={this.props.settings.companyInformation.companyCity.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyCity.length}/100`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
@@ -315,7 +301,7 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Legal address</span>
                                     {
-                                        this.props.settings.companyInformation.companyLegaladdress.length > 1900 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyLegaladdress.length}/2000`}</p> : null
+                                        this.props.settings.companyInformation.companyLegaladdress.length > 1900 ? <p className={this.props.settings.companyInformation.companyLegaladdress.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyLegaladdress.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
@@ -336,7 +322,7 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Actual business place address</span>
                                     {
-                                        this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 1900 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyActualbusinessplaceaddress.length}/2000`}</p> : null
+                                        this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 1900 ? <p className={this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyActualbusinessplaceaddress.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
@@ -409,7 +395,7 @@ class CompanyInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Description of what your company does</span>
                                     {
-                                        this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 4500 ? <p className={'auth_length'}> {`${this.props.settings.companyInformation.companyDescriptioncompanydoes.length}/5000`}</p> : null
+                                        this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 4500 ? <p className={this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 5000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyDescriptioncompanydoes.length}/5000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
@@ -439,8 +425,7 @@ class CompanyInformation extends Component {
                                 I hereby certify that origin of funds that is available to company is legal, and its source is
                             </Grid.Column>
                             <Grid.Column width={16} className={'auth_input settings__dropdown'}>
-                                {console.log(sourceFunds)}
-                                <Dropdown 
+                                <Dropdown
                                     placeholder='None' 
                                     selection
                                     className={

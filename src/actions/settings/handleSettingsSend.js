@@ -5,7 +5,6 @@ import {
 } from 'actions/settings';
 import { initKycType } from 'actions/users';
 import KYC from 'libs/ApiLib/KYC';
-import _ from 'underscore';
 
 export const handleSettingsSend = value => {
     return (dispatch, getState) => {
@@ -21,17 +20,18 @@ export const handleSettingsSend = value => {
                 individualUserFile,
                 individualUserInformation
             };
+            console.log(data);
             KYC.sendKYC(0, data, TOKEN)
                 .then(() => {
-                    // dispatch(changeModalSettings(true));
-                    // dispatch(changeSettingsSuccess(true));
-                    // dispatch(initKycType(value));
-                    // localStorage.setItem('kyc_type', value);
+                    dispatch(changeModalSettings(true));
+                    dispatch(changeSettingsSuccess(true));
+                    dispatch(initKycType(value));
+                    localStorage.setItem('kyc_type', value);
                 })
                 .catch(() => {
-                    // dispatch(changeModalSettings(true));
-                    // dispatch(changeSettingsSuccess(false));
-                    // dispatch(changeSettingsError("Error"));
+                    dispatch(changeModalSettings(true));
+                    dispatch(changeSettingsSuccess(false));
+                    dispatch(changeSettingsError("Error"));
                 })
         }
         else if (value === 'legal'){
@@ -53,19 +53,18 @@ export const handleSettingsSend = value => {
                 beneficial: Object.values(beneficial),
                 sourceFunds
             };
-
-            // KYC.sendKYC(1, data, TOKEN)
-            //     .then(() => {
-            //         dispatch(changeModalSettings(true));
-            //         dispatch(changeSettingsSuccess(true));
-            //         dispatch(initKycType(value));
-            //         localStorage.setItem('kyc_type', value);
-            //     })
-            //     .catch(() => {
-            //         dispatch(changeModalSettings(true));
-            //         dispatch(changeSettingsSuccess(false));
-            //         dispatch(changeSettingsError("Error"));
-            //     })
+            KYC.sendKYC(1, data, TOKEN)
+                .then(() => {
+                    dispatch(changeModalSettings(true));
+                    dispatch(changeSettingsSuccess(true));
+                    dispatch(initKycType(value));
+                    localStorage.setItem('kyc_type', value);
+                })
+                .catch(() => {
+                    dispatch(changeModalSettings(true));
+                    dispatch(changeSettingsSuccess(false));
+                    dispatch(changeSettingsError("Error"));
+                })
         }
     }
 };

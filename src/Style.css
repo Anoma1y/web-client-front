@@ -1020,7 +1020,7 @@ body {
   .beneficial_icon:hover {
     color: #1c73ff !important; }
 
-.login, .signup {
+.login, .signup, .signup__success {
   font-family: "Roboto", sans-serif !important;
   max-width: 416px !important;
   margin: 5px auto !important; }
@@ -1166,6 +1166,8 @@ body {
   right: 0;
   bottom: -17px;
   font-size: 12px; }
+  .auth_input .auth_length-red {
+    color: #FF3E33 !important; }
 
 .auth_input-success label input {
   border-bottom: 1px solid #939393 !important; }

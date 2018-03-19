@@ -24,7 +24,8 @@ import {
     SETTINGS_INITIAL_COMPANY_USER_IMAGE,
     SETTINGS_INITIAL_COMPANY_IMAGE,
     SETTINGS_INITIAL_BENEFICIAL_IMAGE,
-    CHANGE_SETTINGS_INPUT_ERROR
+    CHANGE_SETTINGS_INPUT_ERROR,
+    SETTINGS_CHANGE_ACTIVE_TAB
 } from 'actions/settings/types';
 
 const INITIAL_STATE = {
@@ -127,7 +128,8 @@ const INITIAL_STATE = {
     settingsModalIsOpen: false,
     settingsError: null,
     success: false,
-    settingsInputError: null
+    settingsInputError: null,
+    activeTab: null
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -216,6 +218,8 @@ export default (state = INITIAL_STATE, action) => {
             }
         case INCREMENT_BENEFICIAL_ID:
             return { ...state, idBeneficial: action.payload };
+        case SETTINGS_CHANGE_ACTIVE_TAB:
+            return { ...state, activeTab: action.payload };
         case ADD_BENEFICIAL:
             return {
                 ...state,

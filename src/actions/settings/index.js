@@ -35,3 +35,5 @@ export { initialBeneficialFile } from './initialBeneficialFile';
 export { initialIBeneficialmage } from './initialIBeneficialmage';
 
 export { changeSettingsInputError } from './changeSettingsInputError';
+
+export { changeActiveTab } from './changeActiveTab'; 

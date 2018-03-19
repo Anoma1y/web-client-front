@@ -95,10 +95,10 @@ class Home extends Component{
 
     render() {
         const { contextRef } = this.state;
-        const { is_kyc_passed } = localStorage;
+        const { kyc_type } = localStorage;
         return (
             <div>
-                {is_kyc_passed === true ? null :
+                {kyc_type !== '' ? null :
                     <div className={"attentionIdentification"}>
                         <AttentionIdentification />
                     </div>

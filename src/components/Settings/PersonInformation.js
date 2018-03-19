@@ -99,39 +99,19 @@ class PersonInformation extends Component {
         } = this.props;
         switch (id) {
             case 'Name':
-                if (this.checkEnglish(value, 'nameError', 100) === false) {
-                    return;
-                }
+                this.checkEnglish(value, 'nameError', 100);
                 break;
             case 'Surname':
-                if (this.checkEnglish(value, 'lastNameError', 100) === false) {
-                    return;
-                }
-                break;
-            case 'City':
-                if (value.length > 100) {
-                    return;
-                }
-                break;
-            case 'Addres':
-                if (id === 'Addres' && value.length > 2000) {
-                    return;
-                }
+                this.checkEnglish(value, 'lastNameError', 100);
                 break;
             case 'Zip':
-                if (this.checkOnlyNumber(value, 'zipError', 10) === false) {
-                    return;
-                }
+                this.checkOnlyNumber(value, 'zipError', 10);
                 break;
             case 'Phone':
-                if (this.checkPhone(value, 'phoneError', 15) === false) {
-                    return;
-                }
+                this.checkPhone(value, 'phoneError', 15);
                 break;
             case 'Email':
-                if (this.checkEmail(value, 'emailError', 100) === false) {
-                    return false;
-                }
+                this.checkEmail(value, 'emailError', 100);
                 break;
         };
         changeSettingsInput({
@@ -231,7 +211,7 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Address</span>
                                     {
-                                        settings[stateObject].Addres.length > 1900 ? <p className={'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
+                                        settings[stateObject].Addres.length > 1900 ? <p className={settings[stateObject].City.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
@@ -251,7 +231,7 @@ class PersonInformation extends Component {
                                         City
                                     </span>
                                     {
-                                        settings[stateObject].City.length > 90 ? <p className={'auth_length'}> {`${settings[stateObject].City.length}/100`}</p> : null
+                                        settings[stateObject].City.length > 90 ? <p className={settings[stateObject].City.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].City.length}/100`}</p> : null
                                     }
 
                                 </label>
