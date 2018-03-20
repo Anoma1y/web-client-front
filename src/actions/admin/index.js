@@ -27,3 +27,9 @@ export { handleAdminInitialCurrency } from './handleAdminInitialCurrency';
 export { changeIndividualUserImage } from './changeIndividualUserImage'; 
 export { changeIndividualUserProfile } from './changeIndividualUserProfile';
 export { handleChangeIndividualUser } from './handleChangeIndividualUser';
+
+
+
+
+
+export { handleChangeLegalUser } from './handleChangeLegalUser';

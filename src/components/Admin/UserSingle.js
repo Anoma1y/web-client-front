@@ -8,7 +8,12 @@ import {
     Accordion,
     Icon
 } from 'semantic-ui-react';
-import { handleSetUserByID, handleChangeIndividualUser } from 'actions/admin';
+import {
+    handleSetUserByID,
+    handleChangeIndividualUser,
+    setUserKYC,
+    setUserSingle,
+} from 'actions/admin';
 import AdminLib from 'libs/ApiLib/AdminLib';
 import _ from "underscore";
 import Config from "libs/config";
@@ -20,17 +25,18 @@ class UserSingle extends Component {
         const { index } = titleProps
         const { activeIndex } = this.state
         const {
+            singleUser,
             singleUserKYC
         } = this.props.admin;
         const { jwt } = this.props.user;
-        const data = JSON.parse(singleUserKYC.content);
-
         const newIndex = activeIndex === index ? -1 : index;
-        if (index !== activeIndex) {
-            const { handleChangeIndividualUser } = this.props;
-            const { id } = this.props.match.params;
-            handleChangeIndividualUser(id);
-        }
+        // if (index !== activeIndex) {
+        //     const { handleChangeIndividualUser } = this.props;
+        //     if (singleUser.kyc_type === 'individual') {
+        //         handleChangeIndividualUser(singleUser.kyc_id);
+        //     }
+        //     // handleChangeIndividualUser(id);
+        // }
 
         this.setState({ activeIndex: newIndex })
     }
@@ -42,6 +48,11 @@ class UserSingle extends Component {
         const {
             handleSetUserByID
         } = this.props;
+        handleSetUserByID(id)
+        // AdminLib.getUsersById(id).then((data) => {
+        //     setUserSingle(data.data);
+        // }).catch((err) => console.log(err));
+
     }
 
     handleBlockUser = () => {
@@ -153,5 +164,7 @@ export default connect(state => ({
     user: state.user
 }), {
     handleSetUserByID,
-    handleChangeIndividualUser
+    handleChangeIndividualUser,
+    setUserKYC,
+    setUserSingle
 })(UserSingle);
