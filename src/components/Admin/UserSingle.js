@@ -14,9 +14,8 @@ import {
     setUserKYC,
     setUserSingle,
 } from 'actions/admin';
-import AdminLib from 'libs/ApiLib/AdminLib';
-import _ from "underscore";
-import Config from "libs/config";
+import UserSingleIndividual from './UserSingleIndividual';
+import UserSingleLegal from './UserSingleLegal';
 
 class UserSingle extends Component {
     state = { activeIndex: -1 }
@@ -41,10 +40,6 @@ class UserSingle extends Component {
             handleSetUserByID
         } = this.props;
         handleSetUserByID(id)
-        // AdminLib.getUsersById(id).then((data) => {
-        //     setUserSingle(data.data);
-        // }).catch((err) => console.log(err));
-
     }
 
     handleBlockUser = () => {
@@ -55,12 +50,15 @@ class UserSingle extends Component {
     handleKYCAcceptedUser = () => { console.log('KYCAcceptedUser'); }
 
     renderKYC = () => {
-
-
+        const {
+            kyc_type
+        } = this.props.admin.singleUser;
         return (
-            <div>
-                <h1>User Profile</h1>
-            </div>
+            <Grid>
+                <Grid.Row>
+                    { kyc_type === 'individual' ? <UserSingleIndividual /> : kyc_type === 'legal' ? <UserSingleLegal /> : null }
+                </Grid.Row>
+            </Grid>
         )
     }
 
@@ -128,17 +126,19 @@ class UserSingle extends Component {
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row>
-                                            <Accordion styled fluid>
-                                                <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                                                    <Icon name='dropdown' />
-                                                    KYC - {singleUser.kyc_type}
-                                                </Accordion.Title>
-                                                <Accordion.Content active={activeIndex === 0}>
+                                            <Grid.Column>
+                                            {/*<Accordion styled fluid>*/}
+                                                {/*<Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>*/}
+                                                    {/*<Icon name='dropdown' />*/}
+                                                    {/*KYC - {singleUser.kyc_type}*/}
+                                                {/*</Accordion.Title>*/}
+                                                {/*<Accordion.Content active={activeIndex === 0}>*/}
                                                     <div>
-                                                        {}
+                                                        {this.renderKYC()}
                                                     </div>
-                                                </Accordion.Content>
-                                            </Accordion>
+                                                {/*</Accordion.Content>*/}
+                                            {/*</Accordion>*/}
+                                            </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
                                 </Card.Content>

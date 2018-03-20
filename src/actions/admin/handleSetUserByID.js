@@ -16,7 +16,6 @@ import {
 import AdminLib from "libs/ApiLib/AdminLib";
 import Config from 'libs/config';
 import _ from 'underscore';
-import KYC from "libs/ApiLib/KYC";
 
 export const handleSetUserByID = value => {
     return (dispatch, getState) => {
@@ -71,10 +70,6 @@ export const handleSetUserByID = value => {
                         })
                         dispatch(changeIndividualUserProfile(KYC_DATA.individualUserInformation));                        
                     } else if (kyc_type === 'legal') {
-                        // companyUserInformation
-                        // companyInformation
-                        // sourceFunds
-                        // const INITIAL_DATA = JSON.parse(content);
                         const imageBENEFICIAL_ID = KYC_DATA.beneficialFile;
                         const imageUSER_COMPANY_ID = _.compact(Object.values(KYC_DATA.personCompanyFile)).join(',');
                         const imageCOMPANY_ID = _.compact(Object.values(KYC_DATA.companyFile)).join(',');
@@ -179,9 +174,9 @@ export const handleSetUserByID = value => {
                     }
 
                 })
-                    .catch((err) => {
-                        console.log(err);
-                    })
+                .catch((err) => {
+                    console.log(err);
+                })
             });
     }
 };
