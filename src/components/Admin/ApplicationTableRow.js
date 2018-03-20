@@ -9,12 +9,20 @@ import {
 } from 'libs/math';
 import { changeDeleteApplications } from 'actions/admin';
 import moment from 'moment';
+import {countryOptions} from "libs/country";
 
 class ApplicationTableRow extends Component {
 
     state = {
         applicationStatus: this.props.status
     }
+
+    getCountry = (KEY) => {
+        const getObj = countryOptions.filter(item => item.key === KEY);
+        if (getObj.length !== 0) {
+            return getObj[0].text;
+        } else return '';
+    };
 
     handleChangeDelete = event => {
         const {
@@ -80,7 +88,7 @@ class ApplicationTableRow extends Component {
                 <Table.Cell width={2}>{moment(createdAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
                 {fixCurrency}
                 {fixToken}
-                <Table.Cell width={1}>Russia</Table.Cell>
+                <Table.Cell width={1}>{this.getCountry(profile.country)}</Table.Cell>
                 <Table.Cell width={3}>{profile.email}</Table.Cell>
                 <Table.Cell width={1}>{profile.is_kyc_passed === false ? "No" : "Yes"}</Table.Cell>
                 <Table.Cell width={1} className={"cursor-pointer"}>

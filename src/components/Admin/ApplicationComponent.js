@@ -84,7 +84,7 @@ class ApplicationComponent extends Component {
         this.getCurrencyAdmin();
         this.currencyIntervalAdmin = setInterval(() => {
             this.getCurrencyAdmin();
-        }, 10000)
+        }, 15000);
         changeDeleteApplications([]);
     }
     componentDidMount() {
@@ -97,7 +97,7 @@ class ApplicationComponent extends Component {
             this.setState({
                 totalPages: Math.ceil(data.data.length / this.state.itemsOnPage),
                 modalIsOpen: false
-            })
+            });
             addAllApplication(_.sortBy(data.data, function(node) {
                 return -(new Date(node.CreatedAt).getTime());
             }));
@@ -277,7 +277,9 @@ class ApplicationComponent extends Component {
     }
 }
 
-export default connect(state => ({ admin: state.admin }), {
+export default connect(state => ({
+    admin: state.admin
+}), {
     addAllApplication,
     sortedApplications,
     changeDeleteApplications,

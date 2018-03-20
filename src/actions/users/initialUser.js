@@ -6,7 +6,8 @@ import {
     putToken,
     deleteToken,
     putRoles,
-    initKycType
+    initKycType,
+    initID
 } from 'actions/users';
 import {
     initialUserProfile,
@@ -16,7 +17,7 @@ import {
     initialUserImage,
     initialCompanyImage,
     initialCompanyUserImage,
-    initialIBeneficialmage,
+    initialBeneficialmage,
     initialUserFile,
     initialCompanyUserFile,
     initialCompanyFile,
@@ -27,25 +28,27 @@ import {
 import _ from 'underscore';
 import { redirectToSignup } from 'actions/redirect';
 import KYC from 'libs/ApiLib/KYC';
-import Config from "libs/config";
+import Config from 'libs/config';
 
 export const initialUser = token => {
     return (dispatch, getState) => {
         Login.getUser(token).then((user) =>{
             const {
+                ID,
                 email,
                 is_kyc_passed,
                 roles,
                 kyc_type
             } = user.data;
             dispatch(initIdenfified(is_kyc_passed));
+            localStorage.setItem('user_id', ID);
+            localStorage.setItem('jwt', token);
+            localStorage.setItem('is_kyc_passed', is_kyc_passed);
+            localStorage.setItem('roles', roles);
+            localStorage.setItem('kyc_type', kyc_type);
+            localStorage.setItem('email', email);
 
-            localStorage.setItem("jwt", token);
-            localStorage.setItem("is_kyc_passed", is_kyc_passed);
-            localStorage.setItem("roles", roles);
-            localStorage.setItem("kyc_type", kyc_type);
-            localStorage.setItem("email", email);
-
+            dispatch(initID(ID));
             dispatch(initEmail(email));
             dispatch(putToken(token));
             dispatch(putRoles(roles));
@@ -119,8 +122,8 @@ export const initialUser = token => {
                                             ? `${Config.url}static/${IMAGE[findImage(IMAGE, certificateActualStatus)].filename}`
                                             : '',
                                     personalUserCompanyDocument:
-                                        findImage(IMAGE, representation) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, representation)].filename}`
+                                        findImage(IMAGE, personalUserCompanyDocument) !== undefined
+                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, personalUserCompanyDocument)].filename}`
                                             : '',
                                     representation:
                                         findImage(IMAGE, representation) !== undefined
@@ -204,7 +207,7 @@ export const initialUser = token => {
                                     };
                                     return result;
                                 }, {});
-                                dispatch(initialIBeneficialmage(DATA_IMAGE_BENEFICIAL));
+                                dispatch(initialBeneficialmage(DATA_IMAGE_BENEFICIAL));
                             }).catch((err) => console.log(err));
                         }
                     })
@@ -213,17 +216,18 @@ export const initialUser = token => {
                     })
             }
 
-            if (PATH === "/" || PATH === "/signup" || PATH === "/login") {
+            if (PATH === '/' || PATH === '/signup' || PATH === '/login') {
                 dispatch(push('/dashboard'));
             }
 
         }).catch(() => {
             dispatch(deleteToken());
-            localStorage.removeItem("jwt");
-            localStorage.removeItem("roles");
-            localStorage.removeItem("email");
-            localStorage.removeItem("is_kyc_passed");
-            localStorage.removeItem("kyc_type");
+            localStorage.removeItem('user_id');
+            localStorage.removeItem('jwt');
+            localStorage.removeItem('roles');
+            localStorage.removeItem('email');
+            localStorage.removeItem('is_kyc_passed');
+            localStorage.removeItem('kyc_type');
             dispatch(redirectToSignup());
         })
     }

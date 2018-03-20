@@ -7,11 +7,12 @@ class Logout extends Component {
     componentDidMount() {
         const { jwt: TOKEN } = this.props.user;
         const { handleDeleteTokenUser } = this.props;
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("roles");
-        localStorage.removeItem("email");
-        localStorage.removeItem("is_kyc_passed");
-        localStorage.removeItem("kyc_type");
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('roles');
+        localStorage.removeItem('email');
+        localStorage.removeItem('is_kyc_passed');
+        localStorage.removeItem('kyc_type');
         handleDeleteTokenUser(TOKEN);
     }
 

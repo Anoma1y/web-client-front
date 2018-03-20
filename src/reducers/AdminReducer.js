@@ -15,7 +15,19 @@ import {
     SET_ADMIN_APPLICATION_SINGLE,
     CHANGE_FIXED_CURRENCY,
     SET_ADMIN_USER_SINGLE,
-    SET_ADMIN_USER_KYC
+    SET_ADMIN_USER_KYC,
+    CHANGE_INDIVIDUAL_USER_IMAGE,
+    CHANGE_INDIVIDUAL_USER_PROFILE,
+    CHANGE_LEGAL_USER_PROFILE,
+    CHANGE_LEGAL_USER_IMAGE,
+    CHANGE_LEGAL_COMPANY_PROFILE,
+    CHANGE_LEGAL_COMPANY_IMAGE,
+    CHANGE_LEGAL_BENEFICIAL_PROFILE,
+    CHANGE_LEGAL_BENEFICIAL_IMAGE,
+    CHANGE_LEGAL_SOURCE_FUNDS,
+    CHANGE_BENEFICIAL_INCREMENT_ID,
+    CHANGE_ADMIN_OPEN_MODAL,
+    CHANGE_ADMIN_APPLICATION_SEND_ERROR
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -64,6 +76,80 @@ const INITIAL_STATE = {
         status: null,
         type: null
     },
+    individualUserImage: {
+        personalUserDocument: '',
+        utilityBill: ''
+    },
+    individualUserInformation: {
+        Name: '',
+        Addres: '',
+        Country: '',
+        Dateofbirth: '',
+        Phone: '',
+        Surname: '',
+        City: '',
+        Zip: '',
+        Email: ''
+    },
+    companyUserImage: {
+        personalUserCompanyDocument: '',
+        representation: '',
+        certificateActualStatus: '',
+    },
+    companyImage: {
+        businessRegistrationDocument: '',
+        document3months: '',
+        businessActivityLicense: '',
+        declare: ''
+    },
+    beneficialImage: {
+        0: {
+            personalBeneficialDocument: '',
+            declarationBeneficialOwned: '',
+            legalRepresentative: ''
+        }
+    },
+    companyUserInformation: {
+        Name: '',
+        Addres: '',
+        Country: '',
+        Dateofbirth: '',
+        Phone: '',
+        Surname: '',
+        City: '',
+        Zip: '',
+        Email: ''
+    },
+    companyInformation: {
+        companyCompanyName: '',
+        companyTaxIDnumber: '',
+        companyTaxrezidencecountry: '',
+        companyCity: '',
+        companyZip: '',
+        companyLegaladdress: '',
+        companyActualbusinessplaceaddress: '',
+        companyLinktopubliccompanyregister: '',
+        companyEmail: '',
+        companyPhone: '',
+        companyDescriptioncompanydoes: '',
+        companyWebsites: '',
+    },
+    beneficial: {
+        0: {
+            Name: '',
+            Addres: '',
+            Country: '',
+            Dateofbirth: '',
+            Phone: '',
+            Surname: '',
+            City: '',
+            Zip: '',
+            Email: '',
+        },
+    },
+    sourceFunds: '',
+    idBeneficial: 0,
+    maxBeneficial: 4,
     deleteUsers: [],
     deleteApplications: [],
     userRole: null,
@@ -101,7 +187,9 @@ const INITIAL_STATE = {
         TSR: 0,
         BTC: 0,
         ETH: 0
-    }
+    },
+    applicationModalIsOpen: false,
+    applicationChangeError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -118,6 +206,10 @@ export default (state = INITIAL_STATE, action) => {
                 column: null,
                 direction: 'descending'
             } };
+        case CHANGE_ADMIN_OPEN_MODAL:
+            return { ...state, applicationModalIsOpen: action.payload };
+        case CHANGE_ADMIN_APPLICATION_SEND_ERROR:
+            return { ...state, applicationChangeError: action.payload };
         case SORTED_USERS:
             return { ...state, usersList: action.payload };
         case SORTED_APPLICATIONS:
@@ -138,6 +230,26 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, sumValue: action.payload };
         case SET_ADMIN_TOKEN_VALUE:
             return { ...state, tokenValue: action.payload };
+        case CHANGE_INDIVIDUAL_USER_IMAGE:
+            return { ...state, individualUserImage: action.payload };
+        case CHANGE_INDIVIDUAL_USER_PROFILE:
+            return { ...state, individualUserInformation: action.payload };
+        case CHANGE_LEGAL_USER_PROFILE:
+            return { ...state,  companyUserInformation: action.payload };
+        case CHANGE_LEGAL_USER_IMAGE:
+            return { ...state,  companyUserImage: action.payload };
+        case CHANGE_LEGAL_COMPANY_PROFILE:
+            return { ...state,  companyInformation: action.payload };
+        case CHANGE_LEGAL_COMPANY_IMAGE:
+            return { ...state,  companyImage: action.payload };
+        case CHANGE_LEGAL_BENEFICIAL_PROFILE:
+            return { ...state,  beneficial: action.payload };
+        case CHANGE_LEGAL_BENEFICIAL_IMAGE:
+            return { ...state,  beneficialImage: action.payload };
+        case CHANGE_LEGAL_SOURCE_FUNDS:
+            return { ...state, sourceFunds: action.payload };
+        case CHANGE_BENEFICIAL_INCREMENT_ID:
+            return { ...state, idBeneficial: action.payload };
         case SET_ADMIN_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
         case SET_ADMIN_TRANSFER_DATA:

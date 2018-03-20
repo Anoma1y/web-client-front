@@ -9,7 +9,7 @@ import { changeInputBeneficial } from 'actions/settings';
 import IdentificationImgUpload from './IdentificationImgUpload';
 import {countryOptions} from "libs/country";
 import InputMask from 'react-input-mask';
-import { SETTINGS } from 'libs/messages';
+import {ERROR_VALIDATION, SETTINGS} from 'libs/messages';
 
 class Beneficial extends Component {
 
@@ -84,7 +84,7 @@ class Beneficial extends Component {
                 this.checkEnglish(value, 'lastNameError', 100);
                 break;
             case 'Zip':
-                this.checkOnlyNumber(value, 'zipError', 10);
+                this.checkZip(value, 'zipError', 4, 10);
                 break;
             case 'Phone':
                 this.checkPhone(value, 'phoneError', 15);
@@ -113,7 +113,24 @@ class Beneficial extends Component {
             return false;
         }
     }
-
+    checkZip = (value, nameError, minLen, maxLen) => {
+        if (!value.match(/^[0-9a-zA-Z]+$|i/)) {
+            this.setState({
+                [nameError]: ERROR_VALIDATION.ZIP
+            });
+        } else if (value.length < minLen) {
+            this.setState({
+                [nameError]: ERROR_VALIDATION.ZIPLENGTH
+            });
+        } else {
+            this.setState({
+                [nameError]: ''
+            });
+        }
+        if (value.length > maxLen) {
+            return false;
+        }
+    }
     checkOnlyNumber = (value, nameError, len) => {
         if (!value.match(/^[0-9]+$|i/)) {
             this.setState({
@@ -271,10 +288,12 @@ class Beneficial extends Component {
                                 (zipError.length !== 0 && settings.beneficial[indexBeneficial].Zip.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Zip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label style={{width: '50%'}}>
-                                    <input
+                                    <InputMask
                                         type='text'
                                         placeholder={'ZIP/Postal code'}
                                         id={'Zip'}
+                                        mask="**********"
+                                        maskChar={null}
                                         onChange={this.handleChange}
                                         value={settings.beneficial[indexBeneficial].Zip}
                                         className={settings.beneficial[indexBeneficial].Zip ? 'populated' : ''}

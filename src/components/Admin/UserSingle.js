@@ -1,54 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 import {
     Container,
     Grid,
     Card,
     Button,
     Accordion,
-    Icon
+    Icon,
+    Modal,
+    Form,
+    Radio
 } from 'semantic-ui-react';
-import { handleSetUserByID } from 'actions/admin';
+import {
+    handleSetUserByID,
+    handleChangeIndividualUser,
+    setUserKYC,
+    setUserSingle,
+} from 'actions/admin';
+import UserSingleIndividual from './UserSingleIndividual';
+import UserSingleLegal from './UserSingleLegal';
+import UserSingleInfo from './UserSingleInfo';
 import AdminLib from 'libs/ApiLib/AdminLib';
-import _ from "underscore";
-import Config from "libs/config";
 
 class UserSingle extends Component {
-    state = { activeIndex: -1 }
+    state = {
+        activeIndex: -1,
+        currentRole: '',
+        deleteUserIsOpen: false,
+        blockUserIsOpen: false,
+        rolesUserIsOpen: false,
+    }
 
     handleClick = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
-        const {
-            singleUserKYC
-        } = this.props.admin;
-        const { jwt } = this.props.user;
-        const data = JSON.parse(singleUserKYC.content);
-        
-        // console.log(singleUserKYC);
-        
         const newIndex = activeIndex === index ? -1 : index;
-        if (index !== activeIndex) {
-
-            AdminLib.getUsersById(this.props.match.params.id).then((data) => {
-                AdminLib.getKYCById(data.data.kyc_id, jwt).then((kycData) => {
-
-                    const KYC_DATA = JSON.parse(kycData.data.content);
-                    const USER_IMAGE_ID = _.compact(Object.values(KYC_DATA.individualUserFile)).join(',');
-                    AdminLib.getKYCImage(USER_IMAGE_ID, jwt).then((kycImage) => {
-
-                    })
-                    
-                })
-            })
-
-
-            // AdminLib.getKYCImage('2,4', jwt).then((data) => {
-            //     console.log(data.data);
-            // }).catch((err) => console.log(err));
-
-        }
-
         this.setState({ activeIndex: newIndex })
     }
 
@@ -59,30 +47,130 @@ class UserSingle extends Component {
         const {
             handleSetUserByID
         } = this.props;
+        handleSetUserByID(id)
     }
 
     handleBlockUser = () => {
+        const { id } = this.props.match.params;
+        const { setUserSingle } = this.props;
+        const { singleUser } = this.props.admin;
+        const BLOCK = singleUser.is_blocked !== true;
 
+        AdminLib.blockSingleUser(id, BLOCK).then(() => {
+            setUserSingle({
+                ...singleUser,
+                is_blocked: BLOCK
+            });
+        }).catch((err) => console.log(err));
+        this.setState({
+            blockUserIsOpen: false
+        })
     }
-    handleDeleteUser = () => { console.log('DeleteUser'); }
-    handleRequestKYCUser = () => { console.log('RequestKYCUser'); }
-    handleKYCAcceptedUser = () => { console.log('KYCAcceptedUser'); }
+
+    handleOpenModalBlock = () => {
+        this.setState({
+            blockUserIsOpen: true
+        });
+    }
+    handleCloseModalBlock = () => {
+        this.setState({
+            blockUserIsOpen: false
+        })
+    }
+
+    handleDeleteUser = () => {
+        const { jwt: TOKEN } = this.props.user;
+        const { id } = this.props.match.params;
+        const { goToUserList } = this.props;
+        AdminLib.deleteSingleUser(id, TOKEN).then(() => {
+            goToUserList();
+        }).catch((err) => console.log(err));
+    }
+
+    handleOpenModalDelete = () => {
+        this.setState({
+            deleteUserIsOpen: true
+        });
+    }
+    handleCloseModalDelete = () => {
+        this.setState({
+            deleteUserIsOpen: false
+        })
+    }
+
+    handleRequestKYCUser = () => {
+        const { goToUserList } = this.props;
+        goToUserList();
+    }
+    handleKYCAcceptedUser = () => {
+        const { id } = this.props.match.params;
+        const { setUserSingle } = this.props;
+        const { singleUser } = this.props.admin;
+        const ACCEPTED = singleUser.is_kyc_passed !== true;
+
+        AdminLib.kycAcceptedSingleUser(id, ACCEPTED).then(() => {
+            setUserSingle({
+                ...singleUser,
+                is_kyc_passed: ACCEPTED
+            });
+        }).catch((err) => console.log(err));
+    }
+
+    handleChangeRadioRoles = (e, { value }) => this.setState({ currentRole: value });
+
+    handleOpenModalRoles = () => {
+        this.setState({
+            rolesUserIsOpen: true
+        })
+    }
+    handleCloseModalRoles = () => {
+        this.setState({
+            rolesUserIsOpen: false
+        })
+    }
+
+    handleChangeRoles = () => {
+        const { currentRole } = this.state;
+        const { id } = this.props.match.params;
+        const { setUserSingle } = this.props;
+        const { singleUser } = this.props.admin;
+        if (currentRole !== '') {
+            AdminLib.changeRoleSingleUser(id, currentRole).then(() => {
+                setUserSingle({
+                    ...singleUser,
+                    roles: currentRole
+                });
+            }).catch((err) => console.log(err));
+        }
+        this.setState({
+            rolesUserIsOpen: false
+        })
+    }
 
     renderKYC = () => {
-
-
+        const {
+            kyc_type
+        } = this.props.admin.singleUser;
         return (
-            <div>
-                <h1>User Profile</h1>
-            </div>
+            <Grid>
+                <Grid.Row>
+                    { kyc_type === 'individual' ? <UserSingleIndividual /> : kyc_type === 'legal' ? <UserSingleLegal /> : null }
+                </Grid.Row>
+            </Grid>
         )
     }
 
+
     render() {
-        const { activeIndex } = this.state;
         const {
-            singleUser,
-            singleUserKYC
+            activeIndex,
+            deleteUserIsOpen,
+            blockUserIsOpen,
+            rolesUserIsOpen,
+            currentRole
+        } = this.state;
+        const {
+            singleUser
         } = this.props.admin;
         return (
             <Container>
@@ -95,53 +183,193 @@ class UserSingle extends Component {
                                         {"User editing"}
                                     </Card.Header>
                                     <Grid>
-                                        <Grid.Row>
-                                            <Grid.Column width={4}>
-                                                <Button
-                                                    className={"auth_btn"}
-                                                    onClick={this.handleBlockUser}
+                                        <Grid.Row centered>
+                                            <Grid.Column width={3}>
+                                                <Modal
+                                                    trigger={
+                                                        <Button
+                                                            floated='right'
+                                                            color={"orange"}
+                                                            size='small'
+                                                            fluid
+                                                            style={{fontWeight: 600, fontSize: '14px', textTransform: 'uppercase'}}
+                                                            onClick={this.handleOpenModalBlock}
+                                                        >
+                                                            {singleUser.is_blocked ? 'Unblock' : 'Block'}
+                                                        </Button>
+                                                    }
+                                                    open={blockUserIsOpen}
+                                                    onClose={this.handleCloseModalBlock}
+                                                    basic
                                                 >
-                                                    Block
-                                                </Button>
+                                                    <Modal.Content className={"modal__success"}>
+                                                        <Modal.Description>
+                                                            <div className={"modal__success_icon modal__error-icon"}>
+                                                                <Icon name={"attention"} />
+                                                            </div>
+                                                            <div className={"modal__success_text black-text"}>
+                                                            <span>
+                                                                {singleUser.is_blocked ? 'Unlock user?' : 'Block user?'}
+                                                            </span>
+                                                            </div>
+                                                            <div className={"modal__success_btn modal__success-error"}>
+                                                                <Button
+                                                                    className={"dashboard__submit"}
+                                                                    onClick={this.handleBlockUser}
+                                                                >{singleUser.is_blocked ?  'Unblock' : 'Block'}
+                                                                </Button>
+                                                                <Button
+                                                                    className={"dashboard__submit auth_btn"}
+                                                                    onClick={this.handleCloseModalBlock}
+                                                                >Cancel
+                                                                </Button>
+                                                            </div>
+                                                        </Modal.Description>
+                                                    </Modal.Content>
+                                                </Modal>
                                             </Grid.Column>
-                                            <Grid.Column width={4}>
-                                                <Button
-                                                    className={"auth_btn"}
-                                                    onClick={this.handleDeleteUser}
+                                            <Grid.Column width={3}>
+                                                <Modal
+                                                    trigger={
+                                                        <Button
+                                                            floated='right'
+                                                            color={"youtube"}
+                                                            size='small'
+                                                            fluid
+                                                            style={{fontWeight: 600, fontSize: '14px', textTransform: 'uppercase'}}
+                                                            onClick={this.handleOpenModalDelete}
+                                                        >
+                                                            Delete
+                                                        </Button>
+                                                    }
+                                                    open={deleteUserIsOpen}
+                                                    onClose={this.handleCloseModalDelete}
+                                                    basic
                                                 >
-                                                    Delete
-                                                </Button>
+                                                    <Modal.Content className={"modal__success"}>
+                                                        <Modal.Description>
+                                                            <div className={"modal__success_icon modal__error-icon"}>
+                                                                <Icon name={"attention"} />
+                                                            </div>
+                                                            <div className={"modal__success_text black-text"}>
+                                                            <span>
+                                                                Delete user?
+                                                            </span>
+                                                            </div>
+                                                            <div className={"modal__success_btn modal__success-error"}>
+                                                                <Button
+                                                                    className={"dashboard__submit"}
+                                                                    onClick={this.handleDeleteUser}
+                                                                >Delete
+                                                                </Button>
+                                                                <Button
+                                                                    className={"dashboard__submit auth_btn"}
+                                                                    onClick={this.handleCloseModalDelete}
+                                                                >Cancel
+                                                                </Button>
+                                                            </div>
+                                                        </Modal.Description>
+                                                    </Modal.Content>
+                                                </Modal>
                                             </Grid.Column>
-                                            <Grid.Column width={4}>
+                                            <Grid.Column width={3}>
                                                 <Button
                                                     className={"auth_btn"}
+                                                    style={{width: "100%"}}
                                                     onClick={this.handleRequestKYCUser}
                                                 >
                                                     Request extra KYC
                                                 </Button>
                                             </Grid.Column>
-                                            <Grid.Column width={4}>
+                                            <Grid.Column width={3}>
                                                 <Button
                                                     className={"auth_btn"}
+                                                    style={{width: "100%"}}
                                                     onClick={this.handleKYCAcceptedUser}
                                                 >
-                                                    KYC accepted
+                                                    KYC {singleUser.is_kyc_passed ? 'REFUSED' : 'accepted'}
                                                 </Button>
+                                            </Grid.Column>
+                                            {
+                                                Number(this.props.user.ID) !== Number(this.props.match.params.id) ?
+                                                    <Grid.Column width={3}>
+                                                        <Modal
+                                                            trigger={
+                                                                <Button
+                                                                    className={"auth_btn"}
+                                                                    style={{width: "100%"}}
+                                                                    onClick={this.handleOpenModalRoles}
+                                                                >
+                                                                    Change Roles
+                                                                </Button>
+                                                            }
+                                                            open={rolesUserIsOpen}
+                                                            onClose={this.handleCloseModalRoles}
+                                                            basic
+                                                        >
+                                                            <Modal.Content className={"modal__success"}>
+                                                                <Modal.Description>
+                                                                    <div className={"modal__success_icon"}>
+                                                                        <Icon name={"attention"} />
+                                                                    </div>
+                                                                    <div className={"modal__success_text black-text"}>
+                                                                        <Form>
+                                                                            <Form.Field>
+                                                                                Selected role: <b>{singleUser.roles}</b>
+                                                                            </Form.Field>
+                                                                            <Form.Field>
+                                                                                <Radio
+                                                                                    label='User'
+                                                                                    name='radioGroup'
+                                                                                    value='user'
+                                                                                    checked={currentRole === 'user'}
+                                                                                    onChange={this.handleChangeRadioRoles}
+                                                                                />
+                                                                            </Form.Field>
+                                                                            <Form.Field>
+                                                                                <Radio
+                                                                                    label='Admin'
+                                                                                    name='radioGroup'
+                                                                                    value='admin'
+                                                                                    checked={currentRole === 'admin'}
+                                                                                    onChange={this.handleChangeRadioRoles}
+                                                                                />
+                                                                            </Form.Field>
+                                                                        </Form>
+                                                                    </div>
+                                                                    <div className={"modal__success_btn"}>
+                                                                        <Button
+                                                                            className={"dashboard__submit"}
+                                                                            onClick={this.handleChangeRoles}
+                                                                        >Change
+                                                                        </Button>
+                                                                        <Button
+                                                                            className={"dashboard__submit auth_btn"}
+                                                                            onClick={this.handleCloseModalRoles}
+                                                                        >Cancel
+                                                                        </Button>
+                                                                    </div>
+                                                                </Modal.Description>
+                                                            </Modal.Content>
+                                                        </Modal>
+                                                    </Grid.Column> : null
+                                            }
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column>
+                                                <Grid className={"calculator__paymount"}>
+                                                    <UserSingleInfo name={'ID'} value={singleUser.ID} />
+                                                    <UserSingleInfo name={'Email'} value={singleUser.email} />
+                                                    <UserSingleInfo name={'Is blocked'} value={singleUser.is_blocked === true ? "Yes" : "No"} />
+                                                    <UserSingleInfo name={'Is kycpassed'} value={singleUser.is_kyc_passed === true ? "Yes" : "No"} />
+                                                    <UserSingleInfo name={'Is verified'} value={singleUser.is_verified === true ? "Yes" : "No"} />
+                                                    <UserSingleInfo name={'Roles'} value={singleUser.roles} />
+                                                    <UserSingleInfo name={'KYC type'} value={singleUser.kyc_type} />
+                                                </Grid>
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>
-                                                <div>
-                                                    <p>ID : {singleUser.ID}</p>
-                                                    <p>Email : {singleUser.email}</p>
-                                                    <p>ISKYCPASSED : {singleUser.is_kyc_passed === true ? "Yes" : "No"}</p>
-                                                    <p>ISVERIFIED : {singleUser.is_verified === true ? "Yes" : "No"}</p>
-                                                    <p>Roles : {singleUser.roles}</p>
-                                                    <p>KYCTYPE : {singleUser.kyc_type}</p>
-                                                </div>
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                        <Grid.Row>
                                             <Accordion styled fluid>
                                                 <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
                                                     <Icon name='dropdown' />
@@ -149,10 +377,11 @@ class UserSingle extends Component {
                                                 </Accordion.Title>
                                                 <Accordion.Content active={activeIndex === 0}>
                                                     <div>
-                                                        {}
+                                                        {this.renderKYC()}
                                                     </div>
                                                 </Accordion.Content>
                                             </Accordion>
+                                            </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
                                 </Card.Content>
@@ -165,9 +394,22 @@ class UserSingle extends Component {
     }
 }
 
-export default connect(state => ({
-    admin: state.admin,
-    user: state.user
-}), {
-    handleSetUserByID
-})(UserSingle);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    goToUserList: () => push('/admin/'),
+    handleSetUserByID,
+    handleChangeIndividualUser,
+    setUserKYC,
+    setUserSingle
+}, dispatch);
+
+const mapStateToProps = (state) => {
+    return {
+        admin: state.admin,
+        user: state.user
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(UserSingle)

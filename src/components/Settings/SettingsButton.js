@@ -13,7 +13,7 @@ import {
     changeSettingsInputError,
 } from 'actions/settings';
 import { initKycType } from 'actions/users';
-import { SETTINGS } from 'libs/messages';
+import {ERROR_VALIDATION, SETTINGS} from 'libs/messages';
 import _ from 'underscore';
 
 class SettingsButton extends Component {
@@ -51,8 +51,10 @@ class SettingsButton extends Component {
         if (value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)) return true;
         else return false;
     }
-
-
+    checkZip = (value) => {
+        if (value.match(/^[0-9a-zA-Z]+$|i/) && value.length >= 4)  return true;
+        else return false;
+    }
     checkCompletenessFields = (TYPE) => {
         if (TYPE === 'individual') {
             const {
@@ -67,7 +69,7 @@ class SettingsButton extends Component {
                 if (item === 'Name' || item === 'Surname') {
                     return this.checkEnglish(individualUserInformation[item])
                 } else if (item === 'Zip') {
-                    return this.checkNumber(individualUserInformation[item]);
+                    return this.checkZip(individualUserInformation[item]);
                 } else if (item === 'Email') {
                     return this.checkEmail(individualUserInformation[item]);
                 } else if (item === 'Phone') {
@@ -116,7 +118,7 @@ class SettingsButton extends Component {
                 if (item === 'Name' || item === 'Surname') {
                     return this.checkEnglish(companyUserInformation[item])
                 } else if (item === 'Zip') {
-                    return this.checkNumber(companyUserInformation[item]);
+                    return this.checkZip(companyUserInformation[item]);
                 } else if (item === 'Email') {
                     return this.checkEmail(companyUserInformation[item]);
                 } else if (item === 'Phone') {
@@ -139,8 +141,10 @@ class SettingsButton extends Component {
             const checkedValidationCompanyInformation = _.every(Object.keys(companyInformation).map((item) => {
                 if (item === 'companyCompanyName') {
                     return this.checkEnglish(companyInformation[item]);
-                } else if (item === 'companyTaxIDnumber' || item === 'companyZip') {
+                } else if (item === 'companyTaxIDnumber') {
                     return this.checkNumber(companyInformation[item]);
+                } else if (item === 'companyZip') {
+                    return this.checkZip(companyInformation[item]);
                 } else if (item === 'companyWebsites') {
                     return this.checkWeb(companyInformation[item]);
                 } else if (item === 'companyEmail') {
@@ -175,7 +179,7 @@ class SettingsButton extends Component {
                     if (it === 'Name' || it === 'Surname') {
                         return this.checkEnglish(item[it])
                     } else if (it === 'Zip') {
-                        return this.checkNumber(item[it]);
+                        return this.checkZip(item[it]);
                     } else if (it === 'Email') {
                         return this.checkEmail(item[it]);
                     } else if (it === 'Phone') {

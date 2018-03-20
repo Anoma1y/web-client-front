@@ -2,11 +2,11 @@ import axios from 'axios';
 import Config from 'libs/config';
 
 class KYC {
-    static sendIndividualURL = 'kyc?type=individual';
-    static sendLegalEntity = 'kyc?type=legal';
+    static sendIndividualURL = 'kyc?type=individual&country';
+    static sendLegalEntity = 'kyc?type=legal&country=';
 
-    static sendKYC(type, data, TOKEN) {
-        const url = type === 0 ? `${Config.url}${this.sendIndividualURL}` : `${Config.url}${this.sendLegalEntity}`;
+    static sendKYC(type, data, country, TOKEN) {
+        const url = type === 0 ? `${Config.url}${this.sendIndividualURL}=${country}` : `${Config.url}${this.sendLegalEntity}=${country}`;
         return axios.post(url, data, {
             headers: {
                 'Authorization': `Bearer ${TOKEN}`

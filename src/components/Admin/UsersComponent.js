@@ -221,7 +221,9 @@ class UsersComponent extends Component {
     }
 }
 
-export default connect(state => ({ admin: state.admin }), {
+export default connect(state => ({
+    admin: state.admin
+}), {
     addAllUsers,
     sortedUsers,
     changeDeleteUsers

@@ -7,7 +7,9 @@ import {
     changeAdminTokenValue,
     changeAdminTransferData,
     handleAdminCurrentCurrency,
-    handleAdminInitialCurrency
+    handleAdminInitialCurrency,
+    changeApplicationOpenModal,
+    changeApplicationError
 } from 'actions/admin';
 import {
     Container,
@@ -15,7 +17,9 @@ import {
     Card,
     Form,
     Radio,
-    Button
+    Button,
+    Modal,
+    Icon
 } from 'semantic-ui-react'
 import AdminLib from 'libs/ApiLib/AdminLib';
 import AdminCalculator from './AdminCalculator';
@@ -94,8 +98,8 @@ class ApplicationSingle extends Component {
         const {
             bonus: bonusList,
         } = this.props.admin;
-
-        AdminLib.getApplicationByID(id)
+        const { jwt: TOKEN } = this.props.user;
+        AdminLib.getApplicationByID(id, TOKEN)
             .then((data) => {
                 const APPLICATION =  {
                     CreatedAt: data.data.CreatedAt,
@@ -139,6 +143,15 @@ class ApplicationSingle extends Component {
         changeApplicationStatus(Number(value));
     }
 
+    handleOpenModal = () => {
+        const { changeApplicationOpenModal } = this.props;
+        changeApplicationOpenModal(true);
+    }
+    handleCloseModal = () => {
+        const { changeApplicationOpenModal } = this.props;
+        changeApplicationOpenModal(false);
+    }
+
     handleSend = () => {
         const {
             transferData,
@@ -147,29 +160,33 @@ class ApplicationSingle extends Component {
             tokenValue
         } = this.props.admin;
         const {
-            id
-        } = this.props.match.params;
+            changeApplicationOpenModal,
+            changeApplicationError
+        } = this.props;
+        const { id } = this.props.match.params;
         const amount = fixedCurrency.split('/')[0] === 'TSR' ? Number(tokenValue) : Number(transferData[fixedCurrency.split('/')[0]]);
         const data = {
             status: Number(applicationStatus),
             amount,
             currency: fixedCurrency
         }
-
-        AdminLib.editApplication(id, data)
-            .then((data) => {
-                console.log(data);
+        const { jwt: TOKEN } = this.props.user;
+        AdminLib.editApplication(id, data, TOKEN)
+            .then(() => {
+                changeApplicationOpenModal(false);
+                changeApplicationError(null);
             })
             .catch((err) => {
-                console.log(err);
+                changeApplicationError('Application change error!');
             })
-        
     }
 
     render() {
         const {
             singleApplication,
-            applicationStatus
+            applicationStatus,
+            applicationModalIsOpen,
+            applicationChangeError
         } = this.props.admin;
         return (
             <Container>
@@ -234,12 +251,49 @@ class ApplicationSingle extends Component {
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>
-                                                <Button
-                                                    className={"auth_btn"}
-                                                    onClick={this.handleSend}
+                                                <Modal
+                                                    trigger={<Button
+                                                        onClick={this.handleOpenModal}
+                                                        className={"auth_btn"}
+                                                        floated={"right"}
+                                                    >Save Changes
+                                                    </Button>}
+                                                    open={applicationModalIsOpen}
+                                                    onClose={this.handleCloseModal}
+                                                    basic
+                                                    size='small'
                                                 >
-                                                    Save Changes
-                                                </Button>
+                                                    <Modal.Content className={"modal__success"}>
+                                                        <Modal.Description>
+                                                            <div className={applicationChangeError === null ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
+                                                                <Icon name={applicationChangeError === null ? "check circle outline" : "warning circle"} />
+                                                            </div>
+                                                            <div className={"modal__success_text betatest__modal_text"}>
+                                                                <span>{applicationChangeError === null ? "Change applications?" : applicationChangeError}</span>
+                                                            </div>
+                                                            <div>
+                                                                <Grid>
+                                                                    <Grid.Row>
+                                                                        <Grid.Column width={8}>
+                                                                            <Button
+                                                                                className={"auth_btn"}
+                                                                                onClick={this.handleSend}
+                                                                            > Ok
+                                                                            </Button>
+                                                                        </Grid.Column>
+                                                                        <Grid.Column width={8}>
+                                                                            <Button
+                                                                                className={"auth_btn"}
+                                                                                onClick={this.handleCloseModal}
+                                                                            > Cancel
+                                                                            </Button>
+                                                                        </Grid.Column>
+                                                                    </Grid.Row>
+                                                                </Grid>
+                                                            </div>
+                                                        </Modal.Description>
+                                                    </Modal.Content>
+                                                </Modal>
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
@@ -254,10 +308,16 @@ class ApplicationSingle extends Component {
 }
 
 
-export default connect(state => ({ admin: state.admin, rate: state.rate }), {
+export default connect(state => ({
+    admin: state.admin,
+    rate: state.rate,
+    user: state.user
+}), {
     setApplicationSingle,
     changeCurrency,
     changeApplicationStatus,
     changeFixedCurrency,
-    changeAdminTokenValue,changeAdminTransferData,handleAdminCurrentCurrency, handleAdminInitialCurrency
+    changeAdminTokenValue,changeAdminTransferData,handleAdminCurrentCurrency, handleAdminInitialCurrency,
+    changeApplicationOpenModal,
+    changeApplicationError
 })(ApplicationSingle);

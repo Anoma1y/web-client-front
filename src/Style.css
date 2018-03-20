@@ -1162,7 +1162,8 @@ body {
   color: #FF3E33 !important;
   position: absolute;
   bottom: -17px;
-  font-size: 12px !important; }
+  font-size: 12px !important;
+  white-space: nowrap !important; }
 
 .auth_input .auth_length {
   color: #939393 !important;
@@ -1278,3 +1279,12 @@ body {
   transition: background-color .1s ease; }
   .admin__users-user:hover {
     background-color: #f2f2f2 !important; }
+
+.singleKYC__image_text {
+  font-family: "Roboto", sans-serif !important; }
+
+.singleKYC__image_img {
+  margin: 15px 0 !important; }
+  .singleKYC__image_img img {
+    display: block !important;
+    margin: 0 auto !important; }
