@@ -23,7 +23,9 @@ import {
     CHANGE_LEGAL_COMPANY_PROFILE,
     CHANGE_LEGAL_COMPANY_IMAGE,
     CHANGE_LEGAL_BENEFICIAL_PROFILE,
-    CHANGE_LEGAL_BENEFICIAL_IMAGE
+    CHANGE_LEGAL_BENEFICIAL_IMAGE,
+    CHANGE_LEGAL_SOURCE_FUNDS,
+    CHANGE_BENEFICIAL_INCREMENT_ID
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -236,6 +238,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state,  beneficial: action.payload };
         case CHANGE_LEGAL_BENEFICIAL_IMAGE:
             return { ...state,  beneficialImage: action.payload };
+        case CHANGE_LEGAL_SOURCE_FUNDS:
+            return { ...state, sourceFunds: action.payload };
+        case CHANGE_BENEFICIAL_INCREMENT_ID:
+            return { ...state, idBeneficial: action.payload };
         case SET_ADMIN_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
         case SET_ADMIN_TRANSFER_DATA:

@@ -32,7 +32,7 @@ export { initialCompanyFile } from './initialCompanyFile';
 export { initialCompanyImage } from './initialCompanyImage';
 export { initialBeneficialProfle } from './initialBeneficialProfle'; 
 export { initialBeneficialFile } from './initialBeneficialFile';
-export { initialIBeneficialmage } from './initialIBeneficialmage';
+export { initialBeneficialmage } from './initialBeneficialmage';
 
 export { changeSettingsInputError } from './changeSettingsInputError';
 

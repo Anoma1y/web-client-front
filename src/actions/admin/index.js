@@ -26,9 +26,23 @@ export { handleAdminInitialCurrency } from './handleAdminInitialCurrency';
 
 export { changeIndividualUserImage } from './changeIndividualUserImage'; 
 export { changeIndividualUserProfile } from './changeIndividualUserProfile';
+
+export { changeLegalUserProfile } from './changeLegalUserProfile';
+export { changeLegalUserImage } from './changeLegalUserImage';
+export { changeLegalCompanyProfile } from './changeLegalCompanyProfile';
+export { changeLegalCompanyImage } from './changeLegalCompanyImage';
+export { changeLegalBeneficialProfile } from './changeLegalBeneficialProfile';
+export { changeLegalBeneficialImage } from './changeLegalBeneficialImage';
+export { changeLegalSourceFunds } from './changeLegalSourceFunds';
+export { changeBeneficialIncrementID } from './changeBeneficialIncrementID'; 
+
+
+
+
+
+
+
 export { handleChangeIndividualUser } from './handleChangeIndividualUser';
-
-
 
 
 

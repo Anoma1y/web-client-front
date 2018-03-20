@@ -16,7 +16,7 @@ import {
     initialUserImage,
     initialCompanyImage,
     initialCompanyUserImage,
-    initialIBeneficialmage,
+    initialBeneficialmage,
     initialUserFile,
     initialCompanyUserFile,
     initialCompanyFile,
@@ -119,8 +119,8 @@ export const initialUser = token => {
                                             ? `${Config.url}static/${IMAGE[findImage(IMAGE, certificateActualStatus)].filename}`
                                             : '',
                                     personalUserCompanyDocument:
-                                        findImage(IMAGE, representation) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, representation)].filename}`
+                                        findImage(IMAGE, personalUserCompanyDocument) !== undefined
+                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, personalUserCompanyDocument)].filename}`
                                             : '',
                                     representation:
                                         findImage(IMAGE, representation) !== undefined
@@ -204,7 +204,7 @@ export const initialUser = token => {
                                     };
                                     return result;
                                 }, {});
-                                dispatch(initialIBeneficialmage(DATA_IMAGE_BENEFICIAL));
+                                dispatch(initialBeneficialmage(DATA_IMAGE_BENEFICIAL));
                             }).catch((err) => console.log(err));
                         }
                     })
