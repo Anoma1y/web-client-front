@@ -60,7 +60,7 @@ class UserSingleIndividual extends Component {
                                         <p>Submit a personal identity document with photo: Passport, ID, Residence document (both sides)</p>
                                     </Grid.Column>
                                     <Grid.Column width={16}>
-                                        <Image src={individualUserImage.personalUserDocument} />
+                                        <Image centered src={individualUserImage.personalUserDocument} />
                                     </Grid.Column>
                                 </Grid.Row>
                                 <Grid.Row>
@@ -68,15 +68,12 @@ class UserSingleIndividual extends Component {
                                         <p>Utility bill or any other document with a date no later than 2 months before the presentation (this confirms the address)</p>
                                     </Grid.Column>
                                     <Grid.Column width={16}>
-                                        <Image src={individualUserImage.utilityBill} />
+                                        <Image centered src={individualUserImage.utilityBill} />
                                     </Grid.Column>
                                 </Grid.Row>
                             </Grid>
 
                         </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-
                     </Card.Content>
                 </Card>
             </Grid.Column>
