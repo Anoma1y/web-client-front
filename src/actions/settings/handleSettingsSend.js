@@ -20,8 +20,8 @@ export const handleSettingsSend = value => {
                 individualUserFile,
                 individualUserInformation
             };
-            console.log(data);
-            KYC.sendKYC(0, data, TOKEN)
+            const USER_COUNTRY = individualUserInformation.Country;
+            KYC.sendKYC(0, data, USER_COUNTRY, TOKEN)
                 .then(() => {
                     dispatch(changeModalSettings(true));
                     dispatch(changeSettingsSuccess(true));
@@ -53,7 +53,8 @@ export const handleSettingsSend = value => {
                 beneficial: Object.values(beneficial),
                 sourceFunds
             };
-            KYC.sendKYC(1, data, TOKEN)
+            const USER_COUNTRY = companyUserInformation.Country;
+            KYC.sendKYC(1, data, USER_COUNTRY, TOKEN)
                 .then(() => {
                     dispatch(changeModalSettings(true));
                     dispatch(changeSettingsSuccess(true));
