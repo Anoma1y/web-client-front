@@ -10,7 +10,8 @@ import {
     Accordion,
     Icon,
     Modal,
-
+    Form,
+    Radio
 } from 'semantic-ui-react';
 import {
     handleSetUserByID,
@@ -22,14 +23,14 @@ import UserSingleIndividual from './UserSingleIndividual';
 import UserSingleLegal from './UserSingleLegal';
 import UserSingleInfo from './UserSingleInfo';
 import AdminLib from 'libs/ApiLib/AdminLib';
-import {separationValue} from "libs/math";
-
 
 class UserSingle extends Component {
     state = {
         activeIndex: -1,
+        currentRole: '',
         deleteUserIsOpen: false,
-        blockUserIsOpen: false
+        blockUserIsOpen: false,
+        rolesUserIsOpen: false,
     }
 
     handleClick = (e, titleProps) => {
@@ -115,6 +116,37 @@ class UserSingle extends Component {
         }).catch((err) => console.log(err));
     }
 
+    handleChangeRadioRoles = (e, { value }) => this.setState({ currentRole: value });
+
+    handleOpenModalRoles = () => {
+        this.setState({
+            rolesUserIsOpen: true
+        })
+    }
+    handleCloseModalRoles = () => {
+        this.setState({
+            rolesUserIsOpen: false
+        })
+    }
+
+    handleChangeRoles = () => {
+        const { currentRole } = this.state;
+        const { id } = this.props.match.params;
+        const { setUserSingle } = this.props;
+        const { singleUser } = this.props.admin;
+        if (currentRole !== '') {
+            AdminLib.changeRoleSingleUser(id, currentRole).then(() => {
+                setUserSingle({
+                    ...singleUser,
+                    roles: currentRole
+                });
+            }).catch((err) => console.log(err));
+        }
+        this.setState({
+            rolesUserIsOpen: false
+        })
+    }
+
     renderKYC = () => {
         const {
             kyc_type
@@ -133,7 +165,9 @@ class UserSingle extends Component {
         const {
             activeIndex,
             deleteUserIsOpen,
-            blockUserIsOpen
+            blockUserIsOpen,
+            rolesUserIsOpen,
+            currentRole
         } = this.state;
         const {
             singleUser
@@ -149,8 +183,8 @@ class UserSingle extends Component {
                                         {"User editing"}
                                     </Card.Header>
                                     <Grid>
-                                        <Grid.Row>
-                                            <Grid.Column width={4}>
+                                        <Grid.Row centered>
+                                            <Grid.Column width={3}>
                                                 <Modal
                                                     trigger={
                                                         <Button
@@ -194,7 +228,7 @@ class UserSingle extends Component {
                                                     </Modal.Content>
                                                 </Modal>
                                             </Grid.Column>
-                                            <Grid.Column width={4}>
+                                            <Grid.Column width={3}>
                                                 <Modal
                                                     trigger={
                                                         <Button
@@ -238,7 +272,7 @@ class UserSingle extends Component {
                                                     </Modal.Content>
                                                 </Modal>
                                             </Grid.Column>
-                                            <Grid.Column width={4}>
+                                            <Grid.Column width={3}>
                                                 <Button
                                                     className={"auth_btn"}
                                                     style={{width: "100%"}}
@@ -247,7 +281,7 @@ class UserSingle extends Component {
                                                     Request extra KYC
                                                 </Button>
                                             </Grid.Column>
-                                            <Grid.Column width={4}>
+                                            <Grid.Column width={3}>
                                                 <Button
                                                     className={"auth_btn"}
                                                     style={{width: "100%"}}
@@ -256,6 +290,70 @@ class UserSingle extends Component {
                                                     KYC {singleUser.is_kyc_passed ? 'REFUSED' : 'accepted'}
                                                 </Button>
                                             </Grid.Column>
+                                            {
+                                                Number(this.props.user.ID) !== Number(this.props.match.params.id) ?
+                                                    <Grid.Column width={3}>
+                                                        <Modal
+                                                            trigger={
+                                                                <Button
+                                                                    className={"auth_btn"}
+                                                                    style={{width: "100%"}}
+                                                                    onClick={this.handleOpenModalRoles}
+                                                                >
+                                                                    Change Roles
+                                                                </Button>
+                                                            }
+                                                            open={rolesUserIsOpen}
+                                                            onClose={this.handleCloseModalRoles}
+                                                            basic
+                                                        >
+                                                            <Modal.Content className={"modal__success"}>
+                                                                <Modal.Description>
+                                                                    <div className={"modal__success_icon"}>
+                                                                        <Icon name={"attention"} />
+                                                                    </div>
+                                                                    <div className={"modal__success_text black-text"}>
+                                                                        <Form>
+                                                                            <Form.Field>
+                                                                                Selected role: <b>{singleUser.roles}</b>
+                                                                            </Form.Field>
+                                                                            <Form.Field>
+                                                                                <Radio
+                                                                                    label='User'
+                                                                                    name='radioGroup'
+                                                                                    value='user'
+                                                                                    checked={currentRole === 'user'}
+                                                                                    onChange={this.handleChangeRadioRoles}
+                                                                                />
+                                                                            </Form.Field>
+                                                                            <Form.Field>
+                                                                                <Radio
+                                                                                    label='Admin'
+                                                                                    name='radioGroup'
+                                                                                    value='admin'
+                                                                                    checked={currentRole === 'admin'}
+                                                                                    onChange={this.handleChangeRadioRoles}
+                                                                                />
+                                                                            </Form.Field>
+                                                                        </Form>
+                                                                    </div>
+                                                                    <div className={"modal__success_btn"}>
+                                                                        <Button
+                                                                            className={"dashboard__submit"}
+                                                                            onClick={this.handleChangeRoles}
+                                                                        >Change
+                                                                        </Button>
+                                                                        <Button
+                                                                            className={"dashboard__submit auth_btn"}
+                                                                            onClick={this.handleCloseModalRoles}
+                                                                        >Cancel
+                                                                        </Button>
+                                                                    </div>
+                                                                </Modal.Description>
+                                                            </Modal.Content>
+                                                        </Modal>
+                                                    </Grid.Column> : null
+                                            }
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>

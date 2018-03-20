@@ -142,6 +142,20 @@ class AdminLib {
         )
     }
 
+    static changeRoleSingleUser(id, data) {
+        const URL = Config.url + `admin/profile/${id}`;
+        const jwt = localStorage.jwt;
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        }
+        return axios.put(URL, {'roles': data},
+            header
+        )
+    }
+
+
     static deleteUser(id) {
         const URL = Config.url + `admin/profile?ids=${id}`;
         const jwt = localStorage.jwt;
