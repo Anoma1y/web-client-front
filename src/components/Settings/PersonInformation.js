@@ -88,7 +88,25 @@ class PersonInformation extends Component {
             return false;
         }
     }
-    
+    checkZip = (value, nameError, minLen, maxLen) => {
+        if (!value.match(/^[0-9a-zA-Z]+$|i/)) {
+            this.setState({
+                [nameError]: ERROR_VALIDATION.ZIP
+            });
+        } else if (value.length < minLen) {
+            this.setState({
+                [nameError]: ERROR_VALIDATION.ZIPLENGTH
+            });
+        }
+        else {
+            this.setState({
+                [nameError]: ''
+            });
+        }
+        if (value.length > maxLen) {
+            return false;
+        }
+    }
     handleChange = event => {
         const { value,
             id
@@ -105,7 +123,7 @@ class PersonInformation extends Component {
                 this.checkEnglish(value, 'lastNameError', 100);
                 break;
             case 'Zip':
-                this.checkOnlyNumber(value, 'zipError', 10);
+                this.checkZip(value, 'zipError',4, 10)
                 break;
             case 'Phone':
                 this.checkPhone(value, 'phoneError', 15);
@@ -262,9 +280,11 @@ class PersonInformation extends Component {
                                 (zipError.length !== 0 && settings[stateObject].Zip.length > 0) ? "auth_input-error" : (settings[stateObject].Zip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label style={{width: "50%"}}>
-                                    <input
+                                    <InputMask
                                         type="text"
                                         id={"Zip"}
+                                        mask="**********"
+                                        maskChar={null}
                                         placeholder={"ZIP/Postal code"}
                                         value={settings[stateObject].Zip}
                                         onChange={this.handleChange}

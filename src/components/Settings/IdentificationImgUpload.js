@@ -64,12 +64,14 @@ class IdentificationImgUpload extends Component {
                 reader.readAsDataURL(file);
             } else {
                 this.setState({
-                    fileUploadError: 'Maximum file size is 25MB'
+                    fileUploadError: 'Maximum file size is 25MB',
+                    isLoading: false
                 })
             }
         } else {
             this.setState({
-                fileUploadError: 'Allowed file types: png, jpg, gif, tiff'
+                fileUploadError: 'Allowed file types: png, jpg, gif, tiff',
+                isLoading: false
             })
         }
 
