@@ -20,7 +20,10 @@ import {
 } from 'actions/admin';
 import UserSingleIndividual from './UserSingleIndividual';
 import UserSingleLegal from './UserSingleLegal';
+import UserSingleInfo from './UserSingleInfo';
 import AdminLib from 'libs/ApiLib/AdminLib';
+import {separationValue} from "libs/math";
+
 
 class UserSingle extends Component {
     state = {
@@ -96,7 +99,7 @@ class UserSingle extends Component {
 
     handleRequestKYCUser = () => {
         const { goToUserList } = this.props;
-        goToUserList()
+        goToUserList();
     }
     handleKYCAcceptedUser = () => {
         const { id } = this.props.match.params;
@@ -256,15 +259,15 @@ class UserSingle extends Component {
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>
-                                                <div>
-                                                    <p>ID : {singleUser.ID}</p>
-                                                    <p>Email : {singleUser.email}</p>
-                                                    <p>ISBLOCKED : {singleUser.is_blocked === true ? "Yes" : "No"}</p>
-                                                    <p>ISKYCPASSED : {singleUser.is_kyc_passed === true ? "Yes" : "No"}</p>
-                                                    <p>ISVERIFIED : {singleUser.is_verified === true ? "Yes" : "No"}</p>
-                                                    <p>Roles : {singleUser.roles}</p>
-                                                    <p>KYCTYPE : {singleUser.kyc_type}</p>
-                                                </div>
+                                                <Grid className={"calculator__paymount"}>
+                                                    <UserSingleInfo name={'ID'} value={singleUser.ID} />
+                                                    <UserSingleInfo name={'Email'} value={singleUser.email} />
+                                                    <UserSingleInfo name={'Is blocked'} value={singleUser.is_blocked === true ? "Yes" : "No"} />
+                                                    <UserSingleInfo name={'Is kycpassed'} value={singleUser.is_kyc_passed === true ? "Yes" : "No"} />
+                                                    <UserSingleInfo name={'Is verified'} value={singleUser.is_verified === true ? "Yes" : "No"} />
+                                                    <UserSingleInfo name={'Roles'} value={singleUser.roles} />
+                                                    <UserSingleInfo name={'KYC type'} value={singleUser.kyc_type} />
+                                                </Grid>
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row>
