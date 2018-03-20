@@ -23,11 +23,6 @@ class UserSingle extends Component {
     handleClick = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
-        const {
-            singleUser,
-            singleUserKYC
-        } = this.props.admin;
-        const { jwt } = this.props.user;
         const newIndex = activeIndex === index ? -1 : index;
         this.setState({ activeIndex: newIndex })
     }
@@ -127,17 +122,17 @@ class UserSingle extends Component {
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>
-                                            {/*<Accordion styled fluid>*/}
-                                                {/*<Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>*/}
-                                                    {/*<Icon name='dropdown' />*/}
-                                                    {/*KYC - {singleUser.kyc_type}*/}
-                                                {/*</Accordion.Title>*/}
-                                                {/*<Accordion.Content active={activeIndex === 0}>*/}
+                                            <Accordion styled fluid>
+                                                <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+                                                    <Icon name='dropdown' />
+                                                    KYC - {singleUser.kyc_type}
+                                                </Accordion.Title>
+                                                <Accordion.Content active={activeIndex === 0}>
                                                     <div>
                                                         {this.renderKYC()}
                                                     </div>
-                                                {/*</Accordion.Content>*/}
-                                            {/*</Accordion>*/}
+                                                </Accordion.Content>
+                                            </Accordion>
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>

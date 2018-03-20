@@ -25,7 +25,9 @@ import {
     CHANGE_LEGAL_BENEFICIAL_PROFILE,
     CHANGE_LEGAL_BENEFICIAL_IMAGE,
     CHANGE_LEGAL_SOURCE_FUNDS,
-    CHANGE_BENEFICIAL_INCREMENT_ID
+    CHANGE_BENEFICIAL_INCREMENT_ID,
+    CHANGE_ADMIN_OPEN_MODAL,
+    CHANGE_ADMIN_APPLICATION_SEND_ERROR
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -185,7 +187,9 @@ const INITIAL_STATE = {
         TSR: 0,
         BTC: 0,
         ETH: 0
-    }
+    },
+    applicationModalIsOpen: false,
+    applicationChangeError: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -202,6 +206,10 @@ export default (state = INITIAL_STATE, action) => {
                 column: null,
                 direction: 'descending'
             } };
+        case CHANGE_ADMIN_OPEN_MODAL:
+            return { ...state, applicationModalIsOpen: action.payload };
+        case CHANGE_ADMIN_APPLICATION_SEND_ERROR:
+            return { ...state, applicationChangeError: action.payload };
         case SORTED_USERS:
             return { ...state, usersList: action.payload };
         case SORTED_APPLICATIONS:
