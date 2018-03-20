@@ -81,7 +81,7 @@ export const checkMaximum = value => value >= 100;
 //bonusTKN - бонусное значение токена, TKN - стоимость токена
 //Возвращает значение токена с бонусом
 //Функция добавляет значение в общее количество токенов
-export const transferToTKNbonus = (value, bonusTKN, TSR) => Math.round(value  / TSR) + ((value / TSR) * (bonusTKN / 100));
+export const transferToTKNbonus = (value, bonusTKN, TSR) => Math.round(value  / TSR) + (Math.round(value  / TSR) * (bonusTKN / 100));
 
 //Функция для расчета текущего значения токена из вводимой валюты
 //Принимает 2 параметра: value - значения, вводимое пользователем в Input-валюты

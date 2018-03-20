@@ -30,14 +30,6 @@ class UserSingle extends Component {
         } = this.props.admin;
         const { jwt } = this.props.user;
         const newIndex = activeIndex === index ? -1 : index;
-        // if (index !== activeIndex) {
-        //     const { handleChangeIndividualUser } = this.props;
-        //     if (singleUser.kyc_type === 'individual') {
-        //         handleChangeIndividualUser(singleUser.kyc_id);
-        //     }
-        //     // handleChangeIndividualUser(id);
-        // }
-
         this.setState({ activeIndex: newIndex })
     }
 

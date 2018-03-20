@@ -17,7 +17,13 @@ import {
     SET_ADMIN_USER_SINGLE,
     SET_ADMIN_USER_KYC,
     CHANGE_INDIVIDUAL_USER_IMAGE,
-    CHANGE_INDIVIDUAL_USER_PROFILE
+    CHANGE_INDIVIDUAL_USER_PROFILE,
+    CHANGE_LEGAL_USER_PROFILE,
+    CHANGE_LEGAL_USER_IMAGE,
+    CHANGE_LEGAL_COMPANY_PROFILE,
+    CHANGE_LEGAL_COMPANY_IMAGE,
+    CHANGE_LEGAL_BENEFICIAL_PROFILE,
+    CHANGE_LEGAL_BENEFICIAL_IMAGE
 } from 'actions/admin/types';
 
 const INITIAL_STATE = {
@@ -81,6 +87,65 @@ const INITIAL_STATE = {
         Zip: '',
         Email: ''
     },
+    companyUserImage: {
+        personalUserCompanyDocument: '',
+        representation: '',
+        certificateActualStatus: '',
+    },
+    companyImage: {
+        businessRegistrationDocument: '',
+        document3months: '',
+        businessActivityLicense: '',
+        declare: ''
+    },
+    beneficialImage: {
+        0: {
+            personalBeneficialDocument: '',
+            declarationBeneficialOwned: '',
+            legalRepresentative: ''
+        }
+    },
+    companyUserInformation: {
+        Name: '',
+        Addres: '',
+        Country: '',
+        Dateofbirth: '',
+        Phone: '',
+        Surname: '',
+        City: '',
+        Zip: '',
+        Email: ''
+    },
+    companyInformation: {
+        companyCompanyName: '',
+        companyTaxIDnumber: '',
+        companyTaxrezidencecountry: '',
+        companyCity: '',
+        companyZip: '',
+        companyLegaladdress: '',
+        companyActualbusinessplaceaddress: '',
+        companyLinktopubliccompanyregister: '',
+        companyEmail: '',
+        companyPhone: '',
+        companyDescriptioncompanydoes: '',
+        companyWebsites: '',
+    },
+    beneficial: {
+        0: {
+            Name: '',
+            Addres: '',
+            Country: '',
+            Dateofbirth: '',
+            Phone: '',
+            Surname: '',
+            City: '',
+            Zip: '',
+            Email: '',
+        },
+    },
+    sourceFunds: '',
+    idBeneficial: 0,
+    maxBeneficial: 4,
     deleteUsers: [],
     deleteApplications: [],
     userRole: null,
@@ -159,6 +224,18 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, individualUserImage: action.payload };
         case CHANGE_INDIVIDUAL_USER_PROFILE:
             return { ...state, individualUserInformation: action.payload };
+        case CHANGE_LEGAL_USER_PROFILE:
+            return { ...state,  companyUserInformation: action.payload };
+        case CHANGE_LEGAL_USER_IMAGE:
+            return { ...state,  companyUserImage: action.payload };
+        case CHANGE_LEGAL_COMPANY_PROFILE:
+            return { ...state,  companyInformation: action.payload };
+        case CHANGE_LEGAL_COMPANY_IMAGE:
+            return { ...state,  companyImage: action.payload };
+        case CHANGE_LEGAL_BENEFICIAL_PROFILE:
+            return { ...state,  beneficial: action.payload };
+        case CHANGE_LEGAL_BENEFICIAL_IMAGE:
+            return { ...state,  beneficialImage: action.payload };
         case SET_ADMIN_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
         case SET_ADMIN_TRANSFER_DATA:
