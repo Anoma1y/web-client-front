@@ -98,8 +98,8 @@ class ApplicationSingle extends Component {
         const {
             bonus: bonusList,
         } = this.props.admin;
-
-        AdminLib.getApplicationByID(id)
+        const { jwt: TOKEN } = this.props.user;
+        AdminLib.getApplicationByID(id, TOKEN)
             .then((data) => {
                 const APPLICATION =  {
                     CreatedAt: data.data.CreatedAt,
@@ -170,7 +170,8 @@ class ApplicationSingle extends Component {
             amount,
             currency: fixedCurrency
         }
-        AdminLib.editApplication(id, data)
+        const { jwt: TOKEN } = this.props.user;
+        AdminLib.editApplication(id, data, TOKEN)
             .then(() => {
                 changeApplicationOpenModal(false);
                 changeApplicationError(null);
@@ -178,7 +179,6 @@ class ApplicationSingle extends Component {
             .catch((err) => {
                 changeApplicationError('Application change error!');
             })
-        
     }
 
     render() {
@@ -308,7 +308,11 @@ class ApplicationSingle extends Component {
 }
 
 
-export default connect(state => ({ admin: state.admin, rate: state.rate }), {
+export default connect(state => ({
+    admin: state.admin,
+    rate: state.rate,
+    user: state.user
+}), {
     setApplicationSingle,
     changeCurrency,
     changeApplicationStatus,

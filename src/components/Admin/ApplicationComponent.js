@@ -277,7 +277,9 @@ class ApplicationComponent extends Component {
     }
 }
 
-export default connect(state => ({ admin: state.admin }), {
+export default connect(state => ({
+    admin: state.admin
+}), {
     addAllApplication,
     sortedApplications,
     changeDeleteApplications,

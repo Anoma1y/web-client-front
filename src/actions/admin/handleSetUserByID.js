@@ -24,12 +24,15 @@ export const handleSetUserByID = value => {
                 return key.indexOf(KEYS) >= 0;
             });
         };
-        AdminLib.getUsersById(value)
+        const { jwt: TOKEN } = getState().user;
+        AdminLib.getUsersById(value, TOKEN)
             .then((userData) => {
                 const {
                     CreatedAt,
                     ID,
                     email,
+                    is_blocked,
+                    country,
                     is_kyc_passed,
                     is_verified,
                     kyc_type,
@@ -41,17 +44,19 @@ export const handleSetUserByID = value => {
                     CreatedAt,
                     ID,
                     email,
+                    is_blocked,
+                    country,
                     is_kyc_passed,
                     is_verified,
                     kyc_type,
                     kyc_id,
                     roles
                 }));
-                AdminLib.getKYCById(kyc_id, TOKEN).then((kycData) => {
+                AdminLib.getKYCById(kyc_id).then((kycData) => {
                     const KYC_DATA = JSON.parse(kycData.data.content);
                     if (kyc_type === 'individual') {
                         const USER_IMAGE_ID = _.compact(Object.values(KYC_DATA.individualUserFile)).join(',');
-                        AdminLib.getKYCImage(USER_IMAGE_ID, TOKEN).then((kycImage) => {
+                        AdminLib.getKYCImage(USER_IMAGE_ID).then((kycImage) => {
                             const IMAGE = _.indexBy(kycImage.data, 'ID');
                             const {
                                 personalUserDocument,
@@ -74,7 +79,7 @@ export const handleSetUserByID = value => {
                         const imageUSER_COMPANY_ID = _.compact(Object.values(KYC_DATA.personCompanyFile)).join(',');
                         const imageCOMPANY_ID = _.compact(Object.values(KYC_DATA.companyFile)).join(',');
 
-                        AdminLib.getKYCImage(imageUSER_COMPANY_ID, TOKEN).then((userCompanyImage) => {
+                        AdminLib.getKYCImage(imageUSER_COMPANY_ID).then((userCompanyImage) => {
                             const IMAGE = _.indexBy(userCompanyImage.data, 'ID');
                             const {
                                 personalUserCompanyDocument,
@@ -98,7 +103,7 @@ export const handleSetUserByID = value => {
                             }))
                         }).catch((err) => console.log(err));
 
-                        AdminLib.getKYCImage(imageCOMPANY_ID, TOKEN)
+                        AdminLib.getKYCImage(imageCOMPANY_ID)
                             .then((companyImage) => {
                                 const IMAGE = _.indexBy(companyImage.data, 'ID');
                                 const {
@@ -145,7 +150,7 @@ export const handleSetUserByID = value => {
                             return acc.concat(items);
                         }, []);
 
-                        AdminLib.getKYCImage(_.compact(BENEFICIAL_IMAGE).join(','), TOKEN).then((beneficialImage) => {
+                        AdminLib.getKYCImage(_.compact(BENEFICIAL_IMAGE).join(',')).then((beneficialImage) => {
                             const IMAGE = _.indexBy(beneficialImage.data, 'ID');
                             const DATA_IMAGE_BENEFICIAL = KYC_DATA.beneficialFile.reduce((result, {  }, index) => {
                                 result[index] = {

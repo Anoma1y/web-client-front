@@ -4,10 +4,10 @@ import axios from 'axios';
 class AdminLib {
     static getAllApplication() {
         const URL = Config.url + "admin/application";
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const jwt = localStorage.jwt;
         const header = {
             headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+                'Authorization': `Bearer ${jwt}`
             }
         }
         return axios.get(URL,
@@ -17,10 +17,10 @@ class AdminLib {
 
     static getApplicationByID(id) {
         const URL = Config.url + `admin/application/${id}`;
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const jwt = localStorage.jwt;
         const header = {
             headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+                'Authorization': `Bearer ${jwt}`
             }
         }
         return axios.get(URL,
@@ -30,10 +30,10 @@ class AdminLib {
 
     static editApplication(id, data) {
         const URL = Config.url + `admin/application/${id}`;
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const jwt = localStorage.jwt;
         const header = {
             headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+                'Authorization': `Bearer ${jwt}`
             }
         }
         return axios.put(URL,
@@ -44,10 +44,10 @@ class AdminLib {
 
     static deleteApplication(data) {
         const URL = Config.url + `admin/application?ids=${data}`;
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const jwt = localStorage.jwt;
         const header = {
             headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+                'Authorization': `Bearer ${jwt}`
             }
         }
         return axios.delete(URL,
@@ -57,10 +57,10 @@ class AdminLib {
 
     static getAllUsers() {
         const URL = Config.url + "admin/profile";
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const jwt = localStorage.jwt;
         const header = {
             headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+                'Authorization': `Bearer ${jwt}`
             }
         }
         return axios.get(URL,
@@ -71,10 +71,10 @@ class AdminLib {
 
     static getUsersById(id) {
         const URL = Config.url + `admin/profile/${id}`;
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
+        const jwt = localStorage.jwt;
         const header = {
             headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+                'Authorization': `Bearer ${jwt}`
             }
         }
         return axios.get(URL,
@@ -82,31 +82,72 @@ class AdminLib {
         )
     }
 
-    static getKYCById(id, TOKEN) {
+    static getKYCById(id) {
         const URL = Config.url + `admin/kyc/${id}`;
+        const jwt = localStorage.jwt;
         return axios.get(URL, {
                 headers: {
-                    'Authorization': `Bearer ${TOKEN}`
+                    'Authorization': `Bearer ${jwt}`
                 }
             }
         )
     }
 
-    static getKYCImage(id, TOKEN) {
+    static getKYCImage(id) {
         const url = `${Config.url}admin/file?ids=${id}`;
+        const jwt = localStorage.jwt;
         return axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${TOKEN}`
+                'Authorization': `Bearer ${jwt}`
             }
         })
     }
 
-    static deleteUser(data) {
-        const URL = Config.url + `admin/profile?ids=${data}`;
-        const ADMIN_TOKEN = localStorage.getItem("jwt");
+    static deleteSingleUser(id) {
+        const URL = Config.url + `admin/profile/${id}`;
+        const jwt = localStorage.jwt;
         const header = {
             headers: {
-                'Authorization': `Bearer ${ADMIN_TOKEN}`
+                'Authorization': `Bearer ${jwt}`
+            }
+        }
+        return axios.delete(URL,
+            header
+        )
+    }
+
+    static blockSingleUser(id, data) {
+        const URL = Config.url + `admin/profile/${id}`;
+        const jwt = localStorage.jwt;
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        }
+        return axios.put(URL, {'is_blocked': data},
+            header
+        )
+    }
+
+    static kycAcceptedSingleUser(id, data) {
+        const URL = Config.url + `admin/profile/${id}`;
+        const jwt = localStorage.jwt;
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        }
+        return axios.put(URL, {'is_kyc_passed': data},
+            header
+        )
+    }
+
+    static deleteUser(id) {
+        const URL = Config.url + `admin/profile?ids=${id}`;
+        const jwt = localStorage.jwt;
+        const header = {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
             }
         }
         return axios.delete(URL,

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 import {
     Container,
     Grid,
     Card,
     Button,
     Accordion,
-    Icon
+    Icon,
+    Modal,
+
 } from 'semantic-ui-react';
 import {
     handleSetUserByID,
@@ -16,9 +20,14 @@ import {
 } from 'actions/admin';
 import UserSingleIndividual from './UserSingleIndividual';
 import UserSingleLegal from './UserSingleLegal';
+import AdminLib from 'libs/ApiLib/AdminLib';
 
 class UserSingle extends Component {
-    state = { activeIndex: -1 }
+    state = {
+        activeIndex: -1,
+        deleteUserIsOpen: false,
+        blockUserIsOpen: false
+    }
 
     handleClick = (e, titleProps) => {
         const { index } = titleProps
@@ -38,11 +47,70 @@ class UserSingle extends Component {
     }
 
     handleBlockUser = () => {
+        const { id } = this.props.match.params;
+        const { setUserSingle } = this.props;
+        const { singleUser } = this.props.admin;
+        const BLOCK = singleUser.is_blocked !== true;
 
+        AdminLib.blockSingleUser(id, BLOCK).then(() => {
+            setUserSingle({
+                ...singleUser,
+                is_blocked: BLOCK
+            });
+        }).catch((err) => console.log(err));
+        this.setState({
+            blockUserIsOpen: false
+        })
     }
-    handleDeleteUser = () => { console.log('DeleteUser'); }
-    handleRequestKYCUser = () => { console.log('RequestKYCUser'); }
-    handleKYCAcceptedUser = () => { console.log('KYCAcceptedUser'); }
+
+    handleOpenModalBlock = () => {
+        this.setState({
+            blockUserIsOpen: true
+        });
+    }
+    handleCloseModalBlock = () => {
+        this.setState({
+            blockUserIsOpen: false
+        })
+    }
+
+    handleDeleteUser = () => {
+        const { jwt: TOKEN } = this.props.user;
+        const { id } = this.props.match.params;
+        const { goToUserList } = this.props;
+        AdminLib.deleteSingleUser(id, TOKEN).then(() => {
+            goToUserList();
+        }).catch((err) => console.log(err));
+    }
+
+    handleOpenModalDelete = () => {
+        this.setState({
+            deleteUserIsOpen: true
+        });
+    }
+    handleCloseModalDelete = () => {
+        this.setState({
+            deleteUserIsOpen: false
+        })
+    }
+
+    handleRequestKYCUser = () => {
+        const { goToUserList } = this.props;
+        goToUserList()
+    }
+    handleKYCAcceptedUser = () => {
+        const { id } = this.props.match.params;
+        const { setUserSingle } = this.props;
+        const { singleUser } = this.props.admin;
+        const ACCEPTED = singleUser.is_kyc_passed !== true;
+
+        AdminLib.kycAcceptedSingleUser(id, ACCEPTED).then(() => {
+            setUserSingle({
+                ...singleUser,
+                is_kyc_passed: ACCEPTED
+            });
+        }).catch((err) => console.log(err));
+    }
 
     renderKYC = () => {
         const {
@@ -57,11 +125,15 @@ class UserSingle extends Component {
         )
     }
 
+
     render() {
-        const { activeIndex } = this.state;
         const {
-            singleUser,
-            singleUserKYC
+            activeIndex,
+            deleteUserIsOpen,
+            blockUserIsOpen
+        } = this.state;
+        const {
+            singleUser
         } = this.props.admin;
         return (
             <Container>
@@ -76,24 +148,97 @@ class UserSingle extends Component {
                                     <Grid>
                                         <Grid.Row>
                                             <Grid.Column width={4}>
-                                                <Button
-                                                    className={"auth_btn"}
-                                                    onClick={this.handleBlockUser}
+                                                <Modal
+                                                    trigger={
+                                                        <Button
+                                                            floated='right'
+                                                            color={"orange"}
+                                                            size='small'
+                                                            fluid
+                                                            style={{fontWeight: 600, fontSize: '14px', textTransform: 'uppercase'}}
+                                                            onClick={this.handleOpenModalBlock}
+                                                        >
+                                                            {singleUser.is_blocked ? 'Unblock' : 'Block'}
+                                                        </Button>
+                                                    }
+                                                    open={blockUserIsOpen}
+                                                    onClose={this.handleCloseModalBlock}
+                                                    basic
                                                 >
-                                                    Block
-                                                </Button>
+                                                    <Modal.Content className={"modal__success"}>
+                                                        <Modal.Description>
+                                                            <div className={"modal__success_icon modal__error-icon"}>
+                                                                <Icon name={"attention"} />
+                                                            </div>
+                                                            <div className={"modal__success_text black-text"}>
+                                                            <span>
+                                                                {singleUser.is_blocked ? 'Unlock user?' : 'Block user?'}
+                                                            </span>
+                                                            </div>
+                                                            <div className={"modal__success_btn modal__success-error"}>
+                                                                <Button
+                                                                    className={"dashboard__submit"}
+                                                                    onClick={this.handleBlockUser}
+                                                                >{singleUser.is_blocked ?  'Unblock' : 'Block'}
+                                                                </Button>
+                                                                <Button
+                                                                    className={"dashboard__submit auth_btn"}
+                                                                    onClick={this.handleCloseModalBlock}
+                                                                >Cancel
+                                                                </Button>
+                                                            </div>
+                                                        </Modal.Description>
+                                                    </Modal.Content>
+                                                </Modal>
+                                            </Grid.Column>
+                                            <Grid.Column width={4}>
+                                                <Modal
+                                                    trigger={
+                                                        <Button
+                                                            floated='right'
+                                                            color={"youtube"}
+                                                            size='small'
+                                                            fluid
+                                                            style={{fontWeight: 600, fontSize: '14px', textTransform: 'uppercase'}}
+                                                            onClick={this.handleOpenModalDelete}
+                                                        >
+                                                            Delete
+                                                        </Button>
+                                                    }
+                                                    open={deleteUserIsOpen}
+                                                    onClose={this.handleCloseModalDelete}
+                                                    basic
+                                                >
+                                                    <Modal.Content className={"modal__success"}>
+                                                        <Modal.Description>
+                                                            <div className={"modal__success_icon modal__error-icon"}>
+                                                                <Icon name={"attention"} />
+                                                            </div>
+                                                            <div className={"modal__success_text black-text"}>
+                                                            <span>
+                                                                Delete user?
+                                                            </span>
+                                                            </div>
+                                                            <div className={"modal__success_btn modal__success-error"}>
+                                                                <Button
+                                                                    className={"dashboard__submit"}
+                                                                    onClick={this.handleDeleteUser}
+                                                                >Delete
+                                                                </Button>
+                                                                <Button
+                                                                    className={"dashboard__submit auth_btn"}
+                                                                    onClick={this.handleCloseModalDelete}
+                                                                >Cancel
+                                                                </Button>
+                                                            </div>
+                                                        </Modal.Description>
+                                                    </Modal.Content>
+                                                </Modal>
                                             </Grid.Column>
                                             <Grid.Column width={4}>
                                                 <Button
                                                     className={"auth_btn"}
-                                                    onClick={this.handleDeleteUser}
-                                                >
-                                                    Delete
-                                                </Button>
-                                            </Grid.Column>
-                                            <Grid.Column width={4}>
-                                                <Button
-                                                    className={"auth_btn"}
+                                                    style={{width: "100%"}}
                                                     onClick={this.handleRequestKYCUser}
                                                 >
                                                     Request extra KYC
@@ -102,9 +247,10 @@ class UserSingle extends Component {
                                             <Grid.Column width={4}>
                                                 <Button
                                                     className={"auth_btn"}
+                                                    style={{width: "100%"}}
                                                     onClick={this.handleKYCAcceptedUser}
                                                 >
-                                                    KYC accepted
+                                                    KYC {singleUser.is_kyc_passed ? 'REFUSED' : 'accepted'}
                                                 </Button>
                                             </Grid.Column>
                                         </Grid.Row>
@@ -113,6 +259,7 @@ class UserSingle extends Component {
                                                 <div>
                                                     <p>ID : {singleUser.ID}</p>
                                                     <p>Email : {singleUser.email}</p>
+                                                    <p>ISBLOCKED : {singleUser.is_blocked === true ? "Yes" : "No"}</p>
                                                     <p>ISKYCPASSED : {singleUser.is_kyc_passed === true ? "Yes" : "No"}</p>
                                                     <p>ISVERIFIED : {singleUser.is_verified === true ? "Yes" : "No"}</p>
                                                     <p>Roles : {singleUser.roles}</p>
@@ -146,12 +293,22 @@ class UserSingle extends Component {
     }
 }
 
-export default connect(state => ({
-    admin: state.admin,
-    user: state.user
-}), {
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    goToUserList: () => push('/admin/'),
     handleSetUserByID,
     handleChangeIndividualUser,
     setUserKYC,
     setUserSingle
-})(UserSingle);
+}, dispatch);
+
+const mapStateToProps = (state) => {
+    return {
+        admin: state.admin,
+        user: state.user
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(UserSingle)
