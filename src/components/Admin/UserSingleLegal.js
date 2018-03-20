@@ -4,7 +4,8 @@ import {
     Grid,
     Card,
     Image,
-    Form
+    Form,
+    Divider
 } from 'semantic-ui-react';
 import {countryOptions} from "libs/country";
 import UserSingleImage from './UserSingleImage';
@@ -25,6 +26,10 @@ class UserSingleLegal extends Component {
                     <UserSingleImage text={'Upload a Declaration for the beneficial owner and copy of the ID document of theLegal Representative/s of the company.'} image={beneficialImage[item] !== undefined ? beneficialImage[item].personalBeneficialDocument : ''}/>
                     <UserSingleImage text={'Сonfirm upload of declaration (Beneficial owners declaration - the Beneficial owner(BO) of the company is a physical person, who has 25% or more than 25% of thecompany or otherwise exercises control over the company).'} image={beneficialImage[item] !== undefined ? beneficialImage[item].legalRepresentative : ''}/>
                     <UserSingleImage text={'Copy of the ID Document (Passport, ID Card ) of the Legal representative/s(Director/s, CEO/s, Manager/s or Owner of the business).'} image={beneficialImage[item] !== undefined ? beneficialImage[item].declarationBeneficialOwned : ''}/>
+                    { index !== (Object.keys(beneficial).length - 1) ?
+                        <Divider/>
+                        : null
+                    }
                 </div>
             )
         })
@@ -38,14 +43,7 @@ class UserSingleLegal extends Component {
             companyImage,
             companyInformation,
             sourceFunds,
-            beneficial,
-            beneficialImage
         } = this.props.admin;
-        // beneficialImage
-        //     declarationBeneficialOwned
-        //     legalRepresentative
-        //      personalBeneficialDocument
-        // idBeneficial
 
         const getCountry = (KEY) => {
             const getObj = countryOptions.filter(item => item.key === KEY);

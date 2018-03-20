@@ -7,6 +7,7 @@ import {
     Image
 } from 'semantic-ui-react';
 import {countryOptions} from 'libs/country';
+import UserSingleImage from './UserSingleImage';
 
 class UserSingleIndividual extends Component {
 
@@ -55,24 +56,9 @@ class UserSingleIndividual extends Component {
                                 </Form>
                             </div>
                             <Grid>
-                                <Grid.Row>
-                                    <Grid.Column width={16}>
-                                        <p>Submit a personal identity document with photo: Passport, ID, Residence document (both sides)</p>
-                                    </Grid.Column>
-                                    <Grid.Column width={16}>
-                                        <Image centered src={individualUserImage.personalUserDocument} />
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Grid.Column width={16}>
-                                        <p>Utility bill or any other document with a date no later than 2 months before the presentation (this confirms the address)</p>
-                                    </Grid.Column>
-                                    <Grid.Column width={16}>
-                                        <Image centered src={individualUserImage.utilityBill} />
-                                    </Grid.Column>
-                                </Grid.Row>
+                                <UserSingleImage text={'Submit a personal identity document with photo: Passport, ID, Residence document (both sides)'} image={individualUserImage.personalUserDocument} />
+                                <UserSingleImage text={'Utility bill or any other document with a date no later than 2 months before the presentation (this confirms the address)'} image={individualUserImage.utilityBill} />
                             </Grid>
-
                         </Card.Description>
                     </Card.Content>
                 </Card>

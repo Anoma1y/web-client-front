@@ -41,7 +41,6 @@ export const initialUser = token => {
                 kyc_type
             } = user.data;
             dispatch(initIdenfified(is_kyc_passed));
-            console.log(user.data);
             localStorage.setItem('user_id', ID);
             localStorage.setItem('jwt', token);
             localStorage.setItem('is_kyc_passed', is_kyc_passed);
