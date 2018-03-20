@@ -211,7 +211,7 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Address</span>
                                     {
-                                        settings[stateObject].Addres.length > 1900 ? <p className={settings[stateObject].City.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
+                                        settings[stateObject].Addres.length > 1900 ? <p className={settings[stateObject].Addres.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>

@@ -46,15 +46,15 @@ export const applicationCalc = (FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPT
 
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "USD") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
-        CURRENCYVALUE = `$ ${separationValue(FIXED_AMOUNT * (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE), 4)}`;
+        CURRENCYVALUE = `$ ${separationValue(FIXED_AMOUNT * (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE), 2)}`;
         TOKENVALUE = separationValue(bonusCalc(FIXED_AMOUNT, percent), 4);
     }
 
     else if (CURRENCY[0] === "USD" && CURRENCY[1] === "TSR") {
         const USDTOKEN = FIXED_AMOUNT / (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
         percent = checkPercent(USDTOKEN, CURRENCY, BONUS_LIST);
-        TOKENVALUE = separationValue(bonusCalc(USDTOKEN, percent), 4);
         CURRENCYVALUE = `$ ${separationValue(FIXED_AMOUNT, 2)}`;
+        TOKENVALUE = separationValue(bonusCalc(USDTOKEN, percent), 4);
     }
 
     else if (CURRENCY[0] === "BTC" && CURRENCY[1] === "TSR") {
