@@ -10,7 +10,7 @@ class CheckToken extends Component {
     componentDidMount() {
         const { initialUser, goToSignup } = this.props;
         const TOKEN = localStorage.getItem("jwt");
-        if (TOKEN !== undefined || this.props.user.jwt !== null) {
+        if (TOKEN !== null || this.props.user.jwt !== null) {
             initialUser(TOKEN);
         } else {
             goToSignup();

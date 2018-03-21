@@ -31,7 +31,8 @@ import Config from 'libs/config';
 
 export const initialUser = token => {
     return (dispatch, getState) => {
-        Login.getUser(token).then((user) =>{
+
+        Login.getUser(token).then((user) => {
             const {
                 ID,
                 email,
@@ -39,7 +40,7 @@ export const initialUser = token => {
                 roles,
                 kyc_type
             } = user.data;
-            dispatch(initIdenfified(is_kyc_passed));
+
             localStorage.setItem('user_id', ID);
             localStorage.setItem('jwt', token);
             localStorage.setItem('is_kyc_passed', is_kyc_passed);
@@ -47,9 +48,10 @@ export const initialUser = token => {
             localStorage.setItem('kyc_type', kyc_type);
             localStorage.setItem('email', email);
 
+            dispatch(putToken(token));
+            dispatch(initIdenfified(is_kyc_passed));
             dispatch(initID(ID));
             dispatch(initEmail(email));
-            dispatch(putToken(token));
             dispatch(putRoles(roles));
             dispatch(initKycType(kyc_type));
 
@@ -67,31 +69,36 @@ export const initialUser = token => {
                             return _.findKey(OBJECT, function(value, key) {
                                 return key.indexOf(KEYS) >= 0;
                             });
-                        }
+                        };
+
                         if (type === 'individual') {
                             const INITIAL_DATA = JSON.parse(content);
                             const imageID = _.compact(Object.values(INITIAL_DATA.individualUserFile)).join(',');
-                            KYC.getKYCImage(imageID, token)
-                                .then((image) => {
-                                    const IMAGE = _.indexBy(image.data, 'ID');
-                                    const {
-                                        personalUserDocument,
-                                        utilityBill
-                                    } = INITIAL_DATA.individualUserFile;
-                                    dispatch(initialUserImage({
-                                        personalUserDocument:
-                                            findImage(IMAGE, personalUserDocument) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, personalUserDocument)].filename}`
-                                                : '',
-                                        utilityBill:
-                                            findImage(IMAGE, utilityBill) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, utilityBill)].filename}`
-                                                : ''
-                                    }));
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                })
+                            KYC.getKYCImage(imageID, token).then((image) => {
+                                const IMAGE = _.indexBy(image.data, 'ID');
+                                const {
+                                    personalUserDocument,
+                                    utilityBill
+                                } = INITIAL_DATA.individualUserFile;
+
+                                dispatch(initialUserImage({
+                                    personalUserDocument:
+                                        findImage(IMAGE, personalUserDocument) !== undefined
+                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, personalUserDocument)].filename}`
+                                            : '',
+                                    utilityBill:
+                                        findImage(IMAGE, utilityBill) !== undefined
+                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, utilityBill)].filename}`
+                                            : ''
+                                }));
+
+                            }).catch(() => {
+                                dispatch(initialUserImage({
+                                    personalUserDocument: '',
+                                    utilityBill: ''
+                                }))
+                            });
+
                             dispatch(initialUserFile(INITIAL_DATA.individualUserFile));
                             dispatch(initialUserProfile(INITIAL_DATA.individualUserInformation));
 
@@ -129,52 +136,59 @@ export const initialUser = token => {
                                             ? `${Config.url}static/${IMAGE[findImage(IMAGE, representation)].filename}`
                                             : ''
                                 }))
-                            }).catch((err) => console.log(err));
+                            }).catch(() => {
+                                dispatch(initialCompanyUserImage({
+                                    certificateActualStatus: '',
+                                    personalUserCompanyDocument: '',
+                                    representation: ''
+                                }))
+                            });
 
-                            KYC.getKYCImage(imageCOMPANY_ID, token)
-                                .then((companyImage) => {
-                                    const IMAGE = _.indexBy(companyImage.data, 'ID');
-                                    const {
-                                        businessRegistrationDocument,
-                                        document3months,
-                                        businessActivityLicense,
-                                        declare
-                                    } = INITIAL_DATA.companyFile;
-                                    dispatch(initialCompanyImage({
-                                        businessRegistrationDocument:
-                                            findImage(IMAGE, businessRegistrationDocument) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, businessRegistrationDocument)].filename}`
-                                            : '',
-                                        document3months:
-                                            findImage(IMAGE, document3months) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, document3months)].filename}`
-                                            : '',
-                                        businessActivityLicense:
-                                            findImage(IMAGE, businessActivityLicense) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, businessActivityLicense)].filename}`
-                                            : '',
-                                        declare:
-                                            findImage(IMAGE, declare) !== undefined
-                                            ? `${Config.url}static/${IMAGE[findImage(IMAGE, declare)].filename}`
-                                            : ''
-                                    }))
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                })
-
-                            const {
-                                beneficialFile
-                            } = INITIAL_DATA;
+                            KYC.getKYCImage(imageCOMPANY_ID, token).then((companyImage) => {
+                                const IMAGE = _.indexBy(companyImage.data, 'ID');
+                                const {
+                                    businessRegistrationDocument,
+                                    document3months,
+                                    businessActivityLicense,
+                                    declare
+                                } = INITIAL_DATA.companyFile;
+                                dispatch(initialCompanyImage({
+                                    businessRegistrationDocument:
+                                        findImage(IMAGE, businessRegistrationDocument) !== undefined
+                                        ? `${Config.url}static/${IMAGE[findImage(IMAGE, businessRegistrationDocument)].filename}`
+                                        : '',
+                                    document3months:
+                                        findImage(IMAGE, document3months) !== undefined
+                                        ? `${Config.url}static/${IMAGE[findImage(IMAGE, document3months)].filename}`
+                                        : '',
+                                    businessActivityLicense:
+                                        findImage(IMAGE, businessActivityLicense) !== undefined
+                                        ? `${Config.url}static/${IMAGE[findImage(IMAGE, businessActivityLicense)].filename}`
+                                        : '',
+                                    declare:
+                                        findImage(IMAGE, declare) !== undefined
+                                        ? `${Config.url}static/${IMAGE[findImage(IMAGE, declare)].filename}`
+                                        : ''
+                                }));
+                            }).catch(() => {
+                                dispatch(initialCompanyImage({
+                                    businessRegistrationDocument: '',
+                                    document3months: '',
+                                    businessActivityLicense: '',
+                                    declare: ''
+                                }));
+                            });
 
                             const BENEFICIAL_FILE = INITIAL_DATA.beneficialFile.reduce((result, { ...beneficialFile }, index) => {
                                 result[index] = {...beneficialFile};
                                 return result;
                             }, {});
+
                             const BENEFICIAL_PROFILE = INITIAL_DATA.beneficial.reduce((result, { ...beneficial}, index) => {
                                 result[index] = {...beneficial};
                                 return result;
                             }, {});
+
                             const INCREMENT_ID = Object.keys(BENEFICIAL_FILE).length - 1;
 
                             dispatch(incrementBeneficialID(INCREMENT_ID));
@@ -192,41 +206,44 @@ export const initialUser = token => {
                                 const DATA_IMAGE_BENEFICIAL = INITIAL_DATA.beneficialFile.reduce((result, {}, index) => {
                                     result[index] = {
                                         personalBeneficialDocument:
-                                            findImage(IMAGE, beneficialFile[index].personalBeneficialDocument) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, beneficialFile[index].personalBeneficialDocument)].filename}`
+                                            findImage(IMAGE, INITIAL_DATA.beneficialFile[index].personalBeneficialDocument) !== undefined
+                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, INITIAL_DATA.beneficialFile[index].personalBeneficialDocument)].filename}`
                                                 : '',
                                         declarationBeneficialOwned:
-                                            findImage(IMAGE, beneficialFile[index].declarationBeneficialOwned) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, beneficialFile[index].declarationBeneficialOwned)].filename}`
+                                            findImage(IMAGE, INITIAL_DATA.beneficialFile[index].declarationBeneficialOwned) !== undefined
+                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, INITIAL_DATA.beneficialFile[index].declarationBeneficialOwned)].filename}`
                                                 : '',
                                         legalRepresentative:
-                                            findImage(IMAGE, beneficialFile[index].legalRepresentative) !== undefined
-                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, beneficialFile[index].legalRepresentative)].filename}`
+                                            findImage(IMAGE, INITIAL_DATA.beneficialFile[index].legalRepresentative) !== undefined
+                                                ? `${Config.url}static/${IMAGE[findImage(IMAGE, INITIAL_DATA.beneficialFile[index].legalRepresentative)].filename}`
                                                 : ''
                                     };
                                     return result;
                                 }, {});
                                 dispatch(initialBeneficialmage(DATA_IMAGE_BENEFICIAL));
-                            }).catch((err) => console.log(err));
+                            }).catch(() => {
+                                const DATA_IMAGE_BENEFICIAL = INITIAL_DATA.beneficialFile.reduce((result, {}, index) => {
+                                    result[index] = {
+                                        personalBeneficialDocument: '',
+                                        declarationBeneficialOwned: '',
+                                        legalRepresentative: ''
+                                    };
+                                    return result;
+                                }, {});
+                                dispatch(initialBeneficialmage(DATA_IMAGE_BENEFICIAL));
+                            });
                         }
                     })
                     .catch((err) => {
                         console.log(err);
                     })
             }
-
             if (PATH === '/' || PATH === '/signup' || PATH === '/login') {
                 dispatch(push('/dashboard'));
             }
-
         }).catch(() => {
             dispatch(deleteToken());
-            localStorage.removeItem('user_id');
-            localStorage.removeItem('jwt');
-            localStorage.removeItem('roles');
-            localStorage.removeItem('email');
-            localStorage.removeItem('is_kyc_passed');
-            localStorage.removeItem('kyc_type');
+            localStorage.clear();
             dispatch(push('/login'));
         })
     }
