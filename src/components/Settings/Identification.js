@@ -8,7 +8,6 @@ import {
 import {changeActiveTab} from 'actions/settings';
 import LegalEntity from './LegalEntity';
 import IndividualUser from './IndividualUser';
-import {handleInitialSettings} from 'actions/settings';
 
 const individualUserRender = [
     { menuItem: 'Individual user', render: () => <Tab.Pane><IndividualUser /></Tab.Pane> }
@@ -59,10 +58,6 @@ class Identification extends Component {
     }
 }
 
-export default connect((state) => ({
-    settings: state.settings,
-    user: state.user
-}), {
-    handleInitialSettings,
+export default connect(null, {
     changeActiveTab
 })(Identification);

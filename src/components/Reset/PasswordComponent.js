@@ -14,6 +14,7 @@ import {
     Message,
     Loader
 } from 'semantic-ui-react';
+import { ERROR_VALIDATION, RESET_USER } from 'libs/messages';
 import _ from "underscore";
 
 class PasswordComponent extends Component {
@@ -45,17 +46,17 @@ class PasswordComponent extends Component {
             token
         } = this.parseURL();
         if (repeatNewPassword !== newPassword) {
-            setError("Passwords do not match");
+            setError(ERROR_VALIDATION.PASSWORD_MATCH);
             return;
         } else if (newPassword.length === 0 || repeatNewPassword === 0) {
-            setError("Enter a new password");
+            setError(ERROR_VALIDATION.PASSWORD_NEW);
             return;
         }
         setError(null);
         if (token !== undefined && tid !== undefined) {
             handleResetNewPassword({tid, token, newPassword});
         } else {
-            setError("Invalid Token");
+            setError(ERROR_VALIDATION.TOKEN);
         }
     }
     handleChangeNewPassword = event => {
@@ -83,11 +84,11 @@ class PasswordComponent extends Component {
                 <Card fluid color={'violet'} className={"login reset__password component__shadow"}>
                     <Card.Content>
                         <Card.Header as={"h1"} className={"login__header reset__password_header"}>
-                            New Password
+                            {RESET_USER.NEW_PASSWORD_TITLE}
                         </Card.Header>
                         <Divider className={"auth__divider"}/>
                         <Card.Description style={{marginBottom: 15}} as={"p"}>
-                            Create a new password
+                            {RESET_USER.NEW_PASSWORD_TEXT}
                         </Card.Description>
                         <Card.Description>
                             <form action="#" className={"auth_input auth_input-success"}>

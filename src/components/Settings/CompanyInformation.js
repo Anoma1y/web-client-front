@@ -41,7 +41,7 @@ class CompanyInformation extends Component {
     checkEnglish = (value, nameError, len) => {
         if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter only English alphabet characters'
+                [nameError]: ERROR_VALIDATION.ENGLISH
             })
         } else {
             this.setState({
@@ -56,7 +56,7 @@ class CompanyInformation extends Component {
     checkOnlyNumber = (value, nameError, len) => {
         if (!value.match(/^[0-9]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter numbers only'
+                [nameError]: ERROR_VALIDATION.NUMBER
             })
         } else {
             this.setState({
@@ -72,7 +72,7 @@ class CompanyInformation extends Component {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
-                [nameError]: "Enter valid phone number"
+                [nameError]: ERROR_VALIDATION.PHONE
             });
         } else {
             this.setState({
@@ -105,7 +105,7 @@ class CompanyInformation extends Component {
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!value.match(pattern)) {
             this.setState({
-                emailError: "Please enter a valid Email"
+                emailError: ERROR_VALIDATION.EMAIL
             });
         } else {
             this.setState({
@@ -121,7 +121,7 @@ class CompanyInformation extends Component {
         const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
         if (!value.match(pattern)) {
             this.setState({
-                [webError]: "Enter valid web address"
+                [webError]: ERROR_VALIDATION.URL
             });
         } else {
             this.setState({

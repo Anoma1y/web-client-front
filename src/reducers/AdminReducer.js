@@ -1,34 +1,4 @@
-import {
-    ADD_USERS,
-    ADD_APPLICATION,
-    SORTED_USERS,
-    SORTED_APPLICATIONS,
-    CHANGE_DELETE_USERS,
-    CHANGE_DELETE_APPLICATIONS,
-    CHANGE_USER_ROLE,
-    CHANGE_APPLICATION_STATUS,
-    SET_ADMIN_CURRENTCURRENCY,
-    SET_ADMIN_CURRENCY_VALUE,
-    SET_ADMIN_TOKEN_VALUE,
-    SET_ADMIN_CURRENT_BONUS,
-    SET_ADMIN_TRANSFER_DATA,
-    SET_ADMIN_APPLICATION_SINGLE,
-    CHANGE_FIXED_CURRENCY,
-    SET_ADMIN_USER_SINGLE,
-    SET_ADMIN_USER_KYC,
-    CHANGE_INDIVIDUAL_USER_IMAGE,
-    CHANGE_INDIVIDUAL_USER_PROFILE,
-    CHANGE_LEGAL_USER_PROFILE,
-    CHANGE_LEGAL_USER_IMAGE,
-    CHANGE_LEGAL_COMPANY_PROFILE,
-    CHANGE_LEGAL_COMPANY_IMAGE,
-    CHANGE_LEGAL_BENEFICIAL_PROFILE,
-    CHANGE_LEGAL_BENEFICIAL_IMAGE,
-    CHANGE_LEGAL_SOURCE_FUNDS,
-    CHANGE_BENEFICIAL_INCREMENT_ID,
-    CHANGE_ADMIN_OPEN_MODAL,
-    CHANGE_ADMIN_APPLICATION_SEND_ERROR
-} from 'actions/admin/types';
+import * as A from 'actions/admin/types';
 
 const INITIAL_STATE = {
     usersList: {
@@ -194,65 +164,65 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case ADD_USERS:
+        case A.ADD_USERS:
             return { ...state, usersList: {
                 data: action.payload,
                 column: null,
                 direction: 'descending'
             } };
-        case ADD_APPLICATION:
+        case A.ADD_APPLICATION:
             return { ...state, applicationList: {
                 data: action.payload,
                 column: null,
                 direction: 'descending'
             } };
-        case CHANGE_ADMIN_OPEN_MODAL:
+        case A.CHANGE_ADMIN_OPEN_MODAL:
             return { ...state, applicationModalIsOpen: action.payload };
-        case CHANGE_ADMIN_APPLICATION_SEND_ERROR:
+        case A.CHANGE_ADMIN_APPLICATION_SEND_ERROR:
             return { ...state, applicationChangeError: action.payload };
-        case SORTED_USERS:
+        case A.SORTED_USERS:
             return { ...state, usersList: action.payload };
-        case SORTED_APPLICATIONS:
+        case A.SORTED_APPLICATIONS:
             return { ...state, applicationList: action.payload };
-        case CHANGE_DELETE_USERS:
+        case A.CHANGE_DELETE_USERS:
             return { ...state, deleteUsers: action.payload };
-        case CHANGE_DELETE_APPLICATIONS:
+        case A.CHANGE_DELETE_APPLICATIONS:
             return { ...state, deleteApplications: action.payload };
-        case CHANGE_USER_ROLE:
+        case A.CHANGE_USER_ROLE:
             return { ...state, userRole: action.payload };
-        case CHANGE_APPLICATION_STATUS:
+        case A.CHANGE_APPLICATION_STATUS:
             return { ...state, applicationStatus: action.payload };
-        case CHANGE_FIXED_CURRENCY:
+        case A.CHANGE_FIXED_CURRENCY:
             return { ...state, fixedCurrency: action.payload };
-        case SET_ADMIN_CURRENTCURRENCY:
+        case A.SET_ADMIN_CURRENTCURRENCY:
             return { ...state, currencyValue: action.payload };
-        case SET_ADMIN_CURRENCY_VALUE:
+        case A.SET_ADMIN_CURRENCY_VALUE:
             return { ...state, sumValue: action.payload };
-        case SET_ADMIN_TOKEN_VALUE:
+        case A.SET_ADMIN_TOKEN_VALUE:
             return { ...state, tokenValue: action.payload };
-        case CHANGE_INDIVIDUAL_USER_IMAGE:
+        case A.CHANGE_INDIVIDUAL_USER_IMAGE:
             return { ...state, individualUserImage: action.payload };
-        case CHANGE_INDIVIDUAL_USER_PROFILE:
+        case A.CHANGE_INDIVIDUAL_USER_PROFILE:
             return { ...state, individualUserInformation: action.payload };
-        case CHANGE_LEGAL_USER_PROFILE:
+        case A.CHANGE_LEGAL_USER_PROFILE:
             return { ...state,  companyUserInformation: action.payload };
-        case CHANGE_LEGAL_USER_IMAGE:
+        case A.CHANGE_LEGAL_USER_IMAGE:
             return { ...state,  companyUserImage: action.payload };
-        case CHANGE_LEGAL_COMPANY_PROFILE:
+        case A.CHANGE_LEGAL_COMPANY_PROFILE:
             return { ...state,  companyInformation: action.payload };
-        case CHANGE_LEGAL_COMPANY_IMAGE:
+        case A.CHANGE_LEGAL_COMPANY_IMAGE:
             return { ...state,  companyImage: action.payload };
-        case CHANGE_LEGAL_BENEFICIAL_PROFILE:
+        case A.CHANGE_LEGAL_BENEFICIAL_PROFILE:
             return { ...state,  beneficial: action.payload };
-        case CHANGE_LEGAL_BENEFICIAL_IMAGE:
+        case A.CHANGE_LEGAL_BENEFICIAL_IMAGE:
             return { ...state,  beneficialImage: action.payload };
-        case CHANGE_LEGAL_SOURCE_FUNDS:
+        case A.CHANGE_LEGAL_SOURCE_FUNDS:
             return { ...state, sourceFunds: action.payload };
-        case CHANGE_BENEFICIAL_INCREMENT_ID:
+        case A.CHANGE_BENEFICIAL_INCREMENT_ID:
             return { ...state, idBeneficial: action.payload };
-        case SET_ADMIN_CURRENT_BONUS:
+        case A.SET_ADMIN_CURRENT_BONUS:
             return { ...state, currentBonus: action.payload };
-        case SET_ADMIN_TRANSFER_DATA:
+        case A.SET_ADMIN_TRANSFER_DATA:
             const {
                 sumValue,
                 progressBar,
@@ -262,11 +232,11 @@ export default (state = INITIAL_STATE, action) => {
                 transferData
             } = action.payload;
             return { ...state,  sumValue, progressBar, tokenValue, bonus, currentBonus, transferData };
-        case SET_ADMIN_APPLICATION_SINGLE:
+        case A.SET_ADMIN_APPLICATION_SINGLE:
             return { ...state, singleApplication: action.payload };
-        case SET_ADMIN_USER_SINGLE:
+        case A.SET_ADMIN_USER_SINGLE:
             return { ...state, singleUser: action.payload };
-        case SET_ADMIN_USER_KYC:
+        case A.SET_ADMIN_USER_KYC:
             return { ...state, singleUserKYC: action.payload };
         default:
             return state;

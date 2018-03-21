@@ -7,46 +7,26 @@ import {
 import IdentificationImgUpload from './IdentificationImgUpload';
 import PersonInformation from './PersonInformation';
 import SettingsButton from './SettingsButton';
-import Config from 'libs/config';
+import { INDIVIDUAL_USER_DOCUMENT } from 'libs/messages';
 
 class IndividualUser extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            individualUserFile: [
-                {
-                    description: `Submit a personal identity document with photo: Passport, ID, Residence document (both sides)`,
-                    id: 'personalUserDocument',
-                    objectFile: 'individualUserFile'
-                },
-                {
-                    description: 'Utility bill or any other document with a date no later than 2 months before the presentation (this confirms the address)',
-                    id: 'utilityBill',
-                    objectFile: 'individualUserFile'
-                },
-            ]
-        }
-    }
-
     renderUploadInfo = () => {
-        const { individualUserFile } = this.state;
         const {
             individualUserImage
         } = this.props.settings;
-
-        return individualUserFile.map((item, index) => {
+        return INDIVIDUAL_USER_DOCUMENT.map((item, index) => {
             return (
-                <Grid.Row key={item.id}>
+                <Grid.Row key={item.ID}>
                     <Grid.Column width={16}>
                         <IdentificationImgUpload
-                            description={item.description}
-                            id={item.id}
-                            objectFile={item.objectFile}
+                            description={item.DESCRIPTION}
+                            id={item.ID}
+                            objectFile={item.OBJECT_FILE}
                             imageValue={Object.values(individualUserImage)[index]}
                         />
                     </Grid.Column>
-                    { index !== (individualUserFile.length - 1) ?
+                    { index !== (INDIVIDUAL_USER_DOCUMENT.length - 1) ?
                         <Grid.Column width={16}>
                             <Divider/>
                         </Grid.Column>

@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import {
     setApplicationSingle,
     changeApplicationStatus,
-    changeFixedCurrency,
-    changeAdminTokenValue,
-    changeAdminTransferData,
-    handleAdminCurrentCurrency,
     handleAdminInitialCurrency,
     changeApplicationOpenModal,
     changeApplicationError
@@ -15,19 +11,15 @@ import {
     Container,
     Grid,
     Card,
-    Form,
-    Radio,
-    Button,
-    Modal,
-    Icon
 } from 'semantic-ui-react'
 import AdminLib from 'libs/ApiLib/AdminLib';
-import AdminCalculator from './AdminCalculator';
+import AdminCalculator from 'components/Admin/AdminCalculator/';
 import {
     changeCurrency
 } from 'actions/rate';
 import CryptoCurrency from "libs/ApiLib/CryptoCurrency";
-
+import ApplicationSingleStatus from './ApplicationSingleStatus';
+import ApplicationSingleModal from './ApplicationSingleModal';
 
 class ApplicationSingle extends Component {
 
@@ -201,47 +193,11 @@ class ApplicationSingle extends Component {
                                     <Grid>
                                         <Grid.Row>
                                             <Grid.Column>
-                                                <Form>
-                                                    <Form.Field>
-                                                        Current status: <b>{singleApplication.status === 0 ? "Awaiting" : singleApplication.status === 1 ? "Approved" : singleApplication.status === 2 ? "Rejected" : "Paid"}</b>
-                                                    </Form.Field>
-                                                    <Form.Field>
-                                                        <Radio
-                                                            label='Awaiting'
-                                                            name='applicationStatusGroup'
-                                                            value='0'
-                                                            checked={applicationStatus === 0}
-                                                            onChange={this.handleChange}
-                                                        />
-                                                    </Form.Field>
-                                                    <Form.Field>
-                                                        <Radio
-                                                            label='Approved'
-                                                            name='applicationStatusGroup'
-                                                            value='1'
-                                                            checked={applicationStatus === 1}
-                                                            onChange={this.handleChange}
-                                                        />
-                                                    </Form.Field>
-                                                    <Form.Field>
-                                                        <Radio
-                                                            label='Rejected'
-                                                            name='applicationStatusGroup'
-                                                            value='2'
-                                                            checked={applicationStatus === 2}
-                                                            onChange={this.handleChange}
-                                                        />
-                                                    </Form.Field>
-                                                    <Form.Field>
-                                                        <Radio
-                                                            label='Paid'
-                                                            name='applicationStatusGroup'
-                                                            value='3'
-                                                            checked={applicationStatus === 3}
-                                                            onChange={this.handleChange}
-                                                        />
-                                                    </Form.Field>
-                                                </Form>
+                                                <ApplicationSingleStatus
+                                                    singleApplication={singleApplication}
+                                                    applicationStatus={applicationStatus}
+                                                    handleChange={this.handleChange}
+                                                />
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row>
@@ -251,49 +207,13 @@ class ApplicationSingle extends Component {
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>
-                                                <Modal
-                                                    trigger={<Button
-                                                        onClick={this.handleOpenModal}
-                                                        className={"auth_btn"}
-                                                        floated={"right"}
-                                                    >Save Changes
-                                                    </Button>}
-                                                    open={applicationModalIsOpen}
-                                                    onClose={this.handleCloseModal}
-                                                    basic
-                                                    size='small'
-                                                >
-                                                    <Modal.Content className={"modal__success"}>
-                                                        <Modal.Description>
-                                                            <div className={applicationChangeError === null ? "modal__success_icon" : "modal__success_icon modal__error-icon"}>
-                                                                <Icon name={applicationChangeError === null ? "check circle outline" : "warning circle"} />
-                                                            </div>
-                                                            <div className={"modal__success_text betatest__modal_text"}>
-                                                                <span>{applicationChangeError === null ? "Change applications?" : applicationChangeError}</span>
-                                                            </div>
-                                                            <div>
-                                                                <Grid>
-                                                                    <Grid.Row>
-                                                                        <Grid.Column width={8}>
-                                                                            <Button
-                                                                                className={"auth_btn"}
-                                                                                onClick={this.handleSend}
-                                                                            > Ok
-                                                                            </Button>
-                                                                        </Grid.Column>
-                                                                        <Grid.Column width={8}>
-                                                                            <Button
-                                                                                className={"auth_btn"}
-                                                                                onClick={this.handleCloseModal}
-                                                                            > Cancel
-                                                                            </Button>
-                                                                        </Grid.Column>
-                                                                    </Grid.Row>
-                                                                </Grid>
-                                                            </div>
-                                                        </Modal.Description>
-                                                    </Modal.Content>
-                                                </Modal>
+                                                <ApplicationSingleModal
+                                                    triggerOpen={applicationModalIsOpen}
+                                                    error={applicationChangeError}
+                                                    handleSend={this.handleSend}
+                                                    handleClose={this.handleCloseModal}
+                                                    handleOpen={this.handleOpenModal}
+                                                />
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
@@ -316,8 +236,7 @@ export default connect(state => ({
     setApplicationSingle,
     changeCurrency,
     changeApplicationStatus,
-    changeFixedCurrency,
-    changeAdminTokenValue,changeAdminTransferData,handleAdminCurrentCurrency, handleAdminInitialCurrency,
+    handleAdminInitialCurrency,
     changeApplicationOpenModal,
     changeApplicationError
 })(ApplicationSingle);

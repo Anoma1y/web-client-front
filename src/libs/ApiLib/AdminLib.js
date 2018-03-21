@@ -66,7 +66,6 @@ class AdminLib {
         return axios.get(URL,
             header
         )
-
     }
 
     static getUsersById(id) {
@@ -154,7 +153,6 @@ class AdminLib {
             header
         )
     }
-
 
     static deleteUser(id) {
         const URL = Config.url + `admin/profile?ids=${id}`;

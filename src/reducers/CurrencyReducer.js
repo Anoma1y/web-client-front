@@ -1,6 +1,4 @@
-import {
-    CHANGE_RATE_CURRENCY
-} from 'actions/rate/types';
+import { CHANGE_RATE_CURRENCY } from 'actions/rate/types';
 
 const INITIAL_STATE = {
     TSR: 0.001,

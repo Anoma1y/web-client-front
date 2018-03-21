@@ -1,10 +1,4 @@
-import {
-    CHANGE_EMAIL,
-    CHANGE_PASSWORD,
-    CHANGE_REPEAT_PASSWORD,
-    SET_SIGNUP_IN_PROGRESS,
-    SET_ERROR
-} from 'actions/signup/types'
+import * as S from 'actions/signup/types'
 
 const INITIAL_STATE = {
     email: '',
@@ -16,15 +10,15 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case CHANGE_EMAIL:
+        case S.CHANGE_EMAIL:
             return { ...state, email: action.payload };
-        case CHANGE_PASSWORD:
+        case S.CHANGE_PASSWORD:
             return { ...state, password: action.payload };
-        case CHANGE_REPEAT_PASSWORD:
+        case S.CHANGE_REPEAT_PASSWORD:
             return { ...state, repeatPassword: action.payload };
-        case SET_SIGNUP_IN_PROGRESS:
+        case S.SET_SIGNUP_IN_PROGRESS:
             return { ...state, isSignupInProgress: action.payload };
-        case SET_ERROR:
+        case S.SET_ERROR:
             return { ...state, error: action.payload };
         default:
             return state;

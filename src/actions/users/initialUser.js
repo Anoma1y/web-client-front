@@ -190,7 +190,7 @@ export const initialUser = token => {
 
                             KYC.getKYCImage(_.compact(BENEFICIAL_IMAGE).join(','), token).then((beneficialImage) => {
                                 const IMAGE = _.indexBy(beneficialImage.data, 'ID');
-                                const DATA_IMAGE_BENEFICIAL = INITIAL_DATA.beneficialFile.reduce((result, {  }, index) => {
+                                const DATA_IMAGE_BENEFICIAL = INITIAL_DATA.beneficialFile.reduce((result, {}, index) => {
                                     result[index] = {
                                         personalBeneficialDocument:
                                             findImage(IMAGE, beneficialFile[index].personalBeneficialDocument) !== undefined
