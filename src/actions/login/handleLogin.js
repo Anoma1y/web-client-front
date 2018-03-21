@@ -16,12 +16,12 @@ export const handleLogin = value => {
         Login.logUser(email, password).then((data) => {
             dispatch(setError(null));
             const {
-                jwt
+                jwt: TOKEN
             } = data.data;
-            Login.getUser(data.data.jwt).then((user) => {
+            Login.getUser(TOKEN).then((user) => {
                 const {
                 } = user.data;
-                dispatch(initialUser(jwt));
+                dispatch(initialUser(TOKEN));
                 dispatch(setAuthInProgress(false));
                 dispatch(push('/dashboard/'));
             });

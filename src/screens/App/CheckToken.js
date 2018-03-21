@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import {
     initialUser
 } from 'actions/users/';
-import {redirectToSignup} from 'actions/redirect'
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
 class CheckToken extends Component {
+
     componentDidMount() {
-        const { initialUser } = this.props;
+        const { initialUser, goToSignup } = this.props;
         const TOKEN = localStorage.getItem("jwt");
-        if (TOKEN !== null) {
+        if (TOKEN !== null || this.props.user.jwt !== null) {
             initialUser(TOKEN);
         } else {
-            redirectToSignup()
+            goToSignup();
         }
     }
     render() {
@@ -27,5 +28,5 @@ class CheckToken extends Component {
 
 export default connect(state => ({ user: state.user }), {
     initialUser,
-    redirectToSignup
+    goToSignup: () => push('/signup')
 })(CheckToken);

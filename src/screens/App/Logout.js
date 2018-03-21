@@ -5,15 +5,8 @@ import { connect } from 'react-redux';
 class Logout extends Component {
 
     componentDidMount() {
-        const { jwt: TOKEN } = this.props.user;
         const { handleDeleteTokenUser } = this.props;
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('roles');
-        localStorage.removeItem('email');
-        localStorage.removeItem('is_kyc_passed');
-        localStorage.removeItem('kyc_type');
-        handleDeleteTokenUser(TOKEN);
+        handleDeleteTokenUser();
     }
 
     render() {
@@ -26,6 +19,6 @@ class Logout extends Component {
 
 }
 
-export default connect(state => ({ user: state.user }), {
+export default connect(null, {
     handleDeleteTokenUser
 })(Logout);
