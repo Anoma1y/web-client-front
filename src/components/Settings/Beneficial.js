@@ -67,15 +67,15 @@ class Beneficial extends Component {
             valueBeneficial: value
         });
     }
-    handleChange = (event) => {
-         const {
-             value,
-             id
-         } = event.target;
-         const {
-             indexBeneficial,
-             changeInputBeneficial
-         } = this.props;
+    handleBlur = event => {
+        const {
+            value,
+            id
+        } = event.target;
+        const {
+            indexBeneficial,
+            changeInputBeneficial
+        } = this.props;
         switch (id) {
             case 'Name':
                 this.checkEnglish(value, 'nameError', 100);
@@ -97,6 +97,21 @@ class Beneficial extends Component {
             indexBeneficial,
             keyBeneficial: id,
             valueBeneficial: value
+        });
+    }
+    handleChange = event => {
+        const {
+            value,
+            id
+        } = event.target;
+        const {
+            indexBeneficial,
+            changeInputBeneficial
+        } = this.props;
+        changeInputBeneficial({
+        indexBeneficial,
+        keyBeneficial: id,
+        valueBeneficial: value
         });
     }
     checkEnglish = (value, nameError, len) => {
@@ -203,6 +218,7 @@ class Beneficial extends Component {
                                         placeholder={'Name'}
                                         id={'Name'}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         value={settings.beneficial[indexBeneficial].Name}
                                         className={settings.beneficial[indexBeneficial].Name ? 'populated' : ''}
                                     />
@@ -219,6 +235,7 @@ class Beneficial extends Component {
                                         placeholder={'Surname'}
                                         id={'Surname'}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         value={settings.beneficial[indexBeneficial].Surname}
                                         className={settings.beneficial[indexBeneficial].Surname ? 'populated' : ''}
                                     />
@@ -295,6 +312,7 @@ class Beneficial extends Component {
                                         mask="**********"
                                         maskChar={null}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         value={settings.beneficial[indexBeneficial].Zip}
                                         className={settings.beneficial[indexBeneficial].Zip ? 'populated' : ''}
                                     />
@@ -330,6 +348,7 @@ class Beneficial extends Component {
                                         placeholder={'Email'}
                                         id={'Email'}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         value={settings.beneficial[indexBeneficial].Email}
                                         className={settings.beneficial[indexBeneficial].Email ? 'populated' : ''}
                                     />
@@ -348,6 +367,7 @@ class Beneficial extends Component {
                                         placeholder={'Phone'}
                                         id={'Phone'}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         value={settings.beneficial[indexBeneficial].Phone}
                                         className={settings.beneficial[indexBeneficial].Phone ? 'populated' : ''}
                                     />
