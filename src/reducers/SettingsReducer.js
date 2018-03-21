@@ -1,32 +1,4 @@
-import {
-    CHANGE_SETTINGS_INPUT,
-    CHANGE_SETTINGS_INPUT_COMPANY,
-    CHANGE_SOURCE_FUNDS,
-    CHANGE_SETTINGS_INPUT_BENEFICIAL,
-    ADD_BENEFICIAL,
-    INCREMENT_BENEFICIAL_ID,
-    CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER,
-    CHANGE_SETTINGS_DOCUMENT_ENTITY_USER,
-    CHANGE_SETTINGS_DOCUMENT_ENTITY_COMPANY,
-    CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL,
-    CHANGE_SETTINGS_MODAL,
-    CHANGE_SETTINGS_ERROR,
-    CHANGE_SETTINGS_SUCCESS,
-    SETTINGS_INITIAL_USER_FILE,
-    SETTINGS_INITIAL_USER_PROFILE,
-    SETTINGS_INITIAL_USER_IMAGE,
-    SETTINGS_INITIAL_COMPANY_USER_PROFILE,
-    SETTINGS_INITIAL_COMPANY_USER_FILE,
-    SETTINGS_INITIAL_COMPANY_PROFILE,
-    SETTINGS_INITIAL_COMPANY_FILE,
-    SETTINGS_INITIAL_BENEFICIAL,
-    SETTINGS_INITIAL_BENEFICIAL_FILE,
-    SETTINGS_INITIAL_COMPANY_USER_IMAGE,
-    SETTINGS_INITIAL_COMPANY_IMAGE,
-    SETTINGS_INITIAL_BENEFICIAL_IMAGE,
-    CHANGE_SETTINGS_INPUT_ERROR,
-    SETTINGS_CHANGE_ACTIVE_TAB
-} from 'actions/settings/types';
+import * as S from 'actions/settings/types';
 
 const INITIAL_STATE = {
     individualUserFile: {
@@ -134,39 +106,39 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case CHANGE_SETTINGS_MODAL:
+        case S.CHANGE_SETTINGS_MODAL:
             return { ...state, settingsModalIsOpen: action.payload };
-        case CHANGE_SETTINGS_ERROR:
+        case S.CHANGE_SETTINGS_ERROR:
             return { ...state, settingsError: action.payload };
-        case CHANGE_SETTINGS_INPUT_ERROR:
+        case S.CHANGE_SETTINGS_INPUT_ERROR:
             return { ...state, settingsInputError: action.payload };
-        case SETTINGS_INITIAL_USER_FILE:
+        case S.SETTINGS_INITIAL_USER_FILE:
             return { ...state, individualUserFile: action.payload };
-        case SETTINGS_INITIAL_USER_PROFILE:
+        case S.SETTINGS_INITIAL_USER_PROFILE:
             return { ...state, individualUserInformation: action.payload };
-        case SETTINGS_INITIAL_USER_IMAGE:
+        case S.SETTINGS_INITIAL_USER_IMAGE:
             return { ...state, individualUserImage: action.payload };
-        case SETTINGS_INITIAL_COMPANY_USER_PROFILE:
+        case S.SETTINGS_INITIAL_COMPANY_USER_PROFILE:
             return { ...state, companyUserInformation: action.payload };
-        case SETTINGS_INITIAL_COMPANY_USER_FILE:
+        case S.SETTINGS_INITIAL_COMPANY_USER_FILE:
             return { ...state, personCompanyFile: action.payload };
-        case SETTINGS_INITIAL_COMPANY_PROFILE:
+        case S.SETTINGS_INITIAL_COMPANY_PROFILE:
             return { ...state, companyInformation: action.payload };
-        case SETTINGS_INITIAL_COMPANY_FILE:
+        case S.SETTINGS_INITIAL_COMPANY_FILE:
             return { ...state, companyFile: action.payload };
-        case SETTINGS_INITIAL_BENEFICIAL:
+        case S.SETTINGS_INITIAL_BENEFICIAL:
             return { ...state, beneficial: action.payload };
-        case SETTINGS_INITIAL_BENEFICIAL_FILE:
+        case S.SETTINGS_INITIAL_BENEFICIAL_FILE:
             return { ...state, beneficialFile: action.payload };
-        case SETTINGS_INITIAL_COMPANY_USER_IMAGE:
+        case S.SETTINGS_INITIAL_COMPANY_USER_IMAGE:
             return { ...state, companyUserImage: action.payload };
-        case SETTINGS_INITIAL_COMPANY_IMAGE:
+        case S.SETTINGS_INITIAL_COMPANY_IMAGE:
             return { ...state, companyImage: action.payload };
-        case SETTINGS_INITIAL_BENEFICIAL_IMAGE:
+        case S.SETTINGS_INITIAL_BENEFICIAL_IMAGE:
             return { ...state, beneficialImage: action.payload };
-        case CHANGE_SETTINGS_SUCCESS:
+        case S.CHANGE_SETTINGS_SUCCESS:
             return { ...state, success: action.payload };
-        case CHANGE_SETTINGS_INPUT:
+        case S.CHANGE_SETTINGS_INPUT:
             const {
                 stateInput,
                 keyInput,
@@ -180,7 +152,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 [stateInput]: newInputObject
             }
-        case CHANGE_SETTINGS_INPUT_COMPANY:
+        case S.CHANGE_SETTINGS_INPUT_COMPANY:
             const {
                 keyCompany,
                 valueCompany
@@ -193,9 +165,9 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 companyInformation: newCompanyObject
             }
-        case CHANGE_SOURCE_FUNDS:
+        case S.CHANGE_SOURCE_FUNDS:
             return { ...state, sourceFunds: action.payload };
-        case CHANGE_SETTINGS_INPUT_BENEFICIAL:
+        case S.CHANGE_SETTINGS_INPUT_BENEFICIAL:
             const {
                 indexBeneficial,
                 keyBeneficial,
@@ -216,11 +188,11 @@ export default (state = INITIAL_STATE, action) => {
                     }
                 }
             }
-        case INCREMENT_BENEFICIAL_ID:
+        case S.INCREMENT_BENEFICIAL_ID:
             return { ...state, idBeneficial: action.payload };
-        case SETTINGS_CHANGE_ACTIVE_TAB:
+        case S.SETTINGS_CHANGE_ACTIVE_TAB:
             return { ...state, activeTab: action.payload };
-        case ADD_BENEFICIAL:
+        case S.ADD_BENEFICIAL:
             return {
                 ...state,
                 beneficial: {
@@ -254,28 +226,28 @@ export default (state = INITIAL_STATE, action) => {
                     }
                 }
             }
-        case CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER:
+        case S.CHANGE_SETTINGS_DOCUMENT_INDIVIDUAL_USER:
             return {
                 ...state, individualUserFile:  {
                         ...state.individualUserFile,
                         [action.payload.id]: action.payload.documentID
                     }
             };
-        case CHANGE_SETTINGS_DOCUMENT_ENTITY_USER:
+        case S.CHANGE_SETTINGS_DOCUMENT_ENTITY_USER:
             return {
                 ...state, personCompanyFile: {
                     ...state.personCompanyFile,
                     [action.payload.id]: action.payload.documentID
                 }
             };
-        case CHANGE_SETTINGS_DOCUMENT_ENTITY_COMPANY:
+        case S.CHANGE_SETTINGS_DOCUMENT_ENTITY_COMPANY:
             return {
                 ...state, companyFile: {
                     ...state.companyFile,
                     [action.payload.id]: action.payload.documentID
                 }
             };
-        case CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL:
+        case S.CHANGE_SETTINGS_DOCUMENT_ENTITY_BENEFICIAL:
             const {
                 indexBeneficialFile,
                 keyBeneficialFile,

@@ -15,8 +15,6 @@ import {
 } from 'semantic-ui-react';
 import {
     handleSetUserByID,
-    handleChangeIndividualUser,
-    setUserKYC,
     setUserSingle,
 } from 'actions/admin';
 import UserSingleIndividual from './UserSingleIndividual';
@@ -370,17 +368,17 @@ class UserSingle extends Component {
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>
-                                            <Accordion styled fluid>
-                                                <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                                                    <Icon name='dropdown' />
-                                                    KYC - {singleUser.kyc_type}
-                                                </Accordion.Title>
-                                                <Accordion.Content active={activeIndex === 0}>
-                                                    <div>
-                                                        {this.renderKYC()}
-                                                    </div>
-                                                </Accordion.Content>
-                                            </Accordion>
+                                                <Accordion styled fluid>
+                                                    <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+                                                        <Icon name='dropdown' />
+                                                        KYC - {singleUser.kyc_type}
+                                                    </Accordion.Title>
+                                                    <Accordion.Content active={activeIndex === 0}>
+                                                        <div>
+                                                            {this.renderKYC()}
+                                                        </div>
+                                                    </Accordion.Content>
+                                                </Accordion>
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
@@ -397,8 +395,6 @@ class UserSingle extends Component {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     goToUserList: () => push('/admin/'),
     handleSetUserByID,
-    handleChangeIndividualUser,
-    setUserKYC,
     setUserSingle
 }, dispatch);
 

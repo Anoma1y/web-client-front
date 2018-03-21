@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     redirectToLogin,
     redirectToSignup
-} from 'actions/redirect'
+} from 'actions/redirect';
 
 class Redirect extends Component {
     componentWillMount() {

@@ -18,7 +18,8 @@ import {
     setAuthInProgress,
     handleLogin,
     setError
-} from 'actions/login'
+} from 'actions/login';
+import { ERROR_VALIDATION } from 'libs/messages';
 
 class LoginComponent extends Component {
 
@@ -65,7 +66,7 @@ class LoginComponent extends Component {
         const { email, password, setError, handleLogin } = this.props;
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
-            setError("Please enter a valid Email");
+            setError(ERROR_VALIDATION.EMAIL);
             return;
         }
         if (password.length === 0) {

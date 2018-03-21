@@ -14,6 +14,7 @@ import {
     setError,
     handleReset
 } from 'actions/reset'
+import { RESET_USER, ERROR_VALIDATION } from "libs/messages";
 
 class EmailComponent extends React.Component {
 
@@ -46,7 +47,7 @@ class EmailComponent extends React.Component {
         } = this.props;
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!email.match(pattern)) {
-            setError("Please enter a valid Email");
+            setError(ERROR_VALIDATION.EMAIL);
             return;
         }
         handleReset();
@@ -64,11 +65,11 @@ class EmailComponent extends React.Component {
                 <Card fluid className={"login reset__password component__shadow"}>
                     <Card.Content>
                         <Card.Header as={"h1"} className={"login__header reset__password_header"}>
-                            Forgot your password?
+                            {RESET_USER.TITLE}
                         </Card.Header>
                         <Divider  className={"reset__divider"}/>
                         <Card.Description>
-                            No problem! Just fill in the email below and we'll send you password reset instructions!
+                            {RESET_USER.RESET_TEXT}
                         </Card.Description>
                         <Card.Description className={"auth_input auth_input-success reset__password_content"}>
                             <form action="#">

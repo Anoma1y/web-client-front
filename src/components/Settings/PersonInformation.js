@@ -43,21 +43,6 @@ class PersonInformation extends Component {
         }
     }
 
-    checkOnlyNumber = (value, nameError, len) => {
-        if (!value.match(/^[0-9]+$|i/)) {
-            this.setState({
-                [nameError]: ERROR_VALIDATION.NUMBER
-            });
-        } else {
-            this.setState({
-                [nameError]: ''
-            });
-        }
-        if (value.length > len) {
-            return false;
-        }
-    }
-
     checkPhone = (value, nameError, len) => {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {

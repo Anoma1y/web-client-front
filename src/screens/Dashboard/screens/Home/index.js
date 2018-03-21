@@ -13,7 +13,6 @@ import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
 import TelegramWidget from 'components/TelegramWidget';
-import CryptoWidget from 'components/CryptoWidget';
 import { AttentionIdentification } from 'components/AttentionIdentification';
 import { changeCurrency } from 'actions/rate';
 import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
@@ -123,9 +122,6 @@ class Home extends Component{
                                 <Grid.Column widescreen={5} computer={5} tablet={16} mobile={16} className={"dashboard__wrapper_component"}>
                                     <Grid.Row>
                                         <DownloadList />
-                                    </Grid.Row>
-                                    <Grid.Row>
-                                        {/*<CryptoWidget />*/}
                                     </Grid.Row>
                                     <Grid.Row>
                                         <Roadmap />

@@ -1,10 +1,4 @@
-import {
-    CHECKED_ANDROID,
-    CHECKED_APPLE,
-    SUCCESS_APPLICATION,
-    CHANGE_MODAL_BETA,
-    CHANGE_BETATEST_ERROR
-} from 'actions/betatest/types';
+import * as B from 'actions/betatest/types';
 
 const INITIAL_STATE = {
     androidChecked: false,
@@ -16,15 +10,15 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case CHECKED_ANDROID:
+        case B.CHECKED_ANDROID:
             return { ...state, androidChecked: action.payload };
-        case CHECKED_APPLE:
+        case B.CHECKED_APPLE:
             return { ...state, appleChecked: action.payload };
-        case SUCCESS_APPLICATION:
+        case B.SUCCESS_APPLICATION:
             return { ...state, success: action.payload };
-        case CHANGE_MODAL_BETA:
+        case B.CHANGE_MODAL_BETA:
             return { ...state, betaModalIsOpen: action.payload };
-        case CHANGE_BETATEST_ERROR:
+        case B.CHANGE_BETATEST_ERROR:
             return { ...state, betaTestError: action.payload };
         default:
             return state;

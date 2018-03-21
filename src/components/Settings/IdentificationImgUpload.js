@@ -16,6 +16,7 @@ import {
 } from 'actions/settings';
 import axios from 'axios';
 import Config from 'libs/config';
+import { ERROR_IMAGE } from 'libs/messages';
 import _ from 'underscore';
 
 class IdentificationImgUpload extends Component {
@@ -64,13 +65,13 @@ class IdentificationImgUpload extends Component {
                 reader.readAsDataURL(file);
             } else {
                 this.setState({
-                    fileUploadError: 'Maximum file size is 25MB',
+                    fileUploadError: ERROR_IMAGE.SIZE,
                     isLoading: false
                 })
             }
         } else {
             this.setState({
-                fileUploadError: 'Allowed file types: png, jpg, gif, tiff',
+                fileUploadError: ERROR_IMAGE.FORMAT,
                 isLoading: false
             })
         }
@@ -186,7 +187,7 @@ class IdentificationImgUpload extends Component {
                         </Card.Description>
                         <input
                             type={'file'}
-                            accept='image/jpeg,image/jpg,image/png,image/tiff,image/gif'
+                            accept={Config.IMAGE_TYPE}
                             id={this.props.id}
                             style={{display: 'none'}}
                             onChange={(e)=>this.handleImageChange(e)}

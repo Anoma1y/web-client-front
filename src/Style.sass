@@ -44,6 +44,26 @@ $header-identification-component: #363E71 !important
 body
   background-color: $BODY-COLOR !important
 
+
+.not__found
+  text-align: center !important
+  p, a
+    font-family: $font-robot
+  &_title
+    margin-bottom: 0 !important
+    line-height: 1 !important
+    font-size: 120px !important
+    font-weight: 500 !important
+    color: $gray-color
+  &_text
+    font-size: 30px !important
+    color: $dark-gray-color
+    margin-bottom: 22px !important
+  &_link
+    font-size: 16px !important
+    text-decoration: underline !important
+    color: $blue-color
+
 .cursor-pointer
   cursor: pointer !important
 
@@ -69,6 +89,7 @@ body
   background-color: $header-menu-background-color
   height: 49px !important
   border-radius: 0 !important
+  -webkit-border-radius: 0 !important
   margin-top: 0 !important
   @media screen and (max-width: 767px)
     height: 100px !important
@@ -219,7 +240,7 @@ body
   margin-top: 5px !important
   margin-bottom: 16px !important
   border-radius: 1px !important
-
+  -webkit-border-radius: 1px !important
 .component__title
   margin: -4px 0 !important
   font-family: $font-robot
@@ -245,6 +266,7 @@ body
   font-size: 14px !important
   font-weight: 600 !important
   border-radius: 2px !important
+  -webkit-border-radius: 2px !important
   -webkit-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important
   box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important
   -webkit-transition: background-color .5s ease !important
@@ -363,6 +385,7 @@ body
   width: 100% !important
   margin-top: -15px !important
   border-radius: 2px 2px 2px 2px !important
+  -webkit-border-radius: 2px 2px 2px 2px !important
   background-color: $total-label-color
   color: $white-color
   letter-spacing: .5px
@@ -389,8 +412,10 @@ body
   background: rgba(234, 234, 234, 1) -o-linear-gradient(-90deg, rgba(0, 79, 206, 1) 0%, rgba(127, 166, 230, 1) 50%, rgba(230, 238, 251, 1) 100%) no-repeat
   background: rgba(234, 234, 234, 1) linear-gradient(-90deg, rgba(0, 79, 206, 1) 0%, rgba(127, 166, 230, 1) 50%, rgba(230, 238, 251, 1) 100%) no-repeat
   border-radius: 10px
+  -webkit-border-radius: 10px
   cursor: pointer
   -webkit-appearance: none
+  -moz-appearance: none
   @media screen and (max-width: 767px)
     display: none !important
   &::-webkit-slider-runnable-track
@@ -399,6 +424,7 @@ body
     border: none
     background: transparent
     -webkit-appearance: none
+    -moz-appearance: none
   &::-moz-range-track
     -webkit-box-shadow: none
     box-shadow: none
@@ -412,15 +438,18 @@ body
     border: 0
     background: #fff
     border-radius: 100%
+    -webkit-border-radius: 100%
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 31, 56, 0.5)
     box-shadow: 0px 0px 5px 0px rgba(0, 31, 56, 0.5)
     -webkit-appearance: none
+    -moz-appearance: none
   &::-moz-range-thumb
     width: 16px
     height: 16px
     border: 0
     background: #fff
     border-radius: 100%
+    -webkit-border-radius: 100%
     -webkit-box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1)
     box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1)
 
@@ -458,6 +487,7 @@ body
   font-size: 13px !important
   font-weight: 400 !important
   border-radius: 3px !important
+  -webkit-border-radius: 3px !important
   overflow: hidden !important
   background-color: $gray-color
   &-active
@@ -542,6 +572,7 @@ body
   font-size: 14px !important
   line-height: 35px !important
   border-radius: 3px !important
+  -webkit-border-radius: 3px !important
   height: 90px !important
   color:  $blue-color
   border: none !important
@@ -676,7 +707,6 @@ body
     box-shadow: none !important
     &:hover
       background-color: transparent !important
-    //background-color: rgb(42, 207, 49) !important
 
 .pay__modal
   position: relative
@@ -762,6 +792,7 @@ body
     width: 29px !important
     height: 29px !important
     border-radius: 2px !important
+    -webkit-border-radius: 2px !important
     background-color: $gray-color
     cursor: pointer !important
     margin-right: 10px !important
@@ -777,6 +808,7 @@ body
     font-size: 14px !important
     font-weight: 600 !important
     border-radius: 2px !important
+    -webkit-border-radius: 2px !important
     height: 100% !important
     margin-top: -4px !important
     &-active
@@ -889,6 +921,7 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
+    -webkit-border-radius: 0 !important
     &.dropdown-error
       border-bottom: 1px solid $red-color
     &.dropdown-success
@@ -926,6 +959,7 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
+    -webkit-border-radius: 0 !important
     &.dropdown-error
       border-bottom: 1px solid $red-color
     &.dropdown-success
@@ -955,7 +989,7 @@ body
       flex-wrap: wrap !important
     border: none !important
     border-radius: 0 !important
-
+    -webkit-border-radius: 0 !important
     &.settings__dropdown-error
       border-bottom: 1px solid $red-color
     &.settings__dropdown-success
@@ -1008,6 +1042,7 @@ body
     border: none !important
     border-bottom: 2px solid $dim-white-color
     border-radius: 0 !important
+    -webkit-border-radius: 0 !important
     margin-bottom: 15px !important
     color: $white-color
     &:focus, &:hover
@@ -1022,20 +1057,12 @@ body
     font-family: $font-robot
     font-size: 14px !important
     text-transform: uppercase !important
-  &_uploadInfo
-    //margin-top: 30px !important
+
 .margin-top
   margin-top: 10px !important
 
 .beneficial__wrapper
   margin-top: 26px !important
-  //position: relative !important
-  //.close__beneficial
-  //  position: absolute !important
-  //  right: -10px
-  //  top: -35px
-  //  i
-  //    font-size: 25px !important
 
 .beneficial_btn
   float: right !important
@@ -1106,7 +1133,9 @@ body
     font-size: 14px !important
     font-weight: 600 !important
     border-radius: 2px !important
+    -webkit-border-radius: 2px !important
     box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important
+    -webkit-box-shadow: 2px 3px 5px 0px rgba(0, 0, 0, 0.24) !important
     -webkit-transition: background-color .5s ease !important
     -o-transition: background-color .5s ease !important
     transition: background-color .5s ease !important
@@ -1145,7 +1174,6 @@ body
       width: 100% !important
       outline: none !important
       background-color: inherit !important
-      //border-bottom: 1px solid $gray-color
       color: $black-color
       -webkit-transition: all 0.1s ease-in-out !important
       -o-transition: all 0.1s ease-in-out !important
@@ -1259,6 +1287,7 @@ body
 
 .telegram__wrapper
   border-radius: 0 !important
+  -webkit-border-radius: 0 !important
   -webkit-box-shadow: none !important
   box-shadow: none !important
 

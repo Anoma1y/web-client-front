@@ -3,7 +3,7 @@ import Config from 'libs/config';
 
 class KYC {
     static sendIndividualURL = 'kyc?type=individual&country';
-    static sendLegalEntity = 'kyc?type=legal&country=';
+    static sendLegalEntity = 'kyc?type=legal&country';
 
     static sendKYC(type, data, country, TOKEN) {
         const url = type === 0 ? `${Config.url}${this.sendIndividualURL}=${country}` : `${Config.url}${this.sendLegalEntity}=${country}`;

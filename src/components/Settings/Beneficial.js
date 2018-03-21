@@ -34,15 +34,15 @@ class Beneficial extends Component {
         } = this.props.settings;
         return legalEntityBeneficial.map((item, index) => {
             return (
-                <Grid.Row key={`${item.id}_${indexBeneficial}`}>
+                <Grid.Row key={`${item.ID}_${indexBeneficial}`}>
                     <Grid.Column width={16}>
                         <IdentificationImgUpload
-                            description={item.description}
-                            id={`${item.id}_${indexBeneficial}`}
+                            description={item.DESCRIPTION}
+                            id={`${item.ID}_${indexBeneficial}`}
                             indexBeneficial={this.props.indexBeneficial}
-                            objectFile={item.objectFile}
+                            objectFile={item.OBJECT_FILE}
                             imageValue={
-                                beneficialImage[indexBeneficial] !== undefined ? beneficialImage[indexBeneficial][item.id] : ''
+                                beneficialImage[indexBeneficial] !== undefined ? beneficialImage[indexBeneficial][item.ID] : ''
                             }
                         />
                     </Grid.Column>
@@ -102,7 +102,7 @@ class Beneficial extends Component {
     checkEnglish = (value, nameError, len) => {
         if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter only English alphabet characters'
+                [nameError]: ERROR_VALIDATION.ENGLISH
             })
         } else {
             this.setState({
@@ -134,7 +134,7 @@ class Beneficial extends Component {
     checkOnlyNumber = (value, nameError, len) => {
         if (!value.match(/^[0-9]+$|i/)) {
             this.setState({
-                [nameError]: 'Enter numbers only'
+                [nameError]: ERROR_VALIDATION.NUMBER
             })
         } else {
             this.setState({
@@ -150,7 +150,7 @@ class Beneficial extends Component {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
-                [nameError]: "Enter valid phone number"
+                [nameError]: ERROR_VALIDATION.PHONE
             });
         } else {
             this.setState({
@@ -165,7 +165,7 @@ class Beneficial extends Component {
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!value.match(pattern)) {
             this.setState({
-                [nameError]: "Please enter a valid Email"
+                [nameError]: ERROR_VALIDATION.EMAIL
             });
         } else {
             this.setState({
@@ -242,7 +242,7 @@ class Beneficial extends Component {
                                     />
                                     <span className={'auth_input-span'}>Address</span>
                                     {
-                                        settings.beneficial[indexBeneficial].Addres.length > 90 ? <p className={'auth_length'}> {`${settings.beneficial[indexBeneficial].Addres.length}/100`}</p> : null
+                                        settings.beneficial[indexBeneficial].Addres.length > 1900 ? <p className={'auth_length'}> {`${settings.beneficial[indexBeneficial].Addres.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>

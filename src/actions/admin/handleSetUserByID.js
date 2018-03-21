@@ -1,5 +1,4 @@
 import {
-    setUserKYC,
     setUserSingle,
     changeIndividualUserImage,
     changeIndividualUserProfile,
@@ -12,20 +11,18 @@ import {
     changeLegalSourceFunds,
     changeBeneficialIncrementID
 } from 'actions/admin';
-
 import AdminLib from "libs/ApiLib/AdminLib";
 import Config from 'libs/config';
 import _ from 'underscore';
 
-export const handleSetUserByID = value => {
-    return (dispatch, getState) => {
+export const handleSetUserByID = USER_ID => {
+    return dispatch => {
         const findImage = (OBJECT, KEYS) => {
             return _.findKey(OBJECT, function(value, key) {
                 return key.indexOf(KEYS) >= 0;
             });
         };
-        const { jwt: TOKEN } = getState().user;
-        AdminLib.getUsersById(value, TOKEN)
+        AdminLib.getUsersById(USER_ID)
             .then((userData) => {
                 const {
                     CreatedAt,
@@ -39,7 +36,6 @@ export const handleSetUserByID = value => {
                     kyc_id,
                     roles
                 } = userData.data;
-                const { jwt: TOKEN } = getState().user;
                 dispatch(setUserSingle({
                     CreatedAt,
                     ID,

@@ -12,8 +12,7 @@ import {
     handleSettingsSend,
     changeSettingsInputError,
 } from 'actions/settings';
-import { initKycType } from 'actions/users';
-import {ERROR_VALIDATION, SETTINGS} from 'libs/messages';
+import { SETTINGS } from 'libs/messages';
 import _ from 'underscore';
 
 class SettingsButton extends Component {
@@ -31,30 +30,13 @@ class SettingsButton extends Component {
         }
     }
     checkFill = value => value.length > 0;
-    checkEnglish = value => {
-        if (value.match(/^[A-Za-z\s]+$|i/)) return true;
-        else return false;
-    }
-    checkNumber = value => {
-        if (value.match(/^[0-9]+$|i/)) return true;
-        else return false;
-    }
-    checkEmail = value => {
-        if (value.match(/^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i)) return true;
-        else return false;
-    }
-    checkPhone = value => {
-        if (value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/)) return true;
-        else return false;
-    }
-    checkWeb = value => {
-        if (value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)) return true;
-        else return false;
-    }
-    checkZip = (value) => {
-        if (value.match(/^[0-9a-zA-Z]+$|i/) && value.length >= 4)  return true;
-        else return false;
-    }
+    checkEnglish = value => value.match(/^[A-Za-z\s]+$|i/) !== null
+    checkNumber = value => value.match(/^[0-9]+$|i/) !== null
+    checkEmail = value => value.match(/^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i) !== null;
+    checkPhone = value => value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/) !== null
+    checkWeb = value => value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/) !== null
+    checkZip = value => (value.match(/^[0-9a-zA-Z]+$|i/) && value.length >= 4)
+
     checkCompletenessFields = (TYPE) => {
         if (TYPE === 'individual') {
             const {
@@ -283,9 +265,6 @@ class SettingsButton extends Component {
                                         </Modal.Description>
                                     </Modal.Content>
                                 </Modal>
-
-
-
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -300,7 +279,6 @@ export default connect(state => ({
     user: state.user
 }), {
     changeModalSettings,
-    initKycType,
     handleSettingsSend,
     changeSettingsInputError
 })(SettingsButton);
