@@ -30,7 +30,7 @@ export const SIGNUP_SUCCESS = {
 export const RESET_USER = {
     TITLE: ' Forgot your password?',
     RESET_TEXT: 'No problem! Just fill in the email below and we\'ll send you password reset instructions!',
-    CONFIRM_EMAIL: 'Confirmation your Email',
+    CONFIRM_EMAIL: 'Password Recovery',
     CHECK_EMAIL: 'Please check your inbox for an email with instructions for how to reset your password',
     NEW_PASSWORD_TITLE: 'New Password',
     NEW_PASSWORD_TEXT: 'Create a new password'
