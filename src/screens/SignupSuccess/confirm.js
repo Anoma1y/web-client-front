@@ -4,12 +4,9 @@ import {
     Container,
     Grid
 } from 'semantic-ui-react';
-import {
-    redirectToLogin,
-} from 'actions/redirect/';
-
 import ApiLib from 'libs/ApiLib/SignUp';
 import _ from 'underscore';
+import {push} from "react-router-redux";
 
 class VerificationUser extends Component {
 
@@ -46,5 +43,5 @@ class VerificationUser extends Component {
 }
 
 export default connect(state => ({ routing: state.routing }), {
-    redirectToLogin
+    redirectToLogin: () => push('/login')
 })(VerificationUser);

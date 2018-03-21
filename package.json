@@ -8,6 +8,7 @@
     "moment": "^2.21.0",
     "node-sass-chokidar": "^0.0.3",
     "react": "^16.2.0",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
     "react-input-mask": "^1.2.2",
     "react-redux": "^5.0.6",

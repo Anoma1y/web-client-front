@@ -26,7 +26,6 @@ import {
     incrementBeneficialID
 } from 'actions/settings';
 import _ from 'underscore';
-import { redirectToSignup } from 'actions/redirect';
 import KYC from 'libs/ApiLib/KYC';
 import Config from 'libs/config';
 
@@ -228,7 +227,7 @@ export const initialUser = token => {
             localStorage.removeItem('email');
             localStorage.removeItem('is_kyc_passed');
             localStorage.removeItem('kyc_type');
-            dispatch(redirectToSignup());
+            dispatch(push('/login'));
         })
     }
 };

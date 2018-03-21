@@ -6,11 +6,14 @@ import {
     Icon,
     Input
 } from 'semantic-ui-react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class RequestModal extends Component {
 
     state = {
-        payModalSuccessful: false
+        payModalSuccessful: false,
+        value: 'kljqklerjqwj2341234kj3kjqewrsqwe',
+        copied: false
     }
 
     handleRequestBtn = () => {
@@ -77,10 +80,10 @@ class RequestModal extends Component {
                             </Grid.Row>
                             <Grid.Row className={"pay__copy"}>
                                 <Grid.Column>
-                                    <Button
-                                        className={"dashboard__submit"}
-                                    >Скопировать адрес
-                                    </Button>
+                                    <CopyToClipboard
+                                        text={this.state.value}
+                                    ><Button className={'dashboard__submit'}>Скопировать адрес</Button>
+                                    </CopyToClipboard>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>

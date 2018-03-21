@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import {
+    Route,
+    Switch
+} from 'react-router-dom';
 import Login from 'screens/Login';
 import Signup from 'screens/Signup';
 import SignupSuccess from 'screens/SignupSuccess';
@@ -13,31 +16,28 @@ import Logout from './Logout';
 import Redirect from './Redirect';
 import NotFound from 'screens/NotFound/';
 
-class App extends Component {
-
-     render () {
-        return (
-            <main>
-                <CheckToken />
-                <HeaderMenu/>
-                <Switch>
-                    <Route exact path={'/'} component={Signup} />
-                    <Route exact path={'/login'} component={Login} />
-                    <Route exact path={'/signup'} component={Signup} />
-                    <Route exact path={'/signupsuccess'} component={SignupSuccess} />
-                    <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : Redirect } />
-                    {
-                        localStorage.roles  === "admin" ?
-                                <Route path={'/admin'} component={Admin}/>
-                            : null
-                    }
-                    <Route path={'/reset'} component={ResetPassword} />
-                    <Route path={'/logout'} component={Logout} />
-                    <Route path={'/confirm'} component={VerificationUser} />
-                    <Route component={ NotFound } />
-                </Switch>
-            </main>
-        )
-    }
-}
+const App = () => {
+    return (
+        <main>
+            <CheckToken />
+            <HeaderMenu />
+            <Switch>
+                <Route exact path={'/'} component={Signup} />
+                <Route exact path={'/login'} component={Login} />
+                <Route exact path={'/signup'} component={Signup} />
+                <Route exact path={'/signupsuccess'} component={SignupSuccess} />
+                <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : Redirect } />
+                {
+                    localStorage.roles  === "admin" ?
+                        <Route path={'/admin'} component={Admin}/>
+                        : null
+                }
+                <Route path={'/reset'} component={ResetPassword} />
+                <Route path={'/logout'} component={Logout} />
+                <Route path={'/confirm'} component={VerificationUser} />
+                <Route component={ NotFound } />
+            </Switch>
+        </main>
+    )
+};
 export default App;

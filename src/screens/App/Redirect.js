@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-    redirectToLogin,
-    redirectToSignup
-} from 'actions/redirect';
+import { push } from 'react-router-redux';
 
 class Redirect extends Component {
     componentWillMount() {
-        const { user ,redirectToSignup } = this.props;
-        if (user.jwt === null || user.jwt === undefined || localStorage.jwt === null) {
-            redirectToSignup();
+        const {
+            user,
+            goToSignup
+        } = this.props;
+        if (user.jwt === null || user.jwt === undefined || localStorage.jwt === undefined) {
+            goToSignup();
         }
     }
     render() {
@@ -22,7 +22,6 @@ class Redirect extends Component {
 }
 
 export default connect(state => ({ user: state.user }), {
-    redirectToLogin,
-    redirectToSignup
+    goToSignup: () => push('/signup')
 })(Redirect);
 
