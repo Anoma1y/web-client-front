@@ -33,7 +33,7 @@ class VerificationUser extends Component {
                 <Grid>
                     <Grid.Row centered>
                         <Grid.Column widescreen={7} computer={7} tablet={16} mobile={16}>
-                            <h1>Подтверждено</h1>
+                            <h1>Confirmed</h1>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

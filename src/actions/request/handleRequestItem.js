@@ -1,9 +1,10 @@
 import ApplicationLib from 'libs/ApiLib/ApplicationLib';
 import { addRequestItem } from './addRequestItem';
 
-export const handleRequestItem = value => {
+export const handleRequestItem = () => {
     return dispatch => {
-        ApplicationLib.getApplication(value).then((data) => {
+        const { jwt: TOKEN } = localStorage;
+        ApplicationLib.getApplication(TOKEN).then((data) => {
             dispatch(addRequestItem(data.reverse()));
         }).catch(() =>{
             dispatch(addRequestItem([]));

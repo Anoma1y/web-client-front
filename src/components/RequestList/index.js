@@ -14,21 +14,22 @@ import {
 class RequestList extends Component {
 
     componentDidMount() {
-        this.props.handleRequestItem(localStorage.jwt);
+        const { handleRequestItem } = this.props;
+        handleRequestItem();
     }
 
     renderList () {
         const {
             items: request,
-            bonus
+            bonus: BONUS_LIST
         } = this.props.requests;
         const {
-            currency: cryptoCurrency,
+            currency: CRYPTO_CURRENCY,
             TSR: TOKEN_ATTITUDE_ETH,
         } = this.props.rate;
         return request.map((item, index) => {
             let btnOptions = null;
-            const currency = item.currency.split("/");
+            const CURRENCY = item.currency.split("/");
             switch (item.status) {
                 case 0:
                     btnOptions = { color: 'grey', text: 'Processing'};
@@ -48,7 +49,7 @@ class RequestList extends Component {
             const {
                 TOKENVALUE,
                 CURRENCYVALUE
-            } = applicationCalc(item.amount, currency, TOKEN_ATTITUDE_ETH, cryptoCurrency, bonus);
+            } = applicationCalc(item.amount, CURRENCY, TOKEN_ATTITUDE_ETH, CRYPTO_CURRENCY, BONUS_LIST);
 
             return (
                 <Card.Description key={index}>
@@ -59,7 +60,7 @@ class RequestList extends Component {
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}
                         buttonInverted={item.status === 1}
-                        fixedColor={currency[0]}
+                        fixedColor={CURRENCY[0]}
                     />
                     {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}
                 </Card.Description>
@@ -90,7 +91,6 @@ class RequestList extends Component {
 
 export default connect((state) => ({
     requests: state.requests,
-    user: state.user,
     rate: state.rate
 }), {
     handleRequestItem
