@@ -242,7 +242,7 @@ class Beneficial extends Component {
                                     />
                                     <span className={'auth_input-span'}>Address</span>
                                     {
-                                        settings.beneficial[indexBeneficial].Addres.length > 90 ? <p className={'auth_length'}> {`${settings.beneficial[indexBeneficial].Addres.length}/100`}</p> : null
+                                        settings.beneficial[indexBeneficial].Addres.length > 1900 ? <p className={'auth_length'}> {`${settings.beneficial[indexBeneficial].Addres.length}/2000`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
