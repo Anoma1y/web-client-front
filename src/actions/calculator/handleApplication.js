@@ -6,6 +6,7 @@ import {
     changeComments,
     changeApplicationError
 } from 'actions/calculator';
+import { CALCULATOR } from 'libs/messages';
 
 export const handleApplication = () => {
     return (dispatch, getState) => {
@@ -42,7 +43,7 @@ export const handleApplication = () => {
                     dispatch(changeQuerySuccessful(false));
                 })
             } else {
-                dispatch(changeApplicationError("To proceed please contact us"));
+                dispatch(changeApplicationError(CALCULATOR.APPLICATION_LIMIT));
                 dispatch(changeModalSuccessful(true));
                 dispatch(changeQuerySuccessful(false));
             }

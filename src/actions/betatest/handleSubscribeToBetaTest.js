@@ -6,6 +6,7 @@ import {
     changeModalBeta,
     changeBetaTestError
 } from 'actions/betatest';
+import { BETATEST } from 'libs/messages'
 
 export const handleSubscribeToBetaTest = () => {
     return (dispatch, getState) => {
@@ -19,7 +20,7 @@ export const handleSubscribeToBetaTest = () => {
         Subscribe.subscribeToBetaTest(email, android, ios).then((data) => {
             if (data.data.status === 400) {
                 dispatch(changeSuccessBetatest(false));
-                dispatch(changeBetaTestError('You are already subscribed'));
+                dispatch(changeBetaTestError(BETATEST.ALREADY_SUBSCRIBE));
             } else if (data.data.status === 'subscribed'){
                 dispatch(changeSuccessBetatest(true));
                 dispatch(changeBetaTestError(''));

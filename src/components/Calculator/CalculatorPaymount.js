@@ -3,8 +3,7 @@ import {
     Grid,
     Divider
 } from 'semantic-ui-react';
-
-const separationValue = value => new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(value);
+import { separationValue } from 'libs/math';
 
 const CalculatorPaymount = ({ tokenValue, transferData, currentBonus, currencyValue}) => {
     return (
@@ -15,7 +14,7 @@ const CalculatorPaymount = ({ tokenValue, transferData, currentBonus, currencyVa
                         You ordered
                     </Grid.Column>
                     <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                        {separationValue(tokenValue)} tokens
+                        {separationValue(tokenValue, 4)} tokens
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row className={"calculator__paymount_info"}>
@@ -31,7 +30,7 @@ const CalculatorPaymount = ({ tokenValue, transferData, currentBonus, currencyVa
                         Total tokens
                     </Grid.Column>
                     <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                        {separationValue(transferData.TSR)} tokens
+                        {separationValue(transferData.TSR, 4)} tokens
                     </Grid.Column>
                 </Grid.Row>
                 <Divider className={"calculator__paymount_divider"}/>
@@ -41,7 +40,7 @@ const CalculatorPaymount = ({ tokenValue, transferData, currentBonus, currencyVa
                         Payment amount
                     </Grid.Column>
                     <Grid.Column widescreen={10} computer={10} tablet={10} mobile={8}>
-                        {separationValue(transferData[currencyValue])} {currencyValue}
+                        {separationValue(transferData[currencyValue], 4)} {currencyValue}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

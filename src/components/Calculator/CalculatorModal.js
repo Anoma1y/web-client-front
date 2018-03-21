@@ -7,7 +7,8 @@ import {
     Radio,
     Button
 } from 'semantic-ui-react';
-const separationValue = value => new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(value);
+import { CALCULATOR } from 'libs/messages';
+import { separationValue } from 'libs/math';
 
 const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, applicationError, currencyValue, tokenValue, currentBonus, order, handleCloseModal, handleSubmitApplication, handleChangeOrderCurrency, handleSendApplication}) => {
     return (
@@ -49,8 +50,8 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                             {currencyValue === "ETH" ?
                                 <div className={"calculator__order"}>
                                     <div className={"calculator__order_header"}>
-                                        <p>Thank you for the application!</p>
-                                        <span>We'll approve or decline all applications before April 9th. We'll send you an email, or you can view all approved applications in your TransCrypt tokensale account.</span>
+                                        <p>{CALCULATOR.ORDER.TITLE}</p>
+                                        <span>{CALCULATOR.ORDER.TEXT}</span>
                                     </div>
                                     <Grid className={"calculator__order_paymount"}>
                                         <p className={"calculator__order_label"}>Your order</p>
@@ -61,7 +62,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                             </Grid.Column>
                                             <Grid.Column widescreen={10} computer={10} tablet={10}
                                                          mobile={8}>
-                                                {separationValue(tokenValue)} tokens
+                                                {separationValue(tokenValue, 4)} tokens
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row className={"order__paymount_item"}>
@@ -81,7 +82,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                             </Grid.Column>
                                             <Grid.Column widescreen={10} computer={10} tablet={10}
                                                          mobile={8}>
-                                                {separationValue(transferData.TSR)} tokens
+                                                {separationValue(transferData.TSR, 4)} tokens
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Divider className={"calculator__paymount_divider"}/>
@@ -94,15 +95,15 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                             </Grid.Column>
                                             <Grid.Column widescreen={10} computer={10} tablet={10}
                                                          mobile={8} className={"order__strong"}>
-                                                {separationValue(transferData[currencyValue])} {currencyValue}
+                                                {separationValue(transferData[currencyValue], 4)} {currencyValue}
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
                                 </div> :
                                 <div className={"calculator__order"}>
                                     <div className={"calculator__order_header"}>
-                                        <p>Thank you for the application!</p>
-                                        <span>We'll approve or decline all applications before April 9th. We'll send you an email, or you can view all approved applications in your TransCrypt tokensale account.</span>
+                                        <p>{CALCULATOR.ORDER.TITLE}</p>
+                                        <span>{CALCULATOR.ORDER.TEXT}</span>
                                     </div>
                                     <Grid className={"calculator__order_wrapper"}>
                                         <Grid.Row className={"calculator__order_fixcurrency"}>
@@ -148,7 +149,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                             </Grid.Column>
                                             <Grid.Column widescreen={10} computer={10} tablet={10}
                                                          mobile={8}>
-                                                {separationValue(tokenValue)} tokens
+                                                {separationValue(tokenValue, 4)} tokens
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row className={"order__paymount_item"}>
@@ -168,7 +169,7 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                             </Grid.Column>
                                             <Grid.Column widescreen={10} computer={10} tablet={10}
                                                          mobile={8}>
-                                                {separationValue(transferData.TSR)} tokens
+                                                {separationValue(transferData.TSR, 4)} tokens
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Divider className={"calculator__paymount_divider"}/>
@@ -181,12 +182,12 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                             </Grid.Column>
                                             <Grid.Column widescreen={10} computer={10} tablet={10}
                                                          mobile={8} className={"order__strong"}>
-                                                {separationValue(transferData[currencyValue])} {currencyValue}
+                                                {separationValue(transferData[currencyValue], 4)} {currencyValue}
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
                                     <p className={"calculator__order_text"}>
-                                        Please note that the number of tokens bought will be calculated after we receive the funds, not at the moment they were sent. The final amount can change due to exchange rate fluctuations.
+                                        {CALCULATOR.ORDER.NOTE}
                                     </p>
                                 </div>
                             }

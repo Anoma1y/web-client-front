@@ -27,6 +27,7 @@ import { InputSlider } from './CalculatorSlider';
 import CalculatorComment from './CalculatorComment';
 import CalculatorModal from "./CalculatorModal";
 import CalculatorPaymount from './CalculatorPaymount';
+import {CALCULATOR} from "libs/messages";
 
 class Calculator extends Component {
 
@@ -272,7 +273,7 @@ class Calculator extends Component {
                                 {
                                     progressBar.isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
                                                     <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
-                                                    You've reached the limit
+                                            {CALCULATOR.MAXIMUM_ERROR}
                                                  </span>
                                         : null
                                 }

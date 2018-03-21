@@ -14,12 +14,27 @@ export const ERROR_VALIDATION = {
 export const ERROR_IMAGE = {
     SIZE: 'Maximum file size is 25MB',
     FORMAT: 'Allowed file types: png, jpg, gif, tiff',
-}
+};
 
 export const SETTINGS = {
     SUCCESS: 'We have received your details, thank you. We’ll review all KYC requests together with approving applications. So if you receive a link to pay for your applications that means you successfully passed the KYC procedure. Please note that we might ask you to share some additional details.',
     FILL_INPUT: 'Please fill in all required fields',
     VALID_INPUT: 'Please correct the highlighted fields'
+};
+
+export const CALCULATOR = {
+    MAXIMUM_ERROR: 'You\'ve reached the limit',
+    APPLICATION_LIMIT: 'To proceed please contact us',
+    ORDER: {
+        TITLE: 'Thank you for the application!',
+        TEXT: 'We\'ll approve or decline all applications before April 9th. We\'ll send you an email, or you can view all approved applications in your TransCrypt tokensale account.',
+        NOTE: 'Please note that the number of tokens bought will be calculated after we receive the funds, not at the moment they were sent. The final amount can change due to exchange rate fluctuations.'
+    }
+};
+
+export const BETATEST = {
+    SUCCESS: 'Your application has been sent',
+    ALREADY_SUBSCRIBE: 'You are already subscribed'
 };
 
 export const SIGNUP_SUCCESS = {
@@ -34,7 +49,7 @@ export const RESET_USER = {
     CHECK_EMAIL: 'Please check your inbox for an email with instructions for how to reset your password',
     NEW_PASSWORD_TITLE: 'New Password',
     NEW_PASSWORD_TEXT: 'Create a new password'
-}
+};
 
 export const INDIVIDUAL_USER_DOCUMENT = [
     {

@@ -17,6 +17,7 @@ import {
     handleRejectBetatest,
     changeModalBeta
 } from 'actions/betatest';
+import { BETATEST } from 'libs/messages';
 
 class BetaTest extends Component {
 
@@ -39,7 +40,6 @@ class BetaTest extends Component {
         appleChecked === true ? changeAppleChecked(false) : changeAppleChecked(true);
     }
 
-    //Обработка нажатия кнопки отправить, если не выделено ничего - выведет ошибку Please choose at least one OS platform
     handleSubscribeBtn = () => {
         const {
             androidChecked,
@@ -103,7 +103,7 @@ class BetaTest extends Component {
                                                     <Icon name={success ? "check circle outline" : "warning circle"} />
                                                 </div>
                                                 <div className={"modal__success_text betatest__modal_text"}>
-                                                    <span>{success ? "Your application has been sent" : betaTestError}</span>
+                                                    <span>{success ? BETATEST.SUCCESS : betaTestError}</span>
                                                 </div>
                                                 <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                                     <Button
