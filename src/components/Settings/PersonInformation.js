@@ -92,13 +92,14 @@ class PersonInformation extends Component {
             return false;
         }
     }
-    handleChange = event => {
-        const { value,
+    handleBlur = event => {
+        const {
+            value,
             id
         } = event.target;
         const {
             changeSettingsInput,
-            stateObject,
+            stateObject
         } = this.props;
         switch (id) {
             case 'Name':
@@ -108,7 +109,7 @@ class PersonInformation extends Component {
                 this.checkEnglish(value, 'lastNameError', 100);
                 break;
             case 'Zip':
-                this.checkZip(value, 'zipError',4, 10)
+                this.checkZip(value, 'zipError',4, 10);
                 break;
             case 'Phone':
                 this.checkPhone(value, 'phoneError', 15);
@@ -117,6 +118,20 @@ class PersonInformation extends Component {
                 this.checkEmail(value, 'emailError', 100);
                 break;
         };
+        changeSettingsInput({
+            stateInput: stateObject,
+            keyInput: id,
+            valueInput: value
+        });
+    }
+    handleChange = event => {
+        const { value,
+            id
+        } = event.target;
+        const {
+            changeSettingsInput,
+            stateObject,
+        } = this.props;
         changeSettingsInput({
             stateInput: stateObject,
             keyInput: id,
@@ -175,6 +190,7 @@ class PersonInformation extends Component {
                                         placeholder={"Name"}
                                         value={settings[stateObject].Name}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         className={settings[stateObject].Name ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Name</span>
@@ -192,6 +208,7 @@ class PersonInformation extends Component {
                                         placeholder={"Surname"}
                                         value={settings[stateObject].Surname}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         className={settings[stateObject].Surname ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
@@ -273,6 +290,7 @@ class PersonInformation extends Component {
                                         placeholder={"ZIP/Postal code"}
                                         value={settings[stateObject].Zip}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         className={settings[stateObject].Zip ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>ZIP/Postal code</span>
@@ -308,6 +326,7 @@ class PersonInformation extends Component {
                                         placeholder={"Email"}
                                         value={settings[stateObject].Email}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         className={settings[stateObject].Email ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Email</span>
@@ -326,6 +345,7 @@ class PersonInformation extends Component {
                                         placeholder={"Phone"}
                                         value={settings[stateObject].Phone}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
                                         className={settings[stateObject].Phone ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Phone</span>
