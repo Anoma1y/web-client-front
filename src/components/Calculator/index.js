@@ -22,7 +22,6 @@ import {
     calcCurrency,
     calcToken
 } from 'libs/math';
-
 import { CurrencyButton } from './CalculatorButton';
 import { InputSlider } from './CalculatorSlider';
 import CalculatorComment from './CalculatorComment';
@@ -37,21 +36,13 @@ class Calculator extends Component {
             activeIndex: -1,
             messageLength: 0
         }
-
     }
-    //Метод для изменения состояния
-    //Принимает 1 значение: value - объект данных
-    //Вызывает Action для добавления данных в Store
+
     changeState = value => {
         const { changeTransferData } = this.props;
         changeTransferData(value);
     }
 
-    //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
-    //Принимает 1 значение (event - value) - вводимое (пользователем) значение
-    //Происходит проверка на отсутствие текста и спец-символов
-    //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
-    //Передает в данную фукнцию функцию которая расчитывает данные
     handleToken = (event) => {
         const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
         const { value } = event.target;
@@ -84,12 +75,7 @@ class Calculator extends Component {
         } = this.props.rate;
         this.changeState(calcToken(value, currencyValue, BONUS_LIST, CRYPTO_CURRENCY, TSR_RATE));
     }
-    
-    //Метод для обработки Input ввода валюты (тип валюты зависит от выбранного Radio Button'a)
-    //Принимает 1 значение (event - value) - вводимое (пользователем) значение
-    //Происходит проверка на отсутствие текста и спец-символов
-    //Если ошибок нет, то вызывает фукнцию для изменения состояния с помощью экшенеов
-    //Передает в данную фукнцию функцию которая расчитывает данные
+
     handleCurrency = event => {
         const {
             currencyValue,
@@ -116,9 +102,6 @@ class Calculator extends Component {
         this.changeState(data);
     }
 
-    //Метод для обработки Radio button'ов
-    //Устанавливает текущее значение выбранной валюты, принимает 1 параметр (значение event'a) - текущая валюта
-    //Взывает Action для смены выбранной валюты в Reducer
     handleChange = (event, {value}) => {
         const { changeCurrencyValue } = this.props;
         changeCurrencyValue(value);
@@ -140,14 +123,11 @@ class Calculator extends Component {
         })
     }
 
-    //Метод проверки суффикса (принимает параметры: event (текущий инпут) и handleType (тип: фокус или потеря фокуса из инпута)
-    //Возвращает объект булевых значений для каждого инпута
     checkSuffix = (event, handleType) => {
         const suffixText = {
             suffixToken: true,
             suffixCurrency: true
         };
-        //inputRef после ноды
         if (this.inputToken === event.target) {
             suffixText.suffixToken = handleType !== "FOCUS";
         } else if (this.inputCurrency === event.target) {
@@ -156,14 +136,12 @@ class Calculator extends Component {
         return suffixText;
     }
 
-    //Метод для возвращения суффикса (текущей валюты) в инпут.
     handleBlur = event => {
         const { checkSuffixText } = this.props;
         const suffixText = this.checkSuffix(event, "BLUR");
         checkSuffixText(suffixText);
     }
 
-    //Метод для снятия суффикса (текущей валюты) из инпута, для последующего ввода числового значения
     handleFocus = event => {
         const { checkSuffixText } = this.props;
         const suffixText = this.checkSuffix(event, "FOCUS");
@@ -220,7 +198,6 @@ class Calculator extends Component {
     }
 
     render() {
-        const { isMaximum } = this.props.calculator.progressBar;
         const {
             messageLength
         } = this.state;
@@ -234,6 +211,7 @@ class Calculator extends Component {
             currentBonus,
             comments,
             modalOpen,
+            progressBar,
             modalSuccessful,
             order,
             querySuccess,
@@ -292,7 +270,7 @@ class Calculator extends Component {
                                     handleTokenRange={this.handleTokenRange}
                                 />
                                 {
-                                    isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
+                                    progressBar.isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
                                                     <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
                                                     You've reached the limit
                                                  </span>
@@ -342,7 +320,6 @@ class Calculator extends Component {
 
 export default connect(state => ({
     calculator: state.calculator,
-    user: state.user,
     rate: state.rate
 }), {
     changeCurrencyValue,
