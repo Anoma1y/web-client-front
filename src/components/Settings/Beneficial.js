@@ -10,6 +10,7 @@ import IdentificationImgUpload from './IdentificationImgUpload';
 import {countryOptions} from "libs/country";
 import InputMask from 'react-input-mask';
 import {ERROR_VALIDATION, SETTINGS} from 'libs/messages';
+import {LIMIT} from "libs/validation";
 
 class Beneficial extends Component {
 
@@ -20,7 +21,8 @@ class Beneficial extends Component {
             lastNameError: '',
             zipError: '',
             emailError: '',
-            phoneError: ''
+            phoneError: '',
+            birthdayError: ''
         }
     }
 
@@ -92,6 +94,9 @@ class Beneficial extends Component {
             case 'Email':
                 this.checkEmail(value, 'emailError' ,100);
                 break;
+            case 'Dateofbirth':
+                this.checkAge(value, 'birthdayError');
+                break;
         }
         changeInputBeneficial({
             indexBeneficial,
@@ -99,6 +104,7 @@ class Beneficial extends Component {
             valueBeneficial: value
         });
     }
+    
     checkAge = (value, nameError) => {
         if (value.length === 10) {
             const DATE = {
@@ -110,11 +116,15 @@ class Beneficial extends Component {
             let d1 = new Date(CHECK_MINIMUM_AGE);
             let d2 = new Date();
             let days = (d2 - d1)/(1000*60*60*24);
-            if ((days < 6570 && days > 0) || days > 36200) {
+            if (days < 6570 && days > 0) {
                 this.setState({
-                    [nameError]: ERROR_VALIDATION.BIRTHDAY.AGE
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.UNDER
                 });
-            } else if (Math.sign(days) === -1) {
+            } else if (days > 36200) {
+                this.setState({
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.OVER
+                });
+            } else if (Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 ) {
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
                 });
@@ -140,6 +150,7 @@ class Beneficial extends Component {
             emailError: '',
             zipError: '',
             phoneError: '',
+            birthdayError: ''
         });
         const {
             indexBeneficial,
@@ -161,9 +172,9 @@ class Beneficial extends Component {
             changeInputBeneficial
         } = this.props;
         changeInputBeneficial({
-        indexBeneficial,
-        keyBeneficial: id,
-        valueBeneficial: value
+            indexBeneficial,
+            keyBeneficial: id,
+            valueBeneficial: value
         });
     }
     checkEnglish = (value, nameError, len) => {
@@ -238,7 +249,8 @@ class Beneficial extends Component {
             lastNameError,
             zipError,
             emailError,
-            phoneError
+            phoneError,
+            birthdayError
         } = this.state;
         const { settingsInputError } = this.props.settings;
         return (
@@ -247,82 +259,96 @@ class Beneficial extends Component {
                     <Grid>
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (nameError.length !== 0 && settings.beneficial[indexBeneficial].Name.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Name.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((nameError.length !== 0 && settings.beneficial[indexBeneficial].Name.length > 0) || settings.beneficial[indexBeneficial].Name.length > LIMIT.NAME.MAX) ? "auth_input-error"
+                                    : (settings.beneficial[indexBeneficial].Name.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
                             }>
                                 <label>
                                     <input
-                                        type='text'
-                                        placeholder={'Name'}
-                                        id={'Name'}
+                                        type="text"
+                                        id={"Name"}
+                                        placeholder={"Name"}
+                                        value={settings.beneficial[indexBeneficial].Name}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
-                                        value={settings.beneficial[indexBeneficial].Name}
-                                        className={settings.beneficial[indexBeneficial].Name ? 'populated' : ''}
+                                        className={settings.beneficial[indexBeneficial].Name ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Name</span>
                                     {nameError.length !== 0 && settings.beneficial[indexBeneficial].Name.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
+                                    {settings.beneficial[indexBeneficial].Name.length > LIMIT.NAME.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Name.length > LIMIT.NAME.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Name.length}/${LIMIT.NAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (lastNameError.length !== 0 && settings.beneficial[indexBeneficial].Surname.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Surname.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
-                            }>
+                                ((lastNameError.length !== 0 && settings.beneficial[indexBeneficial].Surname.length > 0) || settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.MAX) ? "auth_input-error"
+                                    : (settings.beneficial[indexBeneficial].Surname.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
+                            }
+                            >
                                 <label>
                                     <input
-                                        type='text'
-                                        placeholder={'Surname'}
-                                        id={'Surname'}
+                                        type="text"
+                                        id={"Surname"}
+                                        placeholder={"Surname"}
+                                        value={settings.beneficial[indexBeneficial].Surname}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
-                                        value={settings.beneficial[indexBeneficial].Surname}
-                                        className={settings.beneficial[indexBeneficial].Surname ? 'populated' : ''}
+                                        className={settings.beneficial[indexBeneficial].Surname ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
                                     {lastNameError.length !== 0 && settings.beneficial[indexBeneficial].Surname.length !== 0 ? <p className={'auth__error'}>{lastNameError}</p> : null}
+                                    {settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row className={'auth_input settings__information'}>
+                        <Grid.Row className={"auth_input settings__information"}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (settings.beneficial[indexBeneficial].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((settings.beneficial[indexBeneficial].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings.beneficial[indexBeneficial].Addres.length > LIMIT.ADDRESS.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
-                                        type='text'
-                                        placeholder={'Address'}
-                                        id={'Addres'}
-                                        onChange={this.handleChange}
+                                        type="text"
+                                        id={"Addres"}
+                                        placeholder={"Address"}
                                         value={settings.beneficial[indexBeneficial].Addres}
-                                        className={settings.beneficial[indexBeneficial].Addres ? 'populated' : ''}
+                                        onChange={this.handleChange}
+                                        className={settings.beneficial[indexBeneficial].Addres ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Address</span>
                                     {
-                                        settings.beneficial[indexBeneficial].Addres.length > 1900 ? <p className={'auth_length'}> {`${settings.beneficial[indexBeneficial].Addres.length}/2000`}</p> : null
+                                        settings.beneficial[indexBeneficial].Addres.length > LIMIT.ADDRESS.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Addres.length > LIMIT.ADDRESS.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Addres.length}/${LIMIT.ADDRESS.MAX}`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
+
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (settings.beneficial[indexBeneficial].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((settings.beneficial[indexBeneficial].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings.beneficial[indexBeneficial].City.length > LIMIT.CITY.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
-                                        type='text'
-                                        placeholder={'City'}
-                                        id={'City'}
-                                        onChange={this.handleChange}
+                                        type="text"
+                                        id={"City"}
+                                        placeholder={"City"}
                                         value={settings.beneficial[indexBeneficial].City}
-                                        className={settings.beneficial[indexBeneficial].City ? 'populated' : ''}
+                                        onChange={this.handleChange}
+                                        className={settings.beneficial[indexBeneficial].City ? "populated" : ""}
                                     />
-                                    <span className={'auth_input-span'}>City</span>
+                                    <span className={'auth_input-span'}>
+                                        City
+                                    </span>
                                     {
-                                        settings.beneficial[indexBeneficial].City.length > 90 ? <p className={'auth_length'}> {`${settings.beneficial[indexBeneficial].City.length}/100`}</p> : null
+                                        settings.beneficial[indexBeneficial].City.length > LIMIT.CITY.ATTENTION ? <p className={settings.beneficial[indexBeneficial].City.length > LIMIT.CITY.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].City.length}/${LIMIT.CITY.MAX}`}</p> : null
                                     }
+
                                 </label>
                             </Grid.Column>
+
                         </Grid.Row>
-                        <Grid.Row className={'auth_input settings__information'}>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16}>
+                        <Grid.Row className={"auth_input settings__information"}>
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                (settings.beneficial[indexBeneficial].Country.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                            }>
                                 <label className={settings.beneficial[indexBeneficial].Country.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
                                     <Dropdown
                                         placeholder='Choose your country'
@@ -343,75 +369,90 @@ class Beneficial extends Component {
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
                                 (zipError.length !== 0 && settings.beneficial[indexBeneficial].Zip.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Zip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
-                                <label style={{width: '50%'}}>
+                                <label style={{width: "50%"}}>
                                     <InputMask
-                                        type='text'
-                                        placeholder={'ZIP/Postal code'}
-                                        id={'Zip'}
+                                        type="text"
+                                        id={"Zip"}
                                         mask="**********"
                                         maskChar={null}
+                                        placeholder={"ZIP/Postal code"}
+                                        value={settings.beneficial[indexBeneficial].Zip}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
-                                        value={settings.beneficial[indexBeneficial].Zip}
-                                        className={settings.beneficial[indexBeneficial].Zip ? 'populated' : ''}
+                                        className={settings.beneficial[indexBeneficial].Zip ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>ZIP/Postal code</span>
                                     {zipError.length !== 0 && settings.beneficial[indexBeneficial].Zip.length !== 0 ? <p className={'auth__error'}>{zipError}</p> : null}
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row className={'auth_input settings__information'}>
+                        <Grid.Row className={"auth_input settings__information"}>
+
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (settings.beneficial[indexBeneficial].Dateofbirth.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                (birthdayError.length !== 0 && settings.beneficial[indexBeneficial].Dateofbirth.length > 0) ? "auth_input-error"
+                                    : (settings.beneficial[indexBeneficial].Dateofbirth.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
+
                             }>
                                 <label>
                                     <InputMask
-                                        type='text'
-                                        placeholder={'Birth day'}
+                                        type="text"
+                                        id={"Dateofbirth"}
                                         mask="99.99.9999"
                                         maskChar={null}
-                                        id={'Dateofbirth'}
-                                        onChange={this.handleChange}
+                                        placeholder={"Birth day"}
                                         value={settings.beneficial[indexBeneficial].Dateofbirth}
-                                        className={settings.beneficial[indexBeneficial].Dateofbirth ? 'populated' : ''}
-                                    />
-                                    <span className={'auth_input-span'}>Birth day</span>
-                                </label>
-                            </Grid.Column>
-                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (emailError.length !== 0 && settings.beneficial[indexBeneficial].Email.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
-                            }>
-                                <label>
-                                    <input
-                                        type='text'
-                                        placeholder={'Email'}
-                                        id={'Email'}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
+                                        className={settings.beneficial[indexBeneficial].Dateofbirth ? "populated" : ""}
+                                    />
+                                    <span className={'auth_input-span'}>Birth day</span>
+                                    {birthdayError.length !== 0 && settings.beneficial[indexBeneficial].Dateofbirth.length !== 0 ? <p className={'auth__error'}>{birthdayError}</p> : null}
+                                </label>
+                            </Grid.Column>
+
+                            <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
+                                ((emailError.length !== 0 && settings.beneficial[indexBeneficial].Email.length > 0) || settings.beneficial[indexBeneficial].Email > LIMIT.EMAIL.MAX)? "auth_input-error"
+                                    : (settings.beneficial[indexBeneficial].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
+                            }>
+                                <label>
+                                    <input
+                                        type="email"
+                                        id={"Email"}
+                                        placeholder={"Email"}
                                         value={settings.beneficial[indexBeneficial].Email}
-                                        className={settings.beneficial[indexBeneficial].Email ? 'populated' : ''}
+                                        onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
+                                        className={settings.beneficial[indexBeneficial].Email ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Email</span>
                                     {emailError.length !== 0 && settings.beneficial[indexBeneficial].Email.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
+                                    {settings.beneficial[indexBeneficial].Email.length > LIMIT.EMAIL.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Email.length > LIMIT.EMAIL.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Email.length}/${LIMIT.EMAIL.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
+
                         </Grid.Row>
-                        <Grid.Row className={'auth_input settings__information'}>
+                        <Grid.Row className={"auth_input settings__information"}>
+
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
                                 (phoneError.length !== 0 && settings.beneficial[indexBeneficial].Phone.length > 0) ? "auth_input-error" : (settings.beneficial[indexBeneficial].Phone.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label >
-                                    <input
-                                        type='text'
-                                        placeholder={'Phone'}
-                                        id={'Phone'}
+                                    <InputMask
+                                        type="text"
+                                        id={"Phone"}
+                                        placeholder={"Phone"}
+                                        mask="***************"
+                                        maskChar={null}
+                                        value={settings.beneficial[indexBeneficial].Phone}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
-                                        value={settings.beneficial[indexBeneficial].Phone}
-                                        className={settings.beneficial[indexBeneficial].Phone ? 'populated' : ''}
+                                        className={settings.beneficial[indexBeneficial].Phone ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Phone</span>
                                     {phoneError.length !== 0 && settings.beneficial[indexBeneficial].Phone.length !== 0 ? <p className={'auth__error'}>{phoneError}</p> : null}

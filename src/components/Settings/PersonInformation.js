@@ -152,11 +152,15 @@ class PersonInformation extends Component {
             let d1 = new Date(CHECK_MINIMUM_AGE);
             let d2 = new Date();
             let days = (d2 - d1)/(1000*60*60*24);
-            if ((days < 6570 && days > 0) || days > 36200) {
+            if (days < 6570 && days > 0) {
                 this.setState({
-                    [nameError]: ERROR_VALIDATION.BIRTHDAY.AGE
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.UNDER
                 });
-            } else if (Math.sign(days) === -1) {
+            } else if (days > 36200) {
+                this.setState({
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.OVER
+                });
+            } else if (Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 ) {
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
                 });

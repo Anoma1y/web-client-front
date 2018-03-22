@@ -11,7 +11,8 @@ export const ERROR_VALIDATION = {
     TOKEN: "Invalid Token",
     BIRTHDAY: {
         NO_VALID: 'Enter valid birthday',
-        AGE: 'Your age must be at least 18'
+        UNDER: 'Your age must be at least 18 years old',
+        OVER: 'Your age must be no more than 100 years old'
     }
 };
 
