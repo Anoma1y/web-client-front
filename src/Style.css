@@ -750,10 +750,10 @@ body {
         background-image: -o-linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important;
         background-image: linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important; }
 
-.roadmap_modal {
-  height: 90vh !important; }
-  .roadmap_modal iframe {
-    border: 1px solid rgba(147, 147, 147, 0.2) !important; }
+iframe.roadmap_modal {
+  border: 1px solid rgba(147, 147, 147, 0.2) !important;
+  width: 100%;
+  height: 100%; }
 
 /***BETATEST COMPONENT***/
 .betatest__title {
