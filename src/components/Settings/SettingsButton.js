@@ -12,7 +12,8 @@ import {
     handleSettingsSend,
     changeSettingsInputError,
 } from 'actions/settings';
-import {ERROR_VALIDATION, SETTINGS} from 'libs/messages';
+import { SETTINGS } from 'libs/messages';
+import { LIMIT } from 'libs/validation';
 import _ from 'underscore';
 
 class SettingsButton extends Component {
@@ -47,15 +48,9 @@ class SettingsButton extends Component {
             let d1 = new Date(CHECK_MINIMUM_AGE);
             let d2 = new Date();
             let days = (d2 - d1)/(1000*60*60*24);
-            if ((days < 6570 && days > 0) || Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 || days > 36200 ) {
-                // this.setState({
-                //     [nameError]: ERROR_VALIDATION.BIRTHDAY.UNDER
-                // });
-            }
+            return ((days < 6570 && days > 0) || Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 || days > 36200 ) !== true;
         } else if (value.length >= 0 || value.length < 10) {
-            // this.setState({
-            //     [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
-            // });
+            return false;
         }
     }
     checkCompletenessFields = (TYPE) => {
@@ -69,20 +64,22 @@ class SettingsButton extends Component {
                 handleSettingsSend
             } = this.props;
             const checkedValidationUserInformation = _.every(Object.keys(individualUserInformation).map((item) => {
-                if (item === 'Name' || item === 'Surname') {
-                    return this.checkEnglish(individualUserInformation[item])
+                if (item === 'Name') {
+                    return this.checkEnglish(individualUserInformation[item]) && individualUserInformation[item].length <= LIMIT.NAME.MAX;
+                } else if (item === 'Surname') {
+                    return this.checkEnglish(individualUserInformation[item]) && individualUserInformation[item].length <= LIMIT.SURNAME.MAX;
                 } else if (item === 'Zip') {
                     return this.checkZip(individualUserInformation[item]);
                 } else if (item === 'Email') {
-                    return this.checkEmail(individualUserInformation[item]);
+                    return this.checkEmail(individualUserInformation[item]) && individualUserInformation[item].length <= LIMIT.EMAIL.MAX;
                 } else if (item === 'Phone') {
-                    return this.checkPhone(individualUserInformation[item]);
+                    return this.checkPhone(individualUserInformation[item]) && individualUserInformation[item].length >= 1;
                 } else if (item === 'Dateofbirth') {
                     return this.checkAge(individualUserInformation[item]);
                 } else if (item === 'City') {
-                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 100;
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= LIMIT.CITY.MAX;
                 } else if (item === 'Addres') {
-                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 2000;
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= LIMIT.ADDRESS.MAX;
                 } else if (item === 'Country') {
                     return individualUserInformation[item].length > 0;
                 }

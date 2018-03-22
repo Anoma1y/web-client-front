@@ -300,7 +300,7 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
                                     {lastNameError.length !== 0 && settings[stateObject].Surname.length !== 0 ? <p className={'auth__error'}>{lastNameError}</p> : null}
-                                    {settings[stateObject].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings[stateObject].Surname.length > LIMIT.SURNAME.ATTENTION ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
+                                    {settings[stateObject].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings[stateObject].Surname.length > LIMIT.SURNAME.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
