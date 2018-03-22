@@ -13,6 +13,7 @@ import {
     changeSettingsInputError,
 } from 'actions/settings';
 import { SETTINGS } from 'libs/messages';
+import { LIMIT } from 'libs/validation';
 import _ from 'underscore';
 
 class SettingsButton extends Component {
@@ -36,7 +37,22 @@ class SettingsButton extends Component {
     checkPhone = value => value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/) !== null
     checkWeb = value => value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/) !== null
     checkZip = value => (value.match(/^[0-9a-zA-Z]+$|i/) && value.length >= 4)
-
+    checkAge = (value) => {
+        if (value.length === 10) {
+            const DATE = {
+                DAY: value.split('.')[0],
+                MONTH: value.split('.')[1],
+                YEAR: value.split('.')[2]
+            };
+            let CHECK_MINIMUM_AGE = DATE.YEAR + ", " + DATE.MONTH + ", " + DATE.DAY;
+            let d1 = new Date(CHECK_MINIMUM_AGE);
+            let d2 = new Date();
+            let days = (d2 - d1)/(1000*60*60*24);
+            return ((days < 6570 && days > 0) || Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 || days > 36200 ) !== true;
+        } else if (value.length >= 0 || value.length < 10) {
+            return false;
+        }
+    }
     checkCompletenessFields = (TYPE) => {
         if (TYPE === 'individual') {
             const {
@@ -48,19 +64,23 @@ class SettingsButton extends Component {
                 handleSettingsSend
             } = this.props;
             const checkedValidationUserInformation = _.every(Object.keys(individualUserInformation).map((item) => {
-                if (item === 'Name' || item === 'Surname') {
-                    return this.checkEnglish(individualUserInformation[item])
+                if (item === 'Name') {
+                    return this.checkEnglish(individualUserInformation[item]) && individualUserInformation[item].length <= LIMIT.NAME.MAX;
+                } else if (item === 'Surname') {
+                    return this.checkEnglish(individualUserInformation[item]) && individualUserInformation[item].length <= LIMIT.SURNAME.MAX;
                 } else if (item === 'Zip') {
                     return this.checkZip(individualUserInformation[item]);
                 } else if (item === 'Email') {
-                    return this.checkEmail(individualUserInformation[item]);
+                    return this.checkEmail(individualUserInformation[item]) && individualUserInformation[item].length <= LIMIT.EMAIL.MAX;
                 } else if (item === 'Phone') {
-                    return this.checkPhone(individualUserInformation[item]);
+                    return this.checkPhone(individualUserInformation[item]) && individualUserInformation[item].length >= 1;
+                } else if (item === 'Dateofbirth') {
+                    return this.checkAge(individualUserInformation[item]);
                 } else if (item === 'City') {
-                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 100;
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= LIMIT.CITY.MAX;
                 } else if (item === 'Addres') {
-                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 2000;
-                } else if (item === 'Country' || item === 'Dateofbirth') {
+                    return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= LIMIT.ADDRESS.MAX;
+                } else if (item === 'Country') {
                     return individualUserInformation[item].length > 0;
                 }
             }), num => num === true);
@@ -97,19 +117,23 @@ class SettingsButton extends Component {
                 changeSettingsInputError
             } = this.props;
             const checkedValidationCompanyUserInformation = _.every(Object.keys(companyUserInformation).map((item) => {
-                if (item === 'Name' || item === 'Surname') {
-                    return this.checkEnglish(companyUserInformation[item])
+                if (item === 'Name') {
+                    return this.checkEnglish(companyUserInformation[item]) && companyUserInformation[item].length <= LIMIT.NAME.MAX;
+                } else if (item === 'Surname') {
+                    return this.checkEnglish(companyUserInformation[item]) && companyUserInformation[item].length <= LIMIT.SURNAME.MAX;
                 } else if (item === 'Zip') {
                     return this.checkZip(companyUserInformation[item]);
                 } else if (item === 'Email') {
-                    return this.checkEmail(companyUserInformation[item]);
+                    return this.checkEmail(companyUserInformation[item]) && companyUserInformation[item].length <= LIMIT.EMAIL.MAX;
                 } else if (item === 'Phone') {
-                    return this.checkPhone(companyUserInformation[item]);
+                    return this.checkPhone(companyUserInformation[item]) && companyUserInformation[item].length >= 1;
+                } else if (item === 'Dateofbirth') {
+                    return this.checkAge(companyUserInformation[item]);
                 } else if (item === 'City') {
-                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 100;
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= LIMIT.CITY.MAX;
                 } else if (item === 'Addres') {
-                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 2000;
-                } else if (item === 'Country' || item === 'Dateofbirth') {
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= LIMIT.ADDRESS.MAX;
+                } else if (item === 'Country') {
                     return companyUserInformation[item].length > 0;
                 }
             }), (num) => num === true);
@@ -122,7 +146,7 @@ class SettingsButton extends Component {
 
             const checkedValidationCompanyInformation = _.every(Object.keys(companyInformation).map((item) => {
                 if (item === 'companyCompanyName') {
-                    return this.checkEnglish(companyInformation[item]);
+                    return this.checkEnglish(companyInformation[item]) && companyInformation[item].length <= LIMIT.COMPANY_NAME.MAX;
                 } else if (item === 'companyTaxIDnumber') {
                     return this.checkNumber(companyInformation[item]);
                 } else if (item === 'companyZip') {
@@ -134,14 +158,16 @@ class SettingsButton extends Component {
                 } else if (item === 'companyPhone') {
                     return this.checkPhone(companyInformation[item]);
                 } else if (item === 'companyCity') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 100;
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.CITY.MAX;
                 } else if (item === 'companyLegaladdress') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.LEGAL_ADDRESS.MAX;
                 } else if (item === 'companyActualbusinessplaceaddress') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.ACTUAL_BUSINESS_ADDRESS.MAX;
                 } else if (item === 'companyDescriptioncompanydoes') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 4500;
-                } else if (item === 'companyTaxrezidencecountry' || item === 'companyLinktopubliccompanyregister') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.DESCRIPTION_COMPANY_DOES.MAX;
+                } else if (item === 'companyLinktopubliccompanyregister') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX;
+                } else if (item === 'companyTaxrezidencecountry') {
                     return companyInformation[item].length > 0;
                 }
             }), (num) => num === true);
@@ -158,19 +184,23 @@ class SettingsButton extends Component {
 
             const checkedValidationBeneficial = Object.values(beneficial).map(item => {
                 return Object.keys(item).map(it => {
-                    if (it === 'Name' || it === 'Surname') {
-                        return this.checkEnglish(item[it])
+                    if (it === 'Name') {
+                        return this.checkEnglish(item[it]) && item[it].length <= LIMIT.NAME.MAX;
+                    } else if (it === 'Surname') {
+                        return this.checkEnglish(item[it]) && item[it].length <= LIMIT.SURNAME.MAX;
                     } else if (it === 'Zip') {
                         return this.checkZip(item[it]);
                     } else if (it === 'Email') {
-                        return this.checkEmail(item[it]);
+                        return this.checkEmail(item[it]) && item[it].length <= LIMIT.EMAIL.MAX;
                     } else if (it === 'Phone') {
-                        return this.checkPhone(item[it]);
+                        return this.checkPhone(item[it]) && item[it].length >= 1;
+                    } else if (it === 'Dateofbirth') {
+                        return this.checkAge(item[it]);
                     } else if (it === 'City') {
-                        return item[it].length > 0 && item[it].length <= 100;
+                        return item[it].length > 0 && item[it].length <= LIMIT.CITY.MAX;
                     } else if (it === 'Addres') {
-                        return item[it].length > 0 && item[it].length <= 2000;
-                    } else if (it === 'Country' || it === 'Dateofbirth') {
+                        return item[it].length > 0 && item[it].length <= LIMIT.ADDRESS.MAX;
+                    } else if (it === 'Country') {
                         return item[it].length > 0;
                     }
                 })

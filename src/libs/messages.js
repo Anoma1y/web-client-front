@@ -9,6 +9,11 @@ export const ERROR_VALIDATION = {
     PASSWORD_MATCH: "Passwords do not match",
     PASSWORD_NEW: "Enter a new password",
     TOKEN: "Invalid Token",
+    BIRTHDAY: {
+        NO_VALID: 'Enter a valid date',
+        UNDER: 'Your age must be at least 18 years old',
+        OVER: 'Your age must be no more than 100 years old'
+    }
 };
 
 export const ERROR_IMAGE = {
