@@ -194,9 +194,18 @@ class IdentificationImgUpload extends Component {
                             onChange={(e)=>this.handleImageChange(e)}
                         />
                         { this.state.fileUploadError.length !== 0 ?
+
                             <p className={'imagePreview__error'}>
                                 {this.state.fileUploadError}
-                            </p> : null
+                            </p>
+
+                            : (this.props.settings.settingsInputError !== null && this.state.file.length === 0) ?
+
+                            <p className={'imagePreview__error'}>
+                                Required field
+                            </p>
+
+                            : null
                         }
                     </Grid.Column>
                 </Grid.Row>

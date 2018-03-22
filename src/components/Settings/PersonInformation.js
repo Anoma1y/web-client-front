@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     changeSettingsInput,
-    changeSettingsInputError
 } from 'actions/settings';
 import {
     Grid,
@@ -470,6 +469,5 @@ class PersonInformation extends Component {
 }
 
 export default connect(state => ({ settings: state.settings }), {
-    changeSettingsInput,
-    changeSettingsInputError
+    changeSettingsInput
 })(PersonInformation);
