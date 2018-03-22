@@ -12,7 +12,7 @@ import {
     handleSettingsSend,
     changeSettingsInputError,
 } from 'actions/settings';
-import { SETTINGS } from 'libs/messages';
+import {ERROR_VALIDATION, SETTINGS} from 'libs/messages';
 import _ from 'underscore';
 
 class SettingsButton extends Component {
@@ -36,7 +36,28 @@ class SettingsButton extends Component {
     checkPhone = value => value.match(/^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/) !== null
     checkWeb = value => value.match(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/) !== null
     checkZip = value => (value.match(/^[0-9a-zA-Z]+$|i/) && value.length >= 4)
-
+    checkAge = (value) => {
+        if (value.length === 10) {
+            const DATE = {
+                DAY: value.split('.')[0],
+                MONTH: value.split('.')[1],
+                YEAR: value.split('.')[2]
+            };
+            let CHECK_MINIMUM_AGE = DATE.YEAR + ", " + DATE.MONTH + ", " + DATE.DAY;
+            let d1 = new Date(CHECK_MINIMUM_AGE);
+            let d2 = new Date();
+            let days = (d2 - d1)/(1000*60*60*24);
+            if ((days < 6570 && days > 0) || Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 || days > 36200 ) {
+                // this.setState({
+                //     [nameError]: ERROR_VALIDATION.BIRTHDAY.UNDER
+                // });
+            }
+        } else if (value.length >= 0 || value.length < 10) {
+            // this.setState({
+            //     [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
+            // });
+        }
+    }
     checkCompletenessFields = (TYPE) => {
         if (TYPE === 'individual') {
             const {
@@ -56,11 +77,13 @@ class SettingsButton extends Component {
                     return this.checkEmail(individualUserInformation[item]);
                 } else if (item === 'Phone') {
                     return this.checkPhone(individualUserInformation[item]);
+                } else if (item === 'Dateofbirth') {
+                    return this.checkAge(individualUserInformation[item]);
                 } else if (item === 'City') {
                     return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 100;
                 } else if (item === 'Addres') {
                     return individualUserInformation[item].length > 0 && individualUserInformation[item].length <= 2000;
-                } else if (item === 'Country' || item === 'Dateofbirth') {
+                } else if (item === 'Country') {
                     return individualUserInformation[item].length > 0;
                 }
             }), num => num === true);

@@ -87,14 +87,38 @@ class PersonInformation extends Component {
             value,
             id
         } = event.target;
-        this.setState({
-            nameError: '',
-            lastNameError: '',
-            emailError: '',
-            zipError: '',
-            phoneError: '',
-            birthdayError: ''
-        });
+        switch (id) {
+            case 'Name':
+                this.setState({
+                    nameError: ''
+                });
+                break;
+            case 'Surname':
+                this.setState({
+                    lastNameError: ''
+                });
+                break;
+            case 'Zip':
+                this.setState({
+                    zipError: ''
+                });
+                break;
+            case 'Phone':
+                this.setState({
+                    phoneError: ''
+                });
+                break;
+            case 'Email':
+                this.setState({
+                    emailError: ''
+                });
+                break;
+            case 'Dateofbirth':
+                this.setState({
+                    birthdayError: ''
+                });
+                break;
+        };
         const {
             changeSettingsInput,
             stateObject
