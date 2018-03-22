@@ -117,19 +117,23 @@ class SettingsButton extends Component {
                 changeSettingsInputError
             } = this.props;
             const checkedValidationCompanyUserInformation = _.every(Object.keys(companyUserInformation).map((item) => {
-                if (item === 'Name' || item === 'Surname') {
-                    return this.checkEnglish(companyUserInformation[item])
+                if (item === 'Name') {
+                    return this.checkEnglish(companyUserInformation[item]) && companyUserInformation[item].length <= LIMIT.NAME.MAX;
+                } else if (item === 'Surname') {
+                    return this.checkEnglish(companyUserInformation[item]) && companyUserInformation[item].length <= LIMIT.SURNAME.MAX;
                 } else if (item === 'Zip') {
                     return this.checkZip(companyUserInformation[item]);
                 } else if (item === 'Email') {
-                    return this.checkEmail(companyUserInformation[item]);
+                    return this.checkEmail(companyUserInformation[item]) && companyUserInformation[item].length <= LIMIT.EMAIL.MAX;
                 } else if (item === 'Phone') {
-                    return this.checkPhone(companyUserInformation[item]);
+                    return this.checkPhone(companyUserInformation[item]) && companyUserInformation[item].length >= 1;
+                } else if (item === 'Dateofbirth') {
+                    return this.checkAge(companyUserInformation[item]);
                 } else if (item === 'City') {
-                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 100;
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= LIMIT.CITY.MAX;
                 } else if (item === 'Addres') {
-                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= 2000;
-                } else if (item === 'Country' || item === 'Dateofbirth') {
+                    return companyUserInformation[item].length > 0 && companyUserInformation[item].length <= LIMIT.ADDRESS.MAX;
+                } else if (item === 'Country') {
                     return companyUserInformation[item].length > 0;
                 }
             }), (num) => num === true);
@@ -142,7 +146,7 @@ class SettingsButton extends Component {
 
             const checkedValidationCompanyInformation = _.every(Object.keys(companyInformation).map((item) => {
                 if (item === 'companyCompanyName') {
-                    return this.checkEnglish(companyInformation[item]);
+                    return this.checkEnglish(companyInformation[item]) && companyInformation[item].length <= LIMIT.COMPANY_NAME.MAX;
                 } else if (item === 'companyTaxIDnumber') {
                     return this.checkNumber(companyInformation[item]);
                 } else if (item === 'companyZip') {
@@ -154,14 +158,16 @@ class SettingsButton extends Component {
                 } else if (item === 'companyPhone') {
                     return this.checkPhone(companyInformation[item]);
                 } else if (item === 'companyCity') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 100;
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.CITY.MAX;
                 } else if (item === 'companyLegaladdress') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.LEGAL_ADDRESS.MAX;
                 } else if (item === 'companyActualbusinessplaceaddress') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 2000;
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.ACTUAL_BUSINESS_ADDRESS.MAX;
                 } else if (item === 'companyDescriptioncompanydoes') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= 4500;
-                } else if (item === 'companyTaxrezidencecountry' || item === 'companyLinktopubliccompanyregister') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.DESCRIPTION_COMPANY_DOES.MAX;
+                } else if (item === 'companyLinktopubliccompanyregister') {
+                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX;
+                } else if (item === 'companyTaxrezidencecountry') {
                     return companyInformation[item].length > 0;
                 }
             }), (num) => num === true);
@@ -178,19 +184,23 @@ class SettingsButton extends Component {
 
             const checkedValidationBeneficial = Object.values(beneficial).map(item => {
                 return Object.keys(item).map(it => {
-                    if (it === 'Name' || it === 'Surname') {
-                        return this.checkEnglish(item[it])
+                    if (it === 'Name') {
+                        return this.checkEnglish(item[it]) && item[it].length <= LIMIT.NAME.MAX;
+                    } else if (it === 'Surname') {
+                        return this.checkEnglish(item[it]) && item[it].length <= LIMIT.SURNAME.MAX;
                     } else if (it === 'Zip') {
                         return this.checkZip(item[it]);
                     } else if (it === 'Email') {
-                        return this.checkEmail(item[it]);
+                        return this.checkEmail(item[it]) && item[it].length <= LIMIT.EMAIL.MAX;
                     } else if (it === 'Phone') {
-                        return this.checkPhone(item[it]);
+                        return this.checkPhone(item[it]) && item[it].length >= 1;
+                    } else if (it === 'Dateofbirth') {
+                        return this.checkAge(item[it]);
                     } else if (it === 'City') {
-                        return item[it].length > 0 && item[it].length <= 100;
+                        return item[it].length > 0 && item[it].length <= LIMIT.CITY.MAX;
                     } else if (it === 'Addres') {
-                        return item[it].length > 0 && item[it].length <= 2000;
-                    } else if (it === 'Country' || it === 'Dateofbirth') {
+                        return item[it].length > 0 && item[it].length <= LIMIT.ADDRESS.MAX;
+                    } else if (it === 'Country') {
                         return item[it].length > 0;
                     }
                 })
