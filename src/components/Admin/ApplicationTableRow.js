@@ -8,7 +8,7 @@ import {
     applicationCalc
 } from 'libs/math';
 import { changeDeleteApplications } from 'actions/admin';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {countryOptions} from "libs/country";
 
 class ApplicationTableRow extends Component {
@@ -85,7 +85,7 @@ class ApplicationTableRow extends Component {
                 <Table.Cell width={1}>
                     <Link to={`../admin/application/${id}`}>{id}</Link>
                 </Table.Cell>
-                <Table.Cell width={2}>{moment(createdAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
+                <Table.Cell width={2}>{moment(createdAt).tz('Europe/Moscow').format('DD-MM-YYYY HH:mm:ss z')}</Table.Cell>
                 {fixCurrency}
                 {fixToken}
                 <Table.Cell width={1}>{this.getCountry(profile.country)}</Table.Cell>
