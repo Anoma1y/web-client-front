@@ -92,6 +92,28 @@ class PersonInformation extends Component {
             return false;
         }
     }
+    handleFocus = event => {
+        const {
+            value,
+            id
+        } = event.target;
+        this.setState({
+            nameError: '',
+            lastNameError: '',
+            emailError: '',
+            zipError: '',
+            phoneError: '',
+        });
+        const {
+            changeSettingsInput,
+            stateObject
+        } = this.props;
+        changeSettingsInput({
+            stateInput: stateObject,
+            keyInput: id,
+            valueInput: value
+        });
+    }
     handleBlur = event => {
         const {
             value,
@@ -191,6 +213,7 @@ class PersonInformation extends Component {
                                         value={settings[stateObject].Name}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         className={settings[stateObject].Name ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Name</span>
@@ -209,6 +232,7 @@ class PersonInformation extends Component {
                                         value={settings[stateObject].Surname}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         className={settings[stateObject].Surname ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
@@ -291,6 +315,7 @@ class PersonInformation extends Component {
                                         value={settings[stateObject].Zip}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         className={settings[stateObject].Zip ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>ZIP/Postal code</span>
@@ -327,6 +352,7 @@ class PersonInformation extends Component {
                                         value={settings[stateObject].Email}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         className={settings[stateObject].Email ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Email</span>
@@ -346,6 +372,7 @@ class PersonInformation extends Component {
                                         value={settings[stateObject].Phone}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         className={settings[stateObject].Phone ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Phone</span>

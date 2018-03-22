@@ -99,6 +99,28 @@ class Beneficial extends Component {
             valueBeneficial: value
         });
     }
+    handleFocus = event => {
+        const {
+            value,
+            id
+        } = event.target;
+        this.setState({
+            nameError: '',
+            lastNameError: '',
+            emailError: '',
+            zipError: '',
+            phoneError: '',
+        });
+        const {
+            indexBeneficial,
+            changeInputBeneficial
+        } = this.props;
+        changeInputBeneficial({
+            indexBeneficial,
+            keyBeneficial: id,
+            valueBeneficial: value
+        });
+    }
     handleChange = event => {
         const {
             value,
@@ -146,21 +168,6 @@ class Beneficial extends Component {
             return false;
         }
     }
-    checkOnlyNumber = (value, nameError, len) => {
-        if (!value.match(/^[0-9]+$|i/)) {
-            this.setState({
-                [nameError]: ERROR_VALIDATION.NUMBER
-            })
-        } else {
-            this.setState({
-                [nameError]: ''
-            })
-        }
-        if (value.length > len) {
-            return false;
-        }
-    }
-
     checkPhone = (value, nameError, len) => {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
@@ -219,6 +226,7 @@ class Beneficial extends Component {
                                         id={'Name'}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         value={settings.beneficial[indexBeneficial].Name}
                                         className={settings.beneficial[indexBeneficial].Name ? 'populated' : ''}
                                     />
@@ -236,6 +244,7 @@ class Beneficial extends Component {
                                         id={'Surname'}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         value={settings.beneficial[indexBeneficial].Surname}
                                         className={settings.beneficial[indexBeneficial].Surname ? 'populated' : ''}
                                     />
@@ -313,6 +322,7 @@ class Beneficial extends Component {
                                         maskChar={null}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         value={settings.beneficial[indexBeneficial].Zip}
                                         className={settings.beneficial[indexBeneficial].Zip ? 'populated' : ''}
                                     />
@@ -349,6 +359,7 @@ class Beneficial extends Component {
                                         id={'Email'}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         value={settings.beneficial[indexBeneficial].Email}
                                         className={settings.beneficial[indexBeneficial].Email ? 'populated' : ''}
                                     />
@@ -368,6 +379,7 @@ class Beneficial extends Component {
                                         id={'Phone'}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         value={settings.beneficial[indexBeneficial].Phone}
                                         className={settings.beneficial[indexBeneficial].Phone ? 'populated' : ''}
                                     />
