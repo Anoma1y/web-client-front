@@ -11,7 +11,9 @@ import SkyLight from 'react-skylight';
 class Roadmap extends Component {
 
     render() {
-
+        const buttonNone = {
+            display: 'none'
+        };
         const { progressBar } = this.props.roadmap;
         return (
             <div className={'roadmap__wrapper'}>
@@ -26,6 +28,7 @@ class Roadmap extends Component {
                </Card>
                 <SkyLight
                     hideOnOverlayClicked
+                    closeButtonStyle={buttonNone}
                     ref={ref => this.simpleDialog = ref}
                 >
                     <iframe src="https://tsrpay.com/roadmap" className={'roadmap_modal'} align="center" />
