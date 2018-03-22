@@ -17,6 +17,7 @@ import {
 import axios from 'axios';
 import Config from 'libs/config';
 import { ERROR_IMAGE } from 'libs/messages';
+import { LIMIT } from 'libs/validation';
 import _ from 'underscore';
 
 class IdentificationImgUpload extends Component {
@@ -53,7 +54,7 @@ class IdentificationImgUpload extends Component {
         let reader = new FileReader();
         let file = e.target.files[0];
         if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/tiff' || file.type === 'image/gif') {
-            if ((file.size / 1024 / 1024) <= 25) {
+            if ((file.size / 1024 / 1024) <= LIMIT.FILE.SIZE) {
                 reader.onloadend = () => {
                     this.setState({
                         file: file,
@@ -187,7 +188,7 @@ class IdentificationImgUpload extends Component {
                         </Card.Description>
                         <input
                             type={'file'}
-                            accept={Config.IMAGE_TYPE}
+                            accept={LIMIT.FILE.IMAGE_TYPE}
                             id={this.props.id}
                             style={{display: 'none'}}
                             onChange={(e)=>this.handleImageChange(e)}

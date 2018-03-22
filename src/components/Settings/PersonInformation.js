@@ -25,10 +25,11 @@ class PersonInformation extends Component {
             emailError: '',
             zipError: '',
             phoneError: '',
+            birthdayError: ''
         }
     }
 
-    checkEnglish = (value, nameError, len) => {
+    checkEnglish = (value, nameError) => {
         if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
                 [nameError]: ERROR_VALIDATION.ENGLISH
@@ -38,12 +39,9 @@ class PersonInformation extends Component {
                 [nameError]: ''
             });
         }
-        if (value.length > len) {
-            return false;
-        }
     }
 
-    checkPhone = (value, nameError, len) => {
+    checkPhone = (value, nameError) => {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
@@ -54,11 +52,8 @@ class PersonInformation extends Component {
                 [nameError]: ''
             });
         }
-        if (value.length > len) {
-            return false;
-        }
     }
-    checkEmail = (value, nameError, len) => {
+    checkEmail = (value, nameError) => {
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!value.match(pattern)) {
             this.setState({
@@ -69,11 +64,8 @@ class PersonInformation extends Component {
                 [nameError]: ''
             });
         }
-        if (value.length > len) {
-            return false;
-        }
     }
-    checkZip = (value, nameError, minLen, maxLen) => {
+    checkZip = (value, nameError, minLen) => {
         if (!value.match(/^[0-9a-zA-Z]+$|i/)) {
             this.setState({
                 [nameError]: ERROR_VALIDATION.ZIP
@@ -88,9 +80,6 @@ class PersonInformation extends Component {
                 [nameError]: ''
             });
         }
-        if (value.length > maxLen) {
-            return false;
-        }
     }
     handleFocus = event => {
         const {
@@ -103,6 +92,7 @@ class PersonInformation extends Component {
             emailError: '',
             zipError: '',
             phoneError: '',
+            birthdayError: ''
         });
         const {
             changeSettingsInput,
@@ -125,19 +115,22 @@ class PersonInformation extends Component {
         } = this.props;
         switch (id) {
             case 'Name':
-                this.checkEnglish(value, 'nameError', 100);
+                this.checkEnglish(value, 'nameError');
                 break;
             case 'Surname':
-                this.checkEnglish(value, 'lastNameError', 100);
+                this.checkEnglish(value, 'lastNameError');
                 break;
             case 'Zip':
-                this.checkZip(value, 'zipError',4, 10);
+                this.checkZip(value, 'zipError',4);
                 break;
             case 'Phone':
-                this.checkPhone(value, 'phoneError', 15);
+                this.checkPhone(value, 'phoneError');
                 break;
             case 'Email':
-                this.checkEmail(value, 'emailError', 100);
+                this.checkEmail(value, 'emailError');
+                break;
+            case 'Dateofbirth':
+                this.checkAge(value, 'birthdayError');
                 break;
         };
         changeSettingsInput({
@@ -146,6 +139,38 @@ class PersonInformation extends Component {
             valueInput: value
         });
     }
+    
+    checkAge = (value, nameError) => {
+        if (value.length === 10) {
+            const DATE = {
+                DAY: value.split('.')[0],
+                MONTH: value.split('.')[1],
+                YEAR: value.split('.')[2]
+            };
+            let CHECK_MINIMUM_AGE = DATE.YEAR + ", " + DATE.MONTH + ", " + DATE.DAY;
+            let d1 = new Date(CHECK_MINIMUM_AGE);
+            let d2 = new Date();
+            let days = (d2 - d1)/(1000*60*60*24);
+            if ((days < 6570 && days > 0) || days > 36200) {
+                this.setState({
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.AGE
+                });
+            } else if (Math.sign(days) === -1) {
+                this.setState({
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
+                });
+            } else {
+                this.setState({
+                    [nameError]: ''
+                });
+            }
+        } else if (value.length >= 0 || value.length < 10) {
+            this.setState({
+                [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
+            });
+        }
+    }
+    
     handleChange = event => {
         const { value,
             id
@@ -194,7 +219,8 @@ class PersonInformation extends Component {
             lastNameError,
             emailError,
             zipError,
-            phoneError
+            phoneError,
+            birthdayError
         } = this.state;
         const { settingsInputError } = this.props.settings;
         return (
@@ -202,8 +228,11 @@ class PersonInformation extends Component {
                 <Grid.Column>
                     <Grid>
                         <Grid.Row className={'auth_input settings__information'}>
+
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (nameError.length !== 0 && settings[stateObject].Name.length > 0) ? "auth_input-error" : (settings[stateObject].Name.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((nameError.length !== 0 && settings[stateObject].Name.length > 0) || settings[stateObject].Name.length > 100) ? "auth_input-error"
+                                    : (settings[stateObject].Name.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
                             }>
                                 <label>
                                     <input
@@ -217,11 +246,16 @@ class PersonInformation extends Component {
                                         className={settings[stateObject].Name ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Name</span>
-                                    {nameError.length !== 0 && settings[stateObject].Name.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
+                                    {nameError.length !== 0 && settings[stateObject].Surname.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
+                                    {settings[stateObject].Name.length > 90 ? <p className={settings[stateObject].Name.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Name.length}/100`}</p> : null }
                                 </label>
                             </Grid.Column>
+
+
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (lastNameError.length !== 0 && settings[stateObject].Surname.length > 0) ? "auth_input-error" : (settings[stateObject].Surname.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((lastNameError.length !== 0 && settings[stateObject].Surname.length > 0) || settings[stateObject].Surname.length > 100) ? "auth_input-error"
+                                    : (settings[stateObject].Surname.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
                             }
                             >
                                 <label>
@@ -237,12 +271,13 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
                                     {lastNameError.length !== 0 && settings[stateObject].Surname.length !== 0 ? <p className={'auth__error'}>{lastNameError}</p> : null}
+                                    {settings[stateObject].Surname.length > 90 ? <p className={settings[stateObject].Surname.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Surname.length}/100`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (settings[stateObject].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((settings[stateObject].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings[stateObject].Addres.length > 100 ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
@@ -259,8 +294,9 @@ class PersonInformation extends Component {
                                     }
                                 </label>
                             </Grid.Column>
+
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (settings[stateObject].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((settings[stateObject].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings[stateObject].City.length > 100 ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
@@ -280,6 +316,7 @@ class PersonInformation extends Component {
 
                                 </label>
                             </Grid.Column>
+
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
@@ -324,8 +361,12 @@ class PersonInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
+                            
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (settings[stateObject].Dateofbirth.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                (birthdayError.length !== 0 && settings[stateObject].Dateofbirth.length > 0) ? "auth_input-error"
+                                    : (settings[stateObject].Dateofbirth.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                        :  "auth_input-success"
+
                             }>
                                 <label>
                                     <InputMask
@@ -336,13 +377,19 @@ class PersonInformation extends Component {
                                         placeholder={"Birth day"}
                                         value={settings[stateObject].Dateofbirth}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                         className={settings[stateObject].Dateofbirth ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Birth day</span>
+                                    {birthdayError.length !== 0 && settings[stateObject].Dateofbirth.length !== 0 ? <p className={'auth__error'}>{birthdayError}</p> : null}
                                 </label>
                             </Grid.Column>
+                            
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                (emailError.length !== 0 && settings[stateObject].Email.length > 0) ? "auth_input-error" : (settings[stateObject].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((emailError.length !== 0 && settings[stateObject].Email.length > 0) || settings[stateObject].Email > 100)? "auth_input-error"
+                                    : (settings[stateObject].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
                             }>
                                 <label>
                                     <input
@@ -357,18 +404,23 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Email</span>
                                     {emailError.length !== 0 && settings[stateObject].Email.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
+                                    {settings[stateObject].Email.length > 90 ? <p className={settings[stateObject].Email.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Email.length}/100`}</p> : null }
                                 </label>
                             </Grid.Column>
+                            
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
+                            
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
                                 (phoneError.length !== 0 && settings[stateObject].Phone.length > 0) ? "auth_input-error" : (settings[stateObject].Phone.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label >
-                                    <input
+                                    <InputMask
                                         type="text"
                                         id={"Phone"}
                                         placeholder={"Phone"}
+                                        mask="***************"
+                                        maskChar={null}
                                         value={settings[stateObject].Phone}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
@@ -379,6 +431,7 @@ class PersonInformation extends Component {
                                     {phoneError.length !== 0 && settings[stateObject].Phone.length !== 0 ? <p className={'auth__error'}>{phoneError}</p> : null}
                                 </label>
                             </Grid.Column>
+                            
                         </Grid.Row>
                     </Grid>
                 </Grid.Column>

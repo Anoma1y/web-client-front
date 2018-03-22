@@ -99,6 +99,36 @@ class Beneficial extends Component {
             valueBeneficial: value
         });
     }
+    checkAge = (value, nameError) => {
+        if (value.length === 10) {
+            const DATE = {
+                DAY: value.split('.')[0],
+                MONTH: value.split('.')[1],
+                YEAR: value.split('.')[2]
+            };
+            let CHECK_MINIMUM_AGE = DATE.YEAR + ", " + DATE.MONTH + ", " + DATE.DAY;
+            let d1 = new Date(CHECK_MINIMUM_AGE);
+            let d2 = new Date();
+            let days = (d2 - d1)/(1000*60*60*24);
+            if ((days < 6570 && days > 0) || days > 36200) {
+                this.setState({
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.AGE
+                });
+            } else if (Math.sign(days) === -1) {
+                this.setState({
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
+                });
+            } else {
+                this.setState({
+                    [nameError]: ''
+                });
+            }
+        } else if (value.length >= 0 || value.length < 10) {
+            this.setState({
+                [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
+            });
+        }
+    }
     handleFocus = event => {
         const {
             value,

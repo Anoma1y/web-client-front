@@ -1209,6 +1209,7 @@ body {
   color: #FF3E33 !important;
   position: absolute;
   bottom: -17px;
+  margin: 0 !important;
   font-size: 12px !important;
   white-space: nowrap !important; }
 
@@ -1217,6 +1218,7 @@ body {
   position: absolute;
   right: 0;
   bottom: -17px;
+  margin: 0 !important;
   font-size: 12px; }
   .auth_input .auth_length-red {
     color: #FF3E33 !important; }
