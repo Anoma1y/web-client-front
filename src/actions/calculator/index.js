@@ -13,3 +13,4 @@ export { handleFormOrder } from './handleFormOrder';
 export { handleChangeOrder } from './handleChangeOrder';
 export { handleCloseModal } from './handleCloseModal';
 export { changeApplicationError } from './changeApplicationError';
+export { changeSendApplicationInProgress } from './changeSendApplicationInProgress';
