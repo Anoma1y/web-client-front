@@ -731,21 +731,29 @@ body {
       text-decoration: underline !important; }
 
 /***ROADMAP COMPONENT***/
-.roadmap__title {
-  font-size: 20px !important;
-  margin-top: -9px !important;
-  margin-bottom: -9px !important; }
+.roadmap {
+  cursor: pointer !important; }
+  .roadmap.ui.card:hover {
+    transform: translateY(0px) !important; }
+  .roadmap__title {
+    font-size: 20px !important;
+    margin-top: -9px !important;
+    margin-bottom: -9px !important; }
+  .roadmap__progress {
+    margin-top: 22px !important;
+    margin-bottom: -12px !important; }
+    .roadmap__progress_bar {
+      background: #eaeaea !important; }
+      .roadmap__progress_bar .bar {
+        background-image: -webkit-linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important;
+        background-image: -moz-linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important;
+        background-image: -o-linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important;
+        background-image: linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important; }
 
-.roadmap__progress {
-  margin-top: 22px !important;
-  margin-bottom: -12px !important; }
-  .roadmap__progress_bar {
-    background: #eaeaea !important; }
-    .roadmap__progress_bar .bar {
-      background-image: -webkit-linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important;
-      background-image: -moz-linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important;
-      background-image: -o-linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important;
-      background-image: linear-gradient(90deg, #7fa6e6 0%, #004fce 100%) !important; }
+.roadmap_modal {
+  height: 90vh !important; }
+  .roadmap_modal iframe {
+    border: 1px solid rgba(147, 147, 147, 0.2) !important; }
 
 /***BETATEST COMPONENT***/
 .betatest__title {
