@@ -13,6 +13,7 @@ import {
     ERROR_VALIDATION,
     SETTINGS
 } from 'libs/messages';
+import { LIMIT } from 'libs/validation';
 import InputMask from 'react-input-mask';
 
 class PersonInformation extends Component {
@@ -230,7 +231,7 @@ class PersonInformation extends Component {
                         <Grid.Row className={'auth_input settings__information'}>
 
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                ((nameError.length !== 0 && settings[stateObject].Name.length > 0) || settings[stateObject].Name.length > 100) ? "auth_input-error"
+                                ((nameError.length !== 0 && settings[stateObject].Name.length > 0) || settings[stateObject].Name.length > LIMIT.NAME.MAX) ? "auth_input-error"
                                     : (settings[stateObject].Name.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
                                     :  "auth_input-success"
                             }>
@@ -247,13 +248,13 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Name</span>
                                     {nameError.length !== 0 && settings[stateObject].Surname.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
-                                    {settings[stateObject].Name.length > 90 ? <p className={settings[stateObject].Name.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Name.length}/100`}</p> : null }
+                                    {settings[stateObject].Name.length > LIMIT.NAME.ATTENTION ? <p className={settings[stateObject].Name.length > LIMIT.NAME.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Name.length}/${LIMIT.NAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
 
 
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                ((lastNameError.length !== 0 && settings[stateObject].Surname.length > 0) || settings[stateObject].Surname.length > 100) ? "auth_input-error"
+                                ((lastNameError.length !== 0 && settings[stateObject].Surname.length > 0) || settings[stateObject].Surname.length > LIMIT.SURNAME.MAX) ? "auth_input-error"
                                     : (settings[stateObject].Surname.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
                                     :  "auth_input-success"
                             }
@@ -271,13 +272,13 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
                                     {lastNameError.length !== 0 && settings[stateObject].Surname.length !== 0 ? <p className={'auth__error'}>{lastNameError}</p> : null}
-                                    {settings[stateObject].Surname.length > 90 ? <p className={settings[stateObject].Surname.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Surname.length}/100`}</p> : null }
+                                    {settings[stateObject].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings[stateObject].Surname.length > LIMIT.SURNAME.ATTENTION ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row className={"auth_input settings__information"}>
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                ((settings[stateObject].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings[stateObject].Addres.length > 100 ) ? "auth_input-error" :  "auth_input-success"
+                                ((settings[stateObject].Addres.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings[stateObject].Addres.length > LIMIT.ADDRESS.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
@@ -290,13 +291,13 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Address</span>
                                     {
-                                        settings[stateObject].Addres.length > 1900 ? <p className={settings[stateObject].Addres.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Addres.length}/2000`}</p> : null
+                                        settings[stateObject].Addres.length > LIMIT.ADDRESS.ATTENTION ? <p className={settings[stateObject].Addres.length > LIMIT.ADDRESS.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Addres.length}/${LIMIT.ADDRESS.MAX}`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
 
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                ((settings[stateObject].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings[stateObject].City.length > 100 ) ? "auth_input-error" :  "auth_input-success"
+                                ((settings[stateObject].City.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || settings[stateObject].City.length > LIMIT.CITY.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
@@ -311,7 +312,7 @@ class PersonInformation extends Component {
                                         City
                                     </span>
                                     {
-                                        settings[stateObject].City.length > 90 ? <p className={settings[stateObject].City.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].City.length}/100`}</p> : null
+                                        settings[stateObject].City.length > LIMIT.CITY.ATTENTION ? <p className={settings[stateObject].City.length > LIMIT.CITY.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].City.length}/${LIMIT.CITY.MAX}`}</p> : null
                                     }
 
                                 </label>
@@ -387,7 +388,7 @@ class PersonInformation extends Component {
                             </Grid.Column>
                             
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                ((emailError.length !== 0 && settings[stateObject].Email.length > 0) || settings[stateObject].Email > 100)? "auth_input-error"
+                                ((emailError.length !== 0 && settings[stateObject].Email.length > 0) || settings[stateObject].Email > LIMIT.EMAIL.MAX)? "auth_input-error"
                                     : (settings[stateObject].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
                                     :  "auth_input-success"
                             }>
@@ -404,7 +405,7 @@ class PersonInformation extends Component {
                                     />
                                     <span className={'auth_input-span'}>Email</span>
                                     {emailError.length !== 0 && settings[stateObject].Email.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
-                                    {settings[stateObject].Email.length > 90 ? <p className={settings[stateObject].Email.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Email.length}/100`}</p> : null }
+                                    {settings[stateObject].Email.length > LIMIT.EMAIL.ATTENTION ? <p className={settings[stateObject].Email.length > LIMIT.EMAIL.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Email.length}/${LIMIT.EMAIL.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                             
