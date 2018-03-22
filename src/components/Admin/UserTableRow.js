@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
     Table,
 } from 'semantic-ui-react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { changeDeleteUsers } from "actions/admin";
 
 class UserTableRow extends Component {
@@ -43,7 +43,7 @@ class UserTableRow extends Component {
                 <Table.Cell className={`user_${id}`}>
                     <Link to={`../admin/user/${id}`}>{id}</Link>
                 </Table.Cell>
-                <Table.Cell>{moment(createdAt).format('DD-MM-YYYY h:mm:ss')}</Table.Cell>
+                <Table.Cell>{moment(createdAt).tz('Europe/Moscow').format('DD-MM-YYYY HH:mm:ss z')}</Table.Cell>
                 <Table.Cell>{email}</Table.Cell>
                 <Table.Cell className={"cursor-pointer"}><span>{roles}</span></Table.Cell>
                 <Table.Cell>{is_verified === false ? "No" : "Yes"}</Table.Cell>

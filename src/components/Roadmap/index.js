@@ -14,6 +14,13 @@ class Roadmap extends Component {
         const buttonNone = {
             display: 'none'
         };
+        const diag = {
+            width: '90%',
+            marginLeft: '-45%',
+            marginTop: '-290px',
+            height: '600px',
+
+        };
         const { progressBar } = this.props.roadmap;
         return (
             <div className={'roadmap__wrapper'}>
@@ -29,6 +36,7 @@ class Roadmap extends Component {
                 <SkyLight
                     hideOnOverlayClicked
                     closeButtonStyle={buttonNone}
+                    dialogStyles={diag}
                     ref={ref => this.simpleDialog = ref}
                 >
                     <iframe src="https://tsrpay.com/roadmap" className={'roadmap_modal'} align="center" />
