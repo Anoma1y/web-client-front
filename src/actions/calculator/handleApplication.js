@@ -4,7 +4,8 @@ import {
     changeModalSuccessful,
     changeQuerySuccessful,
     changeComments,
-    changeApplicationError
+    changeApplicationError,
+    changeSendApplicationInProgress
 } from 'actions/calculator';
 import { CALCULATOR } from 'libs/messages';
 
@@ -24,6 +25,7 @@ export const handleApplication = () => {
             comments: calculator.comments,
             token: TOKEN
         };
+        dispatch(changeSendApplicationInProgress(true));
         ApplicationLib.getApplication(TOKEN).then((data) => {
             if (data.length < 10) {
                 ApplicationLib.addApplication(dataOrder).then((data) => {
@@ -36,16 +38,19 @@ export const handleApplication = () => {
                     if (calculator.comments.length !== 0) {
                         dispatch(changeComments(""));
                     }
+                    dispatch(changeSendApplicationInProgress(false));
                     dispatch(changeApplicationError(null));
                 }).catch(() => {
                     dispatch(changeApplicationError("Error"));
                     dispatch(changeModalSuccessful(true));
                     dispatch(changeQuerySuccessful(false));
+                    dispatch(changeSendApplicationInProgress(false));
                 })
             } else {
                 dispatch(changeApplicationError(CALCULATOR.APPLICATION_LIMIT));
                 dispatch(changeModalSuccessful(true));
                 dispatch(changeQuerySuccessful(false));
+                dispatch(changeSendApplicationInProgress(false));
             }
         })
     }

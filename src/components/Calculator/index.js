@@ -175,8 +175,8 @@ class Calculator extends Component {
         const { handleApplication } = this.props;
         this.setState({
             messageLength: 0
-        })
-        handleApplication()
+        });
+        handleApplication();
     }
     handleChangeOrderCurrency = (event, {value}) => {
         const { handleChangeOrder } = this.props;
@@ -216,7 +216,8 @@ class Calculator extends Component {
             modalSuccessful,
             order,
             querySuccess,
-            applicationError
+            applicationError,
+            applicationSendInProgress
         } = this.props.calculator;
         return (
             <Card fluid className={"component__calculator component__main component__shadow"}>
@@ -306,6 +307,7 @@ class Calculator extends Component {
                                 tokenValue={tokenValue}
                                 currentBonus={currentBonus}
                                 order={order}
+                                applicationSendInProgress={applicationSendInProgress}
                                 handleCloseModal={this.handleCloseModal}
                                 handleSubmitApplication={this.handleSubmitApplication}
                                 handleChangeOrderCurrency={this.handleChangeOrderCurrency}

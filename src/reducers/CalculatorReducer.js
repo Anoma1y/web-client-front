@@ -48,7 +48,8 @@ const INITIAL_STATE = {
         fixCurrency: "TSR",
         forCurrency: "",
         amount: 0
-    }
+    },
+    applicationSendInProgress: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -83,6 +84,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, modalOpen: action.payload };
         case C.CHANGE_APPLICATION_ERROR:
             return { ...state, applicationError: action.payload };
+        case C.CHANGE_SEND_APPLICATION_IN_PROGRESS:
+            return { ...state, applicationSendInProgress: action.payload };
         default:
             return state;
     }

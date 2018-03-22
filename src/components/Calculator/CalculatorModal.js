@@ -5,12 +5,26 @@ import {
     Icon,
     Divider,
     Radio,
-    Button
+    Button,
+    Loader
 } from 'semantic-ui-react';
 import { CALCULATOR } from 'libs/messages';
 import { separationValue } from 'libs/math';
 
-const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, applicationError, currencyValue, tokenValue, currentBonus, order, handleCloseModal, handleSubmitApplication, handleChangeOrderCurrency, handleSendApplication}) => {
+const CalculatorModal =({ transferData,
+                          modalOpen,
+                          modalSuccessful,
+                          querySuccess,
+                          applicationError,
+                          currencyValue,
+                          tokenValue,
+                          currentBonus,
+                          order,
+                          handleCloseModal,
+                          handleSubmitApplication,
+                          handleChangeOrderCurrency,
+                          handleSendApplication,
+                          applicationSendInProgress }) => {
     return (
         <Grid.Column textAlign={"right"}>
 
@@ -196,8 +210,9 @@ const CalculatorModal =({transferData,modalOpen, modalSuccessful, querySuccess, 
                                     className={"dashboard__submit"}
                                     onClick={handleSendApplication}
                                     floated={"right"}
+                                    disabled={applicationSendInProgress === true}
                                     id={"submit__sendApplication"}
-                                >Apply
+                                >{applicationSendInProgress ? <Loader active inline size={"mini"}/> : "Apply"}
                                 </Button>
                             </div>
                         </Modal.Description>

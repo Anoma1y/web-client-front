@@ -136,35 +136,67 @@ class CompanyInformation extends Component {
     shouldComponentUpdate(nextProps) {
         return nextProps.settings.companyInformation !== this.props.settings.companyInformation || nextProps.settings.sourceFunds !== this.props.settings.sourceFunds || nextProps.settings.settingsInputError !== this.props.settings.settingsInputError;
     }
-
-    handleChange = (event) => {
+    handleBlur = event => {
         const {
             value,
             id
         } = event.target;
         switch (id) {
             case 'companyCompanyName':
-               this.checkEnglish(value, 'nameError', 200);
-               break;
+                this.checkEnglish(value, 'nameError', 200);
+                break;
             case 'companyTaxIDnumber':
-               this.checkOnlyNumber(value, 'taxIDError', 20);
-               break;
+                this.checkOnlyNumber(value, 'taxIDError', 20);
+                break;
             case 'companyZip':
-               this.checkZip(value, 'zipError', 4, 10);
-               break;
+                this.checkZip(value, 'zipError', 4, 10);
+                break;
             case 'companyLinktopubliccompanyregister':
-               this.checkWebURL(value, 'linkURLError', 300);
-               break;
+                this.checkWebURL(value, 'linkURLError', 300);
+                break;
             case 'companyEmail':
-               this.checkEmail(value, 100);
-               break;
+                this.checkEmail(value, 100);
+                break;
             case 'companyPhone':
-               this.checkPhone(value, 'phoneError', 15);
-               break;
+                this.checkPhone(value, 'phoneError', 15);
+                break;
             case 'companyWebsites':
-               this.checkWebURL(value, 'webSiteError', 300);
-               break;
+                this.checkWebURL(value, 'webSiteError', 300);
+                break;
         }
+        const { changeSettingsCompanyInput } = this.props;
+        changeSettingsCompanyInput({
+            keyCompany: id,
+            valueCompany: value
+        });
+    }
+    handleFocus = event => {
+        const {
+            value,
+            id
+        } = event.target;
+        this.setState({
+            nameError: '',
+            taxIDError: '',
+            zipError: '',
+            taxResidError: '',
+            companyRegError: '',
+            emailError: '',
+            phoneError: '',
+            linkURLError: '',
+            webSiteError: '',
+        });
+        const { changeSettingsCompanyInput } = this.props;
+        changeSettingsCompanyInput({
+            keyCompany: id,
+            valueCompany: value
+        });
+    }
+    handleChange = event => {
+        const {
+            value,
+            id
+        } = event.target;
         const { changeSettingsCompanyInput } = this.props;
         changeSettingsCompanyInput({
             keyCompany: id,
@@ -223,6 +255,8 @@ class CompanyInformation extends Component {
                                         value={this.props.settings.companyInformation.companyCompanyName}
                                         className={this.props.settings.companyInformation.companyCompanyName ? 'populated' : ''}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Company Name</span>
                                     {nameError.length !== 0 && this.props.settings.companyInformation.companyCompanyName.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
@@ -242,6 +276,8 @@ class CompanyInformation extends Component {
                                         value={this.props.settings.companyInformation.companyTaxIDnumber}
                                         className={this.props.settings.companyInformation.companyTaxIDnumber ? 'populated' : ''}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Tax ID number</span>
                                     {taxIDError.length !== 0 && this.props.settings.companyInformation.companyTaxIDnumber.length !== 0 ? <p className={'auth__error'}>{taxIDError}</p> : null}
@@ -299,6 +335,8 @@ class CompanyInformation extends Component {
                                         value={this.props.settings.companyInformation.companyZip}
                                         className={this.props.settings.companyInformation.companyZip ? 'populated' : ''}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>ZIP/Postal code</span>
                                     {zipError.length !== 0 && this.props.settings.companyInformation.companyZip.length !== 0 ? <p className={'auth__error'}>{zipError}</p> : null}
@@ -358,6 +396,8 @@ class CompanyInformation extends Component {
                                         value={this.props.settings.companyInformation.companyLinktopubliccompanyregister}
                                         className={this.props.settings.companyInformation.companyLinktopubliccompanyregister ? 'populated' : ''}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Link to public company register (Business Register)</span>
                                     {linkURLError.length !== 0 && this.props.settings.companyInformation.companyLinktopubliccompanyregister.length !== 0 ? <p className={'auth__error'}>{linkURLError}</p> : null}
@@ -377,6 +417,8 @@ class CompanyInformation extends Component {
                                         value={this.props.settings.companyInformation.companyEmail}
                                         className={this.props.settings.companyInformation.companyEmail ? 'populated' : ''}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Email</span>
                                     {emailError.length !== 0 && this.props.settings.companyInformation.companyEmail.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
@@ -393,6 +435,8 @@ class CompanyInformation extends Component {
                                         value={this.props.settings.companyInformation.companyPhone}
                                         className={this.props.settings.companyInformation.companyPhone ? 'populated' : ''}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Phone</span>
                                     {phoneError.length !== 0 && this.props.settings.companyInformation.companyPhone.length !== 0 ? <p className={'auth__error'}>{phoneError}</p> : null}
@@ -433,6 +477,8 @@ class CompanyInformation extends Component {
                                         value={this.props.settings.companyInformation.companyWebsites}
                                         className={this.props.settings.companyInformation.companyWebsites ? 'populated' : ''}
                                         onChange={this.handleChange}
+                                        onBlur={this.handleBlur}
+                                        onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Websites</span>
                                     {webSiteError.length !== 0 && this.props.settings.companyInformation.companyWebsites.length !== 0 ? <p className={'auth__error'}>{webSiteError}</p> : null}
