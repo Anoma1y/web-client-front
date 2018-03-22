@@ -495,7 +495,7 @@ class CompanyInformation extends Component {
                                     placeholder='None' 
                                     selection
                                     className={
-                                        (sourceFunds === 'None' && settingsInputError === SETTINGS.FILL_INPUT) ? "settings__dropdown-error" :  "settings__dropdown-success"
+                                        ((sourceFunds === 'None' && settingsInputError === SETTINGS.FILL_INPUT) || (sourceFunds === '' && settingsInputError === SETTINGS.FILL_INPUT)) ? "settings__dropdown-error" :  "settings__dropdown-success"
                                     }
                                     options={certifyOption}
                                     value={this.props.settings.sourceFunds}
