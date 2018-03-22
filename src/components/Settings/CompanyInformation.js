@@ -11,6 +11,7 @@ import {
 import {countryOptions} from "libs/country";
 import {ERROR_VALIDATION, SETTINGS} from 'libs/messages';
 import InputMask from 'react-input-mask';
+import {LIMIT} from "libs/validation";
 
 class CompanyInformation extends Component {
 
@@ -38,7 +39,7 @@ class CompanyInformation extends Component {
 
         }
     }
-    checkEnglish = (value, nameError, len) => {
+    checkEnglish = (value, nameError) => {
         if (!value.match(/^[A-Za-z\s]+$|i/)) {
             this.setState({
                 [nameError]: ERROR_VALIDATION.ENGLISH
@@ -48,12 +49,9 @@ class CompanyInformation extends Component {
                 [nameError]: ''
             })
         }
-        if (value.length > len) {
-            return false;
-        }
     }
 
-    checkOnlyNumber = (value, nameError, len) => {
+    checkOnlyNumber = (value, nameError) => {
         if (!value.match(/^[0-9]+$|i/)) {
             this.setState({
                 [nameError]: ERROR_VALIDATION.NUMBER
@@ -63,12 +61,9 @@ class CompanyInformation extends Component {
                 [nameError]: ''
             })
         }
-        if (value.length > len) {
-            return false;
-        }
     }
 
-    checkPhone = (value, nameError, len) => {
+    checkPhone = (value, nameError) => {
         const pattern = /^((\+\d)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{0,15}$/;
         if (!value.match(pattern)) {
             this.setState({
@@ -79,11 +74,8 @@ class CompanyInformation extends Component {
                 [nameError]: ''
             })
         }
-        if (value.length > len) {
-            return false;
-        }
     }
-    checkZip = (value, nameError, minLen, maxLen) => {
+    checkZip = (value, nameError, minLen) => {
         if (!value.match(/^[0-9a-zA-Z]+$|i/)) {
             this.setState({
                 [nameError]: ERROR_VALIDATION.ZIP
@@ -97,27 +89,21 @@ class CompanyInformation extends Component {
                 [nameError]: ''
             });
         }
-        if (value.length > maxLen) {
-            return false;
-        }
     }
-    checkEmail = (value, len) => {
+    checkEmail = (value, nameError) => {
         const pattern = /^([a-z0-9_.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
         if (!value.match(pattern)) {
             this.setState({
-                emailError: ERROR_VALIDATION.EMAIL
+                [nameError]: ERROR_VALIDATION.EMAIL
             });
         } else {
             this.setState({
-                emailError: ''
+                [nameError]: ''
             })
-        }
-        if (value.length > len) {
-            return false;
         }
     }
 
-    checkWebURL = (value, webError ,len) => {
+    checkWebURL = (value, webError) => {
         const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
         if (!value.match(pattern)) {
             this.setState({
@@ -128,43 +114,12 @@ class CompanyInformation extends Component {
                 [webError]: ''
             })
         }
-        if (value.length > len) {
-            return false;
-        }
     }
-    checkAge = (value, nameError) => {
-        if (value.length === 10) {
-            const DATE = {
-                DAY: value.split('.')[0],
-                MONTH: value.split('.')[1],
-                YEAR: value.split('.')[2]
-            };
-            let CHECK_MINIMUM_AGE = DATE.YEAR + ", " + DATE.MONTH + ", " + DATE.DAY;
-            let d1 = new Date(CHECK_MINIMUM_AGE);
-            let d2 = new Date();
-            let days = (d2 - d1)/(1000*60*60*24);
-            if ((days < 6570 && days > 0) || days > 36200) {
-                this.setState({
-                    [nameError]: ERROR_VALIDATION.BIRTHDAY.AGE
-                });
-            } else if (Math.sign(days) === -1) {
-                this.setState({
-                    [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
-                });
-            } else {
-                this.setState({
-                    [nameError]: ''
-                });
-            }
-        } else if (value.length >= 0 || value.length < 10) {
-            this.setState({
-                [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
-            });
-        }
-    }
+
     shouldComponentUpdate(nextProps) {
         return nextProps.settings.companyInformation !== this.props.settings.companyInformation || nextProps.settings.sourceFunds !== this.props.settings.sourceFunds || nextProps.settings.settingsInputError !== this.props.settings.settingsInputError;
     }
+
     handleBlur = event => {
         const {
             value,
@@ -172,25 +127,25 @@ class CompanyInformation extends Component {
         } = event.target;
         switch (id) {
             case 'companyCompanyName':
-                this.checkEnglish(value, 'nameError', 200);
+                this.checkEnglish(value, 'nameError');
                 break;
             case 'companyTaxIDnumber':
-                this.checkOnlyNumber(value, 'taxIDError', 20);
+                this.checkOnlyNumber(value, 'taxIDError');
                 break;
             case 'companyZip':
-                this.checkZip(value, 'zipError', 4, 10);
+                this.checkZip(value, 'zipError', 4);
                 break;
             case 'companyLinktopubliccompanyregister':
-                this.checkWebURL(value, 'linkURLError', 300);
+                this.checkWebURL(value, 'linkURLError');
                 break;
             case 'companyEmail':
-                this.checkEmail(value, 100);
+                this.checkEmail(value, 'emailError');
                 break;
             case 'companyPhone':
-                this.checkPhone(value, 'phoneError', 15);
+                this.checkPhone(value, 'phoneError');
                 break;
             case 'companyWebsites':
-                this.checkWebURL(value, 'webSiteError', 300);
+                this.checkWebURL(value, 'webSiteError');
                 break;
         }
         const { changeSettingsCompanyInput } = this.props;
@@ -260,7 +215,8 @@ class CompanyInformation extends Component {
         } = this.state;
         const {
             settingsInputError,
-            sourceFunds
+            sourceFunds,
+            companyInformation
         } = this.props.settings;
         return (
             <Grid.Row>
@@ -274,54 +230,60 @@ class CompanyInformation extends Component {
 
                         <Grid.Row className={'auth_input settings__information'} >
                             <Grid.Column width={16} className={
-                                (nameError.length !== 0 && this.props.settings.companyInformation.companyCompanyName.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyCompanyName.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((nameError.length !== 0 && companyInformation.companyCompanyName.length > 0) || companyInformation.companyCompanyName.length > LIMIT.COMPANY_NAME.MAX) ? "auth_input-error"
+                                    : (companyInformation.companyCompanyName.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
                             }>
                                 <label>
                                     <input
                                         type='text'
                                         id={'companyCompanyName'}
                                         placeholder={'Company Name'}
-                                        value={this.props.settings.companyInformation.companyCompanyName}
-                                        className={this.props.settings.companyInformation.companyCompanyName ? 'populated' : ''}
+                                        value={companyInformation.companyCompanyName}
+                                        className={companyInformation.companyCompanyName ? 'populated' : ''}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Company Name</span>
-                                    {nameError.length !== 0 && this.props.settings.companyInformation.companyCompanyName.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
+                                    {nameError.length !== 0 && companyInformation.companyCompanyName.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
+                                    {companyInformation.companyCompanyName.length > LIMIT.COMPANY_NAME.ATTENTION ? <p className={companyInformation.companyCompanyName.length > LIMIT.COMPANY_NAME.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyCompanyName.length}/${LIMIT.COMPANY_NAME.MAX}`}</p> : null }
+
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
-                                (taxIDError.length !== 0 && this.props.settings.companyInformation.companyTaxIDnumber.length > 0) ? "auth_input settings__information auth_input-error" : (this.props.settings.companyInformation.companyTaxIDnumber.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input settings__information auth_input-error" :  "auth_input settings__information auth_input-success"
+                                (taxIDError.length !== 0 && companyInformation.companyTaxIDnumber.length > 0) ? "auth_input settings__information auth_input-error" : (companyInformation.companyTaxIDnumber.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input settings__information auth_input-error" :  "auth_input settings__information auth_input-success"
                             }>
                                 <label>
-                                    <input
+                                    <InputMask
                                         type='text'
                                         id={'companyTaxIDnumber'}
                                         placeholder={'Tax ID number'}
-                                        value={this.props.settings.companyInformation.companyTaxIDnumber}
-                                        className={this.props.settings.companyInformation.companyTaxIDnumber ? 'populated' : ''}
+                                        mask='********************'
+                                        maskChar={null}
+                                        value={companyInformation.companyTaxIDnumber}
+                                        className={companyInformation.companyTaxIDnumber ? 'populated' : ''}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Tax ID number</span>
-                                    {taxIDError.length !== 0 && this.props.settings.companyInformation.companyTaxIDnumber.length !== 0 ? <p className={'auth__error'}>{taxIDError}</p> : null}
+                                    {taxIDError.length !== 0 && companyInformation.companyTaxIDnumber.length !== 0 ? <p className={'auth__error'}>{taxIDError}</p> : null}
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={'auth_input auth_input-success settings__information'}>
-                                <label className={this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
+                                <label className={companyInformation.companyTaxrezidencecountry.length === 0 ? 'auth_dropdown' : 'dropdown_populated'}>
                                     <Dropdown
                                         placeholder='Choose your country'
                                         fluid
                                         selection
                                         className={
-                                            (this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "dropdown-error" :  "dropdown-success"
+                                            (companyInformation.companyTaxrezidencecountry.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "dropdown-error" :  "dropdown-success"
                                         }
-                                        value={this.props.settings.companyInformation.companyTaxrezidencecountry.length === 0 ? null : this.props.settings.companyInformation.companyTaxrezidencecountry}
+                                        value={companyInformation.companyTaxrezidencecountry.length === 0 ? null : companyInformation.companyTaxrezidencecountry}
                                         options={countryOptions}
                                         onChange={this.handleDropdownCountry}
                                     />
@@ -334,25 +296,25 @@ class CompanyInformation extends Component {
 
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
-                                (this.props.settings.companyInformation.companyCity.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((companyInformation.companyCity.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || companyInformation.companyCity.length > LIMIT.CITY.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
                                         type='text'
                                         id={'companyCity'}
                                         placeholder={'City'}
-                                        value={this.props.settings.companyInformation.companyCity}
-                                        className={this.props.settings.companyInformation.companyCity ? 'populated' : ''}
+                                        value={companyInformation.companyCity}
+                                        className={companyInformation.companyCity ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
                                     <span className={'auth_input-span'}>City</span>
                                     {
-                                        this.props.settings.companyInformation.companyCity.length > 90 ? <p className={this.props.settings.companyInformation.companyCity.length > 100 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyCity.length}/100`}</p> : null
+                                        companyInformation.companyCity.length > LIMIT.CITY.ATTENTION ? <p className={companyInformation.companyCity.length > LIMIT.CITY.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyCity.length}/${LIMIT.CITY.MAX}`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
-                                (zipError.length !== 0 && this.props.settings.companyInformation.companyZip.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyZip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                (zipError.length !== 0 && companyInformation.companyZip.length > 0) ? "auth_input-error" : (companyInformation.companyZip.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label style={{width: '50%'}}>
                                     <InputMask
@@ -361,34 +323,34 @@ class CompanyInformation extends Component {
                                         mask="**********"
                                         maskChar={null}
                                         placeholder={'ZIP/Postal code'}
-                                        value={this.props.settings.companyInformation.companyZip}
-                                        className={this.props.settings.companyInformation.companyZip ? 'populated' : ''}
+                                        value={companyInformation.companyZip}
+                                        className={companyInformation.companyZip ? 'populated' : ''}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>ZIP/Postal code</span>
-                                    {zipError.length !== 0 && this.props.settings.companyInformation.companyZip.length !== 0 ? <p className={'auth__error'}>{zipError}</p> : null}
+                                    {zipError.length !== 0 && companyInformation.companyZip.length !== 0 ? <p className={'auth__error'}>{zipError}</p> : null}
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column width={16} className={
-                                 (this.props.settings.companyInformation.companyLegaladdress.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                 ((companyInformation.companyLegaladdress.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || companyInformation.companyLegaladdress.length > LIMIT.LEGAL_ADDRESS.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
                                         type='text'
                                         id={'companyLegaladdress'}
                                         placeholder={'Legal address'}
-                                        value={this.props.settings.companyInformation.companyLegaladdress}
-                                        className={this.props.settings.companyInformation.companyLegaladdress ? 'populated' : ''}
+                                        value={companyInformation.companyLegaladdress}
+                                        className={companyInformation.companyLegaladdress ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
                                     <span className={'auth_input-span'}>Legal address</span>
                                     {
-                                        this.props.settings.companyInformation.companyLegaladdress.length > 1900 ? <p className={this.props.settings.companyInformation.companyLegaladdress.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyLegaladdress.length}/2000`}</p> : null
+                                        companyInformation.companyLegaladdress.length > LIMIT.LEGAL_ADDRESS.ATTENTION ? <p className={companyInformation.companyLegaladdress.length > LIMIT.LEGAL_ADDRESS.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyLegaladdress.length}/${LIMIT.LEGAL_ADDRESS.MAX}`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
@@ -396,99 +358,107 @@ class CompanyInformation extends Component {
 
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column width={16} className={
-                                 (this.props.settings.companyInformation.companyActualbusinessplaceaddress.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                 ((companyInformation.companyActualbusinessplaceaddress.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || companyInformation.companyActualbusinessplaceaddress.length > LIMIT.ACTUAL_BUSINESS_ADDRESS.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
                                         type='text'
                                         id={'companyActualbusinessplaceaddress'}
                                         placeholder={'Actual business place address'}
-                                        value={this.props.settings.companyInformation.companyActualbusinessplaceaddress}
-                                        className={this.props.settings.companyInformation.companyActualbusinessplaceaddress ? 'populated' : ''}
+                                        value={companyInformation.companyActualbusinessplaceaddress}
+                                        className={companyInformation.companyActualbusinessplaceaddress ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
                                     <span className={'auth_input-span'}>Actual business place address</span>
                                     {
-                                        this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 1900 ? <p className={this.props.settings.companyInformation.companyActualbusinessplaceaddress.length > 2000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyActualbusinessplaceaddress.length}/2000`}</p> : null
+                                        companyInformation.companyActualbusinessplaceaddress.length > LIMIT.ACTUAL_BUSINESS_ADDRESS.ATTENTION ? <p className={companyInformation.companyActualbusinessplaceaddress.length > LIMIT.ACTUAL_BUSINESS_ADDRESS.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyActualbusinessplaceaddress.length}/${LIMIT.ACTUAL_BUSINESS_ADDRESS.MAX}`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row className={'auth_input settings__information auth_input-success'}>
-                            <Grid.Column width={16}>
+                            <Grid.Column width={16} className={
+                                ((linkURLError.length !== 0 && companyInformation.companyLinktopubliccompanyregister.length > 0) || companyInformation.companyLinktopubliccompanyregister.length > LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX) ? "auth_input-error"
+                                    : (companyInformation.companyLinktopubliccompanyregister.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    :  "auth_input-success"
+                            }>
                                 <label>
                                     <input
                                         type='text'
                                         id={'companyLinktopubliccompanyregister'}
                                         placeholder={'Link to public company register (Business Register)'}
-                                        value={this.props.settings.companyInformation.companyLinktopubliccompanyregister}
-                                        className={this.props.settings.companyInformation.companyLinktopubliccompanyregister ? 'populated' : ''}
+                                        value={companyInformation.companyLinktopubliccompanyregister}
+                                        className={companyInformation.companyLinktopubliccompanyregister ? 'populated' : ''}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Link to public company register (Business Register)</span>
-                                    {linkURLError.length !== 0 && this.props.settings.companyInformation.companyLinktopubliccompanyregister.length !== 0 ? <p className={'auth__error'}>{linkURLError}</p> : null}
+                                    {linkURLError.length !== 0 && companyInformation.companyLinktopubliccompanyregister.length !== 0 ? <p className={'auth__error'}>{linkURLError}</p> : null}
+                                    {companyInformation.companyLinktopubliccompanyregister.length > LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.ATTENTION ? <p className={companyInformation.companyLinktopubliccompanyregister.length > LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyLinktopubliccompanyregister.length}/${LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
-                                (emailError.length !== 0 && this.props.settings.companyInformation.companyEmail.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyEmail.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                (emailError.length !== 0 && companyInformation.companyEmail.length > 0) ? "auth_input-error" : (companyInformation.companyEmail.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
                                         type='text'
                                         id={'companyEmail'}
                                         placeholder={'Email'}
-                                        value={this.props.settings.companyInformation.companyEmail}
-                                        className={this.props.settings.companyInformation.companyEmail ? 'populated' : ''}
+                                        value={companyInformation.companyEmail}
+                                        className={companyInformation.companyEmail ? 'populated' : ''}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Email</span>
-                                    {emailError.length !== 0 && this.props.settings.companyInformation.companyEmail.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
+                                    {emailError.length !== 0 && companyInformation.companyEmail.length !== 0 ? <p className={'auth__error'}>{emailError}</p> : null}
+                                    {companyInformation.companyEmail.length > LIMIT.EMAIL.ATTENTION ? <p className={companyInformation.companyEmail.length > LIMIT.EMAIL.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyEmail.length}/${LIMIT.EMAIL.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                             <Grid.Column widecreen={8} computer={8} tablet={8} mobile={16} className={
-                                (phoneError.length !== 0 && this.props.settings.companyInformation.companyPhone.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyPhone.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                (phoneError.length !== 0 && companyInformation.companyPhone.length > 0) ? "auth_input-error" : (companyInformation.companyPhone.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
-                                    <input
+                                    <InputMask
                                         type='text'
                                         id={'companyPhone'}
                                         placeholder={'Phone'}
-                                        value={this.props.settings.companyInformation.companyPhone}
-                                        className={this.props.settings.companyInformation.companyPhone ? 'populated' : ''}
+                                        mask="***************"
+                                        maskChar={null}
+                                        value={companyInformation.companyPhone}
+                                        className={companyInformation.companyPhone ? 'populated' : ''}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Phone</span>
-                                    {phoneError.length !== 0 && this.props.settings.companyInformation.companyPhone.length !== 0 ? <p className={'auth__error'}>{phoneError}</p> : null}
+                                    {phoneError.length !== 0 && companyInformation.companyPhone.length !== 0 ? <p className={'auth__error'}>{phoneError}</p> : null}
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
 
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column width={16} className={
-                                (this.props.settings.companyInformation.companyDescriptioncompanydoes.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((companyInformation.companyDescriptioncompanydoes.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) || companyInformation.companyDescriptioncompanydoes.length > LIMIT.DESCRIPTION_COMPANY_DOES.MAX ) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label>
                                     <input
                                         type='text'
                                         id={'companyDescriptioncompanydoes'}
                                         placeholder={'Description of what your company does'}
-                                        value={this.props.settings.companyInformation.companyDescriptioncompanydoes}
-                                        className={this.props.settings.companyInformation.companyDescriptioncompanydoes ? 'populated' : ''}
+                                        value={companyInformation.companyDescriptioncompanydoes}
+                                        className={companyInformation.companyDescriptioncompanydoes ? 'populated' : ''}
                                         onChange={this.handleChange}
                                     />
                                     <span className={'auth_input-span'}>Description of what your company does</span>
                                     {
-                                        this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 4500 ? <p className={this.props.settings.companyInformation.companyDescriptioncompanydoes.length > 5000 ? 'auth_length auth_length-red' : 'auth_length'}> {`${this.props.settings.companyInformation.companyDescriptioncompanydoes.length}/5000`}</p> : null
+                                        companyInformation.companyDescriptioncompanydoes.length > LIMIT.DESCRIPTION_COMPANY_DOES.ATTENTION ? <p className={companyInformation.companyDescriptioncompanydoes.length > LIMIT.DESCRIPTION_COMPANY_DOES.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyDescriptioncompanydoes.length}/${LIMIT.DESCRIPTION_COMPANY_DOES.MAX}`}</p> : null
                                     }
                                 </label>
                             </Grid.Column>
@@ -496,21 +466,22 @@ class CompanyInformation extends Component {
 
                         <Grid.Row className={'auth_input settings__information'}>
                             <Grid.Column width={16} className={
-                                (webSiteError.length !== 0 && this.props.settings.companyInformation.companyWebsites.length > 0) ? "auth_input-error" : (this.props.settings.companyInformation.companyWebsites.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
+                                ((webSiteError.length !== 0 && companyInformation.companyWebsites.length > 0) || companyInformation.companyWebsites.length > LIMIT.WEBSITE.MAX) ? "auth_input-error" : (companyInformation.companyWebsites.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error" :  "auth_input-success"
                             }>
                                 <label style={{width: '50%'}}>
                                     <input
                                         type='text'
                                         id={'companyWebsites'}
                                         placeholder={'Websites'}
-                                        value={this.props.settings.companyInformation.companyWebsites}
-                                        className={this.props.settings.companyInformation.companyWebsites ? 'populated' : ''}
+                                        value={companyInformation.companyWebsites}
+                                        className={companyInformation.companyWebsites ? 'populated' : ''}
                                         onChange={this.handleChange}
                                         onBlur={this.handleBlur}
                                         onFocus={this.handleFocus}
                                     />
                                     <span className={'auth_input-span'}>Websites</span>
-                                    {webSiteError.length !== 0 && this.props.settings.companyInformation.companyWebsites.length !== 0 ? <p className={'auth__error'}>{webSiteError}</p> : null}
+                                    {webSiteError.length !== 0 && companyInformation.companyWebsites.length !== 0 ? <p className={'auth__error'}>{webSiteError}</p> : null}
+                                    {companyInformation.companyWebsites.length > LIMIT.WEBSITE.ATTENTION ? <p className={companyInformation.companyWebsites.length > LIMIT.WEBSITE.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${companyInformation.companyWebsites.length}/${LIMIT.WEBSITE.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>

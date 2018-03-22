@@ -24,8 +24,8 @@ export const LIMIT = {
         MAX: 100
     },
     PHONE: {
-        MAX: 4,
-        MIN: 15
+        MIN: 4,
+        MAX: 15
     },
     FILE: {
         SIZE: 25,
@@ -44,7 +44,10 @@ export const LIMIT = {
         ATTENTION: 1900,
         MAX: 2000
     },
-    LINK_TO_PUBLIC_COMPANY_REGISTER: 300,
+    LINK_TO_PUBLIC_COMPANY_REGISTER: {
+        ATTENTION: 250,
+        MAX: 300
+    },
     DESCRIPTION_COMPANY_DOES: {
         ATTENTION: 4500,
         MAX: 5000

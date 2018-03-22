@@ -247,7 +247,7 @@ class PersonInformation extends Component {
                                         className={settings[stateObject].Name ? "populated" : ""}
                                     />
                                     <span className={'auth_input-span'}>Name</span>
-                                    {nameError.length !== 0 && settings[stateObject].Surname.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
+                                    {nameError.length !== 0 && settings[stateObject].Name.length !== 0 ? <p className={'auth__error'}>{nameError}</p> : null}
                                     {settings[stateObject].Name.length > LIMIT.NAME.ATTENTION ? <p className={settings[stateObject].Name.length > LIMIT.NAME.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings[stateObject].Name.length}/${LIMIT.NAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
