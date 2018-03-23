@@ -53,7 +53,9 @@ export const RESET_USER = {
     CONFIRM_EMAIL: 'Password Recovery',
     CHECK_EMAIL: 'Please check your inbox for an email with instructions for how to reset your password',
     NEW_PASSWORD_TITLE: 'New Password',
-    NEW_PASSWORD_TEXT: 'Create a new password'
+    NEW_PASSWORD_TEXT: 'Create a new password',
+    EMAIL_NOT_FOUND: 'Email not found',
+    TOKEN: 'Password recovery link expired'
 };
 
 export const INDIVIDUAL_USER_DOCUMENT = [

@@ -10,7 +10,7 @@ const NotFound = () => {
             <div className={'not__found'}>
                 <p className={'not__found_title'}>404</p>
                 <p className={'not__found_text'}>Page not found</p>
-                <Link to={localStorage.jwt !== undefined ? '/dashboard/' : '/'} className={'not__found_link'}> Go to your account </Link>
+                <Link to={localStorage.jwt !== undefined ? '/dashboard/' : '/'} className={'not__found_link'}> {localStorage.jwt !== undefined ? 'Go to your account' : 'Go to sign up'} </Link>
             </div>
         </Container>
     )   

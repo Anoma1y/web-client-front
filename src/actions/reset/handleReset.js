@@ -2,6 +2,7 @@ import { setError } from './setError'
 import ApiLib from 'libs/ApiLib/SignUp'
 import { push } from "react-router-redux";
 import { setResetInProgress } from "./setResetInProgress";
+import { RESET_USER } from 'libs/messages';
 
 export const handleReset = () => {
     return (dispatch, getState) => {
@@ -15,7 +16,7 @@ export const handleReset = () => {
             dispatch(push('/reset/confirmation'));
         }).catch(() =>{
             dispatch(setResetInProgress(false));
-            dispatch(setError("Email not found"));
+            dispatch(setError(RESET_USER.EMAIL_NOT_FOUND));
         })
     }
 };

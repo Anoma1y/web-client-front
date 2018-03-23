@@ -15,8 +15,8 @@ class Roadmap extends Component {
             display: 'none'
         };
         const diag = {
-            width: '90%',
-            marginLeft: '-45%',
+            width: '80%',
+            marginLeft: '-40%',
             marginTop: '-290px',
             height: '600px',
 

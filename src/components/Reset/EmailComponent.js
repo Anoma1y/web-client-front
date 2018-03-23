@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     Card,
     Button,
@@ -16,7 +16,7 @@ import {
 } from 'actions/reset'
 import { RESET_USER, ERROR_VALIDATION } from "libs/messages";
 
-class EmailComponent extends React.Component {
+class EmailComponent extends Component {
 
     constructor(props) {
         super(props);
