@@ -64,18 +64,31 @@ class UsersComponent extends Component {
                 deletedAt={item.DeletedAt}
                 email={item.email}
                 roles={item.roles}
+                kyc_type={item.kyc_type}
                 is_verified={item.is_verified}
                 is_kyc_passed={item.is_kyc_passed}
+                is_blocked={item.is_blocked}
             />
         })
     }
-
     handleSort = clickedColumn => () => {
         const { usersList } = this.props.admin;
         const { sortedUsers } = this.props;
-        const newData = clickedColumn === 'createdAt' ? _.sortBy(usersList.data, function(node){
-            return - (new Date(node.CreatedAt).getTime());
-        }) : _.sortBy(usersList.data, clickedColumn);
+        const newData = clickedColumn === 'createdAt' ?
+            _.sortBy(usersList.data, function(node){
+                return - (new Date(node.CreatedAt).getTime());
+            })
+            : clickedColumn === 'is_kyc_passed' ?
+                _.chain(usersList.data)
+                    .sortBy('is_kyc_passed')
+                    .sortBy('kyc_type')
+                    .value()
+                : clickedColumn === 'is_verified' ?
+                    _.chain(usersList.data)
+                        .sortBy('is_verified')
+                        .sortBy('is_blocked')
+                        .value()
+                : _.sortBy(usersList.data, clickedColumn);
         const sortData = {
             column: clickedColumn,
             data:

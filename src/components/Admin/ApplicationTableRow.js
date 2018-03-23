@@ -90,7 +90,11 @@ class ApplicationTableRow extends Component {
                 {fixToken}
                 <Table.Cell width={1}>{this.getCountry(profile.country)}</Table.Cell>
                 <Table.Cell width={3}>{profile.email}</Table.Cell>
-                <Table.Cell width={1}>{profile.is_kyc_passed === false ? "No" : "Yes"}</Table.Cell>
+                <Table.Cell width={1}>{
+                    (profile.is_kyc_passed === false && profile.kyc_type === '') ? 'No' :
+                        (profile.is_kyc_passed === false && profile.kyc_type !== '') ? 'Passed' :
+                            (profile.is_kyc_passed && profile.kyc_type !== '') ? 'Verified' : 'User not verified'
+                }</Table.Cell>
                 <Table.Cell width={1} className={"cursor-pointer"}>
                     <span>{status === 0 ? "Awaiting" : status === 1 ? "Approved" : status === 2 ? "Rejected" : "Paid"}</span>
                 </Table.Cell>

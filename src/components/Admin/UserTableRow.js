@@ -35,9 +35,10 @@ class UserTableRow extends Component {
             email,
             roles,
             is_verified,
-            is_kyc_passed
+            is_kyc_passed,
+            is_blocked,
+            kyc_type
         } = this.props;
-
         return (
             <Table.Row className={"admin__users-user"} >
                 <Table.Cell className={`user_${id}`}>
@@ -46,8 +47,16 @@ class UserTableRow extends Component {
                 <Table.Cell>{moment(createdAt).tz('Europe/Moscow').format('DD-MM-YYYY HH:mm:ss z')}</Table.Cell>
                 <Table.Cell>{email}</Table.Cell>
                 <Table.Cell className={"cursor-pointer"}><span>{roles}</span></Table.Cell>
-                <Table.Cell>{is_verified === false ? "No" : "Yes"}</Table.Cell>
-                <Table.Cell>{is_kyc_passed === false ? "No" : "Yes"}</Table.Cell>
+                <Table.Cell>{
+                    (is_verified === false && is_blocked === false) ? 'New' :
+                        (is_verified && is_blocked === false) ? 'Verified' :
+                            ((is_verified || is_verified === false) && is_blocked) ? 'Blocked' : ''
+                }</Table.Cell>
+                <Table.Cell>{
+                    (is_kyc_passed === false && kyc_type === '') ? 'No' :
+                        (is_kyc_passed === false && kyc_type !== '') ? 'Passed' :
+                            (is_kyc_passed && kyc_type !== '') ? 'Verified' : 'User not verified'
+                }</Table.Cell>
                 <Table.Cell>
                     <input 
                         type="checkbox" 
