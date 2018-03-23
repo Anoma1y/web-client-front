@@ -199,7 +199,7 @@ class IdentificationImgUpload extends Component {
                                 {this.state.fileUploadError}
                             </p>
 
-                            : (this.props.settings.settingsInputError !== null && this.state.file.length === 0) ?
+                            : (this.props.settings.settingsInputError !== null && this.state.file.length === 0 &&  this.props.imageValue.length === 0) ?
 
                             <p className={'imagePreview__error'}>
                                 Required field
