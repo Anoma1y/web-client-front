@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
     setApplicationSingle,
     changeApplicationStatus,
@@ -188,7 +189,7 @@ class ApplicationSingle extends Component {
                             <Card fluid className={"component__main component__shadow"}>
                                 <Card.Content>
                                     <Card.Header>
-                                        {"Application editing"}
+                                        <Link to={'/admin/application/'} style={{display: 'block', marginBottom: '20px'}}>Back to Applications</Link>
                                     </Card.Header>
                                     <Grid>
                                         <Grid.Row>

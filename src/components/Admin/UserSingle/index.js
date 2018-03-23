@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 import {
     Container,
     Grid,
@@ -151,7 +152,6 @@ class UserSingle extends Component {
 
     render() {
         const {
-            activeIndex,
             deleteUserIsOpen,
             blockUserIsOpen,
             rolesUserIsOpen,
@@ -168,7 +168,7 @@ class UserSingle extends Component {
                             <Card fluid className={"component__main component__shadow"}>
                                 <Card.Content>
                                     <Card.Header>
-                                        {"User editing"}
+                                        <Link to={'/admin/'} style={{display: 'block', marginBottom: '20px'}}>Back to User</Link>
                                     </Card.Header>
                                     <Grid>
                                         <Grid.Row centered>
