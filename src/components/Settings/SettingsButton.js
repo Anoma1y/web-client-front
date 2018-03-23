@@ -48,7 +48,14 @@ class SettingsButton extends Component {
             let d1 = new Date(CHECK_MINIMUM_AGE);
             let d2 = new Date();
             let days = (d2 - d1)/(1000*60*60*24);
-            return ((days < 6570 && days > 0) || Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 || days > 36200 ) !== true;
+            return ((days < 6574 && days > 0)
+                || Math.sign(days) === -1
+                || Number(DATE.DAY) > 31
+                || Number(DATE.MONTH) > 12
+                || days > 36525
+                || Number(DATE.MONTH) === 0
+                || Number(DATE.DAY) === 0
+                || Number(DATE.YEAR) === 0 ) !== true;
         } else if (value.length >= 0 || value.length < 10) {
             return false;
         }
