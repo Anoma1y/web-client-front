@@ -54,8 +54,8 @@ class UserSingleLegal extends Component {
         return (
             <Card fluid>
                 <Card.Content>
-                    <Card.Header>
-                        {singleUser.kyc_type}
+                    <Card.Header textAlign={'center'}>
+                        KYC TYPE - {(singleUser.kyc_type).toUpperCase()}
                     </Card.Header>
                     <Card.Description>
                         <Card.Header>

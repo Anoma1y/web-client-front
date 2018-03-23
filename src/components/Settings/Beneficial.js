@@ -322,7 +322,7 @@ class Beneficial extends Component {
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
                                     {lastNameError.length !== 0 && settings.beneficial[indexBeneficial].Surname.length !== 0 ? <p className={'auth__error'}>{lastNameError}</p> : null}
-                                    {settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
+                                    {settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>

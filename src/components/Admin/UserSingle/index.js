@@ -7,7 +7,6 @@ import {
     Grid,
     Card,
     Button,
-    Accordion,
     Icon,
     Modal,
     Form,
@@ -24,20 +23,11 @@ import AdminLib from 'libs/ApiLib/AdminLib';
 
 class UserSingle extends Component {
     state = {
-        activeIndex: -1,
         currentRole: '',
         deleteUserIsOpen: false,
         blockUserIsOpen: false,
         rolesUserIsOpen: false,
     }
-
-    handleClick = (e, titleProps) => {
-        const { index } = titleProps
-        const { activeIndex } = this.state
-        const newIndex = activeIndex === index ? -1 : index;
-        this.setState({ activeIndex: newIndex })
-    }
-
     componentDidMount() {
         const {
             id
@@ -358,27 +348,24 @@ class UserSingle extends Component {
                                                 <Grid className={"calculator__paymount"}>
                                                     <UserSingleInfo name={'ID'} value={singleUser.ID} />
                                                     <UserSingleInfo name={'Email'} value={singleUser.email} />
-                                                    <UserSingleInfo name={'Is blocked'} value={singleUser.is_blocked === true ? "Yes" : "No"} />
-                                                    <UserSingleInfo name={'Is kycpassed'} value={singleUser.is_kyc_passed === true ? "Yes" : "No"} />
-                                                    <UserSingleInfo name={'Is verified'} value={singleUser.is_verified === true ? "Yes" : "No"} />
+                                                    <UserSingleInfo name={'User status'} value={
+                                                        (singleUser.is_verified === false && singleUser.is_blocked === false) ? 'New' :
+                                                            (singleUser.is_verified && singleUser.is_blocked === false) ? 'Verified' :
+                                                                ((singleUser.is_verified || singleUser.is_verified === false) && singleUser.is_blocked) ? 'Blocked' : ''
+
+                                                    } />
+                                                    <UserSingleInfo name={'KYC'} value={
+                                                        (singleUser.is_kyc_passed === false && singleUser.kyc_type === '') ? 'No' :
+                                                            (singleUser.is_kyc_passed === false && singleUser.kyc_type !== '') ? 'Passed' :
+                                                                (singleUser.is_kyc_passed && singleUser.kyc_type !== '') ? 'Verified' : 'User not verified'
+                                                    }/>
                                                     <UserSingleInfo name={'Roles'} value={singleUser.roles} />
-                                                    <UserSingleInfo name={'KYC type'} value={singleUser.kyc_type} />
                                                 </Grid>
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column>
-                                                <Accordion styled fluid>
-                                                    <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                                                        <Icon name='dropdown' />
-                                                        KYC - {singleUser.kyc_type}
-                                                    </Accordion.Title>
-                                                    <Accordion.Content active={activeIndex === 0}>
-                                                        <div>
-                                                            {this.renderKYC()}
-                                                        </div>
-                                                    </Accordion.Content>
-                                                </Accordion>
+                                                {this.renderKYC()}
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
