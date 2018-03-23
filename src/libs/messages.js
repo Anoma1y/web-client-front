@@ -6,9 +6,9 @@ export const ERROR_VALIDATION = {
     ZIP: 'Enter only English alphabet characters or numbers',
     ZIPLENGTH: '4 symbols minimum',
     URL: 'Enter valid web address',
-    PASSWORD_MATCH: "Passwords do not match",
-    PASSWORD_NEW: "Enter a new password",
-    TOKEN: "Invalid Token",
+    PASSWORD_MATCH: 'Passwords do not match',
+    PASSWORD_NEW: 'Enter a new password',
+    TOKEN: 'Password recovery link expired',
     BIRTHDAY: {
         NO_VALID: 'Enter a valid date',
         UNDER: 'Your age must be at least 18 years old',

@@ -5,7 +5,5 @@ class Config {
     static currencyURL = 'https://api.coinmarketcap.com/v1/ticker/'; //API CURRENCY
     static subscribeBetaTestURL = 'https://tsrpay.com/api/signupApp'; //Beta Test
     static subscribeEmailURL = "https://tsrpay.com/api/subscribeEmail"; //Email News
-    static IMAGE_TYPE = 'image/jpeg,image/jpg,image/png,image/tiff,image/gif';
 }
-
 export default Config;
