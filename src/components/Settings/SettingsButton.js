@@ -152,9 +152,9 @@ class SettingsButton extends Component {
                 } else if (item === 'companyZip') {
                     return this.checkZip(companyInformation[item]);
                 } else if (item === 'companyWebsites') {
-                    return this.checkWeb(companyInformation[item]);
+                    return this.checkWeb(companyInformation[item]) && companyInformation[item].length <= LIMIT.WEBSITE.MAX;
                 } else if (item === 'companyEmail') {
-                    return this.checkEmail(companyInformation[item]);
+                    return this.checkEmail(companyInformation[item]) && companyInformation[item].length <= LIMIT.EMAIL.MAX;
                 } else if (item === 'companyPhone') {
                     return this.checkPhone(companyInformation[item]);
                 } else if (item === 'companyCity') {
@@ -166,7 +166,7 @@ class SettingsButton extends Component {
                 } else if (item === 'companyDescriptioncompanydoes') {
                     return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.DESCRIPTION_COMPANY_DOES.MAX;
                 } else if (item === 'companyLinktopubliccompanyregister') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX;
+                    return (this.checkWeb(companyInformation[item]) || companyInformation[item].length === 0) && companyInformation[item].length <= LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX;
                 } else if (item === 'companyTaxrezidencecountry') {
                     return companyInformation[item].length > 0;
                 }

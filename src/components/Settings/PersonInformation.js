@@ -415,8 +415,9 @@ class PersonInformation extends Component {
                             </Grid.Column>
                             
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
-                                ((emailError.length !== 0 && settings[stateObject].Email.length > 0) || settings[stateObject].Email > LIMIT.EMAIL.MAX)? "auth_input-error"
+                                ((emailError.length !== 0 && settings[stateObject].Email.length > 0) || settings[stateObject].Email.length > LIMIT.EMAIL.MAX) ? "auth_input-error"
                                     : (settings[stateObject].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    : (emailError.length === 0  && settings[stateObject].Email.length > LIMIT.EMAIL.MAX) ? "auth_input-error"
                                     :  "auth_input-success"
                             }>
                                 <label>
