@@ -116,15 +116,21 @@ class Beneficial extends Component {
             let d1 = new Date(CHECK_MINIMUM_AGE);
             let d2 = new Date();
             let days = (d2 - d1)/(1000*60*60*24);
-            if (days < 6570 && days > 0) {
+            if (days < 6574 && days > 0) {
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.UNDER
                 });
-            } else if (days > 36200) {
+            } else if (days > 36525) {
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.OVER
                 });
-            } else if (Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 ) {
+            } else if (Math.sign(days) === -1
+                || Number(DATE.DAY) > 31
+                || Number(DATE.MONTH) > 12
+                || Number(DATE.MONTH) === 0
+                || Number(DATE.DAY) === 0
+                || Number(DATE.YEAR) === 0) {
+
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
                 });
@@ -322,7 +328,7 @@ class Beneficial extends Component {
                                     />
                                     <span className={'auth_input-span'}>Surname</span>
                                     {lastNameError.length !== 0 && settings.beneficial[indexBeneficial].Surname.length !== 0 ? <p className={'auth__error'}>{lastNameError}</p> : null}
-                                    {settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
+                                    {settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.ATTENTION ? <p className={settings.beneficial[indexBeneficial].Surname.length > LIMIT.SURNAME.MAX ? 'auth_length auth_length-red' : 'auth_length'}> {`${settings.beneficial[indexBeneficial].Surname.length}/${LIMIT.SURNAME.MAX}`}</p> : null }
                                 </label>
                             </Grid.Column>
                         </Grid.Row>
@@ -440,6 +446,7 @@ class Beneficial extends Component {
                             <Grid.Column widescreen={8} computer={8} tablet={8} mobile={16} className={
                                 ((emailError.length !== 0 && settings.beneficial[indexBeneficial].Email.length > 0) || settings.beneficial[indexBeneficial].Email > LIMIT.EMAIL.MAX)? "auth_input-error"
                                     : (settings.beneficial[indexBeneficial].Email.length === 0 && settingsInputError === SETTINGS.FILL_INPUT) ? "auth_input-error"
+                                    : (emailError.length === 0  && settings.beneficial[indexBeneficial].Email.length > LIMIT.EMAIL.MAX) ? "auth_input-error"
                                     :  "auth_input-success"
                             }>
                                 <label>

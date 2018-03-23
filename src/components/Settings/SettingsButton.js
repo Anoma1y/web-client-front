@@ -48,7 +48,14 @@ class SettingsButton extends Component {
             let d1 = new Date(CHECK_MINIMUM_AGE);
             let d2 = new Date();
             let days = (d2 - d1)/(1000*60*60*24);
-            return ((days < 6570 && days > 0) || Math.sign(days) === -1 || Number(DATE.DAY) > 31 || Number(DATE.MONTH) > 12 || days > 36200 ) !== true;
+            return ((days < 6574 && days > 0)
+                || Math.sign(days) === -1
+                || Number(DATE.DAY) > 31
+                || Number(DATE.MONTH) > 12
+                || days > 36525
+                || Number(DATE.MONTH) === 0
+                || Number(DATE.DAY) === 0
+                || Number(DATE.YEAR) === 0 ) !== true;
         } else if (value.length >= 0 || value.length < 10) {
             return false;
         }
@@ -152,9 +159,9 @@ class SettingsButton extends Component {
                 } else if (item === 'companyZip') {
                     return this.checkZip(companyInformation[item]);
                 } else if (item === 'companyWebsites') {
-                    return this.checkWeb(companyInformation[item]);
+                    return this.checkWeb(companyInformation[item]) && companyInformation[item].length <= LIMIT.WEBSITE.MAX;
                 } else if (item === 'companyEmail') {
-                    return this.checkEmail(companyInformation[item]);
+                    return this.checkEmail(companyInformation[item]) && companyInformation[item].length <= LIMIT.EMAIL.MAX;
                 } else if (item === 'companyPhone') {
                     return this.checkPhone(companyInformation[item]);
                 } else if (item === 'companyCity') {
@@ -166,7 +173,7 @@ class SettingsButton extends Component {
                 } else if (item === 'companyDescriptioncompanydoes') {
                     return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.DESCRIPTION_COMPANY_DOES.MAX;
                 } else if (item === 'companyLinktopubliccompanyregister') {
-                    return companyInformation[item].length > 0 && companyInformation[item].length <= LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX;
+                    return (this.checkWeb(companyInformation[item]) || companyInformation[item].length === 0) && companyInformation[item].length <= LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX;
                 } else if (item === 'companyTaxrezidencecountry') {
                     return companyInformation[item].length > 0;
                 }
