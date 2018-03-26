@@ -1,3 +1,5 @@
+import {changeTransferData} from "actions/calculator";
+
 export const separationValueCalculator = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits, maximumSignificantDigits: 5 }).format(value);
 
 export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
@@ -163,7 +165,6 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         BTC = value;
     }
-
     const progressBar = handleProgressBar(TSRvalue, bonusList);
     return {
         sumValue: value,
