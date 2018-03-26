@@ -43,7 +43,7 @@ class Identification extends Component {
                 <Card.Content>
                     <Card.Header className={'settings__identification_header'}>Identification</Card.Header>
                     <Card.Description>
-                        <Grid className={'dashboard__component'}>
+                        <Grid className={'dashboard__component settings_grid_component'}>
                             <Tab
                                 menu={{ secondary: true, pointing: true }}
                                 panes={kyc_type === 'individual' ? individualUserRender : kyc_type === 'legal' ? legalEntityRender : panes}

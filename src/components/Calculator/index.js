@@ -252,7 +252,7 @@ class Calculator extends Component {
                                                     type="text"
                                                     className={"input__currency populated_currency"}
                                                     placeholder={currencyValue}
-                                                    value={suffixText.suffixCurrency ? separationValueCalculator(sumValue) : sumValue}
+                                                    value={suffixText.suffixCurrency ? separationValue(sumValue, 4) : sumValue}
                                                     onChange={this.handleCurrency}
                                                     onBlur={this.handleBlur}
                                                     onFocus={this.handleFocus}

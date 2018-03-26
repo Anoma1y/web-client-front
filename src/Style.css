@@ -858,6 +858,9 @@ iframe.roadmap_modal {
   .settings__identification input {
     font-family: "Roboto", sans-serif !important; }
 
+.settings_grid_component {
+  display: block !important; }
+
 .setting_divider {
   margin-left: -1rem !important;
   margin-right: -1rem !important; }

@@ -1,5 +1,3 @@
-import {changeTransferData} from "actions/calculator";
-
 export const separationValueCalculator = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits, maximumSignificantDigits: 5 }).format(value);
 
 export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
@@ -167,7 +165,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     }
     const progressBar = handleProgressBar(TSRvalue, bonusList);
     return {
-        sumValue: value,
+        sumValue: Number(value),
         progressBar,
         tokenValue: TKNinitialValue.toFixed(4),
         bonus: bonus.bonus,
