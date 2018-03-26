@@ -18,7 +18,7 @@ import {
     Divider,
 } from 'semantic-ui-react';
 import {
-    separationValue,
+    separationValueCalculator,
     calcCurrency,
     calcToken
 } from 'libs/math';
@@ -236,7 +236,7 @@ class Calculator extends Component {
                                                     className={"input__currency populated_currency"}
                                                     type={"text"}
                                                     placeholder={"TSR"}
-                                                    value={suffixText.suffixToken ? separationValue(tokenValue) : tokenValue}
+                                                    value={suffixText.suffixToken ? separationValueCalculator(tokenValue) : tokenValue}
                                                     onChange={this.handleToken}
                                                     onBlur={this.handleBlur}
                                                     onFocus={this.handleFocus}
@@ -251,7 +251,7 @@ class Calculator extends Component {
                                                     type="text"
                                                     className={"input__currency populated_currency"}
                                                     placeholder={currencyValue}
-                                                    value={suffixText.suffixCurrency ? separationValue(sumValue) : sumValue}
+                                                    value={suffixText.suffixCurrency ? separationValueCalculator(sumValue) : sumValue}
                                                     onChange={this.handleCurrency}
                                                     onBlur={this.handleBlur}
                                                     onFocus={this.handleFocus}
