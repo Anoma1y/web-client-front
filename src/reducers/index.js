@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-
+import { RESET_STATE } from 'actions/users/types';
 import RequestsReducer from './RequestsReducer';
 import CalculatorReducer from './CalculatorReducer';
 import RoadmapReducer from "./RoadmapReducer";
@@ -15,7 +15,8 @@ import BetaTestReducer from './BetaTestReducer';
 import AdminReducer from './AdminReducer';
 import CurrencyReducer from './CurrencyReducer';
 
-export default combineReducers({
+
+const appReducer = combineReducers({
     routing: routerReducer,
     requests: RequestsReducer,
     roadmap: RoadmapReducer,
@@ -30,4 +31,14 @@ export default combineReducers({
     user: UserReducer,
     rate: CurrencyReducer,
     admin: AdminReducer
-})
+});
+
+const reducer = (state, action) => {
+    if (action.type === RESET_STATE) {
+        state = undefined
+    }
+
+    return appReducer(state, action)
+};
+
+export default reducer;

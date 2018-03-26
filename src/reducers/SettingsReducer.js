@@ -102,7 +102,7 @@ const INITIAL_STATE = {
     success: false,
     settingsInputError: null,
     activeTab: null
-}
+};
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
