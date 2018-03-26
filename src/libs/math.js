@@ -1,5 +1,4 @@
-//Функция для преобразования строки в удобночитаемый формат
-export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
+export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits, maximumSignificantDigits: 5 }).format(value);
 
 export const bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
 
