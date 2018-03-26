@@ -390,6 +390,13 @@ body {
     background: transparent;
     -webkit-appearance: none;
     -moz-appearance: none; }
+  .input__slider::-ms-fill-lower {
+    background: #004fce; }
+  .input__slider::-ms-fill-upper {
+    background: #eaeaea; }
+  .input__slider::-ms-track {
+    color: transparent !important;
+    border: none !important; }
   .input__slider::-moz-range-track {
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -398,6 +405,17 @@ body {
   .input__slider::-moz-focus-outer {
     border: 0; }
   .input__slider::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    border: 0;
+    background: #fff;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 31, 56, 0.5);
+    box-shadow: 0px 0px 5px 0px rgba(0, 31, 56, 0.5);
+    -webkit-appearance: none;
+    -moz-appearance: none; }
+  .input__slider::-ms-thumb {
     width: 16px;
     height: 16px;
     border: 0;
