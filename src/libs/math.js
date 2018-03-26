@@ -165,7 +165,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     }
     const progressBar = handleProgressBar(TSRvalue, bonusList);
     return {
-        sumValue: Number(value),
+        sumValue: value,
         progressBar,
         tokenValue: TKNinitialValue.toFixed(4),
         bonus: bonus.bonus,
