@@ -1,16 +1,8 @@
 //Функция для преобразования строки в удобночитаемый формат
 export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
 
-//Функция для расчета бонусного значения при вводе токена
-//Принимает 2 параметра: value - текущее значения вводимое пользователем в Input-токены, bonus - процент бонуса
-//Возвращает значение токена с бонусным значением
 export const bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
 
-//Функция для проверки наличия бонусного значения скидки
-//Принимает 3 параметра: value - значение текущего кол-ва токенов, currency - отношение фиксированной цены к изменяемой
-//bonus - список бонусов при достижении лимита
-//Если достигает текущего лимита для определенных бонусов, то возвращает true значение (активированный бонус
-//Возвращает объект бонусов и бонусного процента
 export const checkPercent = (value, currency, bonus) => {
     let bonusPercent = 0;
     bonus.forEach((bon) => {
@@ -23,11 +15,6 @@ export const checkPercent = (value, currency, bonus) => {
     return bonusPercent;
 }
 
-//Функция для расчета значений в заявках
-//Принимает 5 параметров: FIXED_AMOUNT (Number) - кол-во валюты, в которой была зафиксирована покупка токенов
-//CURRENCY (String) - отношение зафиксированной валюты к оплачеваемой. TSR_INITIAL_VALUE (Integer) - начальное значение токена
-//CRYPTO_CURRENCY (Array-Object) - курс криптовалюты, BONUS_LIST (Array Object) - список бонусов при достижении значений токена
-//Возвращает объект значений: CURRENCYVALUE - стоимость валюты, TOKENVALUE - стоимость токена
 export const applicationCalc = (FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
     let CURRENCYVALUE = 0;
     let TOKENVALUE = 0;
@@ -69,30 +56,12 @@ export const applicationCalc = (FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPT
     }
 }
 
-
-
-//Функция для проверки достижения максимум бонусов
-//Принимает 1 значение: value - процент заполнения прогресс бара
-//Зависящий от максимального количества токена и вводимого пользователем
 export const checkMaximum = value => value >= 100;
 
-
-//Функция для расчета бонуса от токена, принимает 3 значения: value - текущее значение вводимое пользователем в Input-валюты
-//bonusTKN - бонусное значение токена, TKN - стоимость токена
-//Возвращает значение токена с бонусом
-//Функция добавляет значение в общее количество токенов
 export const transferToTKNbonus = (value, bonusTKN, TSR) => Math.round(value  / TSR) + (Math.round(value  / TSR) * (bonusTKN / 100));
 
-//Функция для расчета текущего значения токена из вводимой валюты
-//Принимает 2 параметра: value - значения, вводимое пользователем в Input-валюты
-//TKN - стоимость токена
-//Возвращает целое цифровое значение токена
 export const transferToTKN = (value, TSR) => value / TSR;
 
-//Функция для проверки наличия бонусного значения скидки
-//Принимает 1 параметр: value - значение текущего кол-ва токенов
-//Если достигает текущего лимита для определенных бонусов, то возвращает true значение (активированный бонус
-//Возвращает объект бонусов и бонусного процента
 export const checkBonus = (value, bonusList) => {
     let bonusTSR = 0;
     let bonus = [];
@@ -110,9 +79,6 @@ export const checkBonus = (value, bonusList) => {
     }
 }
 
-//Функция для расчета валюты
-//Принимает 2 параметра: value - текущее значение выбранной валюты
-//type - тип валюты для расчета
 export const transferUSD = (value, type, CRYPTO_CURRENCY) => {
     switch(type) {
         case "BTC":
@@ -124,9 +90,6 @@ export const transferUSD = (value, type, CRYPTO_CURRENCY) => {
     }
 }
 
-//Функция для расчета валюты
-//Принимает 2 параметра: value - текущее значение выбранной валюты
-//type - тип валюты для расчета
 export const transferETH = (value, type, CRYPTO_CURRENCY) => {
     switch(type) {
         case "USD":
@@ -138,9 +101,6 @@ export const transferETH = (value, type, CRYPTO_CURRENCY) => {
     }
 }
 
-//Функция для расчета валюты
-//Принимает 2 параметра: value - текущее значение выбранной валюты
-//type - тип валюты для расчета
 export const transferBTC = (value, type, CRYPTO_CURRENCY) => {
     switch(type) {
         case "USD":
@@ -152,9 +112,6 @@ export const transferBTC = (value, type, CRYPTO_CURRENCY) => {
     }
 }
 
-//Функция для расчета стоимость ТОКЕНА
-//Принимает 1 параметр: type - тип криптовалюты,
-//Возвращает расчетную стоимость токена, если тип не передан, то вернет токен без расчетов
 export const TKNprice = (type, TSR, CRYPTO_CURRENCY) => {
     switch(type) {
         case "BTC":
@@ -166,12 +123,6 @@ export const TKNprice = (type, TSR, CRYPTO_CURRENCY) => {
     }
 }
 
-
-//Функция для расчета начального и конечного элемента массива для пагинации
-//Принимает 2 параметра:
-//itemsPerPage - необходимое количество записей на странице,
-//currentPage - текущая страница
-//Возвращает объект значений: начальная и конечная позиция для массива
 export const currentCountItems = (itemsPerPage, currentPage) => {
     let fromPage = itemsPerPage * (currentPage - 1);
     let toPage = (fromPage - 1) + (itemsPerPage + 1);

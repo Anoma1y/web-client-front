@@ -25,13 +25,11 @@ body {
   cursor: pointer !important; }
 
 .auth__container {
-  height: calc(100vh - 100px) !important;
-  display: -ms-grid !important;
+  height: calc(100vh - 100px);
   display: grid !important;
-  -webkit-box-align: center !important;
-  -webkit-align-items: center !important;
-  -ms-flex-align: center !important;
-  align-items: center !important; }
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center; }
 
 .black-text {
   color: #000000 !important; }

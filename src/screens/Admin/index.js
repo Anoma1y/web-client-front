@@ -12,7 +12,7 @@ import NotFound from "screens/NotFound";
 const Admin = ({ match }) => (
     <div>
         <Switch>
-            <Route exact path={`${match.url}/`} component={Users} />
+            <Route exact path={`${match.url}`} component={Users} />
             <Route exact path={`${match.url}/application`} component={Application} />
             <Route exact path={`${match.url}/application/:id`} component={ApplicationSingle}/>
             <Route exact path={`${match.url}/user/:id`} component={UserSingle}/>

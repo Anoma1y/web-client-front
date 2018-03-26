@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import {
     Menu,
     Container,
@@ -9,24 +8,7 @@ import { Link } from 'react-router-dom';
 import Logo from 'logo.svg';
 
 class HeaderMenu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            menu: [{
-                name: "Home",
-                href: "/dashboard/",
-                iconName: "home"
-            },{
-                name: "Message",
-                href: "/",
-                iconName: "envelope"
-            },{
-                name: "Settings",
-                href: "/dashboard/settings",
-                iconName: "setting"
-            }]
-        };
-    }
+
     render() {
         const {
             email,
@@ -74,6 +56,4 @@ class HeaderMenu extends Component {
         );
     }
 }
-export default connect(state => ({ routing: state.routing, user: state.user }), {
-
-})(HeaderMenu);
+export default HeaderMenu;

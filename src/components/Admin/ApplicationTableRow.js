@@ -83,7 +83,7 @@ class ApplicationTableRow extends Component {
         return (
             <Table.Row>
                 <Table.Cell width={1}>
-                    <Link to={`../admin/application/${id}`}>{id}</Link>
+                    <Link to={`/admin/application/${id}`}>{id}</Link>
                 </Table.Cell>
                 <Table.Cell width={2}>{moment(createdAt).tz('Europe/Moscow').format('DD-MM-YYYY HH:mm:ss z')}</Table.Cell>
                 {fixCurrency}

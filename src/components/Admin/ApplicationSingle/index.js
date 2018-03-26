@@ -181,6 +181,7 @@ class ApplicationSingle extends Component {
             applicationModalIsOpen,
             applicationChangeError
         } = this.props.admin;
+        console.log(singleApplication);
         return (
             <Container>
                 <Grid>
@@ -190,6 +191,7 @@ class ApplicationSingle extends Component {
                                 <Card.Content>
                                     <Card.Header>
                                         <Link to={'/admin/application/'} style={{display: 'block', marginBottom: '20px'}}>Back to Applications</Link>
+                                        <Link to={`/admin/user/${singleApplication.profile.ID}`} style={{display: 'block', marginBottom: '20px'}}>Go to - {singleApplication.profile.email}</Link>
                                     </Card.Header>
                                     <Grid>
                                         <Grid.Row>
