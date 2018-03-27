@@ -357,7 +357,8 @@ class UserSingle extends Component {
                                                     <UserSingleInfo name={'KYC'} value={
                                                         (singleUser.is_kyc_passed === false && singleUser.kyc_type === '') ? 'No' :
                                                             (singleUser.is_kyc_passed === false && singleUser.kyc_type !== '') ? 'Passed' :
-                                                                (singleUser.is_kyc_passed && singleUser.kyc_type !== '') ? 'Verified' : 'User not verified'
+                                                                (singleUser.is_kyc_passed && singleUser.kyc_type !== '') ? 'Verified' :
+                                                                    (singleUser.is_kyc_passed && singleUser.kyc_type === '') ? 'Verified by admin' : 'Not verified'
                                                     }/>
                                                     <UserSingleInfo name={'Roles'} value={singleUser.roles} />
                                                 </Grid>

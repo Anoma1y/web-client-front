@@ -87,17 +87,16 @@ class Home extends Component{
         }, 15000)
     }
 
-
     handleContextRef = contextRef => {
         this.setState({contextRef})
     }
 
     render() {
         const { contextRef } = this.state;
-        const { kyc_type } = localStorage;
+        const { kyc_type, is_kyc_passed } = localStorage;
         return (
             <div>
-                {kyc_type !== '' ? null :
+                {kyc_type !== '' || is_kyc_passed === 'true' ? null :
                     <div className={"attentionIdentification"}>
                         <AttentionIdentification />
                     </div>

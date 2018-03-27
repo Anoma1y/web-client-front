@@ -55,7 +55,8 @@ class UserTableRow extends Component {
                 <Table.Cell>{
                     (is_kyc_passed === false && kyc_type === '') ? 'No' :
                         (is_kyc_passed === false && kyc_type !== '') ? 'Passed' :
-                            (is_kyc_passed && kyc_type !== '') ? 'Verified' : 'User not verified'
+                            (is_kyc_passed && kyc_type !== '') ? 'Verified' :
+                                (is_kyc_passed && kyc_type === '') ? 'Verified by admin' : 'Not verified'
                 }</Table.Cell>
                 <Table.Cell>
                     <input 
