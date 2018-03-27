@@ -7,7 +7,8 @@ import {
     deleteToken,
     putRoles,
     initKycType,
-    initID
+    initID,
+    resetState
 } from 'actions/users';
 import {
     initialUserProfile,
@@ -65,6 +66,7 @@ export const initialUser = token => {
                             content,
                             type,
                         } = data.data;
+
                         const findImage = (OBJECT, KEYS) => {
                             return _.findKey(OBJECT, function(value, key) {
                                 return key.indexOf(KEYS) >= 0;
@@ -74,7 +76,9 @@ export const initialUser = token => {
                         if (type === 'individual') {
                             const INITIAL_DATA = JSON.parse(content);
                             const imageID = _.compact(Object.values(INITIAL_DATA.individualUserFile)).join(',');
+
                             KYC.getKYCImage(imageID, token).then((image) => {
+
                                 const IMAGE = _.indexBy(image.data, 'ID');
                                 const {
                                     personalUserDocument,
@@ -122,6 +126,7 @@ export const initialUser = token => {
                                     representation,
                                     certificateActualStatus
                                 } = INITIAL_DATA.personCompanyFile;
+
                                 dispatch(initialCompanyUserImage({
                                     certificateActualStatus:
                                         findImage(IMAGE, certificateActualStatus) !== undefined
@@ -135,16 +140,20 @@ export const initialUser = token => {
                                         findImage(IMAGE, representation) !== undefined
                                             ? `${Config.url}static/${IMAGE[findImage(IMAGE, representation)].filename}`
                                             : ''
-                                }))
+                                }));
+
                             }).catch(() => {
+
                                 dispatch(initialCompanyUserImage({
                                     certificateActualStatus: '',
                                     personalUserCompanyDocument: '',
                                     representation: ''
-                                }))
+                                }));
+
                             });
 
                             KYC.getKYCImage(imageCOMPANY_ID, token).then((companyImage) => {
+
                                 const IMAGE = _.indexBy(companyImage.data, 'ID');
                                 const {
                                     businessRegistrationDocument,
@@ -152,6 +161,7 @@ export const initialUser = token => {
                                     businessActivityLicense,
                                     declare
                                 } = INITIAL_DATA.companyFile;
+
                                 dispatch(initialCompanyImage({
                                     businessRegistrationDocument:
                                         findImage(IMAGE, businessRegistrationDocument) !== undefined
@@ -170,13 +180,16 @@ export const initialUser = token => {
                                         ? `${Config.url}static/${IMAGE[findImage(IMAGE, declare)].filename}`
                                         : ''
                                 }));
+
                             }).catch(() => {
+
                                 dispatch(initialCompanyImage({
                                     businessRegistrationDocument: '',
                                     document3months: '',
                                     businessActivityLicense: '',
                                     declare: ''
                                 }));
+
                             });
 
                             const BENEFICIAL_FILE = INITIAL_DATA.beneficialFile.reduce((result, { ...beneficialFile }, index) => {
@@ -202,7 +215,9 @@ export const initialUser = token => {
                             }, []);
 
                             KYC.getKYCImage(_.compact(BENEFICIAL_IMAGE).join(','), token).then((beneficialImage) => {
+
                                 const IMAGE = _.indexBy(beneficialImage.data, 'ID');
+
                                 const DATA_IMAGE_BENEFICIAL = INITIAL_DATA.beneficialFile.reduce((result, {}, index) => {
                                     result[index] = {
                                         personalBeneficialDocument:
@@ -220,8 +235,11 @@ export const initialUser = token => {
                                     };
                                     return result;
                                 }, {});
+
                                 dispatch(initialBeneficialmage(DATA_IMAGE_BENEFICIAL));
+
                             }).catch(() => {
+
                                 const DATA_IMAGE_BENEFICIAL = INITIAL_DATA.beneficialFile.reduce((result, {}, index) => {
                                     result[index] = {
                                         personalBeneficialDocument: '',
@@ -230,7 +248,9 @@ export const initialUser = token => {
                                     };
                                     return result;
                                 }, {});
+
                                 dispatch(initialBeneficialmage(DATA_IMAGE_BENEFICIAL));
+
                             });
                         }
                     })
@@ -242,7 +262,7 @@ export const initialUser = token => {
                 dispatch(push('/dashboard'));
             }
         }).catch(() => {
-            dispatch(deleteToken());
+            dispatch(resetState());
             localStorage.clear();
             dispatch(push('/login'));
         })

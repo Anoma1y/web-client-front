@@ -27,5 +27,5 @@ export { changeLegalSourceFunds } from './changeLegalSourceFunds';
 export { changeBeneficialIncrementID } from './changeBeneficialIncrementID'; 
 export { changeApplicationOpenModal } from './changeApplicationOpenModal';
 export { changeApplicationError } from './changeApplicationError';
-
+export { resetAdminState } from './resetAdminState'; 
 

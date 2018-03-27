@@ -120,7 +120,7 @@ class Beneficial extends Component {
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.UNDER
                 });
-            } else if (days > 36525) {
+            } else if (days > 36159) {
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.OVER
                 });

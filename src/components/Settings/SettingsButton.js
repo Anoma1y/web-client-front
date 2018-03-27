@@ -247,6 +247,12 @@ class SettingsButton extends Component {
         changeModalSettings(false);
     }
 
+    handleCloseModalSuccess = () => {
+        const { changeModalSettings } = this.props;
+        changeModalSettings(false);
+        // window.location.reload();
+    }
+
     render() {
         const {
             settingsModalIsOpen,
@@ -294,7 +300,7 @@ class SettingsButton extends Component {
                                             <div className={success ? "modal__success_btn" : "modal__success_btn modal__success-error"}>
                                                 <Button
                                                     className={"dashboard__submit"}
-                                                    onClick={this.handleCloseModal}
+                                                    onClick={this.handleCloseModalSuccess}
                                                     id={success ? "kycSendSuccess" : "kycSendError"}
                                                 >OK
                                                 </Button>

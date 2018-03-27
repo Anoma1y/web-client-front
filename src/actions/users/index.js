@@ -8,3 +8,4 @@ export { initialUser } from './initialUser';
 export { putRoles } from './putRoles';
 export { initKycType } from './initKycType'; 
 export { initID } from './initID';
+export { resetState } from './resetState'; 
