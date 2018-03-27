@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { RESET_STATE } from 'actions/users/types';
+import { RESET_ADMIN_STATE } from 'actions/admin/types';
 import RequestsReducer from './RequestsReducer';
 import CalculatorReducer from './CalculatorReducer';
 import RoadmapReducer from "./RoadmapReducer";
@@ -37,7 +38,9 @@ const reducer = (state, action) => {
     switch(action.type) {
         case RESET_STATE:
             state = undefined;
-            break;
+            return appReducer(state, action);
+        case RESET_ADMIN_STATE:
+            return appReducer({ ...state, admin: undefined }, action);
         default:
             return appReducer(state, action);
     }

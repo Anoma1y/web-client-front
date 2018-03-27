@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 import {
     setApplicationSingle,
     changeApplicationStatus,
     handleAdminInitialCurrency,
     changeApplicationOpenModal,
-    changeApplicationError
+    changeApplicationError,
+    resetAdminState
 } from 'actions/admin';
 import {
     Container,
@@ -135,7 +137,17 @@ class ApplicationSingle extends Component {
         const { changeApplicationStatus } = this.props;
         changeApplicationStatus(Number(value));
     }
-
+    backToApplicationList = () => {
+        const { goToApplicationList, resetAdminState } = this.props;
+        resetAdminState();
+        goToApplicationList();
+    }
+    goToUser = event => {
+        const { goToUserByID, resetAdminState } = this.props;
+        const { id } = event.target;
+        resetAdminState();
+        goToUserByID(id.split('_')[1]);
+    }
     handleOpenModal = () => {
         const { changeApplicationOpenModal } = this.props;
         changeApplicationOpenModal(true);
@@ -169,7 +181,7 @@ class ApplicationSingle extends Component {
                 changeApplicationOpenModal(false);
                 changeApplicationError(null);
             })
-            .catch((err) => {
+            .catch(() => {
                 changeApplicationError('Application change error!');
             })
     }
@@ -181,7 +193,6 @@ class ApplicationSingle extends Component {
             applicationModalIsOpen,
             applicationChangeError
         } = this.props.admin;
-        console.log(singleApplication);
         return (
             <Container>
                 <Grid>
@@ -190,8 +201,8 @@ class ApplicationSingle extends Component {
                             <Card fluid className={"component__main component__shadow"}>
                                 <Card.Content>
                                     <Card.Header>
-                                        <Link to={'/admin/application/'} style={{display: 'block', marginBottom: '20px'}}>Back to Applications</Link>
-                                        <Link to={`/admin/user/${singleApplication.profile.ID}`} style={{display: 'block', marginBottom: '20px'}}>Go to - {singleApplication.profile.email}</Link>
+                                        <p onClick={this.backToApplicationList} style={{display: 'block', marginBottom: '20px', cursor: 'pointer', color: 'rgba(0, 79, 206, 1)'}}>Back to Applications</p>
+                                        <p id={`user_${singleApplication.profile.ID}`} onClick={this.goToUser} style={{display: 'block', marginBottom: '20px', cursor: 'pointer', color: 'rgba(0, 79, 206, 1)'}}>Go to - {singleApplication.profile.email}</p>
                                     </Card.Header>
                                     <Grid>
                                         <Grid.Row>
@@ -236,8 +247,11 @@ export default connect(state => ({
     rate: state.rate,
     user: state.user
 }), {
+    goToApplicationList: () => push('/admin/application'),
+    goToUserByID: (id) => push(`/admin/user/${id}`),
     setApplicationSingle,
     changeCurrency,
+    resetAdminState,
     changeApplicationStatus,
     handleAdminInitialCurrency,
     changeApplicationOpenModal,

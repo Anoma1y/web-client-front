@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
-import { Link } from 'react-router-dom';
 import {
     Container,
     Grid,
@@ -16,6 +15,7 @@ import {
 import {
     handleSetUserByID,
     setUserSingle,
+    resetAdminState
 } from 'actions/admin';
 import UserSingleIndividual from './UserSingleIndividual';
 import UserSingleLegal from './UserSingleLegal';
@@ -70,8 +70,9 @@ class UserSingle extends Component {
     handleDeleteUser = () => {
         const { jwt: TOKEN } = this.props.user;
         const { id } = this.props.match.params;
-        const { goToUserList } = this.props;
+        const { goToUserList, resetAdminState } = this.props;
         AdminLib.deleteSingleUser(id, TOKEN).then(() => {
+            resetAdminState();
             goToUserList();
         }).catch((err) => console.log(err));
     }
@@ -88,8 +89,8 @@ class UserSingle extends Component {
     }
 
     handleRequestKYCUser = () => {
-        const { goToUserList } = this.props;
-        goToUserList();
+        // const { goToUserList } = this.props;
+        // goToUserList();
     }
     handleKYCAcceptedUser = () => {
         const { id } = this.props.match.params;
@@ -117,7 +118,11 @@ class UserSingle extends Component {
             rolesUserIsOpen: false
         })
     }
-
+    backToUserList = () => {
+        const { goToUserList, resetAdminState } = this.props;
+        resetAdminState();
+        goToUserList();
+    }
     handleChangeRoles = () => {
         const { currentRole } = this.state;
         const { id } = this.props.match.params;
@@ -168,7 +173,7 @@ class UserSingle extends Component {
                             <Card fluid className={"component__main component__shadow"}>
                                 <Card.Content>
                                     <Card.Header>
-                                        <Link to={'/admin/'} style={{display: 'block', marginBottom: '20px'}}>Back to User</Link>
+                                        <p onClick={this.backToUserList} style={{display: 'block', marginBottom: '20px', cursor: 'pointer', color: 'rgba(0, 79, 206, 1)'}}>Back to User</p>
                                     </Card.Header>
                                     <Grid>
                                         <Grid.Row centered>
@@ -383,6 +388,7 @@ class UserSingle extends Component {
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     goToUserList: () => push('/admin/'),
     handleSetUserByID,
+    resetAdminState,
     setUserSingle
 }, dispatch);
 
