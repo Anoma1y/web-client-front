@@ -34,11 +34,13 @@ const appReducer = combineReducers({
 });
 
 const reducer = (state, action) => {
-    if (action.type === RESET_STATE) {
-        state = undefined
+    switch(action.type) {
+        case RESET_STATE:
+            state = undefined;
+            break;
+        default:
+            return appReducer(state, action);
     }
-
-    return appReducer(state, action)
 };
 
 export default reducer;
