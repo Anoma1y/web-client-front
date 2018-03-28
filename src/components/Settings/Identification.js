@@ -37,7 +37,9 @@ class Identification extends Component {
     }
 
     render() {
-        const { kyc_type } = localStorage;
+        const { kyc_type: kyc_type_local } = localStorage;
+        const { kyc_type: kyc_type_redux } = this.props.user;
+        const check_kyc = kyc_type_local || kyc_type_redux;
         return (
             <Card fluid className={'settings__identification component__main component__shadow'}>
                 <Card.Content>
@@ -46,7 +48,7 @@ class Identification extends Component {
                         <Grid className={'dashboard__component settings_grid_component'}>
                             <Tab
                                 menu={{ secondary: true, pointing: true }}
-                                panes={kyc_type === 'individual' ? individualUserRender : kyc_type === 'legal' ? legalEntityRender : panes}
+                                panes={check_kyc === 'individual' ? individualUserRender : check_kyc === 'legal' ? legalEntityRender : panes}
                                 onTabChange={this.handleTabChange}
                                 className={'settings__identification_tabs'}/>
                         </Grid>
@@ -58,6 +60,7 @@ class Identification extends Component {
     }
 }
 
-export default connect(null, {
+export default connect(state => ({ user: state.user }), {
     changeActiveTab
 })(Identification);
+

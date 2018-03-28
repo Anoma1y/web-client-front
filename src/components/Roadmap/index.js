@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import {
     Card,
     Progress,
-    Divider,
-    Modal
+    Divider
 } from 'semantic-ui-react';
 import SkyLight from 'react-skylight';
 
@@ -12,14 +11,15 @@ class Roadmap extends Component {
 
     render() {
         const buttonNone = {
-            display: 'none'
+            right: 7,
+            top: 3
         };
         const diag = {
             width: '80%',
             marginLeft: '-40%',
             marginTop: '-290px',
             height: '600px',
-
+            paddingTop: '25px'
         };
         const { progressBar } = this.props.roadmap;
         return (
