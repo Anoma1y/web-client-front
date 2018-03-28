@@ -1,4 +1,4 @@
-export { handleDeleteTokenUser } from './handleDeleteTokenUser';
+export { handleLogoutUser } from './handleLogoutUser';
 export { putToken } from './putToken';
 export { initIdenfified } from './initIdenfified';
 export { initEmail } from './initEmail';

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { handleDeleteTokenUser } from 'actions/users';
+import { handleLogoutUser } from 'actions/users';
 import { connect } from 'react-redux';
 
 class Logout extends Component {
 
     componentDidMount() {
-        const { handleDeleteTokenUser } = this.props;
-        handleDeleteTokenUser();
+        const { handleLogoutUser } = this.props;
+        handleLogoutUser();
     }
 
     render() {
@@ -20,5 +20,5 @@ class Logout extends Component {
 }
 
 export default connect(null, {
-    handleDeleteTokenUser
+    handleLogoutUser
 })(Logout);
