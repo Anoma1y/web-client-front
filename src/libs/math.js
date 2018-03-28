@@ -145,9 +145,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         bonus = checkBonus(TKNinitialValue, bonusList);
         TSRvalue = transferToTKNbonus(value, bonus.bonusTSR, TSR_ETH);
         USD = value;
-
     } else if (currencyValue === "ETH") {
-
         USD = transferETH(value, "USD", currency);
         BTC = transferETH(value, "BTC", currency);
         TKNinitialValue = transferToTKN(value, TSR_PRICE);
@@ -180,9 +178,17 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
 };
 
 export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) => {
-    const { bonus, bonusTSR } = checkBonus(value, bonusList);
+    const {
+        bonus,
+        bonusTSR
+    } = checkBonus(value, bonusList);
     const bonusValue = bonusCalc(value, bonusTSR);
-    const { USD, BTC, ETH, TSR } = transferTKN(value, bonusValue, currency, TKN_PRICE);
+    const {
+        USD,
+        BTC,
+        ETH,
+        TSR
+    } = transferTKN(value, bonusValue, currency, TKN_PRICE);
     const currentTokenValue = currencyValue === "BTC"
         ? Number(BTC.toFixed(4))
         : currencyValue === "ETH"
