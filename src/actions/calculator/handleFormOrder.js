@@ -7,12 +7,11 @@ export const handleFormOrder = () => {
             currencyValue,
             tokenValue
         } = getState().calculator;
-        const newOrder = {
+        dispatch(changeOrder({
             fixCurrency: "TSR",
             forCurrency: currencyValue,
             amount: tokenValue
-        };
-        dispatch(changeOrder(newOrder));
+        }));
         dispatch(changeModalOpen(true));
     }
 };

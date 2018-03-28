@@ -15,8 +15,6 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, ID: action.payload };
         case U.PUT_TOKEN_USER:
             return { ...state, jwt: action.payload };
-        case U.DELETE_TOKEN_USER:
-            return { ...state, jwt: null };
         case U.PUT_ROLES_USER:
             return { ...state, roles: action.payload };
         case U.INIT_EMAIL:

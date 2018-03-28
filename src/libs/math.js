@@ -14,7 +14,7 @@ export const checkPercent = (value, currency, bonus) => {
         }
     })
     return bonusPercent;
-}
+};
 
 export const applicationCalc = (FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
     let CURRENCYVALUE = 0;
@@ -55,7 +55,7 @@ export const applicationCalc = (FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPT
         TOKENVALUE,
         CURRENCYVALUE
     }
-}
+};
 
 export const checkMaximum = value => value >= 100;
 
@@ -78,7 +78,7 @@ export const checkBonus = (value, bonusList) => {
         bonus,
         bonusTSR
     }
-}
+};
 
 export const transferUSD = (value, type, CRYPTO_CURRENCY) => {
     switch(type) {
@@ -89,7 +89,7 @@ export const transferUSD = (value, type, CRYPTO_CURRENCY) => {
         default:
             return;
     }
-}
+};
 
 export const transferETH = (value, type, CRYPTO_CURRENCY) => {
     switch(type) {
@@ -100,7 +100,7 @@ export const transferETH = (value, type, CRYPTO_CURRENCY) => {
         default:
             return;
     }
-}
+};
 
 export const transferBTC = (value, type, CRYPTO_CURRENCY) => {
     switch(type) {
@@ -111,7 +111,7 @@ export const transferBTC = (value, type, CRYPTO_CURRENCY) => {
         default:
             return;
     }
-}
+};
 
 export const TKNprice = (type, TSR, CRYPTO_CURRENCY) => {
     switch(type) {
@@ -122,7 +122,7 @@ export const TKNprice = (type, TSR, CRYPTO_CURRENCY) => {
         default:
             return TSR;
     }
-}
+};
 
 export const currentCountItems = (itemsPerPage, currentPage) => {
     let fromPage = itemsPerPage * (currentPage - 1);
@@ -131,7 +131,7 @@ export const currentCountItems = (itemsPerPage, currentPage) => {
         fromPage,
         toPage
     }
-}
+};
 
 
 export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRICE) => {
@@ -163,7 +163,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         BTC = value;
     }
-    const progressBar = handleProgressBar(TSRvalue, bonusList);
+    const progressBar = handleProgressBar(TKNinitialValue, bonusList);
     return {
         sumValue: value,
         progressBar,
@@ -177,7 +177,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
             ETH
         }
     }
-}
+};
 
 export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) => {
     const { bonus, bonusTSR } = checkBonus(value, bonusList);
@@ -202,7 +202,8 @@ export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) 
             ETH: Number(ETH.toFixed(4))
         }
     }
-}
+};
+
 const handleProgressBar = (value, bonus) => {
     const percent = ((value * 100) / bonus[bonus.length - 1]["limit"]);
     const isMaximum = checkMaximum(percent);
@@ -210,11 +211,12 @@ const handleProgressBar = (value, bonus) => {
         isMaximum,
         percent
     };
-}
+};
+
 const transferTKN = (value, bonusValue, currency, TKN_PRICE) => {
     const TSR_ETH = TKNprice("ETH", TKN_PRICE, currency);
     const USD = TSR_ETH *  value;
     const BTC = (TSR_ETH / currency[0].price_usd) * value;
     const ETH = (TSR_ETH / currency[1].price_usd) * value;
-    return { USD, BTC, ETH, TSR: bonusValue }
-}
+    return { USD, BTC, ETH, TSR: bonusValue };
+};

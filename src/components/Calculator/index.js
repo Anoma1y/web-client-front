@@ -19,7 +19,6 @@ import {
 } from 'semantic-ui-react';
 import {
     separationValue,
-    separationValueCalculator,
     calcCurrency,
     calcToken
 } from 'libs/math';
@@ -28,16 +27,13 @@ import { InputSlider } from './CalculatorSlider';
 import CalculatorComment from './CalculatorComment';
 import CalculatorModal from "./CalculatorModal";
 import CalculatorPaymount from './CalculatorPaymount';
-import {CALCULATOR} from "libs/messages";
+import { CALCULATOR } from "libs/messages";
 
 class Calculator extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = { 
-            activeIndex: -1,
-            messageLength: 0
-        }
+    state = {
+        activeIndex: -1,
+        messageLength: 0
     }
 
     changeState = value => {
@@ -45,15 +41,9 @@ class Calculator extends Component {
         changeTransferData(value);
     }
 
-    handleToken = (event) => {
+    handleToken = event => {
         const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
         const { value } = event.target;
-        if(!value.match(checkNumber)) {
-            return;
-        }
-        if (value > 2000000) {
-            return;
-        }
         const {
             currencyValue,
             bonus: BONUS_LIST
@@ -62,6 +52,9 @@ class Calculator extends Component {
             TSR: TSR_RATE,
             currency: CRYPTO_CURRENCY
         } = this.props.rate;
+        if(!value.match(checkNumber) || value > 2000000) {
+            return;
+        }
         this.changeState(calcToken(value, currencyValue, BONUS_LIST, CRYPTO_CURRENCY, TSR_RATE));
     }
 
@@ -79,6 +72,7 @@ class Calculator extends Component {
     }
 
     handleCurrency = event => {
+        const { value } = event.target;
         const {
             currencyValue,
             bonus: BONUS_LIST
@@ -87,7 +81,6 @@ class Calculator extends Component {
             TSR: TSR_RATE,
             currency: CRYPTO_CURRENCY
         } = this.props.rate;
-        const { value } = event.target;
         let checkNumber;
         if (currencyValue === "USD") {
             checkNumber = /^\d*(?:\.\d{0,2})?$/g;
@@ -156,13 +149,13 @@ class Calculator extends Component {
         const { length } = value;
         this.setState({
             messageLength: length
-        })
+        });
         changeComments(value);
     }
 
     handleCloseModal = () => {
         const { handleCloseModal } = this.props;
-        handleCloseModal()
+        handleCloseModal();
     }
 
     handleSubmitApplication = () => {
@@ -172,6 +165,7 @@ class Calculator extends Component {
             handleFormOrder();
         }
     }
+
     handleSendApplication = () => {
         const { handleApplication } = this.props;
         this.setState({
@@ -179,24 +173,27 @@ class Calculator extends Component {
         });
         handleApplication();
     }
+
     handleChangeOrderCurrency = (event, {value}) => {
         const { handleChangeOrder } = this.props;
-        const { currencyValue, transferData, tokenValue } = this.props.calculator;
-        let orders = {}
+        const {
+            currencyValue,
+            transferData,
+            tokenValue
+        } = this.props.calculator;
         if (value === "TSR") {
-            orders = {
+            handleChangeOrder({
                 fixCurrency: "TSR",
                 forCurrency: currencyValue,
                 amount: tokenValue
-            }
+            });
         } else {
-            orders = {
+            handleChangeOrder({
                 fixCurrency: value,
                 forCurrency: "TSR",
                 amount: transferData[value]
-            }
+            });
         }
-        handleChangeOrder(orders);
     }
 
     render() {
@@ -275,7 +272,7 @@ class Calculator extends Component {
                                 {
                                     progressBar.isMaximum ? <span className={"bonus__maximum bonus__maximum-active"}>
                                                     <Icon name={"warning sign"} className={"bonus__maximum-icon"} />
-                                            {CALCULATOR.MAXIMUM_ERROR}
+                                                    {CALCULATOR.MAXIMUM_ERROR}
                                                  </span>
                                         : null
                                 }

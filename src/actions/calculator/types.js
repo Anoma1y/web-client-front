@@ -10,5 +10,4 @@ export const CHANGE_CURRENT_BONUS = 'calculator/CHANGE_CURRENT_BONUS';
 export const CHANGE_ORDER = 'calculator/CHANGE_ORDER';
 export const CHANGE_APPLICATION_ERROR = 'calculator/CHANGE_APPLICATION_ERROR';
 export const CHANGE_SEND_APPLICATION_IN_PROGRESS = 'calculator/CHANGE_SEND_APPLICATION_IN_PROGRESS';
-export const RESET_STATE = 'calculator/RESET_STATE';
 
