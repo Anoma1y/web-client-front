@@ -71,7 +71,6 @@ body
   display: grid !important
   -webkit-box-align: center
   -webkit-align-items: center
-  //-ms-flex-align: center
   align-items: center
 
 .black-text
@@ -103,12 +102,22 @@ body
       margin: 0 auto !important
 
 .right__menu
+  display: -webkit-box
+  display: -webkit-flex
+  display: -ms-flexbox
   display: flex
   height: 100%
   min-height: 48px
+  -webkit-box-align: center
+  -webkit-align-items: center
+  -ms-flex-align: center
   align-items: center
+  -webkit-justify-content: space-around !important
   justify-content: space-around !important
   @media screen and (min-width: 768px)
+    -webkit-box-pack: end !important
+    -webkit-justify-content: flex-end !important
+    -ms-flex-pack: end !important
     justify-content: flex-end !important
   .menu_logout
     position: relative !important
@@ -172,12 +181,18 @@ body
 
 .user__menu
   height: 100% !important
+  -webkit-box-pack: end !important
+  -webkit-justify-content: flex-end !important
+  -ms-flex-pack: end !important
   justify-content: flex-end !important
   &_item
     font-family: $font-robot
     font-size: 14px !important
     font-weight: 500 !important
     text-align: center !important
+    -webkit-box-pack: center !important
+    -webkit-justify-content: center !important
+    -ms-flex-pack: center !important
     justify-content: center !important
     line-height: 18px !important
     padding: 0 !important
@@ -192,12 +207,15 @@ body
       margin-right: 0 !important
     a
       display: -webkit-box !important
+      display: -webkit-flex !important
       display: -ms-flexbox !important
       display: flex !important
       -webkit-box-pack: center
+      -webkit-justify-content: center
       -ms-flex-pack: center
       justify-content: center
       -webkit-box-align: center
+      -webkit-align-items: center
       -ms-flex-align: center
       align-items: center
       width: 100% !important
@@ -1333,6 +1351,7 @@ iframe.roadmap_modal
     position: absolute
     top: 0
     right: 1px
+    width: -webkit-calc(100% - 1px)
     width: calc(100% - 1px)
     height: 100px
     background-color: $white-color
@@ -1376,8 +1395,17 @@ iframe.roadmap_modal
       margin: 0 auto !important
 
 .dimmed.dimmable > .ui.animating.dimmer, .dimmed.dimmable > .ui.visible.dimmer, .ui.active.dimmer
+  display: -webkit-box
+  display: -webkit-flex
+  display: -ms-flexbox
   display: flex
+  -webkit-box-align: center
+  -webkit-align-items: center
+  -ms-flex-align: center
   align-items: center
+  -webkit-box-pack: center
+  -webkit-justify-content: center
+  -ms-flex-pack: center
   justify-content: center
 
 .ui.modal,
@@ -1385,5 +1413,9 @@ iframe.roadmap_modal
   margin: 0 auto!important
   top: auto !important
   left: auto !important
+  -webkit-transform-origin: center !important
+  -ms-transform-origin: center !important
   transform-origin: center !important
+  -webkit-transition: all ease .5s
+  -o-transition: all ease .5s
   transition: all ease .5s
