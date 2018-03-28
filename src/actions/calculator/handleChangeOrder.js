@@ -7,11 +7,10 @@ export const handleChangeOrder = value => {
             forCurrency,
             amount
         } = value;
-        const newOrder = {
+        dispatch(changeOrder({
             fixCurrency,
             forCurrency,
             amount
-        };
-        dispatch(changeOrder(newOrder));
+        }));
     }
 };
