@@ -163,7 +163,7 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         BTC = value;
     }
-    const progressBar = handleProgressBar(TSRvalue, bonusList);
+    const progressBar = handleProgressBar(TKNinitialValue, bonusList);
     return {
         sumValue: value,
         progressBar,

@@ -9,8 +9,6 @@ export const handleLogoutUser = () => {
             dispatch(resetState());
             localStorage.clear();
             dispatch(push('/login'));
-        }).catch(() => {
-            dispatch(push('/'));
-        })
+        }).catch(() =>  dispatch(push('/')))
     }
 };
