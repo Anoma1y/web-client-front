@@ -4,7 +4,6 @@ import {
     initIdenfified,
     initEmail,
     putToken,
-    deleteToken,
     putRoles,
     initKycType,
     initID,
