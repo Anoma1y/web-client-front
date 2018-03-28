@@ -139,9 +139,15 @@ class ApplicationComponent extends Component {
     handleSort = clickedColumn => () => {
         const { applicationList } = this.props.admin;
         const { sortedApplications } = this.props;
+        console.log(applicationList);
         const newData = clickedColumn === 'createdAt' ? _.sortBy(applicationList.data, function(node){
             return - (new Date(node.CreatedAt).getTime());
-        }) : _.sortBy(applicationList.data, clickedColumn);
+        }) :
+            clickedColumn === 'is_kyc_passed' ?
+                _.chain(applicationList.data)
+                    .sortBy((node) => node.profile['is_kyc_passed'])
+                    .sortBy((node) => node.profile['kyc_type'].length)
+                    .value() :  _.sortBy(applicationList.data, clickedColumn);
         const sortData = {
             column: clickedColumn,
             data:

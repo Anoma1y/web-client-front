@@ -81,7 +81,7 @@ class UsersComponent extends Component {
             : clickedColumn === 'is_kyc_passed' ?
                 _.chain(usersList.data)
                     .sortBy('is_kyc_passed')
-                    .sortBy('kyc_type')
+                    .sortBy(node => node['kyc_type'].length)
                     .value()
                 : clickedColumn === 'is_verified' ?
                     _.chain(usersList.data)

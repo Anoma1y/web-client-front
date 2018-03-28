@@ -116,7 +116,11 @@ class Beneficial extends Component {
             let d1 = new Date(CHECK_MINIMUM_AGE);
             let d2 = new Date();
             let days = (d2 - d1)/(1000*60*60*24);
-            if (days < 6574 && days > 0) {
+            if (Number(DATE.YEAR) > 0 && Number(DATE.YEAR) < 1800) {
+                this.setState({
+                    [nameError]: ERROR_VALIDATION.BIRTHDAY.NO_VALID
+                });
+            } else if (days < 6574 && days > 0) {
                 this.setState({
                     [nameError]: ERROR_VALIDATION.BIRTHDAY.UNDER
                 });
