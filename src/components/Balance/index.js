@@ -14,7 +14,7 @@ const UserBalance = () => {
                 <Grid className={"dashboard__component"}>
                     <Grid.Row textAlign={"left"} className={"component__timer"}>
                         <Grid.Column>
-                            <p className={'user__balance_amount'}>12 789 tokens</p>
+                            <p className={'user__balance_amount'}>{0} tokens</p>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
