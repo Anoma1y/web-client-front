@@ -80,6 +80,9 @@ export const transferToTKN = (value, TSR) => value / TSR;
 export const checkBonus = (value, bonusList) => {
     let bonusTSR = 0;
     let bonus = [];
+    let endTime1 = moment('2018-03-30 12:00 am', 'YYYY-MM-DD h:mm a');
+    let endTime2 = moment('2018-03-31 9:59 am', 'YYYY-MM-DD h:mm a');
+    const checkBonusTime = moment().isBetween(endTime1, endTime2);
     bonusList.forEach((item) => {
         if (value >= item["limit"]) {
             bonusTSR = item["value"];
@@ -88,6 +91,9 @@ export const checkBonus = (value, bonusList) => {
             bonus.push({value: item["value"], limit: item["limit"], active: false});
         }
     });
+    if (bonusTSR === 0 && checkBonusTime) {
+        bonusTSR = 2;
+    }
     return {
         bonus,
         bonusTSR
@@ -152,11 +158,17 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     let bonus;
     let BTC, ETH, TKNinitialValue, TSRvalue, USD;
     const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
+    let endTime1 = moment('2018-03-30 12:00 am', 'YYYY-MM-DD h:mm a');
+    let endTime2 = moment('2018-03-31 9:59 am', 'YYYY-MM-DD h:mm a');
+    const checkBonusTime = moment().isBetween(endTime1, endTime2);
     if (currencyValue === "USD") {
         BTC = transferUSD(value, "BTC", currency);
         ETH = transferUSD(value, "ETH", currency);
         TKNinitialValue = transferToTKN(value, TSR_ETH);
         bonus = checkBonus(TKNinitialValue, bonusList);
+        if (bonus.bonusTSR === 0 && checkBonusTime) {
+            bonus.bonusTSR = 2;
+        }
         TSRvalue = transferToTKNbonus(value, bonus.bonusTSR, TSR_ETH);
         USD = value;
     } else if (currencyValue === "ETH") {
@@ -164,6 +176,9 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         BTC = transferETH(value, "BTC", currency);
         TKNinitialValue = transferToTKN(value, TSR_PRICE);
         bonus = checkBonus(TKNinitialValue, bonusList);
+        if (bonus.bonusTSR === 0 && checkBonusTime) {
+            bonus.bonusTSR = 2;
+        }
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         ETH = value;
 
@@ -172,6 +187,9 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         ETH = transferBTC(value, "ETH", currency);
         TKNinitialValue = transferToTKN(USD, TSR_ETH);
         bonus = checkBonus(TKNinitialValue, bonusList);
+        if (bonus.bonusTSR === 0 && checkBonusTime) {
+            bonus.bonusTSR = 2;
+        }
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         BTC = value;
     }
@@ -196,6 +214,7 @@ export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) 
         bonus,
         bonusTSR
     } = checkBonus(value, bonusList);
+
     const bonusValue = bonusCalc(value, bonusTSR);
     const {
         USD,

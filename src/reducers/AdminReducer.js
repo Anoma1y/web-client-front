@@ -126,29 +126,6 @@ const INITIAL_STATE = {
     applicationStatus: null,
     bonus: [
         {
-            value: 2,
-            limit: 0,
-            active: false
-        },{
-            value: 2.5,
-            limit: 100000,
-            active: false
-        },{
-            value: 5,
-            limit: 500000,
-            active: false
-        },{
-            value: 10,
-            limit: 1000000,
-            active: false
-        },{
-            value: 15,
-            limit: 2000000,
-            active: false
-        }
-    ],
-    bonusApplication: [
-        {
             value: 2.5,
             limit: 100000,
             active: false

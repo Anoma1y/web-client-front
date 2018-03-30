@@ -4,6 +4,25 @@ const INITIAL_STATE = {
     TSR: 0.001,
     bonus: [
         {
+            value: 2.5,
+            limit: 100000,
+            active: false
+        },{
+            value: 5,
+            limit: 500000,
+            active: false
+        },{
+            value: 10,
+            limit: 1000000,
+            active: false
+        },{
+            value: 15,
+            limit: 2000000,
+            active: false
+        }
+    ],
+    bonusAfter: [
+        {
             value: 2,
             limit: 0,
             active: false
