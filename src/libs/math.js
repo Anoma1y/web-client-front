@@ -70,21 +70,21 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
     if (CURRENCY[0] === "TSR" && CURRENCY[1] === "ETH") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCY_AMOUNT = TSR_INITIAL_VALUE * FIXED_AMOUNT;
-        CURRENCY_NAME = 'ETH'
+        CURRENCY_NAME = 'ETH';
         CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} ETH`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "BTC") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCY_AMOUNT = FIXED_AMOUNT * (TSR_INITIAL_VALUE * CRYPTO_CURRENCY[1].price_btc);
-        CURRENCY_NAME = 'BTC'
+        CURRENCY_NAME = 'BTC';
         CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} BTC`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "USD") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCY_AMOUNT = FIXED_AMOUNT * (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
-        CURRENCY_NAME = 'USD'
+        CURRENCY_NAME = 'USD';
         CURRENCYVALUE = `$ ${separationValue(CURRENCY_AMOUNT, 2)}`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
@@ -92,7 +92,7 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
         const USDTOKEN = FIXED_AMOUNT / (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
         percent = checkPercent(USDTOKEN, CURRENCY, BONUS_LIST);
         CURRENCY_AMOUNT = FIXED_AMOUNT;
-        CURRENCY_NAME = 'USD'
+        CURRENCY_NAME = 'USD';
         CURRENCYVALUE = `$ ${separationValue(CURRENCY_AMOUNT, 2)}`;
         TOKENVALUE = separationValue(bonusCalcRequest(USDTOKEN, percent, checkBonusTime), 4);
     }
@@ -100,7 +100,7 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
         const BTCTOKEN = (FIXED_AMOUNT * (CRYPTO_CURRENCY[0].price_usd / CRYPTO_CURRENCY[1].price_usd)) / TSR_INITIAL_VALUE;
         percent = checkPercent(BTCTOKEN, CURRENCY, BONUS_LIST);
         CURRENCY_AMOUNT = FIXED_AMOUNT;
-        CURRENCY_NAME = 'BTC'
+        CURRENCY_NAME = 'BTC';
         TOKENVALUE = separationValue(bonusCalcRequest(BTCTOKEN, percent, checkBonusTime), 4);
         CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} BTC`;
     }
@@ -111,7 +111,6 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
         CURRENCY_NAME
     }
 };
-
 
 /*************/
 /*КАЛЬКУЛЯТОР*/
