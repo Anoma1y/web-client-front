@@ -377,11 +377,6 @@ class CompanyInformation extends Component {
                             </Grid.Column>
                         </Grid.Row>
 
-                        {/*26. Юр Лицо - поле “Link to public company register” не обязательно для заполнения.*/}
-
-                        {/*27. Юр Лицо - поле “Link to public company register” нет прверки на корректность, можно ввести строку “sfdhbsfgsff” или “ыфваифырафа”.*/}
-
-
                         <Grid.Row className={'auth_input settings__information auth_input-success'}>
                             <Grid.Column width={16} className={
                                 ((linkURLError.length !== 0 && companyInformation.companyLinktopubliccompanyregister.length > 0) || companyInformation.companyLinktopubliccompanyregister.length > LIMIT.LINK_TO_PUBLIC_COMPANY_REGISTER.MAX) ? "auth_input-error"

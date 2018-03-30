@@ -48,7 +48,9 @@ class RequestList extends Component {
             }
             const {
                 TOKENVALUE,
-                CURRENCYVALUE
+                CURRENCYVALUE,
+                CURRENCY_AMOUNT,
+                CURRENCY_NAME
             } = applicationCalc(item.CreatedAt, item.amount, CURRENCY, TOKEN_ATTITUDE_ETH, CRYPTO_CURRENCY, BONUS_LIST);
 
             return (
@@ -56,6 +58,8 @@ class RequestList extends Component {
                     <RequestItem
                         sum={CURRENCYVALUE}
                         amount={TOKENVALUE}
+                        currencyAmount={CURRENCY_AMOUNT}
+                        currencyName={CURRENCY_NAME}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
                         buttonDisabled={item.status !== 1}

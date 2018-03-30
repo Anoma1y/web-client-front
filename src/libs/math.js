@@ -59,44 +59,58 @@ export const checkPercent = (value, currency, bonus) => {
 export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
     let CURRENCYVALUE = 0;
     let TOKENVALUE = 0;
+    let CURRENCY_AMOUNT = 0;
+    let CURRENCY_NAME = '';
     let percent = 0;
 
     const checkBonusTime = moment(APPLICATION_DATE).isBetween(END_TIME_1, END_TIME_2);
 
     if (CURRENCY[0] === "TSR" && CURRENCY[1] === "ETH") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
-        CURRENCYVALUE = `${separationValue((TSR_INITIAL_VALUE * FIXED_AMOUNT), 4)} ETH`;
+        CURRENCY_AMOUNT = TSR_INITIAL_VALUE * FIXED_AMOUNT;
+        CURRENCY_NAME = 'ETH'
+        CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} ETH`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "BTC") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
-        CURRENCYVALUE = `${separationValue((FIXED_AMOUNT * (TSR_INITIAL_VALUE * CRYPTO_CURRENCY[1].price_btc)), 4)} BTC`;
+        CURRENCY_AMOUNT = FIXED_AMOUNT * (TSR_INITIAL_VALUE * CRYPTO_CURRENCY[1].price_btc);
+        CURRENCY_NAME = 'BTC'
+        CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} BTC`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "USD") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
-        CURRENCYVALUE = `$ ${separationValue(FIXED_AMOUNT * (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE), 2)}`;
+        CURRENCY_AMOUNT = FIXED_AMOUNT * (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
+        CURRENCY_NAME = 'USD'
+        CURRENCYVALUE = `$ ${separationValue(CURRENCY_AMOUNT, 2)}`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "USD" && CURRENCY[1] === "TSR") {
         const USDTOKEN = FIXED_AMOUNT / (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
         percent = checkPercent(USDTOKEN, CURRENCY, BONUS_LIST);
-        CURRENCYVALUE = `$ ${separationValue(FIXED_AMOUNT, 2)}`;
+        CURRENCY_AMOUNT = FIXED_AMOUNT;
+        CURRENCY_NAME = 'USD'
+        CURRENCYVALUE = `$ ${separationValue(CURRENCY_AMOUNT, 2)}`;
         TOKENVALUE = separationValue(bonusCalcRequest(USDTOKEN, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "BTC" && CURRENCY[1] === "TSR") {
         const BTCTOKEN = (FIXED_AMOUNT * (CRYPTO_CURRENCY[0].price_usd / CRYPTO_CURRENCY[1].price_usd)) / TSR_INITIAL_VALUE;
         percent = checkPercent(BTCTOKEN, CURRENCY, BONUS_LIST);
+        CURRENCY_AMOUNT = FIXED_AMOUNT;
+        CURRENCY_NAME = 'BTC'
         TOKENVALUE = separationValue(bonusCalcRequest(BTCTOKEN, percent, checkBonusTime), 4);
-        CURRENCYVALUE = `${separationValue(FIXED_AMOUNT, 4)} BTC`;
+        CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} BTC`;
     }
     return {
         TOKENVALUE,
-        CURRENCYVALUE
+        CURRENCYVALUE,
+        CURRENCY_AMOUNT,
+        CURRENCY_NAME
     }
 };
 

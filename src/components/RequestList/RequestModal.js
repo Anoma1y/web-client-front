@@ -36,6 +36,8 @@ class RequestModal extends Component {
             buttonBasic,
             buttonColor,
             buttonText,
+            currencyAmount,
+            currencyName
         } = this.props;
         return (
             <Modal trigger={
@@ -71,7 +73,7 @@ class RequestModal extends Component {
                                     Amount
                                 </Grid.Column>
                                 <Grid.Column width={8} className={'pay__amount_currency'}>
-                                    5 BTC
+                                    {`${currencyAmount} ${currencyName}`}
                                 </Grid.Column>
                             </Grid.Row>
 
@@ -103,7 +105,8 @@ class RequestModal extends Component {
                                 <Grid.Column>
                                     <CopyToClipboard
                                         text={this.state.value}
-                                    ><Button className={'dashboard__submit'}>Скопировать адрес</Button>
+                                    >
+                                        <Button className={'dashboard__submit'}>Скопировать адрес</Button>
                                     </CopyToClipboard>
                                 </Grid.Column>
                             </Grid.Row>
