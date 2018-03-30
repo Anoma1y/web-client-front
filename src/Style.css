@@ -253,6 +253,12 @@ body {
   .dashboard__submit:hover {
     background-color: #0059e8 !important; }
 
+.user__balance {
+  font-family: "Roboto", sans-serif !important; }
+  .user__balance_amount {
+    font-size: 30px !important;
+    color: #004fce !important; }
+
 .attentionIdentification {
   background-color: #d05858 !important;
   font-family: "Roboto", sans-serif !important;

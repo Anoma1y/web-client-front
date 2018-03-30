@@ -13,11 +13,15 @@ import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
 import TelegramWidget from 'components/TelegramWidget';
+import UserBalance from 'components/Balance';
 import { AttentionIdentification } from 'components/AttentionIdentification';
 import { changeCurrency } from 'actions/rate';
 import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
 import {changeTransferData} from 'actions/calculator';
 import {calcToken} from 'libs/math';
+
+
+
 class Home extends Component{
     state = {
 
@@ -111,6 +115,9 @@ class Home extends Component{
                                     <Grid.Row>
                                         <Timer />
                                     </Grid.Row>
+                                    {/*<Grid.Row>*/}
+                                        {/*<UserBalance />*/}
+                                    {/*</Grid.Row>*/}
                                     <Grid.Row>
                                         <Calculator />
                                     </Grid.Row>

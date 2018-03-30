@@ -1,8 +1,19 @@
+import moment from 'moment';
 export const separationValueCalculator = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits, maximumSignificantDigits: 5 }).format(value);
+
+const END_TIME_1 = moment('2018-03-30 2:00 pm +0300', 'YYYY-MM-DD h:mm a Z');
+const END_TIME_2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z');
 
 export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
 
 export const bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
+
+export const bonusCalcRequest = (value, bonus, bonusAfter) => {
+    if (bonusAfter === true && bonus === 0) {
+        bonus = 2;
+    }
+    return (1 * value) + ((1 * value) * (bonus / 100));
+};
 
 export const checkPercent = (value, currency, bonus) => {
     let bonusPercent = 0;
@@ -16,39 +27,43 @@ export const checkPercent = (value, currency, bonus) => {
     return bonusPercent;
 };
 
-export const applicationCalc = (FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
+
+export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
     let CURRENCYVALUE = 0;
     let TOKENVALUE = 0;
     let percent = 0;
+
+    const checkBonusTime = moment(APPLICATION_DATE).isBetween(END_TIME_1, END_TIME_2);
+
     if (CURRENCY[0] === "TSR" && CURRENCY[1] === "ETH") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCYVALUE = `${separationValue((TSR_INITIAL_VALUE * FIXED_AMOUNT), 4)} ETH`;
-        TOKENVALUE = separationValue(bonusCalc(FIXED_AMOUNT, percent), 4);
+        TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "BTC") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCYVALUE = `${separationValue((FIXED_AMOUNT * (TSR_INITIAL_VALUE * CRYPTO_CURRENCY[1].price_btc)), 4)} BTC`;
-        TOKENVALUE = separationValue(bonusCalc(FIXED_AMOUNT, percent), 4);
+        TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "USD") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCYVALUE = `$ ${separationValue(FIXED_AMOUNT * (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE), 2)}`;
-        TOKENVALUE = separationValue(bonusCalc(FIXED_AMOUNT, percent), 4);
+        TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "USD" && CURRENCY[1] === "TSR") {
         const USDTOKEN = FIXED_AMOUNT / (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
         percent = checkPercent(USDTOKEN, CURRENCY, BONUS_LIST);
         CURRENCYVALUE = `$ ${separationValue(FIXED_AMOUNT, 2)}`;
-        TOKENVALUE = separationValue(bonusCalc(USDTOKEN, percent), 4);
+        TOKENVALUE = separationValue(bonusCalcRequest(USDTOKEN, percent, checkBonusTime), 4);
     }
 
     else if (CURRENCY[0] === "BTC" && CURRENCY[1] === "TSR") {
         const BTCTOKEN = (FIXED_AMOUNT * (CRYPTO_CURRENCY[0].price_usd / CRYPTO_CURRENCY[1].price_usd)) / TSR_INITIAL_VALUE;
         percent = checkPercent(BTCTOKEN, CURRENCY, BONUS_LIST);
-        TOKENVALUE = separationValue(bonusCalc(BTCTOKEN, percent), 4);
+        TOKENVALUE = separationValue(bonusCalcRequest(BTCTOKEN, percent, checkBonusTime), 4);
         CURRENCYVALUE = `${separationValue(FIXED_AMOUNT, 4)} BTC`;
     }
     return {
@@ -66,6 +81,8 @@ export const transferToTKN = (value, TSR) => value / TSR;
 export const checkBonus = (value, bonusList) => {
     let bonusTSR = 0;
     let bonus = [];
+
+    const checkBonusTime = moment().isBetween(END_TIME_1, END_TIME_2);
     bonusList.forEach((item) => {
         if (value >= item["limit"]) {
             bonusTSR = item["value"];
@@ -74,6 +91,9 @@ export const checkBonus = (value, bonusList) => {
             bonus.push({value: item["value"], limit: item["limit"], active: false});
         }
     });
+    if (bonusTSR === 0 && checkBonusTime) {
+        bonusTSR = 2;
+    }
     return {
         bonus,
         bonusTSR
@@ -138,11 +158,16 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     let bonus;
     let BTC, ETH, TKNinitialValue, TSRvalue, USD;
     const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
+
+    const checkBonusTime = moment().isBetween(END_TIME_1, END_TIME_2);
     if (currencyValue === "USD") {
         BTC = transferUSD(value, "BTC", currency);
         ETH = transferUSD(value, "ETH", currency);
         TKNinitialValue = transferToTKN(value, TSR_ETH);
         bonus = checkBonus(TKNinitialValue, bonusList);
+        if (bonus.bonusTSR === 0 && checkBonusTime) {
+            bonus.bonusTSR = 2;
+        }
         TSRvalue = transferToTKNbonus(value, bonus.bonusTSR, TSR_ETH);
         USD = value;
     } else if (currencyValue === "ETH") {
@@ -150,6 +175,9 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         BTC = transferETH(value, "BTC", currency);
         TKNinitialValue = transferToTKN(value, TSR_PRICE);
         bonus = checkBonus(TKNinitialValue, bonusList);
+        if (bonus.bonusTSR === 0 && checkBonusTime) {
+            bonus.bonusTSR = 2;
+        }
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         ETH = value;
 
@@ -158,6 +186,9 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         ETH = transferBTC(value, "ETH", currency);
         TKNinitialValue = transferToTKN(USD, TSR_ETH);
         bonus = checkBonus(TKNinitialValue, bonusList);
+        if (bonus.bonusTSR === 0 && checkBonusTime) {
+            bonus.bonusTSR = 2;
+        }
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         BTC = value;
     }
@@ -182,6 +213,7 @@ export const calcToken = (value, currencyValue, bonusList, currency, TKN_PRICE) 
         bonus,
         bonusTSR
     } = checkBonus(value, bonusList);
+
     const bonusValue = bonusCalc(value, bonusTSR);
     const {
         USD,

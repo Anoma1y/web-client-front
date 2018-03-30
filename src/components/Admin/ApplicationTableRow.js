@@ -70,7 +70,7 @@ class ApplicationTableRow extends Component {
         const {
             TOKENVALUE,
             CURRENCYVALUE
-        } = applicationCalc(amount, fixedCurrency, TOKEN_ATTITUDE_ETH, cryptoCurrency, bonus);
+        } = applicationCalc(createdAt, amount, fixedCurrency, TOKEN_ATTITUDE_ETH, cryptoCurrency, bonus);
 
         const fixToken = fixedCurrency[0] === "TSR" ?
             <Table.Cell width={1} positive>{TOKENVALUE}</Table.Cell> :
