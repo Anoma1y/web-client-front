@@ -49,7 +49,7 @@ class RequestList extends Component {
             const {
                 TOKENVALUE,
                 CURRENCYVALUE
-            } = applicationCalc(item.amount, CURRENCY, TOKEN_ATTITUDE_ETH, CRYPTO_CURRENCY, BONUS_LIST);
+            } = applicationCalc(item.CreatedAt, item.amount, CURRENCY, TOKEN_ATTITUDE_ETH, CRYPTO_CURRENCY, BONUS_LIST);
 
             return (
                 <Card.Description key={index}>
