@@ -1413,6 +1413,9 @@ iframe.roadmap_modal {
 .ui.modal,
 .ui.active.modal {
   margin: 0 auto !important;
+  -webkit-box-pack: center !important;
+  -webkit-justify-content: center !important;
+  -ms-flex-pack: center !important;
   justify-content: center !important;
   top: auto !important;
   left: auto !important;

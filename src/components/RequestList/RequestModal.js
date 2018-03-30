@@ -59,6 +59,7 @@ class RequestModal extends Component {
                             <Icon name={"close"} onClick={this.closePayModal}/>
                         </div>
                         <Grid textAlign={"center"}>
+
                             <Grid.Row className={'pay__wrapper'}>
                                 <Grid.Column>
                                     <p className="pay__header">
@@ -85,6 +86,7 @@ class RequestModal extends Component {
                                     </p>
                                 </Grid.Column>
                             </Grid.Row>
+
                             <Grid.Row>
                                 <Grid.Column>
                                     <div className="pay__qrcode">
@@ -92,6 +94,7 @@ class RequestModal extends Component {
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>
+
                             <Grid.Row className={"pay__address"}>
                                 <Grid.Column>
                                     <Input
@@ -101,6 +104,7 @@ class RequestModal extends Component {
                                         value={"kljqklerjqwj2341234kj3kjqewrsqwe"}/>
                                 </Grid.Column>
                             </Grid.Row>
+
                             <Grid.Row className={"pay__copy"}>
                                 <Grid.Column>
                                     <CopyToClipboard
@@ -110,6 +114,7 @@ class RequestModal extends Component {
                                     </CopyToClipboard>
                                 </Grid.Column>
                             </Grid.Row>
+
                         </Grid>
                     </Modal.Description>
                 </Modal.Content>

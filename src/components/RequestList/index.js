@@ -35,13 +35,13 @@ class RequestList extends Component {
                     btnOptions = { color: 'grey', text: 'Processing'};
                     break;
                 case 1:
-                    btnOptions = { color: 'blue', text: 'Approved'};
+                    btnOptions = { color: 'blue', text: 'Pay'};
                     break;
                 case 2:
                     btnOptions = { color: 'red', text: 'Rejected' };
                     break;
                 case 3:
-                    btnOptions = { color: 'green', text: 'Paid'};
+                    btnOptions = { color: 'green', text: 'Purchased'};
                     break;
                 default:
                     btnOptions = { color: 'grey', text: 'Processing'};

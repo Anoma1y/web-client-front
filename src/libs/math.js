@@ -7,8 +7,9 @@ export const separationValue = (value, digits) => new Intl.NumberFormat('en-US',
 /********/
 const END_TIME_1 = moment('2018-03-30 2:00 pm +0300', 'YYYY-MM-DD h:mm a Z'); // Время начала 2% бонуса для всех
 const END_TIME_2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z'); // Время конца
+
 //Функция расчета значения с бонусом: значения + процент, bonus - число  процентов, bonusAfter - проверка вхождения даты бонусного процента (2%)
-//Если тру то вместо 0% = 2%
+//Если тру то вместо 0% => 2%
 export const bonusCalcRequest = (value, bonus, bonusAfter) => {
     if (bonusAfter === true && bonus === 0) {
         bonus = 2;
@@ -17,12 +18,12 @@ export const bonusCalcRequest = (value, bonus, bonusAfter) => {
 };
 
 //Проверка вхождения значения в лимит, если да, то возвращает процентов бонусов.
-//currency - отношения фиксированной валюты к нефиксированной, bonus - массив бонусов.
+//currency - отношения фиксированной валюты к нефиксированной, bonus - массив бонусов (процент бонуса начисляется по последнему активному объекту)
 // bonus: [
 //     {
-//         value: 2.5,
-//         limit: 100000,
-//         active: false
+//         value: 2.5, //процент бонуса
+//         limit: 100000, //лимит, после которого этот бонус начинает действовать
+//         active: false //при достижении лимита, становиться true
 //     },{
 //         value: 5,
 //         limit: 500000,
@@ -50,19 +51,20 @@ export const checkPercent = (value, currency, bonus) => {
 };
 
 //Расчет нефиксированной валюты и бонусов для фиксированной
-//APPLICATION_DATE - дата создания заявки
-//FIXED_AMOUNT - числовое значение зафисикированной валюты
-//CURRENCY - TSR/ETH TSR/USD TSR/BTC BTC/TSR USD/TSR
+//APPLICATION_DATE - дата создания заявки (необходимое для проверки бонуса в определенный период времени)
+//FIXED_AMOUNT - числовое значение зафисикированной валюты/токена
+//CURRENCY - TSR/ETH, TSR/USD, TSR/BTC, BTC/TSR, USD/TSR
 //TSR_INITIAL_VALUE - начальное значение токена, 0,001, в редюсере rate
 //CRYPTO_CURRENCY - курс валют, находится в редюсере rate
 //BONUS_LIST - массив бонусов, см. функцию checkPercent, массив расписан (передать его)
 export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
-    let CURRENCYVALUE = 0;
-    let TOKENVALUE = 0;
-    let CURRENCY_AMOUNT = 0;
-    let CURRENCY_NAME = '';
-    let percent = 0;
+    let CURRENCYVALUE = ''; //Значение валюты в денежном формате
+    let TOKENVALUE = ''; //Значение токена в денежном формате
+    let CURRENCY_AMOUNT = 0; //Значение валюты числом
+    let CURRENCY_NAME = ''; //Название валюты, в которой будет производится оплата
+    let percent = 0;//Процент скидки
 
+    //Проверка даты - если дата создания заявки попадает в интервал между END_TIME_1 и END_TIME_2, то TRUE - скидка в последствии будет 2%
     const checkBonusTime = moment(APPLICATION_DATE).isBetween(END_TIME_1, END_TIME_2);
 
     if (CURRENCY[0] === "TSR" && CURRENCY[1] === "ETH") {
@@ -72,7 +74,6 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
         CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} ETH`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
-
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "BTC") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCY_AMOUNT = FIXED_AMOUNT * (TSR_INITIAL_VALUE * CRYPTO_CURRENCY[1].price_btc);
@@ -80,7 +81,6 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
         CURRENCYVALUE = `${separationValue(CURRENCY_AMOUNT, 4)} BTC`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
-
     else if (CURRENCY[0] === "TSR" && CURRENCY[1] === "USD") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
         CURRENCY_AMOUNT = FIXED_AMOUNT * (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
@@ -88,7 +88,6 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
         CURRENCYVALUE = `$ ${separationValue(CURRENCY_AMOUNT, 2)}`;
         TOKENVALUE = separationValue(bonusCalcRequest(FIXED_AMOUNT, percent, checkBonusTime), 4);
     }
-
     else if (CURRENCY[0] === "USD" && CURRENCY[1] === "TSR") {
         const USDTOKEN = FIXED_AMOUNT / (CRYPTO_CURRENCY[1].price_usd * TSR_INITIAL_VALUE);
         percent = checkPercent(USDTOKEN, CURRENCY, BONUS_LIST);
@@ -97,7 +96,6 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
         CURRENCYVALUE = `$ ${separationValue(CURRENCY_AMOUNT, 2)}`;
         TOKENVALUE = separationValue(bonusCalcRequest(USDTOKEN, percent, checkBonusTime), 4);
     }
-
     else if (CURRENCY[0] === "BTC" && CURRENCY[1] === "TSR") {
         const BTCTOKEN = (FIXED_AMOUNT * (CRYPTO_CURRENCY[0].price_usd / CRYPTO_CURRENCY[1].price_usd)) / TSR_INITIAL_VALUE;
         percent = checkPercent(BTCTOKEN, CURRENCY, BONUS_LIST);
@@ -207,7 +205,6 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     let bonus;
     let BTC, ETH, TKNinitialValue, TSRvalue, USD;
     const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
-
     const checkBonusTime = moment().isBetween(END_TIME_1, END_TIME_2);
     if (currencyValue === "USD") {
         BTC = transferUSD(value, "BTC", currency);
@@ -229,7 +226,6 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
         }
         TSRvalue = transferToTKNbonus(USD, bonus.bonusTSR, TSR_ETH);
         ETH = value;
-
     } else if (currencyValue === "BTC") {
         USD = transferBTC(value, "USD", currency);
         ETH = transferBTC(value, "ETH", currency);
@@ -305,5 +301,10 @@ const transferTKN = (value, bonusValue, currency, TKN_PRICE) => {
     const USD = TSR_ETH *  value;
     const BTC = (TSR_ETH / currency[0].price_usd) * value;
     const ETH = (TSR_ETH / currency[1].price_usd) * value;
-    return { USD, BTC, ETH, TSR: bonusValue };
+    return {
+        USD,
+        BTC,
+        ETH,
+        TSR: bonusValue
+    };
 };
