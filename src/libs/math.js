@@ -28,8 +28,11 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
     let CURRENCYVALUE = 0;
     let TOKENVALUE = 0;
     let percent = 0;
-    
-    const checkBonusTime = moment('2018-03-30T08:00:00.941944Z').isBefore(APPLICATION_DATE);
+
+    let endTime1 = moment('2018-03-30 12:00 am', 'YYYY-MM-DD h:mm a');
+    let endTime2 = moment('2018-03-31 9:59 am', 'YYYY-MM-DD h:mm a');
+
+    const checkBonusTime = moment(APPLICATION_DATE).isBetween(endTime1, endTime2);
 
     if (CURRENCY[0] === "TSR" && CURRENCY[1] === "ETH") {
         percent = checkPercent(FIXED_AMOUNT, CURRENCY, BONUS_LIST);
