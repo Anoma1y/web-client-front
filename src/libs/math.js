@@ -29,8 +29,8 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
     let TOKENVALUE = 0;
     let percent = 0;
 
-    let endTime1 = moment('2018-03-30 12:00 am', 'YYYY-MM-DD h:mm a');
-    let endTime2 = moment('2018-03-31 9:59 am', 'YYYY-MM-DD h:mm a');
+    let endTime1 = moment('2018-03-30 14:00 am +0300', 'YYYY-MM-DD h:mm a Z');
+    let endTime2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z');
 
     const checkBonusTime = moment(APPLICATION_DATE).isBetween(endTime1, endTime2);
 
@@ -80,8 +80,8 @@ export const transferToTKN = (value, TSR) => value / TSR;
 export const checkBonus = (value, bonusList) => {
     let bonusTSR = 0;
     let bonus = [];
-    let endTime1 = moment('2018-03-30 12:00 am', 'YYYY-MM-DD h:mm a');
-    let endTime2 = moment('2018-03-31 9:59 am', 'YYYY-MM-DD h:mm a');
+    let endTime1 = moment('2018-03-30 12:00 am +0300', 'YYYY-MM-DD h:mm a Z');
+    let endTime2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z');
     const checkBonusTime = moment().isBetween(endTime1, endTime2);
     bonusList.forEach((item) => {
         if (value >= item["limit"]) {
@@ -158,8 +158,8 @@ export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRIC
     let bonus;
     let BTC, ETH, TKNinitialValue, TSRvalue, USD;
     const TSR_ETH = TKNprice("ETH", TSR_PRICE, currency);
-    let endTime1 = moment('2018-03-30 12:00 am', 'YYYY-MM-DD h:mm a');
-    let endTime2 = moment('2018-03-31 9:59 am', 'YYYY-MM-DD h:mm a');
+    let endTime1 = moment('2018-03-30 12:00 am +0300', 'YYYY-MM-DD h:mm a Z');
+    let endTime2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z');
     const checkBonusTime = moment().isBetween(endTime1, endTime2);
     if (currencyValue === "USD") {
         BTC = transferUSD(value, "BTC", currency);

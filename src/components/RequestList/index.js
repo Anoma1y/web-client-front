@@ -46,6 +46,7 @@ class RequestList extends Component {
                 default:
                     btnOptions = { color: 'grey', text: 'Processing'};
             }
+            console.log(item);
             const {
                 TOKENVALUE,
                 CURRENCYVALUE

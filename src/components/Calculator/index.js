@@ -28,7 +28,6 @@ import CalculatorComment from './CalculatorComment';
 import CalculatorModal from "./CalculatorModal";
 import CalculatorPaymount from './CalculatorPaymount';
 import { CALCULATOR } from "libs/messages";
-import moment from 'moment';
 
 class Calculator extends Component {
 
