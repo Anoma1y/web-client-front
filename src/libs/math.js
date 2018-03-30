@@ -1,13 +1,14 @@
 import moment from 'moment';
-export const separationValueCalculator = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits, maximumSignificantDigits: 5 }).format(value);
-
-const END_TIME_1 = moment('2018-03-30 2:00 pm +0300', 'YYYY-MM-DD h:mm a Z');
-const END_TIME_2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z');
 
 export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
 
-export const bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
-
+/********/
+/*ЗАЯВКИ*/
+/********/
+const END_TIME_1 = moment('2018-03-30 2:00 pm +0300', 'YYYY-MM-DD h:mm a Z'); // Время начала 2% бонуса для всех
+const END_TIME_2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z'); // Время конца
+//Функция расчета значения с бонусом: значения + процент, bonus - число  процентов, bonusAfter - проверка вхождения даты бонусного процента (2%)
+//Если тру то вместо 0% = 2%
 export const bonusCalcRequest = (value, bonus, bonusAfter) => {
     if (bonusAfter === true && bonus === 0) {
         bonus = 2;
@@ -15,6 +16,27 @@ export const bonusCalcRequest = (value, bonus, bonusAfter) => {
     return (1 * value) + ((1 * value) * (bonus / 100));
 };
 
+//Проверка вхождения значения в лимит, если да, то возвращает процентов бонусов.
+//currency - отношения фиксированной валюты к нефиксированной, bonus - массив бонусов.
+// bonus: [
+//     {
+//         value: 2.5,
+//         limit: 100000,
+//         active: false
+//     },{
+//         value: 5,
+//         limit: 500000,
+//         active: false
+//     },{
+//         value: 10,
+//         limit: 1000000,
+//         active: false
+//     },{
+//         value: 15,
+//         limit: 2000000,
+//         active: false
+//     }
+// ] что то похожее.
 export const checkPercent = (value, currency, bonus) => {
     let bonusPercent = 0;
     bonus.forEach((bon) => {
@@ -27,7 +49,13 @@ export const checkPercent = (value, currency, bonus) => {
     return bonusPercent;
 };
 
-
+//Расчет нефиксированной валюты и бонусов для фиксированной
+//APPLICATION_DATE - дата создания заявки
+//FIXED_AMOUNT - числовое значение зафисикированной валюты
+//CURRENCY - TSR/ETH TSR/USD TSR/BTC BTC/TSR USD/TSR
+//TSR_INITIAL_VALUE - начальное значение токена, 0,001, в редюсере rate
+//CRYPTO_CURRENCY - курс валют, находится в редюсере rate
+//BONUS_LIST - массив бонусов, см. функцию checkPercent, массив расписан (передать его)
 export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_INITIAL_VALUE, CRYPTO_CURRENCY, BONUS_LIST) => {
     let CURRENCYVALUE = 0;
     let TOKENVALUE = 0;
@@ -72,11 +100,19 @@ export const applicationCalc = (APPLICATION_DATE, FIXED_AMOUNT, CURRENCY, TSR_IN
     }
 };
 
+
+/*************/
+/*КАЛЬКУЛЯТОР*/
+/*************/
+//Проверка достижения максимума
 export const checkMaximum = value => value >= 100;
 
 export const transferToTKNbonus = (value, bonusTKN, TSR) => Math.round(value  / TSR) + (Math.round(value  / TSR) * (bonusTKN / 100));
 
 export const transferToTKN = (value, TSR) => value / TSR;
+
+//Функция расчета значения с бонусом: значения + процент
+export const bonusCalc = (value, bonus) => (1 * value)  + ((1 * value) * (bonus / 100));
 
 export const checkBonus = (value, bonusList) => {
     let bonusTSR = 0;
@@ -152,7 +188,6 @@ export const currentCountItems = (itemsPerPage, currentPage) => {
         toPage
     }
 };
-
 
 export const calcCurrency = (value, currencyValue, bonusList, currency, TSR_PRICE) => {
     let bonus;
