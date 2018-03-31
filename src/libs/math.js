@@ -2,7 +2,7 @@ import moment from 'moment';
 export const separationValueCalculator = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits, maximumSignificantDigits: 5 }).format(value);
 
 const END_TIME_1 = moment('2018-03-30 2:00 pm +0300', 'YYYY-MM-DD h:mm a Z');
-const END_TIME_2 = moment('2018-03-31 9:59 am +0300', 'YYYY-MM-DD h:mm a Z');
+const END_TIME_2 = moment('2018-03-31 4:00 pm +0300', 'YYYY-MM-DD h:mm a Z');
 
 export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
 
