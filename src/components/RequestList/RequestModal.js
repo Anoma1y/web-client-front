@@ -110,7 +110,8 @@ class RequestModal extends Component {
                                     <CopyToClipboard
                                         text={this.state.value}
                                     >
-                                        <Button className={'dashboard__submit'}>Скопировать адрес</Button>
+                                        <Button className={'dashboard__submit'}>COPY ADDRESS
+                                        </Button>
                                     </CopyToClipboard>
                                 </Grid.Column>
                             </Grid.Row>
