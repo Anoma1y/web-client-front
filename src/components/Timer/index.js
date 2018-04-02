@@ -79,7 +79,7 @@ class Timer extends Component {
         return (
             <Card fluid className={"component__main component__shadow"}>
                 <Card.Content>
-                    <Card.Header className={"component__title"}>White list will be closed in</Card.Header>
+                    <Card.Header className={"component__title"}>Token sale will end in</Card.Header>
                     <Divider className={"component__divider"} />
                     <Grid className={"dashboard__component"}>
                         <Grid.Row textAlign={"center"} className={"component__timer"}>

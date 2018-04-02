@@ -69,7 +69,6 @@ body
 
 .auth__container
   height: calc(100vh - 100px)
-  //display: -ms-grid !important
   display: grid !important
   -webkit-box-align: center
   -webkit-align-items: center
@@ -345,7 +344,6 @@ body
     color: $gray-color
     font-weight: 300 !important
   &_value
-    //margin: 0 !important
     margin-top: -12px !important
     color: $blue-color
     font-weight: normal !important
@@ -819,6 +817,14 @@ body
       font-weight: 500 !important
       background-color: #131313 !important
       color: $white-color
+      &:disabled
+        &::selection
+          color: $black-color
+          background: $white-color
+        &::-moz-selection
+          color: $black-color
+          background: $white-color
+
   .dashboard__submit
     width: 100% !important
     height: 32px !important

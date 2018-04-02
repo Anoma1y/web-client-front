@@ -4,7 +4,7 @@ import {
     Switch
 } from 'react-router-dom';
 import Login from 'screens/Login';
-import Signup from 'screens/Signup';
+// import Signup from 'screens/Signup';
 import SignupSuccess from 'screens/SignupSuccess';
 import Dashboard from 'screens/Dashboard';
 import ResetPassword from 'screens/ResetPassword';
@@ -22,9 +22,9 @@ const App = () => {
             <CheckToken />
             <HeaderMenu />
             <Switch>
-                <Route exact path={'/'} component={Signup} />
+                <Route exact path={'/'} component={Login} />
                 <Route exact path={'/login'} component={Login} />
-                <Route exact path={'/signup'} component={Signup} />
+                {/*<Route exact path={'/signup'} component={Signup} />*/}
                 <Route exact path={'/signupsuccess'} component={SignupSuccess} />
                 <Route path={'/dashboard'} component={localStorage.jwt ? Dashboard : Redirect } />
                 {

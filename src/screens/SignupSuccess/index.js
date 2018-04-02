@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 import {
     Container,
     Grid
-} from 'semantic-ui-react'
-
-import SignupSuccessComponent from 'components/SignupSuccess/SignupSuccessComponent'
+} from 'semantic-ui-react';
+import SignupSuccessComponent from 'components/SignupSuccess/SignupSuccessComponent';
 
 const SignupSuccess = props => (
     <Container className={'auth__container'}>

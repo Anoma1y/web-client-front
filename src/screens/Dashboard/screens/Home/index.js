@@ -118,9 +118,9 @@ class Home extends Component{
                                     {/*<Grid.Row>*/}
                                         {/*<UserBalance />*/}
                                     {/*</Grid.Row>*/}
-                                    <Grid.Row>
-                                        <Calculator />
-                                    </Grid.Row>
+                                    {/*<Grid.Row>*/}
+                                        {/*<Calculator />*/}
+                                    {/*</Grid.Row>*/}
                                     <Grid.Row>
                                         <RequestList />
                                     </Grid.Row>

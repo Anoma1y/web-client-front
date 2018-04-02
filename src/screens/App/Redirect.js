@@ -6,10 +6,12 @@ class Redirect extends Component {
     componentWillMount() {
         const {
             user,
-            goToSignup
+            // goToSignup,
+            goToLogin
         } = this.props;
         if (user.jwt === null || user.jwt === undefined || localStorage.jwt === undefined) {
-            goToSignup();
+            // goToSignup();
+            goToLogin();
         }
     }
     render() {
@@ -22,6 +24,7 @@ class Redirect extends Component {
 }
 
 export default connect(state => ({ user: state.user }), {
-    goToSignup: () => push('/signup')
+    goToSignup: () => push('/signup'),
+    goToLogin: () => push('/login')
 })(Redirect);
 

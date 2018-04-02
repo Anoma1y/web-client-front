@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 import {
     Container,
     Grid
-} from 'semantic-ui-react'
-
-import LoginComponent from 'components/Login/LoginComponent'
+} from 'semantic-ui-react';
+import LoginComponent from 'components/Login/LoginComponent';
 
 const Login = () => (
     <Container className={"auth__container"}>

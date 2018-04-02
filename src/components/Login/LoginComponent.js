@@ -126,7 +126,7 @@ class LoginComponent extends Component {
                                 >{isAuthInProgress ? <Loader active inline size={"mini"}/> : "Sign In"}
                                 </Button>
                             </form>
-                            <p className={"login__content_signup"}>Don't have account? <Link to={"/signup"}>Sign Up</Link></p>
+                            {/*<p className={"login__content_signup"}>Don't have account? <Link to={"/signup"}>Sign Up</Link></p>*/}
                         </Card.Description>
                     </Card.Content>
                 </Card>

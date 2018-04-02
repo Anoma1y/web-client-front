@@ -789,6 +789,12 @@ body {
       font-weight: 500 !important;
       background-color: #131313 !important;
       color: #FFFFFF !important; }
+      .pay__modal .pay__input input:disabled::selection {
+        color: #000000 !important;
+        background: #FFFFFF !important; }
+      .pay__modal .pay__input input:disabled::-moz-selection {
+        color: #000000 !important;
+        background: #FFFFFF !important; }
   .pay__modal .dashboard__submit {
     width: 100% !important;
     height: 32px !important;
