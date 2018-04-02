@@ -768,19 +768,23 @@ body
   max-width: 354px
   .close__modal
     position: absolute
-    top: 0
+    top: -20px
     z-index: 1 !important
-    right: 0
+    right: -40px
+    @media screen and (max-width: 450px)
+      right: 0
+      top: 0
     i
       z-index: 9999 !important
-      font-size: 18px !important
+      color: #939393 !important
+      font-size: 22px !important
       cursor: pointer !important
   .pay__wrapper
     padding: 0 !important
   .pay__header
     font-family: $font-robot
-    font-size: 18px !important
-    font-weight: 500 !important
+    font-size: 20px !important
+    font-weight: normal !important
   .pay__amount
     font-family: $font-robot
     font-size: 18px !important
@@ -789,14 +793,15 @@ body
       text-align: left !important
     .pay__amount_currency
       text-align: right !important
+      font-weight: 500 !important
       color: $blue-color
   .pay__text
+    font-family: $font-robot
     color: $gray-color
     text-align: left !important
     font-size: 14px !important
   .pay__qrcode
-    border: 25px solid #E4EEFB !important
-    //width: 60% !important
+    border: 23px solid #eaeaea !important
     margin: 0 auto !important
     img
       width: 90% !important
@@ -807,7 +812,7 @@ body
   .pay__input
     width: 100% !important
     input
-      height: 25px !important
+      height: 32px !important
       font-family: $font-robot
       text-align: center !important
       font-size: 15px !important
@@ -816,6 +821,8 @@ body
       color: $white-color
   .dashboard__submit
     width: 100% !important
+    height: 32px !important
+    line-height: 0 !important
 
 /***DOWNLOAD COMPONENT***/
 //download__container

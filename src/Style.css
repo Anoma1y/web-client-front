@@ -737,19 +737,24 @@ body {
   max-width: 354px; }
   .pay__modal .close__modal {
     position: absolute;
-    top: 0;
+    top: -20px;
     z-index: 1 !important;
-    right: 0; }
+    right: -40px; }
+    @media screen and (max-width: 450px) {
+      .pay__modal .close__modal {
+        right: 0;
+        top: 0; } }
     .pay__modal .close__modal i {
       z-index: 9999 !important;
-      font-size: 18px !important;
+      color: #939393 !important;
+      font-size: 22px !important;
       cursor: pointer !important; }
   .pay__modal .pay__wrapper {
     padding: 0 !important; }
   .pay__modal .pay__header {
     font-family: "Roboto", sans-serif !important;
-    font-size: 18px !important;
-    font-weight: 500 !important; }
+    font-size: 20px !important;
+    font-weight: normal !important; }
   .pay__modal .pay__amount {
     font-family: "Roboto", sans-serif !important;
     font-size: 18px !important;
@@ -758,13 +763,15 @@ body {
       text-align: left !important; }
     .pay__modal .pay__amount .pay__amount_currency {
       text-align: right !important;
+      font-weight: 500 !important;
       color: #004fce !important; }
   .pay__modal .pay__text {
+    font-family: "Roboto", sans-serif !important;
     color: #939393 !important;
     text-align: left !important;
     font-size: 14px !important; }
   .pay__modal .pay__qrcode {
-    border: 25px solid #E4EEFB !important;
+    border: 23px solid #eaeaea !important;
     margin: 0 auto !important; }
     .pay__modal .pay__qrcode img {
       width: 90% !important; }
@@ -775,7 +782,7 @@ body {
   .pay__modal .pay__input {
     width: 100% !important; }
     .pay__modal .pay__input input {
-      height: 25px !important;
+      height: 32px !important;
       font-family: "Roboto", sans-serif !important;
       text-align: center !important;
       font-size: 15px !important;
@@ -783,7 +790,9 @@ body {
       background-color: #131313 !important;
       color: #FFFFFF !important; }
   .pay__modal .dashboard__submit {
-    width: 100% !important; }
+    width: 100% !important;
+    height: 32px !important;
+    line-height: 0 !important; }
 
 /***DOWNLOAD COMPONENT***/
 .download__list {
