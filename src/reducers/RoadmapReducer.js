@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    progressBar: 18
+    progressBar: 21
 };
 
 export default (state = INITIAL_STATE, action) => {
