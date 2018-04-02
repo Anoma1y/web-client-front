@@ -32,8 +32,6 @@ class RequestModal extends Component {
 
     render() {
         const {
-            buttonDisabled,
-            buttonBasic,
             buttonColor,
             buttonText,
             currencyAmount,
@@ -41,14 +39,15 @@ class RequestModal extends Component {
         } = this.props;
         return (
             <Modal trigger={
+                buttonColor === 'blue' ?
                 <Button
-                    className={`dashboard__submit request__item_submit ${buttonColor === "red" ? "request__item-rejected" : buttonColor === "green" ? "request__item-paid" : buttonColor === "blue" ? "request__item-pay" : ""}`}
+                    className={`dashboard__submit request__item_submit request__item-pay`}
                     onClick={this.handleRequestBtn}
-                    disabled={buttonDisabled}
-                    basic={buttonBasic}
                 >
                     {buttonText}
-                </Button>
+                </Button> : <p
+                        className={`request__item_submit ${buttonColor === "red" ? "request__item-rejected" : buttonColor === "green" ? "request__item-paid" : "request__item-processing"}`}
+                    >{buttonText}</p>
             }
                open={this.state.payModalSuccessful}
                size={"tiny"}

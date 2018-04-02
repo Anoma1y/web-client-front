@@ -9,6 +9,7 @@ $dim-white-color: #A0A6CC !important
 $black-color: #000000 !important
 $orange-color: #FC900B !important
 $red-color: #FF3E33 !important
+$green-color: #3bbd6c !important
 $blue-color: rgba(0, 79, 206, 1) !important
 $gray-color: rgba(147, 147, 147, 1) !important
 $dark-gray-color: rgba(40, 40, 40, 1) !important
@@ -738,15 +739,28 @@ body
     width: 100% !important
     background-color: transparent !important
     color: $black-color
+    text-align: center !important
+    text-transform: uppercase !important
+    font-family: $font-robot
+    font-size: 14px !important
+    font-weight: 500 !important
+    letter-spacing: normal !important
+    font-style: normal !important
+    font-stretch: normal !important
     @media screen and (max-width: 767px)
       width: 50% !important
       margin: 15px auto 0 !important
       display: block !important
+  &-processing
+    opacity: 0.45 !important
   &-pay
-    background-color: transparent !important
+    background-color: $blue-color
+    color: $white-color
     box-shadow: none !important
-    &:hover
-      background-color: transparent !important
+  &-paid
+    color: $green-color
+  &-rejected
+    color: $red-color
 
 .pay__modal
   position: relative

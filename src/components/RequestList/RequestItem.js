@@ -38,8 +38,6 @@ class RequestItem extends Component {
                     </Grid.Column>
                     <Grid.Column widescreen={6} computer={6} tablet={6} mobile={16} className={"request__column_btn"}>
                         <RequestModal
-                            buttonDisabled={buttonDisabled}
-                            buttonBasic={buttonBasic}
                             buttonColor={buttonColor}
                             buttonText={buttonText}
                             currencyAmount={currencyAmount}
