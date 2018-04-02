@@ -62,8 +62,6 @@ class RequestList extends Component {
                         currencyName={CURRENCY_NAME}
                         buttonText={btnOptions.text}
                         buttonColor={btnOptions.color}
-                        buttonDisabled={item.status !== 1}
-                        buttonInverted={item.status === 1}
                         fixedColor={CURRENCY[0]}
                     />
                     {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}

@@ -11,8 +11,6 @@ class RequestItem extends Component {
         const {
             sum,
             amount,
-            buttonDisabled,
-            buttonBasic,
             buttonColor,
             buttonText,
             fixedColor,
