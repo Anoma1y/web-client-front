@@ -725,6 +725,7 @@ body {
   .request__item-pay {
     background-color: #004fce !important;
     color: #FFFFFF !important;
+    -webkit-box-shadow: none !important;
     box-shadow: none !important; }
   .request__item-paid {
     color: #3bbd6c !important; }
