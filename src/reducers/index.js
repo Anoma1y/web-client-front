@@ -37,8 +37,7 @@ const appReducer = combineReducers({
 const reducer = (state, action) => {
     switch(action.type) {
         case RESET_STATE:
-            state = undefined;
-            return appReducer(state, action);
+            return appReducer(state = undefined, action);
         case RESET_ADMIN_STATE:
             return appReducer({ ...state, admin: undefined }, action);
         default:
