@@ -16,6 +16,11 @@ export const ERROR_VALIDATION = {
     }
 };
 
+export const REQUEST_PAY = {
+    HEADER: 'Complete your purchase',
+    TEXT: 'To complete purchase please transfer specified amount to the wallet address you see below. After the purchase is completed, we’ll send confirmation to your e-mail.'
+};
+
 export const ERROR_IMAGE = {
     SIZE: 'Maximum file size is 25MB',
     FORMAT: 'Allowed file types: png, jpg, gif, tiff',

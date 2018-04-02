@@ -4,9 +4,11 @@ import {
     Button,
     Grid,
     Icon,
+    Divider,
     Input
 } from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { REQUEST_PAY } from 'libs/messages';
 
 class RequestModal extends Component {
 
@@ -34,6 +36,8 @@ class RequestModal extends Component {
             buttonBasic,
             buttonColor,
             buttonText,
+            currencyAmount,
+            currencyName
         } = this.props;
         return (
             <Modal trigger={
@@ -55,13 +59,34 @@ class RequestModal extends Component {
                             <Icon name={"close"} onClick={this.closePayModal}/>
                         </div>
                         <Grid textAlign={"center"}>
-                            <Grid.Row>
+
+                            <Grid.Row className={'pay__wrapper'}>
                                 <Grid.Column>
                                     <p className="pay__header">
-                                        Оплата заявки
+                                        {REQUEST_PAY.HEADER}
+                                    </p>
+                                    <Divider className={"component__divider"} />
+                                </Grid.Column>
+                            </Grid.Row>
+
+                            <Grid.Row className={'pay__amount'}>
+                                <Grid.Column width={8} className={'pay__amount_text'}>
+                                    Amount
+                                </Grid.Column>
+                                <Grid.Column width={8} className={'pay__amount_currency'}>
+                                    {`${currencyAmount} ${currencyName}`}
+                                </Grid.Column>
+                            </Grid.Row>
+
+                            <Grid.Row className={'pay__wrapper'}>
+                                <Grid.Column>
+                                    <Divider className={"component__divider"} />
+                                    <p className="pay__text">
+                                        {REQUEST_PAY.TEXT}
                                     </p>
                                 </Grid.Column>
                             </Grid.Row>
+
                             <Grid.Row>
                                 <Grid.Column>
                                     <div className="pay__qrcode">
@@ -69,6 +94,7 @@ class RequestModal extends Component {
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>
+
                             <Grid.Row className={"pay__address"}>
                                 <Grid.Column>
                                     <Input
@@ -78,14 +104,18 @@ class RequestModal extends Component {
                                         value={"kljqklerjqwj2341234kj3kjqewrsqwe"}/>
                                 </Grid.Column>
                             </Grid.Row>
+
                             <Grid.Row className={"pay__copy"}>
                                 <Grid.Column>
                                     <CopyToClipboard
                                         text={this.state.value}
-                                    ><Button className={'dashboard__submit'}>Скопировать адрес</Button>
+                                    >
+                                        <Button className={'dashboard__submit'}>COPY ADDRESS
+                                        </Button>
                                     </CopyToClipboard>
                                 </Grid.Column>
                             </Grid.Row>
+
                         </Grid>
                     </Modal.Description>
                 </Modal.Content>

@@ -15,7 +15,9 @@ class RequestItem extends Component {
             buttonBasic,
             buttonColor,
             buttonText,
-            fixedColor
+            fixedColor,
+            currencyAmount,
+            currencyName
         } = this.props;
         const fixedStyleTSR = fixedColor === "TSR";
         const fixedStyleAmount = fixedColor !== "TSR";
@@ -40,6 +42,8 @@ class RequestItem extends Component {
                             buttonBasic={buttonBasic}
                             buttonColor={buttonColor}
                             buttonText={buttonText}
+                            currencyAmount={currencyAmount}
+                            currencyName={currencyName}
                         />
                     </Grid.Column>
                 </Grid.Row>

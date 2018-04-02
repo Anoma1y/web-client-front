@@ -15,6 +15,7 @@ $dark-gray-color: rgba(40, 40, 40, 1) !important
 
 //header menu
 $header-menu-background-color: $dark-gray-color
+
 //component
 $container-background-color: #4D59A1 !important
 $attentionIdentification-background-color: #F1C0C0
@@ -749,6 +750,7 @@ body
 
 .pay__modal
   position: relative
+  max-width: 354px
   .close__modal
     position: absolute
     top: 0
@@ -758,13 +760,28 @@ body
       z-index: 9999 !important
       font-size: 18px !important
       cursor: pointer !important
+  .pay__wrapper
+    padding: 0 !important
   .pay__header
     font-family: $font-robot
     font-size: 18px !important
     font-weight: 500 !important
+  .pay__amount
+    font-family: $font-robot
+    font-size: 18px !important
+    padding: 0 !important
+    .pay__amount_text
+      text-align: left !important
+    .pay__amount_currency
+      text-align: right !important
+      color: $blue-color
+  .pay__text
+    color: $gray-color
+    text-align: left !important
+    font-size: 14px !important
   .pay__qrcode
     border: 25px solid #E4EEFB !important
-    width: 60% !important
+    //width: 60% !important
     margin: 0 auto !important
     img
       width: 90% !important
@@ -773,7 +790,7 @@ body
   .pay__copy
     margin-top: -18px !important
   .pay__input
-    width: 60% !important
+    width: 100% !important
     input
       height: 25px !important
       font-family: $font-robot
@@ -783,7 +800,7 @@ body
       background-color: #131313 !important
       color: $white-color
   .dashboard__submit
-    width: 60% !important
+    width: 100% !important
 
 /***DOWNLOAD COMPONENT***/
 //download__container
@@ -1419,6 +1436,10 @@ iframe.roadmap_modal
 .ui.modal,
 .ui.active.modal
   margin: 0 auto!important
+  -webkit-box-pack: center !important
+  -webkit-justify-content: center !important
+  -ms-flex-pack: center !important
+  justify-content: center !important
   top: auto !important
   left: auto !important
   -webkit-transform-origin: center !important
