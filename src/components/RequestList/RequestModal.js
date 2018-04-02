@@ -32,22 +32,22 @@ class RequestModal extends Component {
 
     render() {
         const {
-            buttonColor,
-            buttonText,
             currencyAmount,
-            currencyName
+            currencyName,
+            status
         } = this.props;
+        const text = status === 0 ? 'Processing' : status === 1 ? 'Pay' : status === 2 ? 'Rejected' : status === 3 ? 'Purchased' : '';
         return (
             <Modal trigger={
-                buttonColor === 'blue' ?
+                status === 1 ?
                 <Button
                     className={`dashboard__submit request__item_submit request__item-pay`}
                     onClick={this.handleRequestBtn}
                 >
-                    {buttonText}
+                    {text}
                 </Button> : <p
-                        className={`request__item_submit ${buttonColor === "red" ? "request__item-rejected" : buttonColor === "green" ? "request__item-paid" : "request__item-processing"}`}
-                    >{buttonText}</p>
+                        className={`request__item_submit ${status === 2 ? "request__item-rejected" : status === 3 ? "request__item-paid" : "request__item-processing"}`}
+                    >{text}</p>
             }
                open={this.state.payModalSuccessful}
                size={"tiny"}
@@ -80,9 +80,7 @@ class RequestModal extends Component {
                             <Grid.Row className={'pay__wrapper'}>
                                 <Grid.Column>
                                     <Divider className={"component__divider"} />
-                                    <p className="pay__text">
-                                        {REQUEST_PAY.TEXT}
-                                    </p>
+                                    <p className="pay__text">{REQUEST_PAY.TEXT}</p>
                                 </Grid.Column>
                             </Grid.Row>
 
@@ -106,11 +104,8 @@ class RequestModal extends Component {
 
                             <Grid.Row className={"pay__copy"}>
                                 <Grid.Column>
-                                    <CopyToClipboard
-                                        text={this.state.value}
-                                    >
-                                        <Button className={'dashboard__submit'}>COPY ADDRESS
-                                        </Button>
+                                    <CopyToClipboard text={this.state.value}>
+                                        <Button className={'dashboard__submit'}>COPY ADDRESS</Button>
                                     </CopyToClipboard>
                                 </Grid.Column>
                             </Grid.Row>

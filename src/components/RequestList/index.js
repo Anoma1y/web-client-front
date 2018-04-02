@@ -7,9 +7,7 @@ import {
 } from 'semantic-ui-react';
 import { handleRequestItem } from 'actions/request/';
 import RequestItem from './RequestItem';
-import {
-    applicationCalc
-} from 'libs/math';
+import { applicationCalc } from 'libs/math';
 
 class RequestList extends Component {
 
@@ -28,24 +26,7 @@ class RequestList extends Component {
             TSR: TOKEN_ATTITUDE_ETH,
         } = this.props.rate;
         return request.map((item, index) => {
-            let btnOptions = null;
             const CURRENCY = item.currency.split("/");
-            switch (item.status) {
-                case 0:
-                    btnOptions = { color: 'grey', text: 'Processing'};
-                    break;
-                case 1:
-                    btnOptions = { color: 'blue', text: 'Pay'};
-                    break;
-                case 2:
-                    btnOptions = { color: 'red', text: 'Rejected' };
-                    break;
-                case 3:
-                    btnOptions = { color: 'green', text: 'Purchased'};
-                    break;
-                default:
-                    btnOptions = { color: 'grey', text: 'Processing'};
-            }
             const {
                 TOKENVALUE,
                 CURRENCYVALUE,
@@ -58,10 +39,9 @@ class RequestList extends Component {
                     <RequestItem
                         sum={CURRENCYVALUE}
                         amount={TOKENVALUE}
+                        status={item.status}
                         currencyAmount={CURRENCY_AMOUNT}
                         currencyName={CURRENCY_NAME}
-                        buttonText={btnOptions.text}
-                        buttonColor={btnOptions.color}
                         fixedColor={CURRENCY[0]}
                     />
                     {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}
