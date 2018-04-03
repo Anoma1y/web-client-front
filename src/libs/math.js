@@ -6,7 +6,7 @@ export const separationValue = (value, digits) => new Intl.NumberFormat('en-US',
 /*ЗАЯВКИ*/
 /********/
 const END_TIME_1 = moment('2018-03-30 2:00 pm +0300', 'YYYY-MM-DD h:mm a Z'); // Время начала 2% бонуса для всех
-const END_TIME_2 = moment('2018-03-31 4:00 am +0300', 'YYYY-MM-DD h:mm a Z'); // Время конца
+const END_TIME_2 = moment('2018-03-31 4:00 pm +0300', 'YYYY-MM-DD h:mm a Z'); // Время конца
 
 //Функция расчета значения с бонусом: значения + процент, bonus - число  процентов, bonusAfter - проверка вхождения даты бонусного процента (2%)
 //Если тру то вместо 0% => 2%
