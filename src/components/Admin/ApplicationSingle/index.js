@@ -94,43 +94,39 @@ class ApplicationSingle extends Component {
             bonus: bonusList,
         } = this.props.admin;
         const { jwt: TOKEN } = this.props.user;
-        AdminLib.getApplicationByID(id, TOKEN)
-            .then((data) => {
-                const APPLICATION =  {
-                    CreatedAt: data.data.CreatedAt,
-                    ID: data.data.ID,
-                    amount: data.data.amount,
-                    currency: data.data.currency,
-                    comment: data.data.comment,
-                    profile: {
-                        ID: data.data.profile.ID,
-                        CreatedAt: data.data.profile.CreatedAt,
-                        email: data.data.profile.email,
-                        is_kyc_passed: data.data.profile.is_kyc_passed,
-                        is_verified: data.data.profile.is_verified,
-                        kyc_type: data.data.profile.kyc_type,
-                        roles: data.data.profile.role,
-                    },
-                    status: data.data.status
-                }
-                changeApplicationStatus(data.data.status);
-                setApplicationSingle(APPLICATION);
-                const {
-                    currency: CRYPTO_CURRENCY,
-                    TSR: TKN_PRICE
-                } = this.props.rate;
-                const CURRENT_CURRENCY = data.data.currency.split('/');
-                handleAdminInitialCurrency({
-                    AMOUNT: data.data.amount,
-                    CURRENT_CURRENCY,
-                    CRYPTO_CURRENCY,
-                    TKN_PRICE,
-                    BONUS_LIST: bonusList
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        AdminLib.getApplicationByID(id, TOKEN).then((data) => {
+            const APPLICATION =  {
+                CreatedAt: data.data.CreatedAt,
+                ID: data.data.ID,
+                amount: data.data.amount,
+                currency: data.data.currency,
+                comment: data.data.comment,
+                profile: {
+                    ID: data.data.profile.ID,
+                    CreatedAt: data.data.profile.CreatedAt,
+                    email: data.data.profile.email,
+                    is_kyc_passed: data.data.profile.is_kyc_passed,
+                    is_verified: data.data.profile.is_verified,
+                    kyc_type: data.data.profile.kyc_type,
+                    roles: data.data.profile.role,
+                },
+                status: data.data.status
+            }
+            changeApplicationStatus(data.data.status);
+            setApplicationSingle(APPLICATION);
+            const {
+                currency: CRYPTO_CURRENCY,
+                TSR: TKN_PRICE
+            } = this.props.rate;
+            const CURRENT_CURRENCY = data.data.currency.split('/');
+            handleAdminInitialCurrency({
+                AMOUNT: data.data.amount,
+                CURRENT_CURRENCY,
+                CRYPTO_CURRENCY,
+                TKN_PRICE,
+                BONUS_LIST: bonusList
+            });
+        }).catch((err) => console.log(err));
     }
 
     handleChange = (event, {value}) => {

@@ -63,6 +63,52 @@ class AdminCalculator extends Component {
         this.changeState(calcToken(value, currencyValue, bonusList, currency, TKN_PRICE));
     }
 
+    handleTokenOnly = event => {
+        const checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        const { value } = event.target;
+        if(!value.match(checkNumber)) {
+            return;
+        }
+        if (value > 2000000) {
+            return;
+        }
+        const {
+            currencyValue,
+            bonus: bonusList,
+        } = this.props.admin;
+        const {
+            currency,
+            TSR: TKN_PRICE
+        } = this.props.rate;
+        const { changeAdminTokenValue } = this.props;
+        // console.log(calcToken(value, currencyValue, bonusList, currency, TKN_PRICE));
+        const { tokenValue } = calcToken(value, currencyValue, bonusList, currency, TKN_PRICE);
+        changeAdminTokenValue(tokenValue);
+    }
+    handleCurrencyOnly = event => {
+        const { currencyValue, bonus: bonusList, } = this.props.admin;
+        const { value } = event.target;
+        let checkNumber;
+        if (currencyValue === "USD") {
+            checkNumber = /^\d*(?:\.\d{0,2})?$/g;
+        } else {
+            checkNumber = /^\d*(?:\.\d{0,4})?$/g;
+        }
+        if(!value.match(checkNumber)) {
+            return;
+        }
+        const {
+            currency,
+            TSR: TKN_PRICE
+        } = this.props.rate;
+        const { changeAdminCurrencyValue } = this.props;
+        const { sumValue, tokenValue } = calcCurrency(value, currencyValue, bonusList, currency, TKN_PRICE);
+        if (tokenValue > 2000000) {
+            return;
+        }
+        changeAdminCurrencyValue(sumValue);
+    }
+    
     handleCurrency = event => {
         const { currencyValue, bonus: bonusList, } = this.props.admin;
         const { value } = event.target;
@@ -143,7 +189,9 @@ class AdminCalculator extends Component {
                             sumValue={sumValue}
                             currencyValue={currencyValue}
                             handleToken={this.handleToken}
+                            // handleToken={this.handleTokenOnly}
                             handleCurrency={this.handleCurrency}
+                            // handleCurrency={this.handleCurrencyOnly}
                         />
                     </Grid.Column>
                 </Grid.Row>
@@ -158,13 +206,17 @@ class AdminCalculator extends Component {
                         />
                     </Grid.Column>
                     <Grid.Column width={8}>
-                        <Radio
-                            label={currencyValue}
-                            name='FIXED_CURRENCY_GROUP'
-                            value={currencyValue}
-                            checked={fixedCurrency.split('/')[0] === currencyValue}
-                            onChange={this.handleChangeFixedCurrency}
-                        />
+                        {
+                            fixedCurrency.split('/')[1] !== 'ETH' ?
+                                <Radio
+                                    label={currencyValue}
+                                    name='FIXED_CURRENCY_GROUP'
+                                    value={currencyValue}
+                                    checked={fixedCurrency.split('/')[0] === currencyValue}
+                                    onChange={this.handleChangeFixedCurrency}
+                                /> : null
+                        }
+
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>

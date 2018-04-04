@@ -93,7 +93,8 @@ class ApplicationTableRow extends Component {
                 <Table.Cell width={1}>{
                     (profile.is_kyc_passed === false && profile.kyc_type === '') ? 'No' :
                         (profile.is_kyc_passed === false && profile.kyc_type !== '') ? 'Passed' :
-                            (profile.is_kyc_passed && profile.kyc_type !== '') ? 'Verified' : 'User not verified'
+                            (profile.is_kyc_passed && profile.kyc_type !== '') ? 'Verified' :
+                                (profile.is_kyc_passed && profile.kyc_type === '') ? 'Verified by admin' : 'Not verified'
                 }</Table.Cell>
                 <Table.Cell width={1} className={"cursor-pointer"}>
                     <span>{status === 0 ? "Awaiting" : status === 1 ? "Approved" : status === 2 ? "Rejected" : "Paid"}</span>
