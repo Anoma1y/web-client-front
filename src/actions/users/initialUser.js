@@ -6,6 +6,7 @@ import {
     putToken,
     putRoles,
     initKycType,
+    initIsBlocked,
     initID,
     resetState
 } from 'actions/users';
@@ -38,7 +39,8 @@ export const initialUser = token => {
                 email,
                 is_kyc_passed,
                 roles,
-                kyc_type
+                kyc_type,
+                is_blocked
             } = user.data;
 
             localStorage.setItem('user_id', ID);
@@ -46,6 +48,7 @@ export const initialUser = token => {
             localStorage.setItem('is_kyc_passed', is_kyc_passed);
             localStorage.setItem('roles', roles);
             localStorage.setItem('kyc_type', kyc_type);
+            localStorage.setItem('is_blocked', is_blocked);
             localStorage.setItem('email', email);
 
             dispatch(putToken(token));
@@ -54,6 +57,7 @@ export const initialUser = token => {
             dispatch(initEmail(email));
             dispatch(putRoles(roles));
             dispatch(initKycType(kyc_type));
+            dispatch(initIsBlocked(is_blocked));
 
             const {
                 pathname: PATH

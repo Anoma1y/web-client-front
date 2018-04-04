@@ -19,6 +19,10 @@ class RequestModal extends Component {
     }
 
     handleRequestBtn = () => {
+        const { payBan } = this.props;
+        if (payBan) {
+            return;
+        }
         this.setState({
             payModalSuccessful: true
         })
@@ -34,7 +38,8 @@ class RequestModal extends Component {
         const {
             currencyAmount,
             currencyName,
-            status
+            status,
+            payBan
         } = this.props;
         const text = status === 0 ? 'Processing' : status === 1 ? 'Pay' : status === 2 ? 'Rejected' : status === 3 ? 'Purchased' : '';
         return (
@@ -42,6 +47,7 @@ class RequestModal extends Component {
                 status === 1 ?
                 <Button
                     className={`dashboard__submit request__item_submit request__item-pay`}
+                    disabled={payBan}
                     onClick={this.handleRequestBtn}
                 >
                     {text}

@@ -25,6 +25,11 @@ class RequestList extends Component {
             currency: CRYPTO_CURRENCY,
             TSR: TOKEN_ATTITUDE_ETH,
         } = this.props.rate;
+        const {
+            is_blocked,
+            isIdentification
+        } = this.props.user;
+        const KYC_PAY_BAN = !isIdentification || is_blocked;
         return request.map((item, index) => {
             const CURRENCY = item.currency.split("/");
             const {
@@ -42,6 +47,7 @@ class RequestList extends Component {
                         status={item.status}
                         currencyAmount={CURRENCY_AMOUNT}
                         currencyName={CURRENCY_NAME}
+                        payBan={KYC_PAY_BAN}
                         fixedColor={CURRENCY[0]}
                     />
                     {index !== request.length - 1 ? <Divider className={"white__divider"} /> : ""}
@@ -73,7 +79,8 @@ class RequestList extends Component {
 
 export default connect((state) => ({
     requests: state.requests,
-    rate: state.rate
+    rate: state.rate,
+    user: state.user
 }), {
     handleRequestItem
 })(RequestList);
