@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Link } from 'react-router-dom';
 import {
     setApplicationSingle,
     changeApplicationStatus,
@@ -95,32 +94,32 @@ class ApplicationSingle extends Component {
         } = this.props.admin;
         const { jwt: TOKEN } = this.props.user;
         AdminLib.getApplicationByID(id, TOKEN).then((data) => {
-            const APPLICATION =  {
-                CreatedAt: data.data.CreatedAt,
-                ID: data.data.ID,
-                amount: data.data.amount,
-                currency: data.data.currency,
-                comment: data.data.comment,
-                profile: {
-                    ID: data.data.profile.ID,
-                    CreatedAt: data.data.profile.CreatedAt,
-                    email: data.data.profile.email,
-                    is_kyc_passed: data.data.profile.is_kyc_passed,
-                    is_verified: data.data.profile.is_verified,
-                    kyc_type: data.data.profile.kyc_type,
-                    roles: data.data.profile.role,
-                },
-                status: data.data.status
-            }
-            changeApplicationStatus(data.data.status);
-            setApplicationSingle(APPLICATION);
+            const {
+                CreatedAt,
+                ID,
+                amount,
+                currency,
+                comment,
+                profile,
+                status
+            } = data.data;
+            changeApplicationStatus(status);
+            setApplicationSingle({
+                CreatedAt,
+                ID,
+                amount,
+                currency,
+                comment,
+                profile,
+                status
+            });
             const {
                 currency: CRYPTO_CURRENCY,
                 TSR: TKN_PRICE
             } = this.props.rate;
-            const CURRENT_CURRENCY = data.data.currency.split('/');
+            const CURRENT_CURRENCY = currency.split('/');
             handleAdminInitialCurrency({
-                AMOUNT: data.data.amount,
+                AMOUNT: amount,
                 CURRENT_CURRENCY,
                 CRYPTO_CURRENCY,
                 TKN_PRICE,
@@ -134,12 +133,18 @@ class ApplicationSingle extends Component {
         changeApplicationStatus(Number(value));
     }
     backToApplicationList = () => {
-        const { goToApplicationList, resetAdminState } = this.props;
+        const {
+            goToApplicationList,
+            resetAdminState
+        } = this.props;
         resetAdminState();
         goToApplicationList();
     }
     goToUser = event => {
-        const { goToUserByID, resetAdminState } = this.props;
+        const {
+            goToUserByID,
+            resetAdminState
+        } = this.props;
         const { id } = event.target;
         resetAdminState();
         goToUserByID(id.split('_')[1]);
