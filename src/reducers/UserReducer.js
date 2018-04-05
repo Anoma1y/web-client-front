@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     isIdentification: false,
     kyc_type: '',
     roles: "user",
-    isBlocked: false,
+    is_blocked: false,
     balance: 0
 };
 
@@ -26,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
         case U.INIT_KYC_TYPE:
             return { ...state, kyc_type: action.payload };
         case U.INIT_IS_BLOCKED:
-            return { ...state, isBlocked: action.payload };
+            return { ...state, is_blocked: action.payload };
         case U.INIT_BALANCE:
             return { ...state, balance: action.payload };
         default:

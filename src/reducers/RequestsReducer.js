@@ -19,9 +19,8 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 payment: {
-                    TYPE: action.payload.TYPE,
-                    ADDRESS: action.payload.ADDRESS,
-                    EXPECTED_VALUE: action.payload.EXPECTED_VALUE
+                    ADDRESS: action.payload.address,
+                    EXPECTED_VALUE: action.payload.expected_balance
                 }
             };
         case R.PAYMENT_INFO_IS_LOADING:
