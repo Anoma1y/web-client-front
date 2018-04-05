@@ -24,10 +24,11 @@ class RequestModal extends Component {
     handleRequestBtn = () => {
         const {
             payBan,
+            APPLICATION_ID,
             handlePaymentInfo
         } = this.props;
         if (!payBan) {
-            handlePaymentInfo(1234);
+            handlePaymentInfo(APPLICATION_ID);
             this.setState({
                 payModalSuccessful: true
             })

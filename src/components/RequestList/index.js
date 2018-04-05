@@ -38,10 +38,10 @@ class RequestList extends Component {
                 CURRENCY_AMOUNT,
                 CURRENCY_NAME
             } = applicationCalc(item.CreatedAt, item.amount, CURRENCY, TOKEN_ATTITUDE_ETH, CRYPTO_CURRENCY, BONUS_LIST);
-
             return (
-                <Card.Description key={index}>
+                <Card.Description key={item.ID}>
                     <RequestItem
+                        APPLICATION_ID={item.ID}
                         sum={CURRENCYVALUE}
                         amount={TOKENVALUE}
                         status={item.status}

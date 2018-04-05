@@ -15,7 +15,8 @@ class RequestItem extends Component {
             currencyAmount,
             currencyName,
             status,
-            payBan
+            payBan,
+            APPLICATION_ID
         } = this.props;
         const fixedStyleTSR = fixedColor === "TSR";
         const fixedStyleAmount = fixedColor !== "TSR";
@@ -36,6 +37,7 @@ class RequestItem extends Component {
                     </Grid.Column>
                     <Grid.Column widescreen={6} computer={6} tablet={6} mobile={16} className={"request__column_btn"}>
                         <RequestModal
+                            APPLICATION_ID={APPLICATION_ID}
                             status={status}
                             payBan={payBan}
                             currencyAmount={currencyAmount}
