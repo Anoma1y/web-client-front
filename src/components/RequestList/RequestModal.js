@@ -10,11 +10,7 @@ import {
     Loader,
     Dimmer
 } from 'semantic-ui-react';
-import {
-    initialPayInfo,
-    handlePaymentInfo,
-    changePaymentModal
-} from 'actions/request';
+import {initialPayInfo, handlePaymentInfo, isLoadingPaymentInfo} from 'actions/request';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { REQUEST_PAY } from 'libs/messages';
 
@@ -33,20 +29,22 @@ class RequestModal extends Component {
         } = this.props;
         if (!payBan) {
             handlePaymentInfo(APPLICATION_ID);
+            this.setState({
+                payModalSuccessful: true
+            })
         }
     }
 
     closePayModal = () => {
-        const {
-            initialPayInfo,
-            changePaymentModal
-        } = this.props;
-        changePaymentModal(false);
+        const { initialPayInfo } = this.props;
         initialPayInfo({
             TYPE: '',
             ADDRESS: '',
             EXPECTED_VALUE: null
         });
+        this.setState({
+            payModalSuccessful: false
+        })
     }
 
     render() {
@@ -59,10 +57,7 @@ class RequestModal extends Component {
             ADDRESS,
             EXPECTED_VALUE
         } = this.props.requests.payment;
-        const {
-            paymentIsLoading,
-            paymentModalIsOpen
-        } = this.props.requests;
+        const { paymentIsLoading } = this.props.requests;
         const text = status === 0 ? 'Processing'
                    : status === 1 ? 'Pay'
                    : status === 2 ? 'Rejected'
@@ -81,7 +76,7 @@ class RequestModal extends Component {
                                                              : status === 3 ? "request__item-paid"
                                                              : "request__item-processing"}`}>{text}</p>
             }
-               open={paymentModalIsOpen}
+               open={this.state.payModalSuccessful}
                size={"tiny"}
             >
                 <Modal.Content className={"pay__modal"}>
@@ -158,6 +153,5 @@ class RequestModal extends Component {
 
 export default connect(state => ({ requests: state.requests }), {
     initialPayInfo,
-    handlePaymentInfo,
-    changePaymentModal
+    handlePaymentInfo
 })(RequestModal);
