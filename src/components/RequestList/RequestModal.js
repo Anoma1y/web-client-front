@@ -10,12 +10,14 @@ import {
     Loader,
     Dimmer
 } from 'semantic-ui-react';
-import {initialPayInfo, handlePaymentInfo, isLoadingPaymentInfo} from 'actions/request';
+import {
+    initialPayInfo,
+    handlePaymentInfo
+} from 'actions/request';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { REQUEST_PAY } from 'libs/messages';
 
 class RequestModal extends Component {
-
     state = {
         payModalSuccessful: false,
         copied: false,
@@ -104,7 +106,7 @@ class RequestModal extends Component {
                                     Amount
                                 </Grid.Column>
                                 <Grid.Column width={8} className={'pay__amount_currency'}>
-                                    {paymentIsLoading ? 'Loading Info' : `${EXPECTED_VALUE} ${TYPE}`}
+                                    {paymentIsLoading ? '' : `${EXPECTED_VALUE} ${TYPE}`}
                                 </Grid.Column>
                             </Grid.Row>
 
@@ -118,9 +120,11 @@ class RequestModal extends Component {
                             <Grid.Row>
                                 <Grid.Column>
                                     <div className="pay__qrcode">
-                                        <img
-                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS}`}
-                                            alt="QR Code"/>
+                                        {paymentIsLoading ? null :
+                                            <img
+                                                src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS}`}
+                                                alt="QR Code"/>
+                                        }
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>

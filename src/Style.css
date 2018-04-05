@@ -774,6 +774,9 @@ body {
   .pay__modal .pay__qrcode {
     border: 23px solid #eaeaea !important;
     margin: 0 auto !important; }
+    @media screen and (min-width: 600px) {
+      .pay__modal .pay__qrcode {
+        min-height: 289px !important; } }
     .pay__modal .pay__qrcode img {
       width: 90% !important; }
   .pay__modal .pay__address {
