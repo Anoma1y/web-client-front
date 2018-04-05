@@ -52,6 +52,7 @@ class RequestModal extends Component {
     render() {
         const {
             status,
+            currencyName,
             payBan
         } = this.props;
         const {
@@ -60,14 +61,14 @@ class RequestModal extends Component {
             EXPECTED_VALUE
         } = this.props.requests.payment;
         const { paymentIsLoading } = this.props.requests;
-        const text = status === 0 ? 'Processing'
-                   : status === 1 ? 'Pay'
+        const text = status === 0 || (status === 1 && currencyName === 'USD') ? 'Processing'
+                   : status === 1 && currencyName !== 'USD' ? 'Pay'
                    : status === 2 ? 'Rejected'
                    : status === 3 ? 'Purchased'
                    : '';
         return (
             <Modal trigger={
-                status === 1 ?
+                status === 1 && currencyName !== 'USD' ?
                     <Button
                         className={`dashboard__submit request__item_submit request__item-pay`}
                         disabled={payBan}
