@@ -1,5 +1,7 @@
-import { ADD_REQUEST_ITEM } from 'actions/request/types';
-
+import {
+    ADD_REQUEST_ITEM,
+    INITIAL_PAY_INFO
+} from 'actions/request/types';
 const INITIAL_STATE = {
     items: [],
     bonus: [
@@ -21,12 +23,26 @@ const INITIAL_STATE = {
             active: false
         }
     ],
+    payment: {
+        TYPE: '',
+        ADDRESS: '',
+        EXPECTED_VALUE: null
+    }
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ADD_REQUEST_ITEM:
             return { ...state, items: action.payload};
+        case INITIAL_PAY_INFO:
+            return {
+                ...state,
+                payment: {
+                    TYPE: action.payload.TYPE,
+                    ADDRESS: action.payload.ADDRESS,
+                    EXPECTED_VALUE: action.payload.EXPECTED_VALUE
+                }
+            };
         default:
             return state
     }

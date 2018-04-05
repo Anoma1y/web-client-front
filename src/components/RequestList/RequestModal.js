@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     Modal,
     Button,
@@ -7,6 +8,7 @@ import {
     Divider,
     Input
 } from 'semantic-ui-react';
+import { initialPayInfo } from 'actions/request';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { REQUEST_PAY } from 'libs/messages';
 
@@ -14,9 +16,7 @@ class RequestModal extends Component {
 
     state = {
         payModalSuccessful: false,
-        ADDRESS_VALUE: 'kljqklerjqwj2341234kj3kjqewrsqwe',
         copied: false,
-        QR_SRC: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png'
     }
 
     handleRequestBtn = () => {
@@ -29,6 +29,17 @@ class RequestModal extends Component {
         })
     }
 
+    componentDidMount() {
+        //get pay info
+        const { initialPayInfo } = this.props;
+        initialPayInfo({
+            TYPE: 'eth',
+            ADDRESS: 'eqrj23j421k3j4h2kjhkjrenkqrewq',
+            EXPECTED_VALUE: 34.41
+        });
+    }
+
+
     closePayModal = () => {
         this.setState({
             payModalSuccessful: false
@@ -37,15 +48,14 @@ class RequestModal extends Component {
 
     render() {
         const {
-            currencyAmount,
-            currencyName,
             status,
             payBan
         } = this.props;
         const {
-            ADDRESS_VALUE,
-            QR_SRC
-        } = this.state;
+            TYPE,
+            ADDRESS,
+            EXPECTED_VALUE
+        } = this.props.requests.payment;
         const text = status === 0 ? 'Processing'
                    : status === 1 ? 'Pay'
                    : status === 2 ? 'Rejected'
@@ -88,7 +98,7 @@ class RequestModal extends Component {
                                     Amount
                                 </Grid.Column>
                                 <Grid.Column width={8} className={'pay__amount_currency'}>
-                                    {`${currencyAmount} ${currencyName}`}
+                                    {`${EXPECTED_VALUE} ${TYPE}`}
                                 </Grid.Column>
                             </Grid.Row>
 
@@ -102,7 +112,7 @@ class RequestModal extends Component {
                             <Grid.Row>
                                 <Grid.Column>
                                     <div className="pay__qrcode">
-                                        <img src={QR_SRC} alt="QR Code"/>
+                                        <img src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS}`} alt="QR Code"/>
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>
@@ -113,13 +123,13 @@ class RequestModal extends Component {
                                         type="text"
                                         className={"pay__input"}
                                         disabled
-                                        value={ADDRESS_VALUE}/>
+                                        value={ADDRESS}/>
                                 </Grid.Column>
                             </Grid.Row>
 
                             <Grid.Row className={"pay__copy"}>
                                 <Grid.Column>
-                                    <CopyToClipboard text={ADDRESS_VALUE}>
+                                    <CopyToClipboard text={ADDRESS}>
                                         <Button className={'dashboard__submit'}>COPY ADDRESS</Button>
                                     </CopyToClipboard>
                                 </Grid.Column>
@@ -133,4 +143,6 @@ class RequestModal extends Component {
     }
 }
 
-export default RequestModal;
+export default connect(state => ({ requests: state.requests }), {
+    initialPayInfo
+})(RequestModal);
