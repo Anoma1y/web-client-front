@@ -97,7 +97,11 @@ class Home extends Component{
 
     render() {
         const { contextRef } = this.state;
-        const { kyc_type, is_kyc_passed } = localStorage;
+        const {
+            kyc_type,
+            is_kyc_passed,
+            balance
+        } = localStorage;
         return (
             <div>
                 {kyc_type !== '' || is_kyc_passed === 'true' ? null :
@@ -115,9 +119,14 @@ class Home extends Component{
                                     <Grid.Row>
                                         <Timer />
                                     </Grid.Row>
-                                    {/*<Grid.Row>*/}
-                                        {/*<UserBalance />*/}
-                                    {/*</Grid.Row>*/}
+                                    {
+                                        balance > 0 ?
+                                            <Grid.Row>
+                                                <UserBalance />
+                                            </Grid.Row>
+                                            : null
+                                    }
+
                                     {/*<Grid.Row>*/}
                                         {/*<Calculator />*/}
                                     {/*</Grid.Row>*/}

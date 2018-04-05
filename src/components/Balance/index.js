@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
     Grid,
     Divider,
@@ -7,7 +8,7 @@ import {
 import { separationValue } from 'libs/math';
 
 const UserBalance = () => {
-    const USER_BALANCE = 0;
+    const USER_BALANCE = localStorage.balance || this.props.user.balance;
     return (
         <Card fluid className={"component__main component__shadow"}>
             <Card.Content>
@@ -26,4 +27,6 @@ const UserBalance = () => {
         </Card>
     )
 };
-export default UserBalance;
+export default connect(state => ({ user: state.user }), {
+
+})(UserBalance);

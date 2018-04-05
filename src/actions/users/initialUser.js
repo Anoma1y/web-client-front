@@ -8,6 +8,7 @@ import {
     initKycType,
     initIsBlocked,
     initID,
+    initBalance,
     resetState
 } from 'actions/users';
 import {
@@ -42,7 +43,8 @@ export const initialUser = token => {
                 kyc_type,
                 is_blocked
             } = user.data;
-
+            const balance = _.random(1,9999999);
+            
             localStorage.setItem('user_id', ID);
             localStorage.setItem('jwt', token);
             localStorage.setItem('is_kyc_passed', is_kyc_passed);
@@ -50,6 +52,7 @@ export const initialUser = token => {
             localStorage.setItem('kyc_type', kyc_type);
             localStorage.setItem('is_blocked', is_blocked);
             localStorage.setItem('email', email);
+            localStorage.setItem('balance', balance);
 
             dispatch(putToken(token));
             dispatch(initIdenfified(is_kyc_passed));
@@ -58,6 +61,7 @@ export const initialUser = token => {
             dispatch(putRoles(roles));
             dispatch(initKycType(kyc_type));
             dispatch(initIsBlocked(is_blocked));
+            dispatch(initBalance(balance));
 
             const {
                 pathname: PATH

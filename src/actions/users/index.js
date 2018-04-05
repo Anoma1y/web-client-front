@@ -8,3 +8,4 @@ export { initKycType } from './initKycType';
 export { initID } from './initID';
 export { resetState } from './resetState'; 
 export { initIsBlocked } from './initIsBlocked'; 
+export { initBalance } from './initBalance';
