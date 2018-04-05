@@ -56,7 +56,6 @@ class RequestModal extends Component {
             payBan
         } = this.props;
         const {
-            TYPE,
             ADDRESS,
             EXPECTED_VALUE
         } = this.props.requests.payment;
