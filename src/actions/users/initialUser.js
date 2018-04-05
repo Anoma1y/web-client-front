@@ -43,7 +43,7 @@ export const initialUser = token => {
                 kyc_type,
                 is_blocked
             } = user.data;
-            const balance = _.random(1,9999999);
+            const balance = _.random(10000000,99999999) / _.random(1,8899);
 
             localStorage.setItem('user_id', ID);
             localStorage.setItem('jwt', token);
@@ -66,6 +66,7 @@ export const initialUser = token => {
             const {
                 pathname: PATH
             } = getState().routing.location;
+            
             if (kyc_type !== '') {
                 KYC.getKYCById(token)
                     .then((data) => {
