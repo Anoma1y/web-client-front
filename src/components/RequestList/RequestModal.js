@@ -107,7 +107,7 @@ class RequestModal extends Component {
                                     Amount
                                 </Grid.Column>
                                 <Grid.Column width={8} className={'pay__amount_currency'}>
-                                    {paymentIsLoading ? '' : `${EXPECTED_VALUE} ${TYPE}`}
+                                    {paymentIsLoading ? '' : `${EXPECTED_VALUE} ${currencyName}`}
                                 </Grid.Column>
                             </Grid.Row>
 
