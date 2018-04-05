@@ -4,10 +4,16 @@ import {
     Divider,
     Card
 } from 'semantic-ui-react';
-import { separationValue } from 'libs/math';
+import {
+    separationValue,
+    declOfNum
+} from 'libs/math';
 
-const UserBalance = () => {
-    const USER_BALANCE = 0;
+const UserBalance = (balance) => {
+
+    const TOKENS = ["token", "tokens", "tokens"];
+    const USER_BALANCE = Number(localStorage.balance) || balance;
+
     return (
         <Card fluid className={"component__main component__shadow"}>
             <Card.Content>
@@ -17,7 +23,7 @@ const UserBalance = () => {
                     <Grid.Row textAlign={"left"} className={"component__timer"}>
                         <Grid.Column>
                             <p className={'user__balance_amount'}>
-                                {separationValue(USER_BALANCE, 4)} tokens
+                                {separationValue(USER_BALANCE, 4)} {declOfNum(USER_BALANCE, TOKENS)}
                             </p>
                         </Grid.Column>
                     </Grid.Row>

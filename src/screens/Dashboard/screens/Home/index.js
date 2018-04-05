@@ -6,7 +6,6 @@ import {
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import Timer from 'components/Timer'
-import Calculator from 'components/Calculator'
 import RequestList from 'components/RequestList'
 import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
@@ -20,9 +19,8 @@ import CryptoCurrency from 'libs/ApiLib/CryptoCurrency';
 import {changeTransferData} from 'actions/calculator';
 import {calcToken} from 'libs/math';
 
-
-
 class Home extends Component{
+
     state = {
 
     }
@@ -97,7 +95,11 @@ class Home extends Component{
 
     render() {
         const { contextRef } = this.state;
-        const { kyc_type, is_kyc_passed } = localStorage;
+        const {
+            kyc_type,
+            is_kyc_passed,
+            balance
+        } = localStorage;
         return (
             <div>
                 {kyc_type !== '' || is_kyc_passed === 'true' ? null :
@@ -115,12 +117,15 @@ class Home extends Component{
                                     <Grid.Row>
                                         <Timer />
                                     </Grid.Row>
-                                    {/*<Grid.Row>*/}
-                                        {/*<UserBalance />*/}
-                                    {/*</Grid.Row>*/}
-                                    {/*<Grid.Row>*/}
-                                        {/*<Calculator />*/}
-                                    {/*</Grid.Row>*/}
+                                    {
+                                        balance > 0 ?
+                                            <Grid.Row>
+                                                <UserBalance
+                                                    balance={balance}
+                                                />
+                                            </Grid.Row>
+                                            : null
+                                    }
                                     <Grid.Row>
                                         <RequestList />
                                     </Grid.Row>

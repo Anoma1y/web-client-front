@@ -38,10 +38,10 @@ class RequestList extends Component {
                 CURRENCY_AMOUNT,
                 CURRENCY_NAME
             } = applicationCalc(item.CreatedAt, item.amount, CURRENCY, TOKEN_ATTITUDE_ETH, CRYPTO_CURRENCY, BONUS_LIST);
-
             return (
-                <Card.Description key={index}>
+                <Card.Description key={item.ID}>
                     <RequestItem
+                        APPLICATION_ID={item.ID}
                         sum={CURRENCYVALUE}
                         amount={TOKENVALUE}
                         status={item.status}
@@ -58,7 +58,7 @@ class RequestList extends Component {
     render () {
         const { items: request } = this.props.requests;
         return (
-             request.length !== 0 ?
+             request.length !== 0 &&
                 <Card fluid className={"component__main component__shadow"}>
                     <Card.Content>
                         <Card.Header className={"component__title"}>Your Applications</Card.Header>
@@ -71,7 +71,7 @@ class RequestList extends Component {
                             </Grid.Row>
                         </Grid>
                     </Card.Content>
-                </Card> : null
+                </Card>
         )
     }
 

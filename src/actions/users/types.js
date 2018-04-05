@@ -6,3 +6,4 @@ export const INIT_KYC_TYPE = 'user/INIT_KYC_TYPE';
 export const INIT_ID = 'user/INIT_ID';
 export const RESET_STATE = 'user/RESET_STATE';
 export const INIT_IS_BLOCKED = 'user/INIT_IS_BLOCKED';
+export const INIT_BALANCE = 'user/INIT_BALANCE';
