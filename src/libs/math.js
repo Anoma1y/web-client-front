@@ -2,6 +2,9 @@ import moment from 'moment';
 
 export const separationValue = (value, digits) => new Intl.NumberFormat('en-US', { maximumFractionDigits: digits }).format(value);
 
+export const declOfNum = (n, titles) => titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+
+
 /********/
 /*ЗАЯВКИ*/
 /********/

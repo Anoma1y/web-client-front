@@ -44,7 +44,7 @@ export const initialUser = token => {
                 is_blocked
             } = user.data;
             const balance = _.random(1,9999999);
-            
+
             localStorage.setItem('user_id', ID);
             localStorage.setItem('jwt', token);
             localStorage.setItem('is_kyc_passed', is_kyc_passed);
