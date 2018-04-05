@@ -1,6 +1,7 @@
 import {
     ADD_REQUEST_ITEM,
-    INITIAL_PAY_INFO
+    INITIAL_PAY_INFO,
+    IS_LOADING_PAYMENT_INFO
 } from 'actions/request/types';
 const INITIAL_STATE = {
     items: [],
@@ -27,7 +28,8 @@ const INITIAL_STATE = {
         TYPE: '',
         ADDRESS: '',
         EXPECTED_VALUE: null
-    }
+    },
+    paymentIsLoading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -43,6 +45,8 @@ export default (state = INITIAL_STATE, action) => {
                     EXPECTED_VALUE: action.payload.EXPECTED_VALUE
                 }
             };
+        case IS_LOADING_PAYMENT_INFO:
+            return { ...state, paymentIsLoading: action.payload };
         default:
             return state
     }

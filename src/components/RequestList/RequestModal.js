@@ -6,9 +6,11 @@ import {
     Grid,
     Icon,
     Divider,
-    Input
+    Input,
+    Loader,
+    Dimmer
 } from 'semantic-ui-react';
-import { initialPayInfo } from 'actions/request';
+import { initialPayInfo, handlePaymentInfo } from 'actions/request';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { REQUEST_PAY } from 'libs/messages';
 
@@ -20,27 +22,25 @@ class RequestModal extends Component {
     }
 
     handleRequestBtn = () => {
-        const { payBan } = this.props;
-        if (payBan) {
-            return;
+        const {
+            payBan,
+            handlePaymentInfo
+        } = this.props;
+        if (!payBan) {
+            handlePaymentInfo(1234);
+            this.setState({
+                payModalSuccessful: true
+            })
         }
-        this.setState({
-            payModalSuccessful: true
-        })
     }
-
-    componentDidMount() {
-        //get pay info
-        const { initialPayInfo } = this.props;
-        initialPayInfo({
-            TYPE: 'eth',
-            ADDRESS: 'eqrj23j421k3j4h2kjhkjrenkqrewq',
-            EXPECTED_VALUE: 34.41
-        });
-    }
-
 
     closePayModal = () => {
+        const { initialPayInfo } = this.props;
+        initialPayInfo({
+            TYPE: '',
+            ADDRESS: '',
+            EXPECTED_VALUE: null
+        });
         this.setState({
             payModalSuccessful: false
         })
@@ -56,6 +56,7 @@ class RequestModal extends Component {
             ADDRESS,
             EXPECTED_VALUE
         } = this.props.requests.payment;
+        const { paymentIsLoading } = this.props.requests;
         const text = status === 0 ? 'Processing'
                    : status === 1 ? 'Pay'
                    : status === 2 ? 'Rejected'
@@ -83,7 +84,11 @@ class RequestModal extends Component {
                             <Icon name={"close"} onClick={this.closePayModal}/>
                         </div>
                         <Grid textAlign={"center"}>
-
+                            {paymentIsLoading &&
+                                <Dimmer active inverted>
+                                    <Loader size='big' inline> </Loader>
+                                </Dimmer>
+                            }
                             <Grid.Row className={'pay__wrapper'}>
                                 <Grid.Column>
                                     <p className="pay__header">
@@ -144,5 +149,6 @@ class RequestModal extends Component {
 }
 
 export default connect(state => ({ requests: state.requests }), {
-    initialPayInfo
+    initialPayInfo,
+    handlePaymentInfo
 })(RequestModal);
