@@ -10,7 +10,11 @@ import {
     Loader,
     Dimmer
 } from 'semantic-ui-react';
-import { initialPayInfo, handlePaymentInfo } from 'actions/request';
+import {
+    initialPayInfo,
+    handlePaymentInfo,
+    changePaymentModal
+} from 'actions/request';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { REQUEST_PAY } from 'libs/messages';
 
@@ -29,22 +33,20 @@ class RequestModal extends Component {
         } = this.props;
         if (!payBan) {
             handlePaymentInfo(APPLICATION_ID);
-            this.setState({
-                payModalSuccessful: true
-            })
         }
     }
 
     closePayModal = () => {
-        const { initialPayInfo } = this.props;
+        const {
+            initialPayInfo,
+            changePaymentModal
+        } = this.props;
+        changePaymentModal(false);
         initialPayInfo({
             TYPE: '',
             ADDRESS: '',
             EXPECTED_VALUE: null
         });
-        this.setState({
-            payModalSuccessful: false
-        })
     }
 
     render() {
@@ -57,7 +59,10 @@ class RequestModal extends Component {
             ADDRESS,
             EXPECTED_VALUE
         } = this.props.requests.payment;
-        const { paymentIsLoading } = this.props.requests;
+        const {
+            paymentIsLoading,
+            paymentModalIsOpen
+        } = this.props.requests;
         const text = status === 0 ? 'Processing'
                    : status === 1 ? 'Pay'
                    : status === 2 ? 'Rejected'
@@ -76,7 +81,7 @@ class RequestModal extends Component {
                                                              : status === 3 ? "request__item-paid"
                                                              : "request__item-processing"}`}>{text}</p>
             }
-               open={this.state.payModalSuccessful}
+               open={paymentModalIsOpen}
                size={"tiny"}
             >
                 <Modal.Content className={"pay__modal"}>
@@ -104,7 +109,7 @@ class RequestModal extends Component {
                                     Amount
                                 </Grid.Column>
                                 <Grid.Column width={8} className={'pay__amount_currency'}>
-                                    {`${EXPECTED_VALUE} ${TYPE}`}
+                                    {paymentIsLoading ? 'Loading Info' : `${EXPECTED_VALUE} ${TYPE}`}
                                 </Grid.Column>
                             </Grid.Row>
 
@@ -118,7 +123,9 @@ class RequestModal extends Component {
                             <Grid.Row>
                                 <Grid.Column>
                                     <div className="pay__qrcode">
-                                        <img src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS}`} alt="QR Code"/>
+                                        <img
+                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS}`}
+                                            alt="QR Code"/>
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>
@@ -151,5 +158,6 @@ class RequestModal extends Component {
 
 export default connect(state => ({ requests: state.requests }), {
     initialPayInfo,
-    handlePaymentInfo
+    handlePaymentInfo,
+    changePaymentModal
 })(RequestModal);

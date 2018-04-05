@@ -1,5 +1,6 @@
 export { handleRequestItem } from './handleRequestItem';
 export { addRequestItem } from './addRequestItem';
 export { initialPayInfo } from './initialPayInfo';
-export { isLoadingPaymentInfo } from './isLoadingPaymentInfo';
+export { changeLoadingPaymentInfo } from './changeLoadingPaymentInfo';
 export { handlePaymentInfo } from './handlePaymentInfo';
+export { changePaymentModal } from './changePaymentModal';

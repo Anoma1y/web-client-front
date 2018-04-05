@@ -1,19 +1,20 @@
 import {
     initialPayInfo,
-    isLoadingPaymentInfo
+    changeLoadingPaymentInfo,
+    changePaymentModal
 } from './';
 import PayLib from 'libs/ApiLib/PayLib';
 
-
 export const handlePaymentInfo = APPLICATION_ID => {
     return dispatch => {
-        dispatch(isLoadingPaymentInfo(true));
+        dispatch(changeLoadingPaymentInfo(true));
+        dispatch(changePaymentModal(true));
         PayLib.getPaymentData(APPLICATION_ID).then(data => {
             dispatch(initialPayInfo(data));
-            dispatch(isLoadingPaymentInfo(false));
+            dispatch(changeLoadingPaymentInfo(false));
         }).catch(err => {
-            console.log(err);
-            dispatch(isLoadingPaymentInfo(false));
+            dispatch(changeLoadingPaymentInfo(false));
+            dispatch(changePaymentModal(false));
         });
     }
 };

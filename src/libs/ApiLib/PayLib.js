@@ -3,7 +3,6 @@ import axios from 'axios';
 import uuidv1 from 'uuid/v1';
 import _ from 'underscore';
 
-
 class PayLib {
     static getPaymentData(ID) {
         return new Promise((res, rej) => {
