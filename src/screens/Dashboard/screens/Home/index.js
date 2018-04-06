@@ -118,14 +118,18 @@ class Home extends Component{
                                     <Grid.Row>
                                         <Timer />
                                     </Grid.Row>
+                                    {
+                                        balance > 0 ?
+                                            <Grid.Row>
+                                                <UserBalance
+                                                    balance={balance}
+                                                />
+                                            </Grid.Row>
+                                            : null
+                                    }
                                     <Grid.Row>
                                         <Calculator />
                                     </Grid.Row>
-                                        {/*<Grid.Row>*/}
-                                            {/*<UserBalance*/}
-                                                {/*balance={balance}*/}
-                                            {/*/>*/}
-                                        {/*</Grid.Row>*/}
                                     <Grid.Row>
                                         <RequestList />
                                     </Grid.Row>
