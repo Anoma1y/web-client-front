@@ -11,6 +11,7 @@ import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
 import SocialNetwork from 'components/SocialNetwork';
+import Calculator from 'components/Calculator';
 import TelegramWidget from 'components/TelegramWidget';
 import UserBalance from 'components/Balance';
 import { AttentionIdentification } from 'components/AttentionIdentification';
@@ -116,6 +117,9 @@ class Home extends Component{
                                 <Grid.Column widescreen={9} computer={9} tablet={16} mobile={16} className={"dashboard__wrapper_component"}>
                                     <Grid.Row>
                                         <Timer />
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Calculator />
                                     </Grid.Row>
                                         {/*<Grid.Row>*/}
                                             {/*<UserBalance*/}
