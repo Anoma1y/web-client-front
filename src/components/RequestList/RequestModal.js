@@ -40,9 +40,8 @@ class RequestModal extends Component {
     closePayModal = () => {
         const { initialPayInfo } = this.props;
         initialPayInfo({
-            TYPE: '',
-            ADDRESS: '',
-            EXPECTED_VALUE: null
+            ADDRESS: '1',
+            EXPECTED_VALUE: 0
         });
         this.setState({
             payModalSuccessful: false
@@ -59,7 +58,6 @@ class RequestModal extends Component {
             ADDRESS,
             EXPECTED_VALUE
         } = this.props.requests.payment;
-        const ADDRESS_TEST = 1;
         const { paymentIsLoading } = this.props.requests;
         const text = status === 0 || (status === 1 && currencyName === 'USD') ? 'Processing'
                    : status === 1 && currencyName !== 'USD' ? 'Pay'
@@ -123,7 +121,7 @@ class RequestModal extends Component {
                                     <div className="pay__qrcode">
                                         {paymentIsLoading ? null :
                                             <img
-                                                src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS_TEST}`}
+                                                src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS}`}
                                                 alt="QR Code"/>
                                         }
                                     </div>
@@ -136,13 +134,13 @@ class RequestModal extends Component {
                                         type="text"
                                         className={"pay__input"}
                                         disabled
-                                        value={ADDRESS_TEST}/>
+                                        value={ADDRESS}/>
                                 </Grid.Column>
                             </Grid.Row>
 
                             <Grid.Row className={"pay__copy"}>
                                 <Grid.Column>
-                                    <CopyToClipboard text={ADDRESS_TEST}>
+                                    <CopyToClipboard text={ADDRESS}>
                                         <Button className={'dashboard__submit'}>COPY ADDRESS</Button>
                                     </CopyToClipboard>
                                 </Grid.Column>
