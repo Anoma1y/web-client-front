@@ -59,6 +59,7 @@ class RequestModal extends Component {
             ADDRESS,
             EXPECTED_VALUE
         } = this.props.requests.payment;
+        const ADDRESS_TEST = 1;
         const { paymentIsLoading } = this.props.requests;
         const text = status === 0 || (status === 1 && currencyName === 'USD') ? 'Processing'
                    : status === 1 && currencyName !== 'USD' ? 'Pay'
@@ -122,7 +123,7 @@ class RequestModal extends Component {
                                     <div className="pay__qrcode">
                                         {paymentIsLoading ? null :
                                             <img
-                                                src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS}`}
+                                                src={`https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${ADDRESS_TEST}`}
                                                 alt="QR Code"/>
                                         }
                                     </div>
@@ -135,13 +136,13 @@ class RequestModal extends Component {
                                         type="text"
                                         className={"pay__input"}
                                         disabled
-                                        value={ADDRESS}/>
+                                        value={ADDRESS_TEST}/>
                                 </Grid.Column>
                             </Grid.Row>
 
                             <Grid.Row className={"pay__copy"}>
                                 <Grid.Column>
-                                    <CopyToClipboard text={ADDRESS}>
+                                    <CopyToClipboard text={ADDRESS_TEST}>
                                         <Button className={'dashboard__submit'}>COPY ADDRESS</Button>
                                     </CopyToClipboard>
                                 </Grid.Column>
