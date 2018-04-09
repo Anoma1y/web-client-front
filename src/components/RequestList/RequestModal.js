@@ -40,9 +40,8 @@ class RequestModal extends Component {
     closePayModal = () => {
         const { initialPayInfo } = this.props;
         initialPayInfo({
-            TYPE: '',
-            ADDRESS: '',
-            EXPECTED_VALUE: null
+            ADDRESS: '1',
+            EXPECTED_VALUE: 0
         });
         this.setState({
             payModalSuccessful: false
