@@ -6,7 +6,8 @@ import 'semantic-ui-css/semantic.min.css';
 import './Style.css';
 import store, { history } from './store';
 import App from './screens/App';
-import registerServiceWorker from './registerServiceWorker';
+//import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -16,4 +17,5 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
-registerServiceWorker();
+// registerServiceWorker();
+unregister();

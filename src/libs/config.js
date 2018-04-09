@@ -1,5 +1,5 @@
 class Config {
-    static url = 'https://account.tokensale.tsrpay.com/api/v1/'; //Production
+    static url = 'https://accounts.tokensale.tsrpay.com/api/v1/'; //Production
     // static url = 'http://192.168.0.136:4874/v1/'; //Local URL
     // static url = process.env.REACT_APP_API_URL;
     // static url = 'https://test.account.tokensale.tsrpay.com/api/v1/';
