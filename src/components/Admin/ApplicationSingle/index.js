@@ -50,23 +50,38 @@ class ApplicationSingle extends Component {
                 'price_usd': '1'
             }
         ]
-
-        CryptoCurrency.getCryptoCurrency()
-            .then((data) => {
-                const CURRENCY = data.data;
-                const CURRENCY_DATA = [...CURRENCY,
-                    {
-                        id: 'usd',
-                        name: 'USD',
-                        symbol: 'USD',
-                        price_usd: '1'
-                    }
-                ];
-                changeCurrency(CURRENCY_DATA);
-            })
-            .catch(() => {
-                changeCurrency(INITIAL_DATA);
-            })
+    
+        Promise.all([
+            CryptoCurrency.getCryptList('btc-usd'),
+            CryptoCurrency.getCryptList('eth-usd'),
+            CryptoCurrency.getCryptList('btc-eth')
+        ]).then((data) => {
+            const CURRENCY_BTC = {
+                id: 'bitcoin',
+                name: 'Bitcoin',
+                symbol: 'BTC',
+                price_usd: Number(data[0].data.ticker.price),
+            };
+            const CURRENCY_ETH = {
+                id: 'ethereum',
+                name: 'Ethereum',
+                symbol: 'ETH',
+                price_usd: Number(data[1].data.ticker.price),
+                price_btc: Number(data[2].data.ticker.price)
+            };
+            const CURRENCY_DATA = [CURRENCY_BTC, CURRENCY_ETH,
+                {
+                    id: 'usd',
+                    name: 'USD',
+                    symbol: 'USD',
+                    price_usd: '1'
+                }
+            ];
+            changeCurrency(CURRENCY_DATA);
+        })
+          .catch(() => {
+              changeCurrency(INITIAL_DATA);
+          })
     }
 
     componentWillUnmount() {
@@ -77,7 +92,7 @@ class ApplicationSingle extends Component {
         this.getCurrencyAdmin();
         this.currencyIntervalAdmin = setInterval(() => {
             this.getCurrencyAdmin();
-        }, 10000)
+        }, 60000)
     }
 
     componentDidMount() {
