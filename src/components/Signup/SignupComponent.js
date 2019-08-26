@@ -155,7 +155,7 @@ class SignupComponent extends Component {
                                     <span className={'auth_input-span'}>Repeat Password</span>
                                 </label>
                                 <p className={"signup__content_confirm"}>
-                                    By clicking Sign Up, you agree to the <a href={"https://tsrpay.com/docs/terms-of-service.pdf"} target={"_blank"}>Terms of service</a> and <a href={"https://tsrpay.com/docs/privacy-policy.pdf"} target={"_blank"}>Privacy Policy</a>
+                                    By clicking Sign Up, you agree to the <a href={"https://example.com"} target={"_blank"}>Terms of service</a> and <a href={"https://example.com"} target={"_blank"}>Privacy Policy</a>
                                 </p>
                                 { error !== null ?
                                     <Message warning color={"red"}>
