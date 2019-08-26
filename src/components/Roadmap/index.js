@@ -39,7 +39,7 @@ class Roadmap extends Component {
                     dialogStyles={diag}
                     ref={ref => this.simpleDialog = ref}
                 >
-                    <iframe src="https://tsrpay.com/roadmap" className={'roadmap_modal'} align="center" />
+                    <iframe src="https://example.com" className={'roadmap_modal'} align="center" />
                 </SkyLight>
             </div>
         );

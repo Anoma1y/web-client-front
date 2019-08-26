@@ -1,7 +1,7 @@
 import * as T from 'actions/timer/types';
 
 const INITIAL_STATE = {
-    dateEnd: "apr,16,2018,06:00:00 GMT+0300",
+    dateEnd: "sep,3,2019,06:00:00 GMT+0300",
     timeLeft: {
         day: 0,
         hour: 0,

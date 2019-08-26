@@ -15,28 +15,28 @@ const DownloadList = () => {
                     <List className={"download__list"}>
                         <List.Item
                             as={"a"}
-                            href={"https://tsrpay.com/docs/whitepaper.pdf"}
+                            href={"https://example.com"}
                             target={"_blank"}
                             className={"download__list_item"}
                         >{'Whitepaper'}
                         </List.Item>
                         <List.Item
                             as={"a"}
-                            href={"https://tsrpay.com/docs/onepager-en.pdf"}
+                            href={"https://example.com"}
                             target={"_blank"}
                             className={"download__list_item"}
                         >{'One pager'}
                         </List.Item>
                         <List.Item
                             as={"a"}
-                            href={"https://tsrpay.com/docs/terms-of-service.pdf"}
+                            href={"https://example.com"}
                             target={"_blank"}
                             className={"download__list_item"}
                         >{'Terms of service'}
                         </List.Item>
                         <List.Item
                             as={"a"}
-                            href={"https://tsrpay.com/docs/privacy-policy.pdf"}
+                            href={"https://example.com"}
                             target={"_blank"}
                             className={"download__list_item"}
                         >{'Privacy policy'}

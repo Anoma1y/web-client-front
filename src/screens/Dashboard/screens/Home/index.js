@@ -10,6 +10,7 @@ import RequestList from 'components/RequestList'
 import BetaTest from 'components/BetaTest'
 import Roadmap from "components/Roadmap";
 import DownloadList from "components/DownloadList";
+import CryptoWidget from "components/CryptoWidget";
 import SocialNetwork from 'components/SocialNetwork';
 import Calculator from 'components/Calculator';
 import TelegramWidget from 'components/TelegramWidget';
@@ -52,31 +53,46 @@ class Home extends Component{
                 'price_usd': '1'
             }
         ]
-        CryptoCurrency.getCryptoCurrency()
-            .then((data) => {
-                const CURRENCY = data.data;
-                const CURRENCY_DATA = [...CURRENCY,
-                    {
-                        id: 'usd',
-                        name: 'USD',
-                        symbol: 'USD',
-                        price_usd: '1'
-                    }
-                ];
-                const {
-                    tokenValue,
-                    currencyValue,
-                    bonus
-                } = this.props.calculator;
-                const {
-                    TSR
-                } = this.props.rate;
-                changeTransferData(calcToken(tokenValue, currencyValue, bonus, CURRENCY_DATA, TSR));
-                changeCurrency(CURRENCY_DATA);
-            })
-            .catch(() => {
-                changeCurrency(INITIAL_DATA);
-            })
+        Promise.all([
+            CryptoCurrency.getCryptList('btc-usd'),
+            CryptoCurrency.getCryptList('eth-usd'),
+            CryptoCurrency.getCryptList('btc-eth')
+        ]).then((data) => {
+            const CURRENCY_BTC = {
+                id: 'bitcoin',
+                name: 'Bitcoin',
+                symbol: 'BTC',
+                price_usd: Number(data[0].data.ticker.price),
+            };
+            const CURRENCY_ETH = {
+                id: 'ethereum',
+                name: 'Ethereum',
+                symbol: 'ETH',
+                price_usd: Number(data[1].data.ticker.price),
+                price_btc: Number(data[2].data.ticker.price)
+            };
+            const CURRENCY_DATA = [CURRENCY_BTC, CURRENCY_ETH,
+                {
+                    id: 'usd',
+                    name: 'USD',
+                    symbol: 'USD',
+                    price_usd: '1'
+                }
+            ];
+            const {
+                tokenValue,
+                currencyValue,
+                bonus
+            } = this.props.calculator;
+            const {
+                TSR
+            } = this.props.rate;
+            changeTransferData(calcToken(tokenValue, currencyValue, bonus, CURRENCY_DATA, TSR));
+            changeCurrency(CURRENCY_DATA);
+        })
+          .catch(() => {
+              changeCurrency(INITIAL_DATA);
+          })
     }
 
     componentWillUnmount() {
@@ -87,7 +103,7 @@ class Home extends Component{
         this.getCurrency();
         this.currencyInterval = setInterval(() => {
             this.getCurrency();
-        }, 15000)
+        }, 60000)
     }
 
     handleContextRef = contextRef => {
@@ -142,7 +158,7 @@ class Home extends Component{
                                         <Roadmap />
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <BetaTest />
+                                        <CryptoWidget />
                                     </Grid.Row>
                                     <Grid.Row>
                                         <TelegramWidget />
@@ -164,7 +180,7 @@ class Home extends Component{
     }
 }
 
-export default connect(state => ({ 
+export default connect(state => ({
     user: state.user,
     calculator: state.calculator,
     rate: state.rate
