@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "history": "^4.7.2",
-    "moment": "^2.21.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.14",
     "node-sass-chokidar": "^0.0.3",
     "react": "^16.2.0",
